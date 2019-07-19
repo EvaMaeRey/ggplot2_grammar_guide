@@ -1,0 +1,1105 @@
+---
+title: "A ggplot2 grammar guide"
+author: "Gina Reynolds, July 18 2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "ninjutsu"]
+    nature:
+      highlightLines: yes
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T)
+source("https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/master/xaringan_reveal_parentheses_balanced.R")
+```
+
+
+```{r xaringan-themer, include = FALSE}
+library(xaringanthemer)
+
+
+# xaringanthemer::write_xaringan_theme(text_font_size = ".75cm",
+#                                      text_color = "darkblue")
+
+xaringanthemer::mono_accent(
+  base_color = "#43418A",
+  header_font_google = google_font("Montserrat"),
+  text_font_google   = google_font("Montserrat", "200", "200i"),
+  code_font_google   = google_font("Droid Mono"),
+  text_font_size = ".7cm",
+  code_font_size = ".7cm")
+  
+
+# write_xaringan_theme(
+#   extra_css = list(
+#     ".box-right" = list(
+#       "height" = "300px",
+#       "width" = "300px",
+#       "position" = "absolute",
+#       "top" = "33%",
+#       "left" = "55%"
+#     )
+#   )
+# )
+
+```
+
+
+---
+
+# Acknowledgements
+
+Many thanks to Yihui Xie and coauthors of the Xaringan tool.  Thanks to Emi Tanaka and Garrick Aden-Buie for their invaluable contributions to getting automated side-by-side code-output evolution (flipbook) going.  Thanks to Will Chase for seeding a valuable discussion about challenges of ggplot2. 
+
+MPI Dresden July 18 workshop organizer Ulirk Günther and participant for their interest in R and ggplot2 for motivation and their great discussion and questions.
+
+Finally, thanks to the [ggplot2](https://ggplot2.tidyverse.org/reference/) team Hadley Wickham, Kara Woo, Claus Wilke, Thomas Pederson for building and maintaining a cool tool. 
+
+---
+
+
+<!-- # For teachers -->
+
+<!-- This is a collection of thoughts about how to teach ggplot2, and any other grammar of graphics type data visualization system.   -->
+
+<!-- It is tempting to rush to build a publication-ready plot right out of the gate.   -->
+
+<!-- But maybe we should resist this temptation. Maybe we should "hang out" in each of the component zones for a bit.  Explore. Get comfy in a zone.  Then move on. -->
+
+
+
+
+---
+
+## Grammar lesson order:
+
+0. [The Declarative mood: declaring data](#data)
+1. [The Interogative mood: aesthetic mapping aes()](#aes)
+1. [Modifiers: scales, scale_\*_\*()](#scales)
+1. [Modifiers II: labs, labs()](#labs)
+1. [Nouns: geom_*()](#geoms)
+1. [Conditional mood: aesthetics | geom, i.e. - going local](#local)
+  - mapped aesthetics tied to a specific geom
+  - unmapped aesthetics, (the Imparative mood)
+  - specifying local data
+1. [Exclamations and Interjections: annotate(geom = "*")](#annotation)
+1. [Punctuation: facets](#facets)
+1. [Translation: coords, coord_*()](#coords)
+1. [Greetings: theme_*()](#themes)
+1. [The Written Language: saving plots](#saving)
+
+---
+
+## Save for later:
+
+- plotting statistics
+- detailed thematic adjustments are covered in [Tuning ggplot themes](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1)
+
+---
+
+# Introduction
+
+ggplot2 is an implementation of the "grammar of graphics" for R.  The grammar of graphics is a philosophy that enables users to go beyond fixed chart types by mapping variabls in data to aesthetics of geometric objects.  
+
+The goal of the package is to "'bring together in a coherent way things that previously appeared unrelated and which also will provide a basis for dealing systematically with new situations'". (D.R. Cox 1978 quoted in Wickham 2010)
+
+> With ggplot2, you can do more faster by learning one system and applying it in many places. (R4DS)
+
+
+---
+
+# Loading packages
+
+ggplot2 is part of a set of packages designed to be used together called the tidyverse.  Before we can use the package we must load it.  For the examples we'll use data from the gapminder package, so we'll load that too.
+
+---
+
+```{r libraries, eval = F, echo = F}
+library(tidyverse)
+library(gapminder)
+```
+
+
+`r apply_reveal("libraries")`
+
+---
+
+# Prepping data
+
+We'll also prep some data --- `gapminder_2002` and `gapminder_oceania`  --- which are a subset of the data made available in the gapminder data package.  
+
+We won't go into detail about data manipulation much here, but more basic info about data wrangling in flipbook style can be found here [The Tidyverse in Action](https://evamaerey.github.io/tidyverse_in_action/tidyverse_in_action.html).
+
+---
+
+```{r prep_data, eval = T, echo = F}
+gapminder %>% # data from package
+  filter(year == 2002) -> # filtering
+gapminder_2002 # saving subset object
+gapminder %>% 
+  select(country, continent) %>% 
+  distinct() %>% 
+  group_by(continent) %>% 
+  summarise(country_count = n()) ->
+continent_aggregate
+gapminder %>% 
+  filter(continent == "Oceania") ->
+gapminder_oceania
+gapminder %>% 
+  filter(country == "New Zealand") ->
+gapminder_new_zealand
+```
+
+`r apply_reveal("prep_data")`
+
+---
+
+# The declarative mood: declaring data
+
+The data is a "first class citizen" the Grammar of Graphics and tidyverse framework.  Therefore, the first step to creating a plot, not surprisingly, is declaring data. 
+
+Let's do it.
+
+---
+
+```{r declare_data, eval = F, echo = F}
+ggplot(data = gapminder_2002)
+```
+
+`r apply_reveal("declare_data")`
+
+---
+
+name: aes
+
+
+# The interogative mood:  aes() is pronounced "ask"
+
+<!-- > aes(color = temperature) translates to "Please represent 'temperature' for me, color aesthetic!"  -->
+
+
+"Aesthetic mapping" refers to the representation that different aesthetic components do in a data visualization.   Aesthetics representing values is what does most of the work for us in a data visualization. 
+
+Differences in values --- which can be painstaking to differentiate in their "raw" form in a table as text --- are easy to differentiate when represented by position, color, size and so on.  Aesthetic mapping is what makes data visualization so powerful and worthwhile.  
+
+
+---
+
+# Pool of aesthetics?
+
+What are the aesthetics that can be used to communicate about variation?   Let's see how we request an aesthetic to represent a variable from our dataset for us.  We'll first look at the x position and y position.  
+
+<!-- Consumers of data visualization understand the importance of aesthetic mapping intuitively.  But some may feel overwhelmed by the terminology.  To overcome this in ggplot, we might personify things a bit and pronounce `aes()` --- the function used for specifying aesthetic mapping in ggplot2 --- as "ask".   -->
+
+
+
+<!-- "Mapping" in the phrase "aesthetic mapping" can be understood as representation, and aesthetics are that general category of things we visually differentiate: color, position, size, shape, etc. -->
+
+
+<!-- So the statement `aes(x = gdpPercap)`, can be translated to 'asking the x position to represent the variable gdpPercap.'  The statement `aes(color = continent)` can be understood as 'asking the color aesthetic to represent the variable continent.' -->
+
+<!-- --- -->
+
+  
+
+<!-- People don't always "get" ggplot2 right away.   -->
+
+<!-- One of the hurdles is aes() statements -- the aesthetic mapping statements.   -->
+
+<!-- I try to say "aesthetic mapping" when talking about aes() w/ newcomers, saying "'mapping' as in representation." Then translate into plainer language, "What variable are we asking the aesthetic (color, x-position, shape, etc.) to represent?"  aes() is "asking" -- *asking* very nicely for a specific aesthetic to do us a favor. So  -->
+
+
+
+<!-- --- -->
+
+<!-- ## Whom to "ask"? -->
+
+<!-- It is probably a good idea to start by speaking in general terms about the variety of aesthetics that might represent values at once.  You can also talk about the appropriateness of the various aesthetics for representing different value types - like numerical, categorical or ordinal data.  -->
+
+---
+
+I think it is pretty useful to talk the many aesthetics at once as is done by here @ClausWilke: https://serialmentor.com/dataviz/aesthetic-mapping.html#aesthetics-and-types-of-data …  
+
+```{r, out.width="90%", echo = F, fig.align="center"}
+knitr::include_graphics("https://serialmentor.com/dataviz/aesthetic_mapping_files/figure-html/common-aesthetics-1.png")
+```
+
+
+
+---
+
+```{r x_and_y, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +    # x position
+  aes(y = lifeExp) +      # y position
+```
+
+
+`r apply_reveal("x_and_y")`
+
+
+---
+
+The aes() statement says that we want the variable gdpPercap mapped to the x position, and the variable lifeExp mapped to the y position.  The x and y scales give us a clue that this info is registered.
+
+But, we don't really have any insight about our data yet.  Why?  Because aesthetics are taken on by geometric objects.  We still need to declare what geometric object will take on the aesthetics.  Let's see how, when we add a geometric object "point", the x and y position for each row of data are taken on by that object.  
+
+---
+
+
+
+```{r, geom_for_aes, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +    # x position
+  aes(y = lifeExp) +      # y position
+  geom_point() 
+```
+
+
+`r apply_reveal("geom_for_aes")`
+
+---
+
+
+## Exploring more aesthetic mappings
+
+But let's not get distracted by geoms (we'll come back to these).  Aesthetic mapping is what is doing so much work for us in data vis. Let's see a few more aesthetic mappings.
+
+Let's explore a bunch of the *aesthetic* that we might *map* our data to.  
+
+So far, we have have stated x and y positions - these are *required* aesthetics for the "point" geometry. 
+
+But more are *optional.*  We do all of the required aesthetic mapping and then also practice other allowable aesthetics for geom point - color, shape, size, alpha.  We'll also see that double or tripple mapping is allowed -- mapping the same variable to multiple aesthetics.  
+
+<!-- Note to teachers: Depending on your data set you might run out of unique variables to map to aesthetics, but mapping variables to multiple aesthetics can expose students to more aesthetic mappings - even though this might not be desirable in actual work product.   And go ahead and do a lot of double mapping of the same variables in the learning phase.   -->
+
+---
+
+
+```{r aesthetics_point, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +    # x position
+  aes(y = lifeExp) +      # y position
+  geom_point() +  # above aes are required for point
+  aes(color = continent) +  # color
+  aes(shape = continent) +  # shape
+  aes(size = pop) +   # size
+  aes(alpha = pop)    # transparency
+```
+
+
+---
+
+
+
+
+`r apply_reveal("aesthetics_point")`
+
+---
+
+Other aesthetics can be explored by changing the geom to one that allows additional aesthetics such as geom_line().  Using geom_line(), you can demonstrate many of the same aesthetics as before and add linetype as well.
+
+[Or I'm on the fast track, take me to the next session](#scales)
+
+---
+
+```{r aesthetics_line, eval = F, echo = F}
+ggplot(data = gapminder_oceania) +
+  aes(x = year) +
+  aes(y = pop) +
+  geom_point() +
+  geom_line() +
+  aes(group = country) +    # subsets data by var
+  aes(color = country) +
+  aes(linetype = country) +  # linetype
+  aes(linetype = NULL) +     
+  aes(size = year) +
+  aes(alpha = year)
+```
+
+`r apply_reveal("aesthetics_line")`
+
+---
+
+A final visualization lets us look at the fill aesthetic too.  This is good chance to talk about the difference between the fill and color aesthetic.  
+
+[Or I'm on the fast track, take me to the next session](#scales)
+
+
+---
+
+```{r aesthetics_area, eval = F, echo = F}
+ggplot(data = continent_aggregate) +
+  aes(x = continent) +
+  aes(y = country_count) +
+  geom_col() +
+  aes(color = continent) +
+  aes(linetype = continent) +
+  aes(fill = continent) + # fill color for areas  
+  aes(alpha = continent)
+```
+
+
+`r apply_reveal("aesthetics_area")`
+
+---
+
+## Questions:
+
+- What are *required aesthetics* vs. optional? 
+
+- What are the names of seven different aesthetics that we used above?
+
+- What is the difference between the fill and color aesthetic? 
+
+- What is the group aesthetic?
+
+- Look at the help for geom_text.  What are the required aesthetics?  What are some aesthetics that we haven't covered above, that are optional for geom_text()?
+
+
+---
+
+name: scales
+
+# Modifiers: Asking for more with scales\_\*\_\* 
+
+> Please, sir, can I have some more?
+
+With the aes() statement.
+
+But we can then go back and ask for more with scales\_\* statements.  These statements provide a quick way to update our preferences for all the mapped aesthetics.   
+
+Start with an scales_x_* and look at the variety of scale options associated with the x position aesthetic.  
+
+
+---
+
+## Scales
+
+
+First let's have look at a variety of scaling options that come with the x position aesthetic:  
+
+- scale_x_log10()
+- scale_x_reverse()
+- scale_x_sqrt()
+
+
+---
+
+
+```{r x_scales, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +  # this much is familiar #REVEAL
+  scale_x_log10() + # overrides default  #REVEAL
+  scale_x_reverse() + # overrides log10  #REVEAL
+  scale_x_sqrt() # overrides reverse  #REVEAL
+```
+
+`r apply_reveal("x_scales", user_reveal_defined = T)`
+
+
+---
+
+### More aesthetic scales
+
+Analogously, we can use scale\_\*\_\* statements to modify other aesthetic scales.  Here are some examples
+
+<!-- I think people find it easy to think about x and y position and adjusting those scales, and related adjustment like labs() and scale_*, but we teachers need to help extend these logics to the other aesthetics.  -->
+
+
+- scale_x_log10() 
+- scale_y_reverse(limits = c(100, 0)) 
+- scale_color_viridis_d() 
+- scale_shape_discrete(solid = F) 
+- scale_size_continuous(breaks = c(100, 1000, 10000, 100000)) 
+- scale_alpha(range = c(.5, 1)) # full transparency is 0
+
+
+Let's tour several of those to get a taste.  
+
+---
+
+```{r scales, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  aes(color = continent) +
+  aes(shape = continent) +
+  aes(size = gdpPercap) +
+  aes(alpha = gdpPercap) + # We've done this much #REVEAL
+  scale_x_log10() +  #REVEAL
+  scale_y_reverse(limits = c(100, 0)) +  #REVEAL
+  scale_color_viridis_d() +  #REVEAL
+  scale_shape_discrete(solid = F) +  #REVEAL
+  scale_size_continuous(  
+    breaks = c(100, 1000, 10000, 100000),
+    limits = c(0, 100000)) + #REVEAL
+  scale_alpha(range = c(.3, .8)) #REVEAL
+```
+
+`r apply_reveal("scales", user_reveal_defined = T)`
+
+---
+
+## Questions:
+
+- What does the parameter "breaks" seem to control?
+
+- What are some additional color scales that can be used?  Use auto complete in RStudio.  (i.e. type "scale_color" and then "tab" to see your options)
+
+- What does "d" stand for in the scale_color_viridis_d()? Use the help pane.
+
+- While you are in the help pane, see how would you set missing values (NA) to "black".
+
+
+
+---
+
+name: labs
+
+# Modifiers II:  Asking for more -- Fine tuning labels
+
+Aesthetic scales also get default *labels* -- the variable names.  We can also "ask again" to make modifications to these.  
+
+The syntax is labs(\* = "New label"), where the \* is the aesthetic name.  
+
+---
+
+```{r labs, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  aes(color = continent) +
+  aes(shape = continent) +
+  aes(size = gdpPercap) +
+  aes(alpha = gdpPercap) + # this much is familiar #REVEAL
+  labs(x = "GDP per cap") + #REVEAL
+  labs(y = "Life Expectency") + #REVEAL
+  labs(color = "Continent") + #REVEAL
+  labs(shape = "Continent") + #REVEAL
+  labs(size = "GDP per cap") + #REVEAL
+  labs(alpha = "GDP per cap") + #REVEAL
+  # Note: labs is also used to adjust *plot* labels
+  labs(title = "GDP per Cap versus Life Expectancy\nin 2002") + #REVEAL
+  labs(subtitle = "Data: Gapminder Data in R") + #REVEAL
+  labs(caption = "Visualization: @EvaMaeRey") + #REVEAL
+  labs(tag = "Plot 1") #REVEAL
+```
+
+
+`r apply_reveal("labs", user_reveal_defined = T)`
+
+---
+
+## Questions:
+
+- When might you use labs(tag = )?
+- What does the character string "\n" do in the place of a space in the plot title?
+- Color and shape variables represent the same variable, and labs(color = \*) labs(shape = \*) have the same input, "Continent".  What does this mean for the legend? Change the labels to be different and see.
+- Change the y label to an empty string, '""'.  What does this do?  
+
+
+---
+
+name: geoms
+
+
+<!-- But beyond understanding the philosophy, practice (including when things fail, and figuring out why they fail) is really important. Why initiatives like #tidytuesday are so valuable. -->
+
+<!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! -->
+
+
+# Nouns:  The geom_*() pile on
+
+It is probably not good practice to include too many geoms in any one plot that you present.  But it might be instructive to go ahead do so in teaching.  
+
+This will allow people to see how new-to-them geoms relate directly to each other.  We can set opacity (alpha) to a high level to avoid completely blocking out previous geometric layers (which previews the unmapped aesthetic topic - coming up). 
+
+In the first example many "variables" are computed on the fly, like the 0 represented by xend and yend and the mean of life exectency and per capita GDP. A point for discussion.  
+
+---
+
+
+
+## Bivariate continuous
+
+
+---
+
+```{r geom_2_continuous, eval = F, echo = F}
+ggplot(gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = pop) +
+  geom_point() +
+  geom_tile(width = 100) +
+  aes(xend = 0) +
+  aes(yend = 0) +
+  geom_segment(alpha = .2) +
+  geom_curve() +
+  aes(xmin = 0) +
+  aes(xmax = gdpPercap) +
+  aes(ymin = 0) + 
+  aes(ymax = pop) +
+  geom_rect(alpha = .2) +
+  geom_line() +
+  aes(label = country) +
+  geom_text() +
+  geom_label()
+```
+
+`r apply_reveal("geom_2_continuous")`
+
+---
+
+## Questions
+
+- How is geom_tile() different from geom_point()? Look at the help.
+
+- What aesthetics are required for geom_rect?
+
+- How many geometric layers are in the final plot?
+
+- Does order of the geom_*() statements matter to the end result?  How?
+
+
+
+
+
+
+
+
+---
+
+## Two continuous variables
+
+There are a lot of geometric objects that can be used to represent *two continuous variables*.  To explore a few more we can start a new plot.
+
+
+[Or I'm on the fast track, take me to the next session](#local)
+
+---
+
+## Two continuous, continued
+
+---
+
+```{r geom_2_continuous_2, eval = F, echo = F}
+ggplot(gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  geom_area(alpha = .4) +
+  geom_density2d() +
+  geom_smooth() + # LOESS smoothing
+  geom_smooth(method = lm) # OLS fit
+```
+
+`r apply_reveal("geom_2_continuous_2")`
+
+
+---
+
+## Questions
+
+geom_area() is a special case of what other geom_*()?  Use the help to answer this question. 
+
+---
+
+Geoms is a long section consider [jumping ahead](#local).
+
+---
+
+
+name: dvsc
+
+## Discrete v. Continuous
+
+---
+
+```{r geom_discrete_continuous, eval = F, echo = F}
+ggplot(gapminder_2002) +
+  aes(x = continent) +
+  aes(y = lifeExp) +
+  geom_point() +
+  geom_boxplot(alpha = .1) +
+  geom_jitter(width = .2, color = "blue") +
+  geom_violin(alpha = .1)
+```
+
+
+`r apply_reveal("geom_discrete_continuous")`
+
+---
+
+name: c
+
+## Continuous Univariate
+
+---
+
+```{r, univariate_continuous, eval = F, echo = F}
+ggplot(gapminder_2002) +
+  aes(x = lifeExp) +
+  geom_rug() +
+  geom_histogram() +
+  geom_dotplot() +
+  geom_freqpoly()
+```
+
+`r apply_reveal("univariate_continuous")`
+
+---
+
+## Discrete v. Discrete
+
+```{r discrete2x, eval = F, echo = F}
+gapminder_2002 %>% 
+  mutate(seventy_plus = lifeExp > 70) %>% 
+ggplot() +
+  aes(x = continent) +
+  aes(y = seventy_plus) +
+  geom_count() +
+  geom_jitter()
+```
+
+---
+
+
+
+`r apply_reveal("discrete2x")`
+
+---
+
+---
+
+name: local
+
+# The conditional tense: geom specific data, aesthetic mapping, and unmapped aesthetics
+
+---
+
+## Part i. geom specific aesthetic mapping
+
+So far we have seen *global* aesthetic mapping, where aes() is an independent statement and therefore, where the aesthetic representation is applied to all geoms.  However, we can be specific about which geoms should take on the aesthetic representation, if we use aes() within the geom_*() statement.  
+
+An example is shown below.  Note that you can use mapped aesthetic (asks) and unmapped aesthetics (demands) in the geom_\*() call.   
+
+---
+
+```{r geom_specific_aes_mapping, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  # global aesthetics
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +
+  aes(xend = 0) + # required aes for segment
+  aes(yend = 0) + # required aes for segment
+  # geom specific aesthetics:
+  geom_segment(
+    # mapping does not apply to geom_point
+    mapping = aes(color = continent)
+    ) 
+```
+
+`r apply_reveal("geom_specific_aes_mapping")`
+
+
+
+
+
+---
+
+## Part ii. Being a dictator -- unmapped aesthetics (Imparative mode)
+
+*Mapped* aesthetics contrast with unmapped, across-the-board, aesthetics for a geometric object.  
+
+geom_point(color = "blue"), is an imperative -- not an ask.  A dictator move.  "Do this everywhere." It is good to show a plot with two of the same geom layer, one with mapped aesthetics and the other without.
+
+```{r unmapped_aes, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() + # takes global aesthetics
+  aes(color = continent) + 
+  aes(shape = continent) +
+  aes(size = gdpPercap) +
+  aes(alpha = gdpPercap) +
+  geom_point(
+    color = "plum4", # specified
+    size = 4, # aesthetics not in aes()are 
+    shape = "square", # across the board
+    alpha = .3  # for this geom
+    )
+```
+
+---
+
+`r apply_reveal("unmapped_aes")`
+
+---
+
+## Part iii.  Going *local* with data
+
+```{r local_data, eval = F, echo = F}
+ggplot(data = gapminder_2002) + # global data
+  aes(x = gdpPercap) +  # global aesthetics
+  aes(y = lifeExp) +    # global aesthetics
+  geom_point(color = "grey") + 
+  geom_line(
+    # defining new zealand data for line geom
+    data = gapminder_new_zealand,
+    # and unmapped aesthetics for a geom
+    # red across the board
+    color = "red",
+    # year mapped to size aesthetic
+    mapping = aes(size = year) 
+             )
+```
+
+
+
+---
+
+`r apply_reveal("local_data")`
+
+---
+
+name: annotate
+
+# Exclamations and Interjections: Annotate using "geoms" not tied to data
+
+---
+
+
+```{r annotate, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  annotate(geom = "point", 
+             x = 10000,
+             y = 60, 
+           color = "red") +
+  annotate(geom = "text",
+           x = c(3000, 10000, 40000),
+           y = 80, 
+           label = "Hello",
+           color = "blue") +
+  annotate(geom = "curve",
+           x = 3000,
+           y = 80, 
+           xend = 10000,
+           yend = 60,
+           color = "green",
+           arrow = arrow())
+```
+
+`r apply_reveal("annotate")`
+
+---
+
+## Convenience geoms
+
+Some convenience functions have also been written for annotation using the geom_*() syntax. 
+
+- geom_abline()
+- geom_hline()
+- geom_vline()
+
+---
+
+```{r annotation_geoms, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  geom_abline(slope = .01, intercept = 0) +
+  geom_hline(yintercept = 70, 
+             linetype = "dotted") +
+  geom_vline(xintercept = c(1000, 10000),
+             linetype = "dashed")
+```
+
+`r apply_reveal("annotation_geoms")`
+
+
+
+
+---
+
+name: facets
+
+# Punctuation: Small multiples
+
+Punctuation helps us break up language into digestible pieces. Breaking up visualization can also be helpful.  
+
+Creating *small multiples* also known as *faceting* is a powerful way to make data more digestible.   In ggplot, small plots based on a categorical variable can be visualized side by side.  
+
+
+```{r facets, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap / 1000) +
+  aes(y = lifeExp) +
+  geom_point() +
+  facet_wrap(~ continent, ncol = 2) +
+  aes(color = continent) +
+  facet_null() + # overrides facet_wrap
+  facet_grid(
+    pop > 10000000 ~ continent
+    ) # overrides facet_null
+```
+
+---
+
+`r apply_reveal("facets")`
+
+---
+
+name: coords
+
+# Translation:  Coordinate systems
+
+Now, let's quickly check out some of the different options for coordinates systems.
+
+---
+
+```{r coords, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap / 1000) +
+  aes(y = lifeExp) +
+  geom_point() +
+  coord_equal() +
+  coord_fixed(ratio = 400) +
+  coord_flip() +
+  coord_polar()  # not the warnings
+```
+
+`r apply_reveal("coords")`
+
+---
+
+## Using polar coordinates: a pie chart
+
+---
+
+```{r pie, eval = F, echo = F}
+  ggplot(data = gapminder_2002) +
+  aes(x = 1, fill = continent) +
+  geom_bar() +
+  coord_polar(theta = "y") +
+  theme_void() +
+  labs(fill = "") +
+  scale_fill_viridis_d(option = 
+                         "cividis")
+```
+
+`r apply_reveal("pie")`
+
+
+---
+
+name: themes
+
+# Greetings: Using preset available themes
+
+It may seem just cosmetic, but themes can have a big impact on the look and feel of you final plot.  The thematic elements are what first meet the eye.  
+
+```{r themes, eval = F, echo= F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  aes(color = continent) +
+  theme_bw() +
+  theme_light(base_size = 5, 
+              base_family = "Times") + 
+  theme_classic(base_size = 15,
+                base_family = "Rockwell") +
+  theme_dark() +
+  theme_minimal() +
+  ggdark::dark_theme_dark() +
+  ggthemes::theme_excel()
+```
+
+---
+
+`r apply_reveal("themes")`
+
+
+---
+
+name: saving
+
+# The written language: Save plots as objects and to disk
+
+```{r}
+g <- ggplot(gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() 
+
+ggsave(filename = "my_plot.png", 
+       plot = g)
+```
+
+
+
+---
+
+#  Don't sweat the small stuff: future workshop
+
+- [Custom Themes](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1)
+- Statistics
+
+---
+
+# Other great resources
+
+- [the ggplot2 website](https://ggplot2.tidyverse.org/reference/)
+- [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/) include ones on ggplot2 and data wrangling
+- [R for Data Science](https://r4ds.had.co.nz/index.html) is also an excellent resource
+
+Presetations
+
+- [Will Chase's R you ready to  make charts](https://www.williamrchase.com/slides/ggplot_intro.html#1)
+- [Garrick Aden-Buie's A Gentle Guide to the Grammar of Graphics
+with ggplot2](https://pkg.garrickadenbuie.com/gentle-ggplot2/#1)
+
+
+---
+
+# More resources from the author
+
+- [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html#1) contains many examples of plots created with ggplot2  in the same "flipbook" style
+
+- [The Tidyverse in Action](https://evamaerey.github.io/tidyverse_in_action/tidyverse_in_action.html)
+
+- [Little Flipbooks Library](https://github.com/EvaMaeRey/little_flipbooks_library) contains links to many more data wrangling and visualization walk-throughs
+
+Source code for these resources are available at https://github.com/EvaMaeRey.
+
+
+
+
+---
+
+# Why doesn't my code doesn't look like other examples I've seen?
+
+This book uses a "slow ggplot" style, which is a bit verbose and is not all that typical. More often, you will global aesthetics tucked together in the ggplot statement. Also, labs statements will typically be nested together. Finally, you might not see every parameter spelled out, rather position in the function is used to indicate the parameters. 
+
+
+```{r, eval = F}
+ggplot(gapminder_2002, aes(gdpPercap, lifeExp)) + 
+  geom_point() +
+  labs(x = "GDP per Cap",
+       y = "Life Expectancy",
+       title = "My Title")
+```
+
+
+
+
+
+
+
+
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 70%}
+```
+
+
+<!-- ```{r, dpi=400, eval = F} -->
+<!-- gapminder %>%  -->
+<!--   select(continent) %>%  -->
+<!--   ggplot() + -->
+<!--   aes(x = 1) + -->
+<!--   aes(fill = continent) + -->
+<!--   geom_bar(color = "white", size = .2) + -->
+<!--   coord_polar(theta = "y") + -->
+<!--   theme_void() + -->
+<!--   scale_fill_viridis_d() + -->
+<!--   theme(rect = element_rect(fill = "grey",  -->
+<!--                             color = "grey",  -->
+<!--                             linetype = "solid", -->
+<!--                             size = 0)) -->
+
+<!-- ggsave("pie.svg", dpi = 320,device = "svg") -->
+<!-- ``` -->
+
+<!-- --- -->
+
+<!-- Or at least an organized twitter thread!?  Another idea for you: pull aes() out of ggplot(). Do you do it? Lot's of reasons to do it! Downside is currently most examples make use of nested approach. @grrrck does this too, and esquisse -->
+
+<!-- ggplot(data = my_data) +  -->
+<!--    aes(x = my_var) -->
+
+<!-- Is it possible to do this with multiple geoms? I usually specify aes within the geom like  -->
+
+<!-- ggplot(data) + -->
+<!--   geom_point(aes(x, y)) + -->
+<!--   geom_line(aes(x, y, group = id))  -->
+
+<!-- I prefer this approach because it's explicit which aesthetics are bound to which geoms -->
+
+<!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! -->
+
+
+<!-- To change the data used for a plot, use the %+% operator! Oh!!!  -->
+
+
+<!-- # Stat_* -->
+
+<!-- ## Univariate discrete -->
+
+
+
+<!-- ```{r univariate_discrete, eval = F, echo = F} -->
+<!-- ggplot(gapminder_2002) + -->
+<!--   aes(x = continent) + -->
+<!--   stat_count() + -->
+<!--   geom_bar() # convenience geom -->
+<!--             # default counting -->
+<!-- ``` -->
+
+<!-- --- -->
+
+<!-- r apply_reveal("univariate_discrete")` -->
+
+
+<!-- --- -->
+
+<!-- ```{r} -->
+<!-- ggplot(data = gapminder_2002) + -->
+<!--   aes(x = continent) + -->
+<!--   aes(y = lifeExp) + -->
+<!--   geom_point(alpha = .1) + -->
+<!--   stat_summary( -->
+<!--     fun.ymin = min, -->
+<!--     fun.ymax = max, -->
+<!--     fun.y = median -->
+<!--   ) -->
+<!-- ``` -->
+
+
+
+<!-- --- -->
+
+<!-- ```{r} -->
+<!-- gapminder_2002 %>%  -->
+<!--   mutate(seventy_plus = lifeExp > 60) %>%  -->
+<!-- ggplot() + -->
+<!--   aes(x = continent) + -->
+<!--   aes(fill = seventy_plus) + -->
+<!--   geom_bar(alpha = .2) -->
+<!-- ``` -->
+
