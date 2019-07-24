@@ -53,16 +53,16 @@ Finally, thanks to the [ggplot2](https://ggplot2.tidyverse.org/reference/) team 
 
 0. [The Declarative mood: declaring data](#data)
 1. [The Interogative mood: aesthetic mapping aes()](#aes)
-1. [Modifiers: scales, scale_\*_\*()](#scales)
-1. [Modifiers II: labs, labs()](#labs)
-1. [Nouns: geom_*()](#geoms)
+  - [Modifiers: scales, scale\_**aes**\_\*()](#scales)
+  - [Modifiers II: labels, labs(**aes** = ...)](#labs)
+  - [Modifiers III: coordinate systems, coord\_\*()](#coords)
+1. [Nouns: geometric objectsgeom_*()](#geoms)
 1. [Conditional mood: aesthetics | geom, i.e. - going local](#local)
   - mapped aesthetics tied to a specific geom
   - unmapped aesthetics, (the Imparative mood)
   - specifying local data
 1. [Exclamations and Interjections: annotate(geom = "*")](#annotation)
 1. [Punctuation: facets](#facets)
-1. [Translation: coords, coord_*()](#coords)
 1. [Greetings: theme_*()](#themes)
 1. [The Written Language: saving plots](#saving)
 
@@ -1283,7 +1283,7 @@ ggplot(data = continent_aggregate) +
 
 name: scales
 
-# Modifiers: Asking for more with scales\_\*\_\* 
+# Modifiers: Asking for modification with scales\_\*\_\* 
 
 &gt; Please, sir, can I have some more?
 
@@ -1380,7 +1380,7 @@ ggplot(data = gapminder_2002) +
 
 ---
 
-### More aesthetic scales
+### More aesthetic scale modifications
 
 Analogously, we can use scale\_\*\_\* statements to modify other aesthetic scales.  Here are some examples
 
@@ -1577,7 +1577,7 @@ ggplot(data = gapminder_2002) +
 
 name: labs
 
-# Modifiers II:  Asking for more -- Fine tuning labels
+# Modifiers II:  Asking for modification -- labels
 
 Aesthetic scales also get default *labels* -- the variable names.  We can also "ask again" to make modifications to these.  
 
@@ -1864,6 +1864,144 @@ ggplot(data = gapminder_2002) +
 - What does the character string "\n" do in the place of a space in the plot title?
 - Color and shape variables represent the same variable, and labs(color = \*) labs(shape = \*) have the same input, "Continent".  What does this mean for the legend? Change the labels to be different and see.
 - Change the y label to an empty string, '""'.  What does this do?  
+
+
+
+---
+
+name: coords
+
+# Modifiers III:  Asking for modification of the coordinate system
+
+Now, let's quickly check out some of the different options for coordinates systems.
+
+---
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002)
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_1-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +
+* aes(x = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_2-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_3-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_4-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+* coord_equal()
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_5-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  coord_equal() +
+* coord_fixed(ratio = 400)
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_6-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  coord_equal() +
+  coord_fixed(ratio = 400) +
+* coord_flip()
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_7-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  coord_equal() +
+  coord_fixed(ratio = 400) +
+  coord_flip() +
+* coord_polar()
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_8-1.png" width="100%" /&gt;
+]]
 
 
 ---
@@ -3589,255 +3727,9 @@ ggplot(data = gapminder_2002) +
 &lt;img src="ggplot2_grammar_guide_files/figure-html/output_facets_10-1.png" width="100%" /&gt;
 ]]
 
----
-
-name: coords
-
-# Translation:  Coordinate systems
-
-Now, let's quickly check out some of the different options for coordinates systems.
 
 ---
 
-
-
-class: split-40
-count: false
-.column[.content[
-
-```r
-*ggplot(data = gapminder_2002)
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_1-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +
-* aes(x = gdpPercap / 1000)
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_2-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap / 1000) +
-* aes(y = lifeExp)
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_3-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap / 1000) +
-  aes(y = lifeExp) +
-* geom_point()
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_4-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap / 1000) +
-  aes(y = lifeExp) +
-  geom_point() +
-* coord_equal()
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_5-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap / 1000) +
-  aes(y = lifeExp) +
-  geom_point() +
-  coord_equal() +
-* coord_fixed(ratio = 400)
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_6-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap / 1000) +
-  aes(y = lifeExp) +
-  geom_point() +
-  coord_equal() +
-  coord_fixed(ratio = 400) +
-* coord_flip()
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_7-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap / 1000) +
-  aes(y = lifeExp) +
-  geom_point() +
-  coord_equal() +
-  coord_fixed(ratio = 400) +
-  coord_flip() +
-* coord_polar()  # not the warnings
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_coords_8-1.png" width="100%" /&gt;
-]]
-
----
-
-## Using polar coordinates: a pie chart
-
----
-
-
-
-class: split-40
-count: false
-.column[.content[
-
-```r
-* ggplot(data = gapminder_2002)
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_1-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-  ggplot(data = gapminder_2002) +
-* aes(x = 1, fill = continent)
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_2-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-  ggplot(data = gapminder_2002) +
-  aes(x = 1, fill = continent) +
-* geom_bar()
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_3-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-  ggplot(data = gapminder_2002) +
-  aes(x = 1, fill = continent) +
-  geom_bar() +
-* coord_polar(theta = "y")
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_4-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-  ggplot(data = gapminder_2002) +
-  aes(x = 1, fill = continent) +
-  geom_bar() +
-  coord_polar(theta = "y") +
-* theme_void()
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_5-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-  ggplot(data = gapminder_2002) +
-  aes(x = 1, fill = continent) +
-  geom_bar() +
-  coord_polar(theta = "y") +
-  theme_void() +
-* labs(fill = "")
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_6-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
-
-```r
-  ggplot(data = gapminder_2002) +
-  aes(x = 1, fill = continent) +
-  geom_bar() +
-  coord_polar(theta = "y") +
-  theme_void() +
-  labs(fill = "") +
-* scale_fill_viridis_d(option =
-*                        "cividis")
-```
-]]
-.column[.content[
-&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_8-1.png" width="100%" /&gt;
-]]
 
 
 ---
@@ -4090,6 +3982,121 @@ g &lt;- ggplot(gapminder_2002) +
 ggsave(filename = "my_plot.png", 
        plot = g)
 ```
+
+---
+
+
+## What is a pie chart?
+
+---
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+* ggplot(data = gapminder_2002)
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_1-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+  ggplot(data = gapminder_2002) +
+* aes(x = 1, fill = continent)
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_2-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+  ggplot(data = gapminder_2002) +
+  aes(x = 1, fill = continent) +
+* geom_bar()
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_3-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+  ggplot(data = gapminder_2002) +
+  aes(x = 1, fill = continent) +
+  geom_bar() +
+* coord_polar(theta = "y")
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_4-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+  ggplot(data = gapminder_2002) +
+  aes(x = 1, fill = continent) +
+  geom_bar() +
+  coord_polar(theta = "y") +
+* theme_void()
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_5-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+  ggplot(data = gapminder_2002) +
+  aes(x = 1, fill = continent) +
+  geom_bar() +
+  coord_polar(theta = "y") +
+  theme_void() +
+* labs(fill = "")
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_6-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+  ggplot(data = gapminder_2002) +
+  aes(x = 1, fill = continent) +
+  geom_bar() +
+  coord_polar(theta = "y") +
+  theme_void() +
+  labs(fill = "") +
+* scale_fill_viridis_d(option =
+*                        "cividis")
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/output_pie_8-1.png" width="100%" /&gt;
+]]
 
 
 

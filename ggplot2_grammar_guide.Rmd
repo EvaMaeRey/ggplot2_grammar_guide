@@ -52,11 +52,11 @@ xaringanthemer::mono_accent(
 
 # Acknowledgements
 
-Many thanks to Yihui Xie and coauthors of the Xaringan tool.  Thanks to Emi Tanaka and Garrick Aden-Buie for their invaluable contributions to getting automated side-by-side code-output evolution (flipbook) going.  Thanks to Will Chase for seeding a valuable discussion about challenges of ggplot2. 
+Many thanks the authors of the Xaringan slide show tool.  Thanks to Emi Tanaka and Garrick Aden-Buie for their invaluable contributions to getting automated side-by-side code-output evolution (flipbook) going.  Thanks to Will Chase for seeding a valuable discussion about challenges of ggplot2. 
 
 MPI Dresden July 18 workshop organizer Ulirk Günther and participant for their interest in R and ggplot2 for motivation and their great discussion and questions.
 
-Finally, thanks to the [ggplot2](https://ggplot2.tidyverse.org/reference/) team Hadley Wickham, Kara Woo, Claus Wilke, Thomas Pederson for building and maintaining a cool tool. 
+Finally, thanks to the [ggplot2](https://ggplot2.tidyverse.org/reference/) team building and maintaining an amazing tool. 
 
 ---
 
@@ -78,16 +78,16 @@ Finally, thanks to the [ggplot2](https://ggplot2.tidyverse.org/reference/) team 
 
 0. [The Declarative mood: declaring data](#data)
 1. [The Interogative mood: aesthetic mapping aes()](#aes)
-1. [Modifiers: scales, scale_\*_\*()](#scales)
-1. [Modifiers II: labs, labs()](#labs)
-1. [Nouns: geom_*()](#geoms)
+  - [Modifiers: scales, scale\_**aes**\_\*()](#scales)
+  - [Modifiers II: labels, labs(**aes** = ...)](#labs)
+  - [Modifiers III: coordinate systems, coord\_\*()](#coords)
+1. [Nouns: geometric objectsgeom_*()](#geoms)
 1. [Conditional mood: aesthetics | geom, i.e. - going local](#local)
   - mapped aesthetics tied to a specific geom
   - unmapped aesthetics, (the Imparative mood)
   - specifying local data
 1. [Exclamations and Interjections: annotate(geom = "*")](#annotation)
 1. [Punctuation: facets](#facets)
-1. [Translation: coords, coord_*()](#coords)
 1. [Greetings: theme_*()](#themes)
 1. [The Written Language: saving plots](#saving)
 
@@ -359,12 +359,17 @@ ggplot(data = continent_aggregate) +
 
 - Look at the help for geom_text.  What are the required aesthetics?  What are some aesthetics that we haven't covered above, that are optional for geom_text()?
 
+---
+
+# Modifiers
+
+
 
 ---
 
 name: scales
 
-# Modifiers: Asking for more with scales\_\*\_\* 
+## Modifiers: Asking for modification with scales\_\*\_\* 
 
 > Please, sir, can I have some more?
 
@@ -405,7 +410,7 @@ ggplot(data = gapminder_2002) +
 
 ---
 
-### More aesthetic scales
+### More aesthetic scale modifications
 
 Analogously, we can use scale\_\*\_\* statements to modify other aesthetic scales.  Here are some examples
 
@@ -463,7 +468,7 @@ ggplot(data = gapminder_2002) +
 
 name: labs
 
-# Modifiers II:  Asking for more -- Fine tuning labels
+## Modifiers II:  Asking for modification -- labels
 
 Aesthetic scales also get default *labels* -- the variable names.  We can also "ask again" to make modifications to these.  
 
@@ -504,6 +509,31 @@ ggplot(data = gapminder_2002) +
 - What does the character string "\n" do in the place of a space in the plot title?
 - Color and shape variables represent the same variable, and labs(color = \*) labs(shape = \*) have the same input, "Continent".  What does this mean for the legend? Change the labels to be different and see.
 - Change the y label to an empty string, '""'.  What does this do?  
+
+
+
+---
+
+name: coords
+
+## Modifiers III:  Asking for modification of the coordinate system
+
+Now, let's quickly check out some of the different options for coordinates systems.
+
+---
+
+```{r coords, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  coord_equal() +
+  coord_fixed(ratio = 400) +
+  coord_flip() +
+  coord_polar()
+```
+
+`r apply_reveal("coords")`
 
 
 ---
@@ -860,47 +890,9 @@ ggplot(data = gapminder_2002) +
 
 `r apply_reveal("facets")`
 
----
-
-name: coords
-
-# Translation:  Coordinate systems
-
-Now, let's quickly check out some of the different options for coordinates systems.
 
 ---
 
-```{r coords, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap / 1000) +
-  aes(y = lifeExp) +
-  geom_point() +
-  coord_equal() +
-  coord_fixed(ratio = 400) +
-  coord_flip() +
-  coord_polar()  # not the warnings
-```
-
-`r apply_reveal("coords")`
-
----
-
-## Using polar coordinates: a pie chart
-
----
-
-```{r pie, eval = F, echo = F}
-  ggplot(data = gapminder_2002) +
-  aes(x = 1, fill = continent) +
-  geom_bar() +
-  coord_polar(theta = "y") +
-  theme_void() +
-  labs(fill = "") +
-  scale_fill_viridis_d(option = 
-                         "cividis")
-```
-
-`r apply_reveal("pie")`
 
 
 ---
@@ -949,6 +941,26 @@ ggsave(filename = "my_plot.png",
        plot = g)
 ```
 
+---
+
+
+## What is a pie chart?
+
+---
+
+```{r pie, eval = F, echo = F}
+  ggplot(data = gapminder_2002) +
+  aes(x = 1, fill = continent) +
+  geom_bar() +
+  coord_polar(theta = "y") +
+  theme_void() +
+  labs(fill = "") +
+  scale_fill_viridis_d(option = 
+                         "cividis")
+```
+
+`r apply_reveal("pie")`
+
 
 
 ---
@@ -992,7 +1004,7 @@ Source code for these resources are available at https://github.com/EvaMaeRey.
 
 # Why doesn't my code doesn't look like other examples I've seen?
 
-This book uses a "slow ggplot" style, which is a bit verbose and is not all that typical. More often, you will global aesthetics tucked together in the ggplot statement. Also, labs statements will typically be nested together. Finally, you might not see every parameter spelled out, rather position in the function is used to indicate the parameters. 
+This book uses a "slow ggplot" style, which is a bit verbose and is not all that typical. More often, you will see global aesthetics tucked together in the ggplot statement. Also, labs statements will typically be nested together. Finally, you might not see every parameter spelled out, rather position in the function is used to indicate the parameters. 
 
 
 ```{r, eval = F}
