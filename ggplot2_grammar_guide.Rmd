@@ -1,6 +1,6 @@
 ---
 title: "A ggplot2 grammar guide"
-author: "Gina Reynolds, July 18 2019"
+author: "Gina Reynolds, July 2019"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -48,15 +48,7 @@ xaringanthemer::mono_accent(
 ```
 
 
----
 
-# Acknowledgements
-
-Many thanks the authors of the Xaringan slide show tool.  Thanks to Emi Tanaka and Garrick Aden-Buie for their invaluable contributions to getting automated side-by-side code-output evolution (flipbook) going.  Thanks to Will Chase for seeding a valuable discussion about challenges of ggplot2. 
-
-MPI Dresden July 18 workshop organizer Ulirk Günther and participant for their interest in R and ggplot2 for motivation and their great discussion and questions.
-
-Finally, thanks to the [ggplot2](https://ggplot2.tidyverse.org/reference/) team building and maintaining an amazing tool. 
 
 ---
 
@@ -72,24 +64,51 @@ Finally, thanks to the [ggplot2](https://ggplot2.tidyverse.org/reference/) team 
 
 
 
+# Introduction
+
+ggplot2 is an implementation of the "grammar of graphics" for R.  The grammar of graphics is a framework that enables users to go beyond fixed chart types by mapping variables of a dataset to the aesthetics characteristics of geometric objects.  
+
+The goal of the package is to "'bring together in a coherent way things that previously appeared unrelated and which also will provide a basis for dealing systematically with new situations'". (D.R. Cox 1978 quoted in Wickham 2010)
+
+This system  its user great expressive freedom, as they are not confined to predetermined chart types.  The grammar of graphics tool gives the user the control to build nearly any chart tha she imagines.  
+
+Nevertheless, many folks use ggplot2 without much fluency --- copying and pasting existing code and making minor tweeks to get the results they want.  Without a theoretical knowledge of the framework, it is unlikely that users will completely unlock the freedom that ggplot2 graphing library affords.  
+
+This book seeks to provide an introduction to ggplot2 that will provide a basis for fluency with this framework.  
+
 ---
 
-## Grammar lesson order:
 
-0. [The Declarative mood: declaring data](#data)
-1. [The Interogative mood: aesthetic mapping aes()](#aes)
-  - [Modifiers: scales, scale\_**aes**\_\*()](#scales)
-  - [Modifiers II: labels, labs(**aes** = ...)](#labs)
-  - [Modifiers III: coordinate systems, coord\_\*()](#coords)
-1. [Nouns: geometric objectsgeom_*()](#geoms)
-1. [Conditional mood: aesthetics | geom, i.e. - going local](#local)
-  - mapped aesthetics tied to a specific geom
-  - unmapped aesthetics, (the Imparative mood)
-  - specifying local data
-1. [Exclamations and Interjections: annotate(geom = "*")](#annotation)
-1. [Punctuation: facets](#facets)
-1. [Greetings: theme_*()](#themes)
-1. [The Written Language: saving plots](#saving)
+# Acknowledgements
+
+ggplot2 is a wonderful library. I'm so grateful to the the original author Hadley Wickham and the entire [ggplot2](https://ggplot2.tidyverse.org/reference/) for continuing to build and maintaining an amazing tool. 
+
+
+I'm also very thankful for the Xaringan slide show tool, on which this presentation is built.  Thanks very much to that team.  Thanks too to Emi Tanaka and Garrick Aden-Buie for their invaluable contributions to getting automated side-by-side code-output evolution (flipbooks) going.  Thanks to Will Chase for seeding a valuable discussion about challenges of ggplot2. 
+
+Finally, thanks to MPI-Dresden's July 2019 workshop organizer Ulirk Günther and participant for their interest in R and ggplot2.
+
+
+
+
+---
+
+# Grammar lesson order:
+
+0. [**The Declarative Mood**, declaring data, *ggplot(data = gapminder)*](#data)
+1. [**The Interogative Mood**, mapping variables to aesthetics,  *aes(**color** = gdpPercap)*](#aes)
+  - [**Modifiers I**, changing scales, *scale\_color\_\*()*](#scales)
+  - [**Modifiers II**, changing labels, *labs(color = "per capita GDP")*](#labs)
+  - [**Modifiers III**, coordinate systems, *coord\_\*()*](#coords)
+1. [**Nouns**, geometric objects, *geom\_\*()*](#geoms)
+1. [**Conditional mood** aesthetics tied to specific "geoms"](#local)
+  - aesthetic mapping tied to a specific geometric layer, geom(aes(color = continent))
+  - unmapped aesthetics (**The Imparative Mood**) geom(color = "blue")
+  - data tied to a specific geom, geom(data = gapminder)
+1. [**Exclamations and Interjections** annotation layers, annotate(geom = "*")](#annotation)
+1. [**Punctuation** breaking up plot into small plots  facet_*()](#facets)
+1. [**Greetings** Changing the look and feel of plot area, theme_*()](#themes)
+1. [**The Written Language**: saving plots](#saving)
 
 ---
 
@@ -98,15 +117,6 @@ Finally, thanks to the [ggplot2](https://ggplot2.tidyverse.org/reference/) team 
 - plotting statistics
 - detailed thematic adjustments are covered in [Tuning ggplot themes](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1)
 
----
-
-# Introduction
-
-ggplot2 is an implementation of the "grammar of graphics" for R.  The grammar of graphics is a philosophy that enables users to go beyond fixed chart types by mapping variabls in data to aesthetics of geometric objects.  
-
-The goal of the package is to "'bring together in a coherent way things that previously appeared unrelated and which also will provide a basis for dealing systematically with new situations'". (D.R. Cox 1978 quoted in Wickham 2010)
-
-> With ggplot2, you can do more faster by learning one system and applying it in many places. (R4DS)
 
 
 ---
@@ -166,7 +176,7 @@ Let's do it.
 ---
 
 ```{r declare_data, eval = F, echo = F}
-ggplot(data = gapminder_2002)
+ggplot(data = gapminder_2002) # That's all!
 ```
 
 `r apply_reveal("declare_data")`
@@ -287,7 +297,8 @@ ggplot(data = gapminder_2002) +
   aes(color = continent) +  # color
   aes(shape = continent) +  # shape
   aes(size = pop) +   # size
-  aes(alpha = pop)    # transparency
+  aes(alpha = pop)    # transparency +
+  aes(color = lifeExp) # overwriting color's representation
 ```
 
 
@@ -363,7 +374,17 @@ ggplot(data = continent_aggregate) +
 
 # Modifiers
 
+We are able to learn something about our data with very few inputs with ggplot2!  Part of the reason for this is there are convenient and reasonable defaults for the plot related to the aesthetics.   
 
+There are default for
+
+1. scales (we have seen a "blues" color scale, but it could be greens, or yellows)
+2. scale labels (the col)
+3. 
+
+This makes exploring your data pretty quick.
+
+What defines exactly how aesthetics.  But perhaps we are not
 
 ---
 
@@ -435,8 +456,8 @@ ggplot(data = gapminder_2002) +
   aes(y = lifeExp) +
   geom_point() +
   aes(color = continent) +
-  aes(shape = continent) +
   aes(size = gdpPercap) +
+  aes(shape = continent) +
   aes(alpha = gdpPercap) + # We've done this much #REVEAL
   scale_x_log10() +  #REVEAL
   scale_y_reverse(limits = c(100, 0)) +  #REVEAL
@@ -711,7 +732,7 @@ ggplot() +
 
 name: local
 
-# The conditional tense: geom specific data, aesthetic mapping, and unmapped aesthetics
+# The conditional mood: geom specific data, aesthetic mapping, and unmapped aesthetics
 
 ---
 
@@ -970,20 +991,6 @@ ggsave(filename = "my_plot.png",
 - [Custom Themes](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1)
 - Statistics
 
----
-
-# Other great resources
-
-- [the ggplot2 website](https://ggplot2.tidyverse.org/reference/)
-- [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/) include ones on ggplot2 and data wrangling
-- [R for Data Science](https://r4ds.had.co.nz/index.html) is also an excellent resource
-
-Presetations
-
-- [Will Chase's R you ready to  make charts](https://www.williamrchase.com/slides/ggplot_intro.html#1)
-- [Garrick Aden-Buie's A Gentle Guide to the Grammar of Graphics
-with ggplot2](https://pkg.garrickadenbuie.com/gentle-ggplot2/#1)
-
 
 ---
 
@@ -1002,9 +1009,13 @@ Source code for these resources are available at https://github.com/EvaMaeRey.
 
 ---
 
-# Why doesn't my code doesn't look like other examples I've seen?
+# Clarification and disclaimers
 
-This book uses a "slow ggplot" style, which is a bit verbose and is not all that typical. More often, you will see global aesthetics tucked together in the ggplot statement. Also, labs statements will typically be nested together. Finally, you might not see every parameter spelled out, rather position in the function is used to indicate the parameters. 
+---
+
+# Our code doesn't look like other examples I've seen
+
+This book uses a "slow ggplot" style, which is a bit verbose and is not all that typical. More often, you will see global aesthetics tucked together in the ggplot statement. Also, labs statements will typically be nested together. Finally, you might not see every parameter spelled out, rather position in the function is used to indicate the parameters being set. 
 
 
 ```{r, eval = F}
@@ -1015,7 +1026,36 @@ ggplot(gapminder_2002, aes(gdpPercap, lifeExp)) +
        title = "My Title")
 ```
 
+---
 
+# Other great resources
+
+There are many great resources about ggplot2.  As noted above, the prefered syntax is a bit different than mine. 
+
+- [the ggplot2 website](https://ggplot2.tidyverse.org/reference/) is the definitive guide
+- there is an [RStudio Cheat Sheet](https://www.rstudio.com/resources/cheatsheets/) on ggplot2 which is a great quick reference
+- [R for Data Science](https://r4ds.had.co.nz/index.html) is also an excellent resource
+
+Presetations
+
+- [Will Chase's R you ready to  make charts](https://www.williamrchase.com/slides/ggplot_intro.html#1)
+- [Garrick Aden-Buie's A Gentle Guide to the Grammar of Graphics
+with ggplot2](https://pkg.garrickadenbuie.com/gentle-ggplot2/#1)
+
+
+
+---
+
+# I noticed that we've made some ugly charts
+
+This book is not aimed at advising on chart design principles.  In ggplot2 it is possible to make a lot of design mistakes.  
+
+For discussion of best practices in creating informative and attractive charts you might there are many old and new classics including:
+
+- [The Visual Display of Quantitative Information, Eduard Tufte]
+- [Data Visualization: A Practical Introduction, Kieran Healy](http://socviz.co)
+- [Fundamentals of Data Visualization, Claus Wilke](https://serialmentor.com/dataviz/)
+- [Storytelling with Data: A Data Visualization Guide for Business Professionals, Cole Nussbaumer-Knaflic]
 
 
 
