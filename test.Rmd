@@ -1,0 +1,52 @@
+---
+title: "Untitled"
+author: "Evangeline Reynolds"
+date: "8/4/2019"
+output: html_document
+---
+
+
+```{r}
+library(tidyverse)
+library(demoR)
+data(iris)
+codestring <- "mean(iris$Sepal.Length, na.rm = TRUE)"
+hlt_funs(codestring)
+library(gapminder)
+```
+
+
+```{r how_to_pipe, include = FALSE}
+ggplot(data = gapminder) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  aes(color = continent) +
+  aes(shape = continent) +
+  aes(size = gdpPercap) +
+  aes(alpha = gdpPercap) + # this much is familiar #REVEAL
+  scale_x_log10() +  #REVEAL
+  scale_y_reverse(limits = c(100, 0)) +  #REVEAL
+  scale_color_viridis_d() +  #REVEAL
+  scale_shape_discrete(solid = F) +  #REVEAL
+  scale_size_continuous(  
+    breaks = c(100, 1000, 10000, 100000),
+    limits = c(0, 100000)) + #REVEAL
+  scale_alpha(range = c(.3, .8)) + #REVEAL
+  labs(x = "GDP per cap") + #REVEAL
+  labs(y = "Life Expectency") + #REVEAL
+  labs(color = "Continent") + #REVEAL
+  labs(shape = "Continent") + #REVEAL
+  labs(size = "GDP per cap") + #REVEAL
+  labs(alpha = "GDP per cap")  
+```
+Then, you can reference the object by label to automatically create a demo_code object using create_demo(). Here we pass the object to hlt_fixed() to show our source code with the pipe operators highlighted in yellow.
+
+
+```{r, echo = FALSE}
+
+demo_chunk("how_to_pipe") %>% 
+  hlt_fixed("color") %>%
+  hlt_fixed("aes", color = "blue") 
+  
+```
