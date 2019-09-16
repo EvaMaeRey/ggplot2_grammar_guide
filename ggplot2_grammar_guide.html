@@ -648,7 +648,7 @@ gapminder_2002 %&gt;%
 name: aes
 
 
-# The interogative mood:  aes() is pronounced "ask"
+# The interogative mood:  aes()
 
 &lt;!-- &gt; aes(color = temperature) translates to "Please represent 'temperature' for me, color aesthetic!"  --&gt;
 
@@ -656,6 +656,7 @@ name: aes
 "Aesthetic mapping" refers to the representation that different aesthetic components do in a data visualization.   Aesthetics representing values is what does most of the work for us in a data visualization. 
 
 Differences in values --- which can be painstaking to differentiate in their "raw" form in a table as text --- are easy to differentiate when represented by position, color, size and so on.  *Aesthetic mapping* is what makes data visualization so powerful and worthwhile.  
+
 
 
 ---
@@ -705,8 +706,14 @@ Here's a key set of aesthetics that can be used to communicate about categories 
 
 &lt;!-- It is probably a good idea to start by speaking in general terms about the variety of aesthetics that might represent values at once.  You can also talk about the appropriateness of the various aesthetics for representing different value types - like numerical, categorical or ordinal data.  --&gt;
 
+---
 
-&lt;img src="https://serialmentor.com/dataviz/aesthetic_mapping_files/figure-html/common-aesthetics-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+# aes() is pronounced "ask"
+
+
+So aes() refers to "aesthetic mapping", where "mapping" is meant in terms of representation. What's inside aes() addresses the question, "What variable are we asking the aesthetic (color, x-position, shape, etc.) to represent?"  aes() is "asking" very nicely for a specific aesthetic to do us the favor of representation.
+
+For example `aes(color = age)` can be translated to English as "please color aesthetic, represent the variable `age` for me". 
 
 
 
