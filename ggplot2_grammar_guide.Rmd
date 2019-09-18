@@ -13,7 +13,9 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
 knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
-source("https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/master/xaringan_reveal_parentheses_balanced.R")
+try(source("https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/master/xaringan_reveal_parentheses_balanced.R"))
+try(source("../flipbooks/xaringan_reveal_parentheses_balanced.R"))
+
 ```
 
 
@@ -94,19 +96,19 @@ For inspiration, thanks to Will Chase for seeding a valuable discussion about ch
 # Grammar lesson order:
 
 0. [**The Declarative Mood**, declaring data, *ggplot(data = gapminder)*](#data)
-1. [**The Interogative Mood**, map variables to aesthetics,  *aes(**color** = gdpPercap)*](#aes)
-  - [**Modifiers I**, changing aes scales, *scale\_color\_\*()*](#scales)
-  - [**Modifiers II**, changing aes and plot labels, *labs(color = "")*](#labs)
-  - [**Modifiers III**, changing the coordinate system, *coord\_\*()*](#coords)
+1. [**The Interogative Mood**, map variables to aesthetics, *aes(**color** = gdpPercap)*](#aes)
+  - [**Modifiers I**, changing aes scales, *scale\_color\_viridis_d()*](#scales)
+  - [**Modifiers II**, changing aes and plot labels, *labs(color = "continent")*](#labs)
+  - [**Modifiers III**, changing the coordinate system, *coord\_polar()*](#coords)
 1. [**Nouns**, geometric objects, *geom\_point()*](#geoms)
-1. [**The conditional mood** aesthetics tied to specific "geoms"](#local)
-  - local aesthetic mapping, geom(aes(color = continent))
-  - unmapped aesthetics (**The Imparative Mood**) geom(color = "blue")
-  - data tied to a specific geom, geom(data = gapminder)
-1. [**Exclamations and Interjections** annotation layers, annotate(geom = "*")](#annotation)
-1. [**Punctuation** breaking up plot into small plots  facet_*()](#facets)
-1. [**Greetings** changing the look and feel of plot area, theme_*()](#themes)
-1. [**The Written Language**: saving plots](#saving)
+1. [**The Conditional Mood** aesthetics tied to specific "geoms"](#local)
+  - data tied to a specific geom, *geom\_point(data = gapminder)*
+  - aesthetic representing variables *geom\_point(aes(color = continent))*
+  - aesthetics not representing variables (**The Imparative Mood**) *geom_point(color = "blue")*
+1. [**Exclamations and Interjections** annotation layers, *annotate(geom = "point", ...)*](#annotation)
+1. [**Punctuation** breaking up plot into small plots  *facet_wrap(~continent)*](#facets)
+1. [**Greetings** changing the look and feel of plot area, *theme_minimal()*](#themes)
+1. [**The Written Language**: saving plots *ggsave(file = "plot.png", g)*](#saving)
 
 ---
 
@@ -145,25 +147,22 @@ We won't go into detail about data manipulation much here, but more basic info a
 
 ---
 
+# Code to prep data
+
 ```{r prep_data, eval = T, echo = F}
 gapminder %>% # data from package
   filter(year == 2002) -> # filtering
 gapminder_2002 # saving subset object
+gapminder_2002 %>% 
+  filter(continent == "Europe") ->
+gapminder_2002_europe  
 gapminder %>% 
   select(country, continent) %>% 
   distinct() %>% 
   group_by(continent) %>% 
   summarise(country_count = n()) ->
 continent_aggregate
-gapminder %>% 
-  filter(continent == "Oceania") ->
-gapminder_oceania
-gapminder %>% 
-  filter(country == "New Zealand") ->
-gapminder_new_zealand
 ```
-
-`r apply_reveal("prep_data")`
 
 ---
 
@@ -186,19 +185,31 @@ ggplot(data = gapminder_2002) # That's all!
 
 # Pipe data into ggplot()
 
-An alternative to the above syntax is to "pipe" the data into the ggplot function, as shown below.  The pipe operator (part of the Tidyverse functions) pulls the object that preceeds it into the function that follows, as the first argument of that function.   Given the format of this book, we'll use the second option,  as it allows us to glimpse the raw data that we will use in plotting. 
+An alternative to the above syntax is to "pipe" the data into the ggplot function, as shown below.  The pipe operator (part of the Tidyverse functions) pulls the object that preceeds it into the function that follows, as the first argument of that function.   Given the format of this book, I'll sometimes use the second option, as it allows us to glimpse the raw data that we will use in plotting. 
 
-```{r, eval = F}
+---
+
+```{r declare_data_option_1, eval = F, echo = F}
 # Option 1 
 ggplot(data = gapminder_2002) # That's all!
 
-# Option 2
-gapminder_2002 %>% 
-  ggplot()
 ```
 
 
 
+`r apply_reveal("declare_data_option_1")`
+
+---
+
+```{r declare_data_option_2, eval = F, echo = F}
+# Option 2 
+gapminder_2002 %>% # data piped into 
+  ggplot() # ggplot function initiating plot
+```
+
+
+
+`r apply_reveal("declare_data_option_2")`
 
 ---
 
@@ -310,7 +321,8 @@ But, we don't really have any insight about our data yet.  Why?  Because aesthet
 ---
 
 ```{r, geom_for_aes, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
+gapminder_2002 %>% 
+  ggplot() +
   aes(x = gdpPercap) +  # x position 
   aes(y = lifeExp) +  # y position
   # points take on x and y position
@@ -346,7 +358,7 @@ ggplot(data = gapminder_2002) +
   aes(color = continent) +  # color
   aes(shape = continent) +  # shape
   aes(size = pop) +   # size
-  aes(alpha = pop)    # transparency +
+  aes(alpha = pop) +  # transparency 
   aes(color = lifeExp) # overwriting color's representation
 ```
 
@@ -374,13 +386,14 @@ Now, what is the fill and color aesthetic?
 ---
 
 ```{r aesthetics_area, eval = F, echo = F}
-ggplot(data = continent_aggregate) +
+continent_aggregate %>% 
+  ggplot() +
   aes(x = continent) +
   aes(y = country_count) +
   geom_col() +
   aes(color = continent) +
   aes(fill = continent) + # fill color for areas  
-  aes(alpha = continent) +
+  aes(alpha = -country_count) +
   aes(linetype = continent)
 ```
 
@@ -428,11 +441,9 @@ Modifiers adjust the default for:
 1. the aesthetic scales themselves (we have seen a "blues" by default for the color scale, but it could be greens, or yellows)
 
 --
-
 2. the scale *labels* (the scale labels are the variable names by default, but they could be something else)
 
 --
-
 3. the *coordinate system* (the default coordinate system is cartesian (x horizontal, y vertical), but it could be something else - like polar)
 
 
@@ -810,11 +821,35 @@ name: local
 
 # The conditional mood: geom specific data, aesthetic mapping, and unmapped aesthetics
 
+
 ---
 
-## Part i. geom specific aesthetic mapping
+## Part i.  Going *local* with data
 
-So far we have seen aesthetic mapping applied globally --- where aes() is an independent statement.  In this case aesthetic representation is applied to all geoms.  However, we can be specific about which geoms should take on the aesthetic representation, if we use aes() within the geom_*() statement.  This local aesthetic mapping declaration will overwrite  
+```{r local_data, eval = F, echo = F}
+ggplot(data = gapminder_2002) + # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +   
+  geom_point() + 
+  aes(xend = 0) +
+  aes(yend = 0) +
+  # geom specific data
+  geom_segment(data = gapminder_2002_europe)
+```
+
+
+
+---
+
+`r apply_reveal("local_data")`
+
+---
+
+---
+
+## Part ii. geom specific aesthetic representation
+
+So far we have seen aesthetic "mapping" (representation) applied globally --- where aes() is an independent statement.  In this case aesthetic representation is applied to all geoms.  However, we can be specific about which geoms should take on the aesthetic representation, if we use aes() within the geom_*() statement.  This local aesthetic mapping declaration will overwrite  
 
 An example is shown below.  Note that you can use mapped aesthetic (asks) and unmapped aesthetics (demands) in the geom_\*() call.   
 
@@ -828,11 +863,8 @@ ggplot(data = gapminder_2002) +
   geom_point() +
   aes(xend = 0) + # required aes for segment
   aes(yend = 0) + # required aes for segment
-  # geom specific aesthetics:
-  geom_segment(
-    # mapping does not apply to geom_point
-    mapping = aes(color = continent)
-    ) 
+  # geom specific aesthetics
+  geom_segment(aes(color = continent)) 
 ```
 
 `r apply_reveal("geom_specific_aes_mapping")`
@@ -843,60 +875,66 @@ ggplot(data = gapminder_2002) +
 
 ---
 
-## Part ii. Being a dictator -- unmapped aesthetics (Imparative mode)
+## Part iii. Being a dictator -- unmapped aesthetics (Imparative mode)
 
 *Mapped* aesthetics contrast with unmapped, across-the-board, aesthetics for a geometric object.  
 
 geom_point(color = "blue"), is an imperative -- not an ask.  A dictator move.  "Do this everywhere." It is good to show a plot with two of the same geom layer, one with mapped aesthetics and the other without.
 
+---
+
+
 ```{r unmapped_aes, eval = F, echo = F}
 ggplot(data = gapminder_2002) +
   aes(x = gdpPercap) +
   aes(y = lifeExp) +
-  geom_point() + # takes global aesthetics
-  aes(color = continent) + 
-  aes(shape = continent) +
-  aes(size = gdpPercap) +
-  aes(alpha = gdpPercap) +
+  geom_point() + 
+  # Another geometric layer with aesthetics 
+  # that don't do representation:
   geom_point(
     color = "plum4", # specified
-    size = 4, # aesthetics not in aes()are 
-    shape = "square", # across the board
-    alpha = .3  # for this geom
+    size = 8 
     )
 ```
 
----
+
+
+
+
 
 `r apply_reveal("unmapped_aes")`
 
 ---
 
-## Part iii.  Going *local* with data
+# Combinations of local and global data, aesthetics
 
-```{r local_data, eval = F, echo = F}
-ggplot(data = gapminder_2002) + # global data
-  aes(x = gdpPercap) +  # global aesthetics
-  aes(y = lifeExp) +    # global aesthetics
-  geom_point(color = "grey") + 
-  geom_line(
-    # defining new zealand data for line geom
-    data = gapminder_new_zealand,
-    # and unmapped aesthetics for a geom
-    # red across the board
-    color = "red",
-    # year mapped to size aesthetic
-    mapping = aes(size = year) 
-             )
+
+Now you know about *global* and *local* data, aesthetic representing variables, and overwriting defaults for aesthetics doing no variable representation.  Let's think about combining these.  
+
+---
+
+Look at the code that follows.  What are your expectations for the result?  Move forward in the presentation to check if your expectations match the actual result. 
+
+```{r all_conditional, eval = F, echo = T}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point(color = "green") + 
+  geom_point(
+    # local data
+    data = gapminder_2002_europe,
+    # local mapped aesthetics
+    aes(size = pop),
+    # local across-the-board aesthetics
+    color = "magenta", 
+    )
 ```
 
-
-
 ---
 
-`r apply_reveal("local_data")`
+`r apply_reveal("all_conditional")`
 
----
+
 
 name: annotate
 
@@ -1143,7 +1181,7 @@ Jennifer Bryan (2017). gapminder: Data from Gapminder. R package version 0.3.0.
 ---
 
 ```{r pie, eval = F, echo = F}
-  ggplot(data = gapminder_2002) +
+ggplot(data = gapminder_2002) +
   aes(x = 1, fill = continent) +
   geom_bar() +
   coord_polar(theta = "y") +
