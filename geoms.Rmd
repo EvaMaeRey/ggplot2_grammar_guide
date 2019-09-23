@@ -1,0 +1,175 @@
+---
+title: "geoms"
+author: "Evangeline Reynolds"
+date: "9/22/2019"
+output: html_document
+---
+
+name: geoms
+
+
+<!-- But beyond understanding the philosophy, practice (including when things fail, and figuring out why they fail) is really important. Why initiatives like #tidytuesday are so valuable. -->
+
+<!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! -->
+
+
+# Nouns:  The geom_*() pile on
+
+It is probably not good practice to include too many geoms in any one plot that you present.  But it might be instructive to go ahead do so here, to see how they relate, and represent the same underlying data.  
+
+We can set opacity (alpha) to a high level to avoid completely blocking out previous geometric layers; this move previews the *unmapped aesthetics* topic - coming up. 
+
+In the first example many "variables" are "computed on the fly", like the 0 represented by xend and yend and the mean of life exectency and per capita GDP. A point for discussion.  
+
+---
+
+
+
+## Bivariate continuous
+
+
+---
+
+```{r geom_2_continuous, eval = F, echo = F}
+ggplot(gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = pop) +
+  geom_point() +
+  geom_tile(width = 100) +
+  aes(xend = 0) +
+  aes(yend = 0) +
+  geom_segment(alpha = .2) +
+  geom_curve() +
+  aes(xmin = 0) +
+  aes(xmax = gdpPercap) +
+  aes(ymin = 0) + 
+  aes(ymax = pop) +
+  geom_rect(alpha = .2) +
+  geom_line() +
+  aes(label = country) +
+  geom_text() +
+  geom_label()
+```
+
+`r apply_reveal("geom_2_continuous")`
+
+---
+
+## Questions
+
+- How is geom_tile() different from geom_point()? Look at the help.
+
+- What aesthetics are required for geom_rect?
+
+- How many geometric layers are in the final plot?
+
+- Does order of the geom_*() statements matter to the end result?  How?
+
+
+
+
+
+
+
+
+---
+
+## Two continuous variables
+
+There are a lot of geometric objects that can be used to represent *two continuous variables*.  To explore a few more we can start a new plot.
+
+
+[Or I'm on the overview track, take me to the next session](#local)
+
+---
+
+## Two continuous, continued
+
+---
+
+```{r geom_2_continuous_2, eval = F, echo = F}
+ggplot(gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  geom_area(alpha = .4) +
+  geom_density2d() +
+  geom_smooth() + # LOESS smoothing
+  geom_smooth(method = lm) # OLS fit
+```
+
+`r apply_reveal("geom_2_continuous_2")`
+
+
+---
+
+## Questions
+
+geom_area() is a special case of what other geom_*()?  Use the help to answer this question. 
+
+---
+
+Geoms is a long section consider because there are many geoms. Consider taking the [overview track](#local).
+
+---
+
+
+name: dvsc
+
+## Discrete v. Continuous
+
+---
+
+```{r geom_discrete_continuous, eval = F, echo = F}
+ggplot(gapminder_2002) +
+  aes(x = continent) +
+  aes(y = lifeExp) +
+  geom_point() +
+  geom_boxplot(alpha = .1) +
+  geom_jitter(width = .2, color = "blue") +
+  geom_violin(alpha = .1)
+```
+
+
+`r apply_reveal("geom_discrete_continuous")`
+
+---
+
+name: c
+
+## Continuous Univariate
+
+---
+
+```{r, univariate_continuous, eval = F, echo = F}
+ggplot(gapminder_2002) +
+  aes(x = lifeExp) +
+  geom_rug() +
+  geom_histogram() +
+  geom_dotplot() +
+  geom_freqpoly()
+```
+
+`r apply_reveal("univariate_continuous")`
+
+---
+
+## Discrete v. Discrete
+
+```{r discrete2x, eval = F, echo = F}
+gapminder_2002 %>% 
+  mutate(seventy_plus = lifeExp > 70) %>% 
+ggplot() +
+  aes(x = continent) +
+  aes(y = seventy_plus) +
+  geom_count() +
+  geom_jitter()
+```
+
+---
+
+
+
+`r apply_reveal("discrete2x")`
+
+---
