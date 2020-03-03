@@ -1,0 +1,74 @@
+---
+title: "quick overview of ggplot grammar guide"
+subtitle: "presented in the slow ggplot dialect"
+author: "Gina Reynolds"
+date: "2019/03/05"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["kunoichi", "ninjutsu"]
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+---
+
+```{r}
+library(flipbookr)
+library(tidyverse)
+library(gapminder)
+gapminder %>% 
+  filter(year == 2002) -> 
+  gapminder_2002
+gapminder_2002 %>% 
+  filter(continent == "Europe") -> 
+  gapminder_2002_europe
+```
+
+---
+
+```{r guide, eval = T, echo = F}
+# Declarative mood - declare data
+ggplot(data = gapminder_2002) +
+# Interogative mood - ask for representation
+  aes(x = gdpPercap) +    # x position
+# Noun - declare geometric object
+  geom_rug() +  # above aes are required for point
+# Modifiers I - changing default aesthetic scales
+  scale_x_log10() +
+# Modifiers II - changing default labels
+  labs(x = "Life Expectency - years") + 
+# Modifiers IIb Note that labs is also used to adjust plot labels
+  labs(title = "Life Expectency in 2002") + 
+# Modifiers III - changing default coordinate system cartesian
+  coord_flip() + # flip x and y coordinates
+# Conditional Mood - for specific geoms, locally defining:
+# 1. data 2. aesthetic representation, 3. unmapped aesthetics the Imparative mood
+  geom_rug(
+    data = gapminder_2002_europe,  # local data
+    aes(color = lifeExp),  # local mapped aesthetics
+    size = .5 # local across-the-board aesthetics
+  ) +
+# Interjections - annotation - geometric objects not tied to data
+  annotate(geom = "rug", # define geometric shape
+           x = 10000, # define required aesthetic for geom
+           color = "red" # define optional aesthetic
+           ) +
+# Idioms - grammatically incorrect annotation geoms 
+  geom_vline(xintercept = c(70, 80), linetype = "dotted") +  
+# Punctuation - small multiples with facet statements
+  facet_wrap(~ continent, ncol = 2) + # small multiples by one variable  
+# Greetings - what meets the eye - changing default plot look and feel
+  theme_minimal() ->
+  g; g
+# Written Language
+ggsave(filename = "my_plot.png", plot = g)
+```
+
+---
+
+`r flipbookr::apply_reveal("guide")`
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 50%}
+```
+

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>A ggplot2 grammar guide</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds, July 2019" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# A ggplot2 grammar guide
+### Gina Reynolds, July 2019
+
+---
+
+
+
+
+
+
+
+
+
+
+
+---
+
+#  Don't sweat the small stuff
+
+Instead of calling this "a ggplot grammar of graphics guide" I might have called it a "grammar primer".  
+
+There is a lot to learn when it comes to ggplot, and there are topics that have not yet been covered in this guide.  But I do hope that it might have helped you see some of its underlying logic, and might help you in gaining greater fluency with this powerful package.   
+
+
+---
+
+# More resources from the author
+
+- [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html#1) contains many examples of plots created with ggplot2  in the same "flipbook" style
+
+- [The Tidyverse in Action](https://evamaerey.github.io/tidyverse_in_action/tidyverse_in_action.html)
+
+- [Little Flipbooks Library](https://github.com/EvaMaeRey/little_flipbooks_library) contains links to many more data wrangling and visualization walk-throughs
+
+Source code for these resources are available at https://github.com/EvaMaeRey.
+
+
+
+
+---
+
+# Afterward
+
+---
+
+# Our code doesn't look like other examples I've seen
+
+This book uses a "slow ggplot" style, which is a bit verbose and is not all that typical. More often, you will see global aesthetics tucked together in the ggplot statement. Also, labs statements will typically be nested together. Finally, you might not see every parameter spelled out, rather position in the function is used to indicate the parameters being set. 
+
+
+
+```r
+ggplot(gapminder_2002, aes(gdpPercap, lifeExp)) + 
+  geom_point() +
+  labs(x = "GDP per Cap",
+       y = "Life Expectancy",
+       title = "My Title")
+```
+
+---
+
+# Our code doesn't look like other examples I've seen
+
+Multiple x scales and y scales...
+
+
+---
+
+# Take me to the geoms pile on!
+
+Earlier, I dismissed the importance of geometric objects to understanding the grammar of graphics rather quickly.  But finding exactly the right word (nouns included) is actually the spice of language isn't it?  Moreover, choice of geometric objects also leads to a lot of contentious debate in the data visualization community, so you'll probably want to try everything out and develope your own opinions so you can jump into the debate.  
+
+What is also not developed here, and which I feel like I really should come back to is geometric objects that aggregate data in an inbetween step before mapping.  But. I'm. Feeling. Done. So there won't be a discussion for now. I'm sorry!!!
+
+---
+
+# Other great resources for getting up and running with ggplot2
+
+There are many great resources about ggplot2 which I've found invaluable.  As noted above, the prefered syntax in these guides is bit different than what this guide. 
+
+- [the ggplot2 website](https://ggplot2.tidyverse.org/reference/) and [ggplot2:
+Elegant Graphics for Data Analysis](https://www.springer.com/gp/book/9780387981413) are definitive guides
+- [RStudio's ggplot cheat sheet](https://www.rstudio.com/resources/cheatsheets/) on ggplot2 which is a great quick reference
+- [R for Data Science](https://r4ds.had.co.nz/index.html) is also an excellent resource
+
+Presentations
+
+- [Will Chase's 'R you ready to  make charts'](https://www.williamrchase.com/slides/ggplot_intro.html#1)
+- [Garrick Aden-Buie's 'A Gentle Guide to the Grammar of Graphics
+with ggplot2'](https://pkg.garrickadenbuie.com/gentle-ggplot2/#1)
+- [Alison Hill's 'Take A Sad Plot &amp; Make It Better'](https://alison.netlify.com/rlm-sad-plot-better/#1)
+
+
+---
+
+# I noticed that we've made some ugly charts
+
+This book is not aimed at advising on chart design principles.  Because of the freedom ggplot2 affords, it is of course possible to make a lot of ugly, confusing, or misleading charts!
+
+For discussion of best practices in creating informative and attractive charts you might consult these classics including:
+
+- [The Visual Display of Quantitative Information, Eduard Tufte](https://www.amazon.de/Visual-Display-Quantitative-Information/dp/1930824130)
+- [Data Visualization: A Practical Introduction, Kieran Healy](http://socviz.co)
+- [Fundamentals of Data Visualization, Claus Wilke](https://serialmentor.com/dataviz/)
+- [Storytelling with Data: A Data Visualization Guide for Business Professionals, Cole Nussbaumer-Knaflic](https://www.amazon.de/Visual-Display-Quantitative-Information/dp/1930824130)
+
+---
+
+# Key packages used to create this book
+
+H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
+
+Yihui Xie (2019). xaringan: Presentation Ninja. R package version 0.11.
+  https://CRAN.R-project.org/package=xaringan
+
+Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2019). dplyr: A Grammar
+  of Data Manipulation. R package version 0.8.3. https://CRAN.R-project.org/package=dplyr
+
+Jennifer Bryan (2017). gapminder: Data from Gapminder. R package version 0.3.0.
+  https://CRAN.R-project.org/package=gapminder
+
+
+---
+
+
+## What is a pie chart?
+
+---
+
+
+
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*continent_aggregate
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 5 x 2
+    continent country_count
+    &lt;fct&gt;             &lt;int&gt;
+  1 Africa               52
+  2 Americas             25
+  3 Asia                 33
+  4 Europe               30
+  5 Oceania               2
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+*ggplot()
+```
+]]
+.column[.content[
+&lt;img src="wrap_up_files/figure-html/pie_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+ggplot() +  
+* aes(x = 1)
+```
+]]
+.column[.content[
+&lt;img src="wrap_up_files/figure-html/pie_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+ggplot() +  
+  aes(x = 1) +  
+* aes(y = country_count)
+```
+]]
+.column[.content[
+&lt;img src="wrap_up_files/figure-html/pie_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+ggplot() +  
+  aes(x = 1) +  
+  aes(y = country_count) +  
+* aes(fill = continent)
+```
+]]
+.column[.content[
+&lt;img src="wrap_up_files/figure-html/pie_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+ggplot() +  
+  aes(x = 1) +  
+  aes(y = country_count) +  
+  aes(fill = continent) +  
+* geom_col()
+```
+]]
+.column[.content[
+&lt;img src="wrap_up_files/figure-html/pie_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+ggplot() +  
+  aes(x = 1) +  
+  aes(y = country_count) +  
+  aes(fill = continent) +  
+  geom_col() +  
+* coord_polar(theta = "y")
+```
+]]
+.column[.content[
+&lt;img src="wrap_up_files/figure-html/pie_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+ggplot() +  
+  aes(x = 1) +  
+  aes(y = country_count) +  
+  aes(fill = continent) +  
+  geom_col() +  
+  coord_polar(theta = "y") +  
+* theme_void()
+```
+]]
+.column[.content[
+&lt;img src="wrap_up_files/figure-html/pie_auto_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+ggplot() +  
+  aes(x = 1) +  
+  aes(y = country_count) +  
+  aes(fill = continent) +  
+  geom_col() +  
+  coord_polar(theta = "y") +  
+  theme_void() +  
+* labs(fill = "")
+```
+]]
+.column[.content[
+&lt;img src="wrap_up_files/figure-html/pie_auto_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+ggplot() +  
+  aes(x = 1) +  
+  aes(y = country_count) +  
+  aes(fill = continent) +  
+  geom_col() +  
+  coord_polar(theta = "y") +  
+  theme_void() +  
+  labs(fill = "") +  
+* scale_fill_viridis_d(option =
+*                        "cividis")
+```
+]]
+.column[.content[
+&lt;img src="wrap_up_files/figure-html/pie_auto_10_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 70%}
+&lt;/style&gt;
+
+
+&lt;!-- ```{r, dpi=400, eval = F} --&gt;
+&lt;!-- gapminder %&gt;%  --&gt;
+&lt;!--   select(continent) %&gt;%  --&gt;
+&lt;!--   ggplot() + --&gt;
+&lt;!--   aes(x = 1) + --&gt;
+&lt;!--   aes(fill = continent) + --&gt;
+&lt;!--   geom_bar(color = "white", size = .2) + --&gt;
+&lt;!--   coord_polar(theta = "y") + --&gt;
+&lt;!--   theme_void() + --&gt;
+&lt;!--   scale_fill_viridis_d() + --&gt;
+&lt;!--   theme(rect = element_rect(fill = "grey",  --&gt;
+&lt;!--                             color = "grey",  --&gt;
+&lt;!--                             linetype = "solid", --&gt;
+&lt;!--                             size = 0)) --&gt;
+
+&lt;!-- ggsave("pie.svg", dpi = 320,device = "svg") --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- Or at least an organized twitter thread!?  Another idea for you: pull aes() out of ggplot(). Do you do it? Lot's of reasons to do it! Downside is currently most examples make use of nested approach. @grrrck does this too, and esquisse --&gt;
+
+&lt;!-- ggplot(data = my_data) +  --&gt;
+&lt;!--    aes(x = my_var) --&gt;
+
+&lt;!-- Is it possible to do this with multiple geoms? I usually specify aes within the geom like  --&gt;
+
+&lt;!-- ggplot(data) + --&gt;
+&lt;!--   geom_point(aes(x, y)) + --&gt;
+&lt;!--   geom_line(aes(x, y, group = id))  --&gt;
+
+&lt;!-- I prefer this approach because it's explicit which aesthetics are bound to which geoms --&gt;
+
+&lt;!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! --&gt;
+
+
+&lt;!-- To change the data used for a plot, use the %+% operator! Oh!!!  --&gt;
+
+
+&lt;!-- # Stat_* --&gt;
+
+&lt;!-- ## Univariate discrete --&gt;
+
+
+
+&lt;!-- ```{r univariate_discrete, eval = F, echo = F} --&gt;
+&lt;!-- ggplot(gapminder_2002) + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   stat_count() + --&gt;
+&lt;!--   geom_bar() # convenience geom --&gt;
+&lt;!--             # default counting --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- r apply_reveal("univariate_discrete")` --&gt;
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- ggplot(data = gapminder_2002) + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   aes(y = lifeExp) + --&gt;
+&lt;!--   geom_point(alpha = .1) + --&gt;
+&lt;!--   stat_summary( --&gt;
+&lt;!--     fun.ymin = min, --&gt;
+&lt;!--     fun.ymax = max, --&gt;
+&lt;!--     fun.y = median --&gt;
+&lt;!--   ) --&gt;
+&lt;!-- ``` --&gt;
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- gapminder_2002 %&gt;%  --&gt;
+&lt;!--   mutate(seventy_plus = lifeExp &gt; 60) %&gt;%  --&gt;
+&lt;!-- ggplot() + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   aes(fill = seventy_plus) + --&gt;
+&lt;!--   geom_bar(alpha = .2) --&gt;
+&lt;!-- ``` --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

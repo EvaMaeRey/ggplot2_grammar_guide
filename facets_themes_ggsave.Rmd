@@ -1,0 +1,202 @@
+---
+title: "Facets, quick themes, ggsave"
+author: "Gina Reynolds, July 2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "ninjutsu"]
+    nature:
+      highlightLines: yes
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
+library(flipbookr)
+```
+
+
+```{r, include=FALSE}
+library(tidyverse)
+load("data_products/manipulations.Rdata")
+```
+
+
+---
+
+name: facets
+
+# Punctuation: Small multiples
+
+Punctuation helps us break up language into digestible pieces. Breaking up visualization can also be helpful.  
+
+Creating *small multiples* also known as *faceting* is a powerful way to make data more digestible.   In ggplot, small plots based on a categorical variable can be visualized side by side.  
+
+
+```{r facets, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap / 1000) +
+  aes(y = lifeExp) +
+  geom_point() +
+  facet_wrap(~ continent, ncol = 2) +
+  aes(color = continent) +
+  facet_null() + # overrides facet_wrap
+  facet_grid(
+    pop > 10000000 ~ continent
+    ) # overrides facet_null
+```
+
+---
+
+`r chunk_reveal("facets")`
+
+
+---
+
+
+
+---
+
+name: themes
+
+# Greetings: Themes
+
+It may seem just cosmetic, but themes can have a big impact on the look and feel of you final plot.  The thematic elements are what first meet the eye.  For more information on fine adjustment of thematic elements, have a look at the [taming ggplot themes flipbook](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1).  For now, check out how to change the look and feel of your graph with some preset themes.  
+
+```{r themes, eval = F, echo= F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  aes(color = continent) +
+  theme_bw() +
+  theme_light(base_size = 5, 
+              base_family = "Times") + 
+  theme_classic(base_size = 15,
+                base_family = "Rockwell") +
+  theme_dark() +
+  theme_minimal() +
+  ggdark::dark_theme_dark() +
+  ggthemes::theme_excel()
+```
+
+---
+
+`r chunk_reveal("themes")`
+
+
+---
+
+name: saving
+
+# The written language: Save plots as objects and to disk
+
+Now you should know how to build a ggplot.  How can you save that plot?  
+
+First, you can save the entire plot as an object using the assignment operatore `<-`.  Below we call the plot `g`.  Then use the function ggsave() to save out your plot.  
+
+```{r}
+g <- ggplot(gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() 
+
+ggsave(filename = "my_plot.png", 
+       plot = g)
+```
+
+
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 70%}
+```
+
+
+<!-- ```{r, dpi=400, eval = F} -->
+<!-- gapminder %>%  -->
+<!--   select(continent) %>%  -->
+<!--   ggplot() + -->
+<!--   aes(x = 1) + -->
+<!--   aes(fill = continent) + -->
+<!--   geom_bar(color = "white", size = .2) + -->
+<!--   coord_polar(theta = "y") + -->
+<!--   theme_void() + -->
+<!--   scale_fill_viridis_d() + -->
+<!--   theme(rect = element_rect(fill = "grey",  -->
+<!--                             color = "grey",  -->
+<!--                             linetype = "solid", -->
+<!--                             size = 0)) -->
+
+<!-- ggsave("pie.svg", dpi = 320,device = "svg") -->
+<!-- ``` -->
+
+<!-- --- -->
+
+<!-- Or at least an organized twitter thread!?  Another idea for you: pull aes() out of ggplot(). Do you do it? Lot's of reasons to do it! Downside is currently most examples make use of nested approach. @grrrck does this too, and esquisse -->
+
+<!-- ggplot(data = my_data) +  -->
+<!--    aes(x = my_var) -->
+
+<!-- Is it possible to do this with multiple geoms? I usually specify aes within the geom like  -->
+
+<!-- ggplot(data) + -->
+<!--   geom_point(aes(x, y)) + -->
+<!--   geom_line(aes(x, y, group = id))  -->
+
+<!-- I prefer this approach because it's explicit which aesthetics are bound to which geoms -->
+
+<!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! -->
+
+
+<!-- To change the data used for a plot, use the %+% operator! Oh!!!  -->
+
+
+<!-- # Stat_* -->
+
+<!-- ## Univariate discrete -->
+
+
+
+<!-- ```{r univariate_discrete, eval = F, echo = F} -->
+<!-- ggplot(gapminder_2002) + -->
+<!--   aes(x = continent) + -->
+<!--   stat_count() + -->
+<!--   geom_bar() # convenience geom -->
+<!--             # default counting -->
+<!-- ``` -->
+
+<!-- --- -->
+
+<!-- r chunk_reveal("univariate_discrete")` -->
+
+
+<!-- --- -->
+
+<!-- ```{r} -->
+<!-- ggplot(data = gapminder_2002) + -->
+<!--   aes(x = continent) + -->
+<!--   aes(y = lifeExp) + -->
+<!--   geom_point(alpha = .1) + -->
+<!--   stat_summary( -->
+<!--     fun.ymin = min, -->
+<!--     fun.ymax = max, -->
+<!--     fun.y = median -->
+<!--   ) -->
+<!-- ``` -->
+
+
+
+<!-- --- -->
+
+<!-- ```{r} -->
+<!-- gapminder_2002 %>%  -->
+<!--   mutate(seventy_plus = lifeExp > 60) %>%  -->
+<!-- ggplot() + -->
+<!--   aes(x = continent) + -->
+<!--   aes(fill = seventy_plus) + -->
+<!--   geom_bar(alpha = .2) -->
+<!-- ``` -->
+

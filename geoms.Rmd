@@ -1,11 +1,84 @@
 ---
-title: "geoms"
-author: "Evangeline Reynolds"
-date: "9/22/2019"
-output: html_document
+title: "geom pile on"
+author: "Gina Reynolds, July 2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "ninjutsu"]
+    nature:
+      highlightLines: yes
+      ratio: '16:9'
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
+library(flipbookr)
+```
+
+
+```{r}
+library(tidyverse)
+library(gapminder)
+```
+
+```{r prep_data, eval = T, echo = F}
+gapminder %>% # data from package
+  filter(year == 2002) -> # filtering
+gapminder_2002 # saving subset object
+gapminder_2002 %>% 
+  filter(continent == "Europe") ->
+gapminder_2002_europe  
+gapminder %>% 
+  filter(continent == "Europe") ->
+gapminder_europe
+gapminder %>% 
+  select(country, continent) %>% 
+  distinct() %>% 
+  group_by(continent) %>% 
+  summarise(country_count = n()) ->
+continent_aggregate
+```
+
 name: geoms
+
+
+# A final aesthetic mapping: group
+
+Using geom_line(), you can use many of the same aesthetics as before as well as one special aesthetic: `group`.
+
+Group is like a declaration that instead of plotting the entire data set all together, instead you will plot many small data sets, each defined by the categorical variable "mapped" to `group`.  
+
+Let's see how this works with the following example. 
+
+---
+
+```{r aes_group, eval = F, echo = F}
+gapminder_europe %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = lifeExp) +
+  geom_line() +
+  aes(group = country) +
+  # turning group back off
+  aes(group = NULL) + 
+  # mapping discrete data to color
+  # or linetype has similar effects
+  aes(color = country) +
+  geom_point()
+```
+
+`r apply_reveal("aes_group")`
+
+---
+
+The geometric object `line` connects all points as it moves along the x axis.  If a group is not defined, the geom_line is hard to interpret, as seen before group is added.  
+
+We also see that mapping discrete data to the color or linetype aesthetics has a similar effect to declaring that there are groups in the data. 
+
+Another thing we observe in the last addition to the last plot is adding an additional geometric layer.  The point layer, because it follows the line layer, appears on top of the line layer.  
+
+
 
 
 <!-- But beyond understanding the philosophy, practice (including when things fail, and figuring out why they fail) is really important. Why initiatives like #tidytuesday are so valuable. -->
@@ -33,25 +106,29 @@ In the first example many "variables" are "computed on the fly", like the 0 repr
 ```{r geom_2_continuous, eval = F, echo = F}
 ggplot(gapminder_2002) +
   aes(x = gdpPercap) +
-  aes(y = pop) +
+  aes(y = pop / 1000000) +
   geom_point() +
-  geom_tile(width = 100) +
+  geom_tile(width = 2500,
+            height = 100,
+            fill = "green",
+            alpha = .25) +
   aes(xend = 0) +
   aes(yend = 0) +
   geom_segment(alpha = .2) +
-  geom_curve() +
+  geom_curve(linetype = "dotted") +
   aes(xmin = 0) +
   aes(xmax = gdpPercap) +
   aes(ymin = 0) + 
-  aes(ymax = pop) +
-  geom_rect(alpha = .2) +
-  geom_line() +
+  aes(ymax = pop / 1000000) +
+  geom_rect(alpha = .3,
+            fill = "magenta") +
+  geom_line(linetype = "dashed") +
   aes(label = country) +
   geom_text() +
-  geom_label()
+  geom_label() 
 ```
 
-`r apply_reveal("geom_2_continuous")`
+`r chunk_reveal("geom_2_continuous")`
 
 ---
 
@@ -64,10 +141,6 @@ ggplot(gapminder_2002) +
 - How many geometric layers are in the final plot?
 
 - Does order of the geom_*() statements matter to the end result?  How?
-
-
-
-
 
 
 
@@ -88,17 +161,25 @@ There are a lot of geometric objects that can be used to represent *two continuo
 ---
 
 ```{r geom_2_continuous_2, eval = F, echo = F}
-ggplot(gapminder_2002) +
+ggplot(data = gapminder_2002 ) +
   aes(x = gdpPercap) +
   aes(y = lifeExp) +
-  geom_point() +
-  geom_area(alpha = .4) +
+  geom_rug(color = "plum4") +
+  geom_point(col = "goldenrod2") +
+  stat_density_2d(aes(fill = ..density..), 
+                  geom = "raster", 
+                  contour = FALSE,
+                  alpha = .5) +
+  geom_area(alpha = .4, 
+            fill = "plum1",
+            color = "plum1") +
   geom_density2d() +
   geom_smooth() + # LOESS smoothing
-  geom_smooth(method = lm) # OLS fit
+  geom_smooth(method = lm) + # OLS fit 
+  facet_wrap(~continent)
 ```
 
-`r apply_reveal("geom_2_continuous_2")`
+`r chunk_reveal("geom_2_continuous_2")`
 
 
 ---
@@ -121,17 +202,30 @@ name: dvsc
 ---
 
 ```{r geom_discrete_continuous, eval = F, echo = F}
-ggplot(gapminder_2002) +
+ggplot(gapminder) +
   aes(x = continent) +
   aes(y = lifeExp) +
-  geom_point() +
+  geom_point(size = .2) +
   geom_boxplot(alpha = .1) +
-  geom_jitter(width = .2, color = "blue") +
-  geom_violin(alpha = .1)
+  geom_jitter(width = .2, 
+              alpha = .5,
+              color = "green") +
+  geom_violin(alpha = .1) +
+  ggforce::geom_sina(col = "magenta",
+                     alpha = .5) +
+  stat_summary(fun.y = mean,
+               geom = "point",
+               col = "goldenrod2",
+               size = 8) +
+  aes(x = "All Data") +
+  coord_flip()
 ```
 
 
-`r apply_reveal("geom_discrete_continuous")`
+
+
+
+`r chunk_reveal("geom_discrete_continuous")`
 
 ---
 
@@ -144,32 +238,129 @@ name: c
 ```{r, univariate_continuous, eval = F, echo = F}
 ggplot(gapminder_2002) +
   aes(x = lifeExp) +
-  geom_rug() +
-  geom_histogram() +
-  geom_dotplot() +
-  geom_freqpoly()
+  theme_minimal() +
+  geom_rug(col = "green",
+           alpha = .4) +
+  geom_histogram(alpha = .5,
+                 fill = "red") +
+  geom_dotplot(fill = "blue",
+               alpha = .5) +
+  geom_freqpoly(linetype = "dashed") +
+  facet_grid(continent ~ .) 
 ```
 
-`r apply_reveal("univariate_continuous")`
+`r chunk_reveal("univariate_continuous")`
+
+---
+
+```{r univariate_density, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = lifeExp) +
+  geom_rug(col = "green",
+           alpha = .6) +
+  geom_histogram(col = "black", 
+                 fill = "pink",
+                 alpha = .4,
+                 aes(y = ..density..)) +
+  geom_density(linetype = "dotted",
+               adjust = 1/4) +
+  geom_density(linetype = "dashed",
+               adjust = 1/2)
+```
+
+`r chunk_reveal("univariate_density")`
+
 
 ---
 
 ## Discrete v. Discrete
 
+---
+
 ```{r discrete2x, eval = F, echo = F}
 gapminder_2002 %>% 
-  mutate(seventy_plus = lifeExp > 70) %>% 
-ggplot() +
+  mutate(seventy_plus = lifeExp >= 75) %>% 
+  mutate(age_category = 
+           case_when(seventy_plus == T ~ 
+                       "Seventy +",
+                     seventy_plus == F ~ 
+                       "< Seventy")) %>% 
+  ggplot() +
   aes(x = continent) +
   aes(y = seventy_plus) +
-  geom_count() +
-  geom_jitter()
+  geom_count(col = "magenta",
+             alpha = .6) +
+  labs(size = "Number of \ncountries") +
+  geom_jitter(col = "blue",
+              alpha = .3,
+              width = .25,
+              height = .25) +
+  labs(y = NULL) +
+  labs(x = NULL) +
+  labs(title = "") +
+  theme_minimal() 
 ```
 
----
-
-
-
-`r apply_reveal("discrete2x")`
+`r chunk_reveal("discrete2x")`
 
 ---
+
+
+```{r discrete2x2, eval = F, echo = F}
+gapminder_2002 %>% 
+  mutate(seventyfive_plus = lifeExp >= 75) %>% 
+  mutate(age_category = 
+           case_when(seventyfive_plus == T ~ 
+                       "75+",
+                     seventyfive_plus == F ~ 
+                       "<75")) %>% 
+  ggplot() +
+  aes(x = age_category) +
+  aes(fill = continent) +
+  geom_bar(alpha = .4) +
+  geom_bar(position = 
+             position_dodge(preserve = 
+                              'single')) 
+```
+
+```{r, include=FALSE}
+# gapminder_2002 %>% 
+#   mutate(seventy_plus = lifeExp >= 75) %>% 
+#   mutate(age_category = case_when(seventy_plus == T ~ "Seventy +",
+#                                   seventy_plus == F ~ "< Seventy")) %>% 
+#   ggplot() +
+#   aes(x = age_category) +
+#   aes(group = continent) +
+#     geom_bar(aes(y = ..prop.., fill = factor(..x..)), stat="count") +
+#     geom_text(aes( label = scales::percent(..prop..),
+#                    y = ..prop.. ), stat = "count", vjust = -.5) +
+#     labs(y = "Percent", fill = "day") +
+#     scale_y_continuous(labels = scales::percent) +
+#     geom_text(aes(label = scales::percent(..prop..),
+#                    y= ..prop.. ), stat = "count", vjust = -.5) 
+```
+
+
+`r chunk_reveal("discrete2x2")`
+
+---
+
+```{r, eval = F, echo = F}
+require(stats)
+mosaicplot(Titanic, main = "Survival on the Titanic", color = TRUE)
+
+data(Titanic)
+titanic <- as.data.frame(Titanic)
+titanic$Survived <- factor(titanic$Survived, levels=c("Yes", "No"))
+
+library(ggmosaic)
+ggplot(data = titanic) +
+  ggmosaic::geom_mosaic(aes(weight = Freq, x = product(Class), y = Sex, fill = Survived))
+
+```
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 70%}
+```
+

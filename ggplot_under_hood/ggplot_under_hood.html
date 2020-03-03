@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>ggplot under hood</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds" />
+    <link href="libs/remark-css-0.0.1/kunoichi.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# ggplot under hood
+### Gina Reynolds
+### 6/29/2019
+
+---
+
+
+
+```r
+source("https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/master/xaringan_reveal_parentheses_balanced.R")
+```
+
+
+
+
+
+
+
+
+```r
+library(tidyverse)
+library(gapminder)
+```
+
+---
+
+# Define paramters
+
+
+```r
+gapminder %&gt;%             # the data  #REVEAL
+  filter(year == 2007) %&gt;%  # subset 
+  ggplot() +              # pipe to ggplot 
+  aes(x = gdpPercap) + # what x position represents
+  aes(y = lifeExp) +  # what y position represents
+  geom_point() + # geometric layer!
+  aes(color = continent) -&gt; # what color represents
+my_plot
+```
+
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*gapminder  # the data
+```
+]]
+.column[.content[
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;% # the data  
+* filter(year == 2007)  # subset
+```
+]]
+.column[.content[
+
+```
+# A tibble: 142 x 6
+   country     continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       2007    43.8  31889923      975.
+ 2 Albania     Europe     2007    76.4   3600523     5937.
+ 3 Algeria     Africa     2007    72.3  33333216     6223.
+ 4 Angola      Africa     2007    42.7  12420476     4797.
+ 5 Argentina   Americas   2007    75.3  40301927    12779.
+ 6 Australia   Oceania    2007    81.2  20434176    34435.
+ 7 Austria     Europe     2007    79.8   8199783    36126.
+ 8 Bahrain     Asia       2007    75.6    708573    29796.
+ 9 Bangladesh  Asia       2007    64.1 150448339     1391.
+10 Belgium     Europe     2007    79.4  10392226    33693.
+# … with 132 more rows
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;% # the data  
+  filter(year == 2007) %&gt;% # subset
+* ggplot()  # pipe to ggplot
+```
+]]
+.column[.content[
+![](ggplot_under_hood_files/figure-html/output_build_plot_3-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;% # the data  
+  filter(year == 2007) %&gt;% # subset
+  ggplot() + # pipe to ggplot
+* aes(x = gdpPercap)  # what x position represents
+```
+]]
+.column[.content[
+![](ggplot_under_hood_files/figure-html/output_build_plot_4-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;% # the data  
+  filter(year == 2007) %&gt;% # subset
+  ggplot() + # pipe to ggplot
+  aes(x = gdpPercap) + # what x position represents
+* aes(y = lifeExp)  # what y position represents
+```
+]]
+.column[.content[
+![](ggplot_under_hood_files/figure-html/output_build_plot_5-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;% # the data  
+  filter(year == 2007) %&gt;% # subset
+  ggplot() + # pipe to ggplot
+  aes(x = gdpPercap) + # what x position represents
+  aes(y = lifeExp) + # what y position represents
+* geom_point()  # geometric layer!
+```
+]]
+.column[.content[
+![](ggplot_under_hood_files/figure-html/output_build_plot_6-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;% # the data  
+  filter(year == 2007) %&gt;% # subset
+  ggplot() + # pipe to ggplot
+  aes(x = gdpPercap) + # what x position represents
+  aes(y = lifeExp) + # what y position represents
+  geom_point() + # geometric layer!
+* aes(color = continent)  # what color represents
+```
+]]
+.column[.content[
+![](ggplot_under_hood_files/figure-html/output_build_plot_7-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;% # the data  
+  filter(year == 2007) %&gt;% # subset
+  ggplot() + # pipe to ggplot
+  aes(x = gdpPercap) + # what x position represents
+  aes(y = lifeExp) + # what y position represents
+  geom_point() + # geometric layer!
+  aes(color = continent) -&gt; # what color represents
+*my_plot
+```
+]]
+.column[.content[
+
+]]
+
+---
+
+# ggplot info
+
+
+
+```r
+my_plot %&gt;% 
+  ggplot_build() %&gt;% 
+  ggplot_gtable() -&gt;
+  gTable
+gTable$grobs[[5]]
+```
+
+```
+zeroGrob[NULL] 
+```
+
+```r
+grid::grid.draw(gTable$grobs[[5]])
+grid::grid.text(5, x = unit(0.1, "npc"), y = unit(0.1, "npc"))
+```
+
+![](ggplot_under_hood_files/figure-html/under_hood-1.png)&lt;!-- --&gt;
+
+
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*my_plot
+```
+]]
+.column[.content[
+![](ggplot_under_hood_files/figure-html/output_under_hood_1-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+my_plot %&gt;% 
+* ggplot_build()
+```
+]]
+.column[.content[
+
+```
+$data
+$data[[1]]
+     colour      y          x PANEL group shape size fill alpha stroke
+1   #00BF7D 43.828   974.5803     1     3    19  1.5   NA    NA    0.5
+2   #00B0F6 76.423  5937.0295     1     4    19  1.5   NA    NA    0.5
+3   #F8766D 72.301  6223.3675     1     1    19  1.5   NA    NA    0.5
+4   #F8766D 42.731  4797.2313     1     1    19  1.5   NA    NA    0.5
+5   #A3A500 75.320 12779.3796     1     2    19  1.5   NA    NA    0.5
+6   #E76BF3 81.235 34435.3674     1     5    19  1.5   NA    NA    0.5
+7   #00B0F6 79.829 36126.4927     1     4    19  1.5   NA    NA    0.5
+8   #00BF7D 75.635 29796.0483     1     3    19  1.5   NA    NA    0.5
+9   #00BF7D 64.062  1391.2538     1     3    19  1.5   NA    NA    0.5
+10  #00B0F6 79.441 33692.6051     1     4    19  1.5   NA    NA    0.5
+11  #F8766D 56.728  1441.2849     1     1    19  1.5   NA    NA    0.5
+12  #A3A500 65.554  3822.1371     1     2    19  1.5   NA    NA    0.5
+13  #00B0F6 74.852  7446.2988     1     4    19  1.5   NA    NA    0.5
+14  #F8766D 50.728 12569.8518     1     1    19  1.5   NA    NA    0.5
+15  #A3A500 72.390  9065.8008     1     2    19  1.5   NA    NA    0.5
+16  #00B0F6 73.005 10680.7928     1     4    19  1.5   NA    NA    0.5
+17  #F8766D 52.295  1217.0330     1     1    19  1.5   NA    NA    0.5
+18  #F8766D 49.580   430.0707     1     1    19  1.5   NA    NA    0.5
+19  #00BF7D 59.723  1713.7787     1     3    19  1.5   NA    NA    0.5
+20  #F8766D 50.430  2042.0952     1     1    19  1.5   NA    NA    0.5
+21  #A3A500 80.653 36319.2350     1     2    19  1.5   NA    NA    0.5
+22  #F8766D 44.741   706.0165     1     1    19  1.5   NA    NA    0.5
+23  #F8766D 50.651  1704.0637     1     1    19  1.5   NA    NA    0.5
+24  #A3A500 78.553 13171.6388     1     2    19  1.5   NA    NA    0.5
+25  #00BF7D 72.961  4959.1149     1     3    19  1.5   NA    NA    0.5
+26  #A3A500 72.889  7006.5804     1     2    19  1.5   NA    NA    0.5
+27  #F8766D 65.152   986.1479     1     1    19  1.5   NA    NA    0.5
+28  #F8766D 46.462   277.5519     1     1    19  1.5   NA    NA    0.5
+29  #F8766D 55.322  3632.5578     1     1    19  1.5   NA    NA    0.5
+30  #A3A500 78.782  9645.0614     1     2    19  1.5   NA    NA    0.5
+31  #F8766D 48.328  1544.7501     1     1    19  1.5   NA    NA    0.5
+32  #00B0F6 75.748 14619.2227     1     4    19  1.5   NA    NA    0.5
+33  #A3A500 78.273  8948.1029     1     2    19  1.5   NA    NA    0.5
+34  #00B0F6 76.486 22833.3085     1     4    19  1.5   NA    NA    0.5
+35  #00B0F6 78.332 35278.4187     1     4    19  1.5   NA    NA    0.5
+36  #F8766D 54.791  2082.4816     1     1    19  1.5   NA    NA    0.5
+37  #A3A500 72.235  6025.3748     1     2    19  1.5   NA    NA    0.5
+38  #A3A500 74.994  6873.2623     1     2    19  1.5   NA    NA    0.5
+39  #F8766D 71.338  5581.1810     1     1    19  1.5   NA    NA    0.5
+40  #A3A500 71.878  5728.3535     1     2    19  1.5   NA    NA    0.5
+41  #F8766D 51.579 12154.0897     1     1    19  1.5   NA    NA    0.5
+42  #F8766D 58.040   641.3695     1     1    19  1.5   NA    NA    0.5
+43  #F8766D 52.947   690.8056     1     1    19  1.5   NA    NA    0.5
+44  #00B0F6 79.313 33207.0844     1     4    19  1.5   NA    NA    0.5
+45  #00B0F6 80.657 30470.0167     1     4    19  1.5   NA    NA    0.5
+46  #F8766D 56.735 13206.4845     1     1    19  1.5   NA    NA    0.5
+47  #F8766D 59.448   752.7497     1     1    19  1.5   NA    NA    0.5
+48  #00B0F6 79.406 32170.3744     1     4    19  1.5   NA    NA    0.5
+49  #F8766D 60.022  1327.6089     1     1    19  1.5   NA    NA    0.5
+50  #00B0F6 79.483 27538.4119     1     4    19  1.5   NA    NA    0.5
+51  #A3A500 70.259  5186.0500     1     2    19  1.5   NA    NA    0.5
+52  #F8766D 56.007   942.6542     1     1    19  1.5   NA    NA    0.5
+53  #F8766D 46.388   579.2317     1     1    19  1.5   NA    NA    0.5
+54  #A3A500 60.916  1201.6372     1     2    19  1.5   NA    NA    0.5
+55  #A3A500 70.198  3548.3308     1     2    19  1.5   NA    NA    0.5
+56  #00BF7D 82.208 39724.9787     1     3    19  1.5   NA    NA    0.5
+57  #00B0F6 73.338 18008.9444     1     4    19  1.5   NA    NA    0.5
+58  #00B0F6 81.757 36180.7892     1     4    19  1.5   NA    NA    0.5
+59  #00BF7D 64.698  2452.2104     1     3    19  1.5   NA    NA    0.5
+60  #00BF7D 70.650  3540.6516     1     3    19  1.5   NA    NA    0.5
+61  #00BF7D 70.964 11605.7145     1     3    19  1.5   NA    NA    0.5
+62  #00BF7D 59.545  4471.0619     1     3    19  1.5   NA    NA    0.5
+63  #00B0F6 78.885 40675.9964     1     4    19  1.5   NA    NA    0.5
+64  #00BF7D 80.745 25523.2771     1     3    19  1.5   NA    NA    0.5
+65  #00B0F6 80.546 28569.7197     1     4    19  1.5   NA    NA    0.5
+66  #A3A500 72.567  7320.8803     1     2    19  1.5   NA    NA    0.5
+67  #00BF7D 82.603 31656.0681     1     3    19  1.5   NA    NA    0.5
+68  #00BF7D 72.535  4519.4612     1     3    19  1.5   NA    NA    0.5
+69  #F8766D 54.110  1463.2493     1     1    19  1.5   NA    NA    0.5
+70  #00BF7D 67.297  1593.0655     1     3    19  1.5   NA    NA    0.5
+71  #00BF7D 78.623 23348.1397     1     3    19  1.5   NA    NA    0.5
+72  #00BF7D 77.588 47306.9898     1     3    19  1.5   NA    NA    0.5
+73  #00BF7D 71.993 10461.0587     1     3    19  1.5   NA    NA    0.5
+74  #F8766D 42.592  1569.3314     1     1    19  1.5   NA    NA    0.5
+75  #F8766D 45.678   414.5073     1     1    19  1.5   NA    NA    0.5
+76  #F8766D 73.952 12057.4993     1     1    19  1.5   NA    NA    0.5
+77  #F8766D 59.443  1044.7701     1     1    19  1.5   NA    NA    0.5
+78  #F8766D 48.303   759.3499     1     1    19  1.5   NA    NA    0.5
+79  #00BF7D 74.241 12451.6558     1     3    19  1.5   NA    NA    0.5
+80  #F8766D 54.467  1042.5816     1     1    19  1.5   NA    NA    0.5
+81  #F8766D 64.164  1803.1515     1     1    19  1.5   NA    NA    0.5
+82  #F8766D 72.801 10956.9911     1     1    19  1.5   NA    NA    0.5
+83  #A3A500 76.195 11977.5750     1     2    19  1.5   NA    NA    0.5
+84  #00BF7D 66.803  3095.7723     1     3    19  1.5   NA    NA    0.5
+85  #00B0F6 74.543  9253.8961     1     4    19  1.5   NA    NA    0.5
+86  #F8766D 71.164  3820.1752     1     1    19  1.5   NA    NA    0.5
+87  #F8766D 42.082   823.6856     1     1    19  1.5   NA    NA    0.5
+88  #00BF7D 62.069   944.0000     1     3    19  1.5   NA    NA    0.5
+89  #F8766D 52.906  4811.0604     1     1    19  1.5   NA    NA    0.5
+90  #00BF7D 63.785  1091.3598     1     3    19  1.5   NA    NA    0.5
+91  #00B0F6 79.762 36797.9333     1     4    19  1.5   NA    NA    0.5
+92  #E76BF3 80.204 25185.0091     1     5    19  1.5   NA    NA    0.5
+93  #A3A500 72.899  2749.3210     1     2    19  1.5   NA    NA    0.5
+94  #F8766D 56.867   619.6769     1     1    19  1.5   NA    NA    0.5
+95  #F8766D 46.859  2013.9773     1     1    19  1.5   NA    NA    0.5
+96  #00B0F6 80.196 49357.1902     1     4    19  1.5   NA    NA    0.5
+97  #00BF7D 75.640 22316.1929     1     3    19  1.5   NA    NA    0.5
+98  #00BF7D 65.483  2605.9476     1     3    19  1.5   NA    NA    0.5
+99  #A3A500 75.537  9809.1856     1     2    19  1.5   NA    NA    0.5
+100 #A3A500 71.752  4172.8385     1     2    19  1.5   NA    NA    0.5
+101 #A3A500 71.421  7408.9056     1     2    19  1.5   NA    NA    0.5
+102 #00BF7D 71.688  3190.4810     1     3    19  1.5   NA    NA    0.5
+103 #00B0F6 75.563 15389.9247     1     4    19  1.5   NA    NA    0.5
+104 #00B0F6 78.098 20509.6478     1     4    19  1.5   NA    NA    0.5
+105 #A3A500 78.746 19328.7090     1     2    19  1.5   NA    NA    0.5
+106 #F8766D 76.442  7670.1226     1     1    19  1.5   NA    NA    0.5
+107 #00B0F6 72.476 10808.4756     1     4    19  1.5   NA    NA    0.5
+108 #F8766D 46.242   863.0885     1     1    19  1.5   NA    NA    0.5
+109 #F8766D 65.528  1598.4351     1     1    19  1.5   NA    NA    0.5
+110 #00BF7D 72.777 21654.8319     1     3    19  1.5   NA    NA    0.5
+111 #F8766D 63.062  1712.4721     1     1    19  1.5   NA    NA    0.5
+112 #00B0F6 74.002  9786.5347     1     4    19  1.5   NA    NA    0.5
+113 #F8766D 42.568   862.5408     1     1    19  1.5   NA    NA    0.5
+114 #00BF7D 79.972 47143.1796     1     3    19  1.5   NA    NA    0.5
+115 #00B0F6 74.663 18678.3144     1     4    19  1.5   NA    NA    0.5
+116 #00B0F6 77.926 25768.2576     1     4    19  1.5   NA    NA    0.5
+117 #F8766D 48.159   926.1411     1     1    19  1.5   NA    NA    0.5
+118 #F8766D 49.339  9269.6578     1     1    19  1.5   NA    NA    0.5
+119 #00B0F6 80.941 28821.0637     1     4    19  1.5   NA    NA    0.5
+120 #00BF7D 72.396  3970.0954     1     3    19  1.5   NA    NA    0.5
+121 #F8766D 58.556  2602.3950     1     1    19  1.5   NA    NA    0.5
+122 #F8766D 39.613  4513.4806     1     1    19  1.5   NA    NA    0.5
+123 #00B0F6 80.884 33859.7484     1     4    19  1.5   NA    NA    0.5
+124 #00B0F6 81.701 37506.4191     1     4    19  1.5   NA    NA    0.5
+125 #00BF7D 74.143  4184.5481     1     3    19  1.5   NA    NA    0.5
+126 #00BF7D 78.400 28718.2768     1     3    19  1.5   NA    NA    0.5
+127 #F8766D 52.517  1107.4822     1     1    19  1.5   NA    NA    0.5
+128 #00BF7D 70.616  7458.3963     1     3    19  1.5   NA    NA    0.5
+129 #F8766D 58.420   882.9699     1     1    19  1.5   NA    NA    0.5
+130 #A3A500 69.819 18008.5092     1     2    19  1.5   NA    NA    0.5
+131 #F8766D 73.923  7092.9230     1     1    19  1.5   NA    NA    0.5
+132 #00B0F6 71.777  8458.2764     1     4    19  1.5   NA    NA    0.5
+133 #F8766D 51.542  1056.3801     1     1    19  1.5   NA    NA    0.5
+134 #00B0F6 79.425 33203.2613     1     4    19  1.5   NA    NA    0.5
+135 #A3A500 78.242 42951.6531     1     2    19  1.5   NA    NA    0.5
+136 #A3A500 76.384 10611.4630     1     2    19  1.5   NA    NA    0.5
+137 #A3A500 73.747 11415.8057     1     2    19  1.5   NA    NA    0.5
+138 #00BF7D 74.249  2441.5764     1     3    19  1.5   NA    NA    0.5
+139 #00BF7D 73.422  3025.3498     1     3    19  1.5   NA    NA    0.5
+140 #00BF7D 62.698  2280.7699     1     3    19  1.5   NA    NA    0.5
+141 #F8766D 42.384  1271.2116     1     1    19  1.5   NA    NA    0.5
+142 #F8766D 43.487   469.7093     1     1    19  1.5   NA    NA    0.5
+
+
+$layout
+&lt;ggproto object: Class Layout, gg&gt;
+    coord: &lt;ggproto object: Class CoordCartesian, Coord, gg&gt;
+        aspect: function
+        backtransform_range: function
+        clip: on
+        default: TRUE
+        distance: function
+        expand: TRUE
+        is_free: function
+        is_linear: function
+        labels: function
+        limits: list
+        modify_scales: function
+        range: function
+        render_axis_h: function
+        render_axis_v: function
+        render_bg: function
+        render_fg: function
+        setup_data: function
+        setup_layout: function
+        setup_panel_params: function
+        setup_params: function
+        transform: function
+        super:  &lt;ggproto object: Class CoordCartesian, Coord, gg&gt;
+    coord_params: list
+    facet: &lt;ggproto object: Class FacetNull, Facet, gg&gt;
+        compute_layout: function
+        draw_back: function
+        draw_front: function
+        draw_labels: function
+        draw_panels: function
+        finish_data: function
+        init_scales: function
+        map_data: function
+        params: list
+        setup_data: function
+        setup_params: function
+        shrink: TRUE
+        train_scales: function
+        vars: function
+        super:  &lt;ggproto object: Class FacetNull, Facet, gg&gt;
+    facet_params: list
+    finish_data: function
+    get_scales: function
+    layout: data.frame
+    map_position: function
+    panel_params: list
+    panel_scales_x: list
+    panel_scales_y: list
+    render: function
+    render_labels: function
+    reset_scales: function
+    setup: function
+    setup_panel_params: function
+    train_position: function
+    xlabel: function
+    ylabel: function
+    super:  &lt;ggproto object: Class Layout, gg&gt;
+
+$plot
+```
+
+![](ggplot_under_hood_files/figure-html/output_under_hood_2-1.png)&lt;!-- --&gt;
+
+```
+
+attr(,"class")
+[1] "ggplot_built"
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+my_plot %&gt;% 
+  ggplot_build() %&gt;% 
+* ggplot_gtable()
+```
+]]
+.column[.content[
+
+```
+TableGrob (12 x 11) "layout": 19 grobs
+    z         cells       name
+1   0 ( 1-12, 1-11) background
+2   5 ( 6- 6, 4- 4)     spacer
+3   7 ( 7- 7, 4- 4)     axis-l
+4   3 ( 8- 8, 4- 4)     spacer
+5   6 ( 6- 6, 5- 5)     axis-t
+6   1 ( 7- 7, 5- 5)      panel
+7   9 ( 8- 8, 5- 5)     axis-b
+8   4 ( 6- 6, 6- 6)     spacer
+9   8 ( 7- 7, 6- 6)     axis-r
+10  2 ( 8- 8, 6- 6)     spacer
+11 10 ( 5- 5, 5- 5)     xlab-t
+12 11 ( 9- 9, 5- 5)     xlab-b
+13 12 ( 7- 7, 3- 3)     ylab-l
+14 13 ( 7- 7, 7- 7)     ylab-r
+15 14 ( 7- 7, 9- 9)  guide-box
+16 15 ( 4- 4, 5- 5)   subtitle
+17 16 ( 3- 3, 5- 5)      title
+18 17 (10-10, 5- 5)    caption
+19 18 ( 2- 2, 2- 2)        tag
+                                            grob
+1                rect[plot.background..rect.566]
+2                                 zeroGrob[NULL]
+3            absoluteGrob[GRID.absoluteGrob.513]
+4                                 zeroGrob[NULL]
+5                                 zeroGrob[NULL]
+6                       gTree[panel-1.gTree.499]
+7            absoluteGrob[GRID.absoluteGrob.506]
+8                                 zeroGrob[NULL]
+9                                 zeroGrob[NULL]
+10                                zeroGrob[NULL]
+11                                zeroGrob[NULL]
+12 titleGrob[axis.title.x.bottom..titleGrob.516]
+13   titleGrob[axis.title.y.left..titleGrob.519]
+14                                zeroGrob[NULL]
+15                             gtable[guide-box]
+16         zeroGrob[plot.subtitle..zeroGrob.562]
+17            zeroGrob[plot.title..zeroGrob.561]
+18          zeroGrob[plot.caption..zeroGrob.564]
+19              zeroGrob[plot.tag..zeroGrob.563]
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+my_plot %&gt;% 
+  ggplot_build() %&gt;% 
+  ggplot_gtable() -&gt; 
+* gTable
+```
+]]
+.column[.content[
+
+]]
+
+
+
+---
+
+
+```r
+# for (i in 1:5){
+# 
+# grid::grid.draw(gTable$grobs[[1]])
+# grid::grid.text(i, x = unit(0.1, "npc"), y = unit(0.1, "npc"))
+# grid::grid.newpage()
+# 
+# for(i in 1:length(gTable$grobs)){
+#   grid::grid.draw(gTable$grobs[[i]])
+#   grid::grid.text(i, x = unit(0.1, "npc"), y = unit(0.1, "npc"))
+#   grid::grid.newpage()
+# }
+# 
+# str(my_plot)
+
+# g$mapping$y &lt;- my_plot$data$gdpPercap
+# g
+# g$labels$y &lt;- "GDP per cap"
+```
+
+
+
+
+```r
+# scatterplot example
+# create scatterplot plot(1:10)
+# using the grid package
+library(grid)
+# create and draw a rectangle - line type = dashed
+rectGrob(gp = gpar(lty = "dashed")) -&gt; gRect1
+grid.draw(gRect1)
+# create the data points
+1:10 -&gt; 
+  x -&gt;
+  y
+# create a viewport providing the margins as number of text lines
+plotViewport(c(5.1,4.1,4.1,2.1)) -&gt;
+  vp1
+# navigate into the created viewport
+pushViewport(vp1)
+# create a viewport with x and y scales
+# based on provided values
+dataViewport(x,y) -&gt;
+  dvp1
+# navigate into the created viewport
+pushViewport(dvp1)
+# create and draw a rectangle
+gRect2 &lt;- rectGrob()
+grid.draw(gRect2)
+# create and draws the x and y axis
+gXaxis &lt;- xaxisGrob()
+grid.draw(gXaxis)
+gYaxis &lt;- yaxisGrob()
+grid.draw(gYaxis)
+# create and draw the data points
+gPoints &lt;- pointsGrob(x,y)
+grid.draw(gPoints)
+# create and draw text
+gYText &lt;- textGrob("y = 1:10", x = unit(-3, "lines"), rot = 90)
+grid.draw(gYText)
+gXText &lt;- textGrob("x = 1:10", y = unit(-3, "lines"))
+grid.draw(gXText)
+# exit the 2 viewports
+popViewport(2)
+```
+
+![](ggplot_under_hood_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 40%}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:10",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+---
+title: "A Minimal #TidyTuesday Flipbook"
+author: "Gina Reynolds, May 2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["kunoichi", "ninjutsu"]
+    nature:
+      ratio: 16:10
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+```{r setup, include=F}
+knitr::opts_chunk$set(fig.width = 6, message = F, warning = F, 
+                      comment = "", cache = F)
+```
+
+
+
+```{r}
+tibble(my_x = 1:12, my_y = rep(0:3, 3)) %>% 
+  ggplot() +
+  aes(x = my_x) +
+  aes(y = my_y) +
+  aes(col = my_y) +
+  geom_point() +
+  scale_color_viridis_c() +
+  ggforce::geom_link2() 
+```
+
+```{r}
+tibble(my_x = 1:12, my_y = rep(0:3, 3)) %>% 
+  ggplot() +
+  aes(x = my_x) +
+  aes(y = my_y) +
+  geom_point() +
+  geom_rect(data = tibble(the_x = 1:3, the_y = 1:3),
+            mapping = 
+              aes(xmin = the_x,
+                  ymin = the_y,
+                  xmax = the_x + 1,
+                  ymax = the_y + 1)
+            )
+  
+```
+
+
+
+And load the tidyverse.
+
+```{r}
+library(tidyverse)
+```
+
+And load the data from the tidytuesday github page. 
+
+```{r}
+download.file("https://github.com/rfordatascience/tidytuesday/raw/master/data/2019/2019-01-01/tidytuesday_tweets.rds", destfile = "temp.rds")
+data_tidytuesday <- readRDS("temp.rds")
+unlink("temp.rds")
+library(tidyverse)
+```
+
+
+
+
+---
+
+# Where we are going: 
+
+We'll create this plot.  I have **echo** set to FALSE in the code chunk options here so that you don't see the code, and **eval** to TRUE so that the plot output is produced.  The code chunk is given the name "nobel", and this is used in the in apply_reveal function, which breaks down code by wrangling and plot statements. 
+
+```{r link2, echo = F, eval = T, fig.height=5}
+ data_tidytuesday %>% 
+  mutate(day = lubridate::date(created_at)) %>% 
+  group_by(day) %>% 
+  tally() %>% 
+  mutate(day_of_week = lubridate::wday(day, label = T)) %>% 
+ggplot() + 
+  aes(x = day) +
+  # aes(xend = lag(day)) +
+  aes(y = n) + 
+  # aes(yend = lag(n)) +
+  aes(color = n) +
+  ggforce::geom_link2(n = 500) +
+  geom_point(aes(alpha = day_of_week == "Tue")) +  
+  geom_text(nudge_y = 1.5, label = "Tues.", size = 2.5,
+            aes(alpha = day_of_week == "Tue")) +
+  scale_alpha_discrete(range = c(0,1), guide = F) +
+  theme_minimal() +
+  scale_color_viridis_c( guide = F) +
+  labs(title = "#TidyTuesday tweeted mostly Tuesdays") +
+  labs(subtitle = "Fifteen hundred #TidyTuesday tweets from April to December 2018") +
+  labs(caption = "@EvaMaeRey | Data: rtweets & #TidyTuesday | Per day calculations based on __ time zone") +
+  labs(y = "Tweets per day") + 
+  labs(x = "") +
+  ggdark::dark_theme_light() 
+```
+
+
+`r apply_reveal("link2")`
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 80%}
+```
+
+

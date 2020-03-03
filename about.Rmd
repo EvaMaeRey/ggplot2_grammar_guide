@@ -1,0 +1,108 @@
+---
+title: "a ggplot2 grammar guide"
+author: "Gina Reynolds"
+date: "February, 2020"
+output: html_document
+---
+
+These are ideas about the *grammar* of ggplot2.  ggplot2 is based on the grammar of graphics.  But it has its own grammar too --- it is a *particular* implementation of the grammar of graphics --- and a lot of really helpful decisions are part of its grammar (like having set defaults for aesthetic scales, and scale and plot labels make it easier to build plots quickly).  If you are teaching ggplot2, you might think about teaching the grammar of ggplot2 *first* and then come back to the *grammar of graphics* --- because there will be more context for seeing how an implemenation relates to the larger philosophy.  There are a lot of great resources out there already teaching the grammar of graphics which are sources of inspiration for the *guide*.  
+
+
+
+
+<!-- Of course it's interesting to teach the grammar of graphics along with ggplot2 --- ggplot2 is an implementation of the grammar of graphics.  But ggplot2 has its own grammar, so if you are teaching that tool, might as well teach that specific grammar.  -->
+
+
+
+
+What? | How?  | Description
+---|---|---
+1. [**The Declarative Mood**](ggplot2_grammar_guide.html#data){target="_blank"}  | *ggplot(data = gapminder) +*| Declaring the **data**.
+2. [**The Interogative Mood**](ggplot2_grammar_guide.html#aes){target="_blank"} |*aes(**color** = pop) +*| Asking for **representation of variables by aesthetics** (color, size, x position, etc.) (also known as **aesthetic mapping**) 
+    - [*Modifiers I*](modifiers.html#scales){target="_blank"} | *scale\_**color**\_viridis_d() +* | modifying *default* **aesthetic scales**
+    - [*Modifiers II*](modifiers.html#labs){target="_blank"} | *labs(**color** = continent) +<br>labs(title = "my title") +* | modifying *default* **aesthetic labels** (and **plot labels**)
+    - [*Modifiers III*](modifiers.html#coords){target="_blank"} | *coord\_polar() +* | modifying the *default* **coordinate system** (how the *positional* aesthetics appear - x and y)
+3. [**Nouns**](ggplot2_grammar_guide.html#geoms){target="_blank"} | *geom\_point() +* | **geometric layers** taking on the aesthetics representing variables
+4.[**The Conditional Mood**](ggplot2_grammar_guide.html#local){target="_blank"} |*geom\_point(* | Making **local**, **geom specific** declarations rather than **global** declarations
+| | *data = gapminder,* | **data** is <br> geom specific 
+  | |  *aes(**size** = population),* |  **aesthetic representation**<br> is geom specific
+||   ***color** = "blue"<br>*  | **aesthetics *not* representing variables; *unmapped* aesthetics** (i.e.  **The Imperative Mood)** 
+|| ) + |
+5. [**Interjections**](ggplot2_grammar_guide.html#annotation){target="_blank"}| *annotate(geom = "point", ...)* | Adding context with **annotation layers**
+6. [**Punctuation**](facets_themes_ggsave.html#facets){target="_blank"}  | *facet_wrap(~continent)*| **faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables 
+7. [**Greetings**](facets_themes_ggsave.html#themes){target="_blank"}|*theme_minimal()* | **themes** changing plot look and feel 
+8. [**The Written Language**](facets_themes_ggsave.html#saving){target="_blank"} | *ggsave(file = "plot.png", plot = g, <br>  height = "4in", width = "6in")*|save plots with different **resolutions** and **file formats**
+
+---
+
+# How to navigate/teach the ggplot grammar guide:
+
+### Part I: geometric objects that take on aesthetics that represent variables from a data set (focus on aesthetic mapping - the heros of data viz!)
+
+- Work through steps 1,2, & 3. A data visualization is composed of geometric shapes that taking on the aesthetics that represent variables from a data set.   Focus on aesthetic mapping --- this does all the heavy lifting in data visualization, so do aas much aesthetic mapping as possible (use double, tripple or quadruple mapping, or exchange mappings). *Introduce as few geoms as possible here - and only simple ones*
+
+*5 minute break*
+
+- Work through 4 --- geom layer with *locally* specified data and aesthetics and the topic of unmapped aesthetics
+- Work through 5 --- annotation layer, geoms *without data*
+
+*5 minute break*
+
+- Then
+
+  - Slow down and reflect
+  - Emphasize parallells between "grammar" of specifying these
+  - Demonstrate that you can mix an match local and globally specified data, aesthetics
+  - Not everything needs to be specified globally or locally for a particular geom
+
+*15 minute break*
+
+### Part II: [Modifiers](modifiers.html#4){target="_blank"}
+
+- Return to simple globally declarations plot.  Walk through modifiers I (scales_\*_?), modifiers II (labs(\* = ?)), modifiers III (coords_?).  
+
+*15 minute break*
+
+
+### Part III: [Facetting, Themes, Saving](facets_themes_ggsave.html){target="_blank"}
+
+- go through 6 (this facetting topic ... also a good time to talk about patchwork and cowplot - composing a collection of plots), 7, 8
+
+
+*Lunch break*
+
+### Part IV: [Geoms/Stats Pile-on/Deep-Dive](geoms.html){target="_blank"}
+
+geom types
+
+  - simple
+  - collective
+  - after transformation
+
+*5 minute break*
+
+stats
+
+- univariate
+  - continuous
+  - discrete
+
+- bivariate
+  - continuous-continuous
+  - discrete-discrete
+  - continuous-discrete
+
+*20 minute break*
+
+### Part V: [Themes]()
+
+themes
+
+
+# Other guides to ggplot2
+
+ggplot2 is very flexible, so there often there are more than one way of getting things done --- which also means there is more than one way to introduce ggplot2.
+If you aren't on board with this guide (and even if you are)   you may want check out other resouces.  The more definitive and comprehensive guide to ggplot2 is, the 3rd edition of [*ggplot2: elegant graphics for data analysis*](ggplot2-book.org).  Some other workshop materials are Garrick Aden-Buie's [*A Gentle Guide to the Grammar of Graphics with ggplot2*](https://pkg.garrickadenbuie.com/gentle-ggplot2/#1), Will Chase's [*R you ready to make charts?*](https://www.williamrchase.com/slides/ggplot_intro.html#1), Malcom Barrett's [*Designing ggplots making clear figures that communicate*](https://designing-ggplots.netlify.com/#1), and Thomas Lin Pederson's [*Drawing anything with ggplot2*](https://github.com/thomasp85/ggplot2_workshop/blob/master/presentation.pdf).
+
+# More data vis topics
+

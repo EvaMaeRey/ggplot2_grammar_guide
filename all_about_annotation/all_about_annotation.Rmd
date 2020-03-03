@@ -1,0 +1,61 @@
+---
+title: "annotation in ggplot"
+subtitle: "⚔<br/>made with xaringan"
+author: "Gina Reynolds"
+date: "2019/01/31"
+output:
+  xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    css: ["kunoichi", "ninjutsu"]
+    nature:
+      ratio: "20:10"
+      highlightLines: true
+---
+
+
+
+```{r set_up, message = F, warning= F}
+
+source("../xaringan_reveal_parenthetical.R")
+knitr::opts_chunk$set(fig.height = 6,  comment = " ", cache = T,  echo = TRUE, warning = F, message = F)
+
+```
+
+
+```{r, child = "tuition_universities.Rmd"}
+
+```
+
+
+```{r, child = "ideal_points.Rmd"}
+
+```
+
+
+
+```{r, eval = F}
+ggplot(mpg, aes(displ, hwy, colour = class)) + 
+
+  geom_point()
+
+ggplot(mpg, aes(displ, hwy, colour = class)) + 
+
+  geom_point(show.legend = FALSE) +
+
+  directlabels::geom_dl(aes(label = class), method = "smart.grid")
+
+
+axs + scale_y_continuous(labels = scales::percent_format())
+
+axs + scale_y_continuous(labels = scales::dollar_format("$"))
+
+leg + scale_fill_continuous(labels = scales::unit_format("k", 1e-3))
+```
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 35%}
+```
+

@@ -1,0 +1,272 @@
+---
+title: "A ggplot2 grammar guide"
+author: "Gina Reynolds, July 2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "ninjutsu"]
+    nature:
+      highlightLines: yes
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
+library(flipbookr)
+```
+
+
+```{r xaringan-themer, include = FALSE, eval = F}
+# library(xaringanthemer)
+
+
+# xaringanthemer::write_xaringan_theme(text_font_size = ".75cm",
+#                                      text_color = "darkblue")
+
+xaringanthemer::mono_accent(
+  base_color = "#43418A",
+  header_font_google = google_font("Montserrat"),
+  text_font_google   = google_font("Montserrat", "200", "200i"),
+  code_font_google   = google_font("Droid Mono"),
+  text_font_size = ".7cm",
+  code_font_size = ".7cm")
+  
+
+# write_xaringan_theme(
+#   extra_css = list(
+#     ".box-right" = list(
+#       "height" = "300px",
+#       "width" = "300px",
+#       "position" = "absolute",
+#       "top" = "33%",
+#       "left" = "55%"
+#     )
+#   )
+# )
+
+```
+
+
+
+
+---
+
+
+<!-- # For teachers -->
+
+<!-- This is a collection of thoughts about how to teach ggplot2, and any other grammar of graphics type data visualization system.   -->
+
+<!-- It is tempting to rush to build a publication-ready plot right out of the gate.   -->
+
+<!-- But maybe we should resist this temptation. Maybe we should "hang out" in each of the component zones for a bit.  Explore. Get comfy in a zone.  Then move on. -->
+
+
+
+
+# Introduction
+
+ggplot2 is an implementation of the "Grammar of Graphics" for R.  The grammar of graphics is a framework that enables users to go beyond predetermined chart types by mapping variables of a dataset to the aesthetics characteristics of geometric objects, giving users greater expressive freedom.  The grammar of graphics tool gives the user the control to build nearly any chart that she imagines.  
+
+Nevertheless, sometimes people use ggplot2 without much real *fluency* --- copying and pasting existing code and making minor tweeks to get the results they want.  Without a theoretical knowledge of the framework, it is unlikely that users will completely unlock the freedom that the ggplot2 graphing library affords.  
+
+This book seeks to provide an introduction to the ggplot2 grammar that will provide a basis for fluency with this framework.  
+
+<!-- Analogy? -->
+
+<!-- The goal of the package is to "'bring together in a coherent way things that previously appeared unrelated and which also will provide a basis for dealing systematically with new situations'" (D.R. Cox 1978 quoted in Wickham 2010). This is cool. -->
+
+---
+
+
+# Acknowledgements
+
+ggplot2 is a powerful library and the product of a lot of hard work. I'm grateful to the original author Hadley Wickham and the entire [ggplot2](https://ggplot2.tidyverse.org/reference/) team for continuing to build and maintaining an amazing tool. 
+
+This presentation is built with the {xaringan} slide show tool, and I'm indebted to Yihui Xie and the rest of the Xaringan development team. Code is presented incrementally so that the link between code and output is easy to track.  Special thanks are due to Emi Tanaka and Garrick Aden-Buie for their invaluable contributions to getting automated side-by-side code-output evolution, ["flipbooks"](https://evamaerey.github.io/flipbooks/about)], up and running.  
+
+
+---
+
+For inspiration, thanks to Will Chase for seeding a valuable discussion about the challenges of ggplot2 and for encouraging me to write about some of my ideas in that discussion.  Thanks also to MPI-Dresden and TU-Dresden's summer 2019 workshop organizer Ulirk Günther and participants for their interest in R and ggplot2 which helped propel the project foward, as well as to my students at University of Denver for candid feedback about their experience.  I'm grateful also to those who verbalized their support for [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html#1); the response has been incredibly motivating.  
+
+
+---
+
+# Grammar lesson order:
+
+0. [**The Declarative Mood**, declaring data, *ggplot(data = gapminder)*](#data)
+1. [**The Interogative Mood**, aesthetic mapping, *aes(**color** = pop)*](#aes)
+  - [**Modifiers I**, changing aes scales, *scale\_**color**\_viridis_d()*](#scales)
+  - [**Modifiers II**, changing aes and plot labels, *labs(**color** = "continent")*](#labs)
+  - [**Modifiers III**, changing the coordinate system, *coord\_polar()*](#coords)
+1. [**Nouns**, geometric objects, *geom\_point()*](#geoms)
+1. [**The Conditional Mood** aesthetics tied to specific "geoms"](#local)
+  - data, *geom\_point(data = gapminder)*
+  - mapped aesthetic, *geom\_point(aes(color = continent))*
+  - unmapped aesthetics (**i.e. The Imperative Mood**), *geom_point(color = "blue")*
+1. [**Interjections**, annotation, *annotate(geom = "point", ...)*](#annotation)
+1. [**Punctuation**, small multiple plots,  *facet_wrap(~continent)*](#facets)
+1. [**Greetings**, changing plot look and feel, *theme_minimal()*](#themes)
+1. [**The Written Language**, saving plots, *ggsave(file = "plot.png", plot = g)*](#saving)
+
+<!-- asking for aesthetics representation -->
+
+<!-- --- -->
+
+<!-- ## Save for later: -->
+
+<!-- Some topics not currently covered are: -->
+
+<!-- - plotting statistics -->
+<!-- - detailed thematic adjustments, but these are covered in [Tuning ggplot themes](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1) -->
+
+<!-- Write out sentences? -->
+
+---
+
+# Loading packages
+
+`ggplot2` is one of a set of packages called the `tidyverse` that are designed to be used together.  Before we can use the package we must load it.  We'll also use data from the `gapminder` package, so we'll load that too.
+
+---
+
+```{r libraries, eval = F, echo = F}
+library(tidyverse)
+library(gapminder)
+```
+
+
+`r chunk_reveal("libraries")`
+
+---
+
+# Prepping data
+
+We'll also prep some data --- `gapminder_2002`,  `gapminder_2002_europe`, and `continent_aggregate`  --- which are subsets of the data made available in the `gapminder` data package.  
+
+We won't go into detail about data manipulation much here, but more basic info about data wrangling in *flipbook* style can be found here [The Tidyverse in Action](https://evamaerey.github.io/tidyverse_in_action/tidyverse_in_action.html).
+
+---
+
+# Code to prep data
+
+```{r prep_data, eval = T, echo = F}
+gapminder::gapminder %>% # data from package
+  filter(year == 2002) -> # filtering
+gapminder_2002 # saving subset object
+gapminder_2002 %>% 
+  filter(continent == "Europe") ->
+gapminder_2002_europe  
+gapminder %>% 
+  filter(continent == "Europe") ->
+gapminder_europe
+gapminder %>% 
+  select(country, continent) %>% 
+  distinct() %>% 
+  group_by(continent) %>% 
+  summarise(country_count = n()) ->
+continent_aggregate
+```
+
+
+```{r, eval = F}
+save(gapminder_2002, 
+     gapminder_2002_europe, 
+     gapminder_europe, 
+     continent_aggregate, 
+     file = "data_products/manipulations.Rdata")
+```
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 70%}
+```
+
+
+<!-- ```{r, dpi=400, eval = F} -->
+<!-- gapminder %>%  -->
+<!--   select(continent) %>%  -->
+<!--   ggplot() + -->
+<!--   aes(x = 1) + -->
+<!--   aes(fill = continent) + -->
+<!--   geom_bar(color = "white", size = .2) + -->
+<!--   coord_polar(theta = "y") + -->
+<!--   theme_void() + -->
+<!--   scale_fill_viridis_d() + -->
+<!--   theme(rect = element_rect(fill = "grey",  -->
+<!--                             color = "grey",  -->
+<!--                             linetype = "solid", -->
+<!--                             size = 0)) -->
+
+<!-- ggsave("pie.svg", dpi = 320,device = "svg") -->
+<!-- ``` -->
+
+<!-- --- -->
+
+<!-- Or at least an organized twitter thread!?  Another idea for you: pull aes() out of ggplot(). Do you do it? Lot's of reasons to do it! Downside is currently most examples make use of nested approach. @grrrck does this too, and esquisse -->
+
+<!-- ggplot(data = my_data) +  -->
+<!--    aes(x = my_var) -->
+
+<!-- Is it possible to do this with multiple geoms? I usually specify aes within the geom like  -->
+
+<!-- ggplot(data) + -->
+<!--   geom_point(aes(x, y)) + -->
+<!--   geom_line(aes(x, y, group = id))  -->
+
+<!-- I prefer this approach because it's explicit which aesthetics are bound to which geoms -->
+
+<!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! -->
+
+
+<!-- To change the data used for a plot, use the %+% operator! Oh!!!  -->
+
+
+<!-- # Stat_* -->
+
+<!-- ## Univariate discrete -->
+
+
+
+<!-- ```{r univariate_discrete, eval = F, echo = F} -->
+<!-- ggplot(gapminder_2002) + -->
+<!--   aes(x = continent) + -->
+<!--   stat_count() + -->
+<!--   geom_bar() # convenience geom -->
+<!--             # default counting -->
+<!-- ``` -->
+
+<!-- --- -->
+
+<!-- r chunk_reveal("univariate_discrete")` -->
+
+
+<!-- --- -->
+
+<!-- ```{r} -->
+<!-- ggplot(data = gapminder_2002) + -->
+<!--   aes(x = continent) + -->
+<!--   aes(y = lifeExp) + -->
+<!--   geom_point(alpha = .1) + -->
+<!--   stat_summary( -->
+<!--     fun.ymin = min, -->
+<!--     fun.ymax = max, -->
+<!--     fun.y = median -->
+<!--   ) -->
+<!-- ``` -->
+
+
+
+<!-- --- -->
+
+<!-- ```{r} -->
+<!-- gapminder_2002 %>%  -->
+<!--   mutate(seventy_plus = lifeExp > 60) %>%  -->
+<!-- ggplot() + -->
+<!--   aes(x = continent) + -->
+<!--   aes(fill = seventy_plus) + -->
+<!--   geom_bar(alpha = .2) -->
+<!-- ``` -->
+

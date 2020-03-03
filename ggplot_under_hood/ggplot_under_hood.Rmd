@@ -1,0 +1,234 @@
+---
+title: "ggplot under hood"
+author: "Gina Reynolds"
+date: "6/29/2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["kunoichi", "ninjutsu"]
+    nature:
+      ratio: 16:10
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+some references:
+
+advanced gglot
+very good:  http://zevross.com/blog/2014/11/20/under-the-hood-of-ggplot2-graphics-in-r/
+https://pparacch.github.io/2017/09/25/plotting_in_R_ggplot2_part_5.html - grobs
+
+```{r, message = F, warning = F}
+source("https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/master/xaringan_reveal_parentheses_balanced.R")
+```
+
+
+
+```{r}
+
+tibble::tribble(
+~city,   ~date, ~death, ~temp, ~dewpoint ,     ~pm10  ,      ~o3,~time, ~season,   ~year,
+"chic", "1997-01-01",   137, 36.0,    37.50, 13.052268,   5.659256, 3654, "winter", 1997,
+"chic", "1997-01-02",   123, 45.0,    47.25, 41.948600,   5.525417, 3655, "winter", 1997,
+"chic", "1997-01-03",   127, 40.0,    38.00, 27.041751,   6.288548, 3656, "winter", 1997,
+"chic", "1997-01-04",   146, 51.5,    45.50, 25.072573,   7.537758, 3657, "winter", 1997,
+"chic", "1997-01-05",   102, 27.0,    11.25, 15.343121 , 20.760798, 3658, "winter", 1997,
+"chic", "1997-01-06",   127, 17.0,     5.75,  9.364655 , 14.940874, 3659, "winter", 1997
+) %>% 
+  mutate(day = lubridate::day(date)) ->
+  nmmaps
+```
+
+
+
+```{r setup, include=F}
+knitr::opts_chunk$set(fig.width = 6, message = F, warning = F, 
+                      comment = "", cache = F)
+```
+
+```{r}
+ggplot(nmmaps, aes(date,temp))+geom_point(color = "chartreuse4") +
+  facet_wrap(~day, ncol=2)
+
+
+g <- ggplot(nmmaps, aes(date,temp))+geom_point(color = "chartreuse4") +
+  facet_wrap(~year, ncol=2)
+
+gTable <- ggplot_gtable(ggplot_build(g))
+
+
+library(grid)
+for (i in 1:length(gTable$grobs)) {
+  grid.draw(gTable$grobs[[i]])
+  grid.text(i, x = unit(0.1, "npc"), y = unit(0.1, "npc"))
+  grid.newpage()
+}
+
+
+
+
+# step-by-step I'm tracking down the axis labels
+gTable$grobs[[17]]
+attributes(gTable$grobs[[17]])
+attributes(gTable$grobs[[17]]$children)
+attributes(gTable$grobs[[17]]$children[2])
+attributes(gTable$grobs[[17]]$children[2]$axis)
+gTable$grobs[[17]]$children[2]$axis$grobs 
+attributes(gTable$grobs[[17]]$children[2]$axis$grobs[[2]])
+```
+
+
+
+
+
+```{r}
+library(tidyverse)
+library(gapminder)
+```
+
+---
+
+# Define paramters
+
+```{r build_plot}
+gapminder %>%             # the data  #REVEAL
+  filter(year == 2007) %>%  # subset 
+  ggplot() +              # pipe to ggplot 
+  aes(x = gdpPercap) + # what x position represents
+  aes(y = lifeExp) +  # what y position represents
+  geom_point() + # geometric layer!
+  aes(color = continent) -> # what color represents
+my_plot
+```
+
+---
+
+`r apply_reveal("build_plot")`
+
+---
+
+# ggplot info
+
+
+```{r under_hood}
+my_plot %>% 
+  ggplot_build() %>% 
+  ggplot_gtable() ->
+gTable
+gTable$grobs[[1]]
+grid::grid.draw(gTable$grobs[[1]])
+grid::grid.text(5, 
+                x = unit(0.1, "npc"), 
+                y = unit(0.1, "npc"))
+```
+
+
+
+
+
+---
+
+`r apply_reveal("under_hood")`
+
+
+
+---
+
+```{r}
+for (i in 1:5){
+
+ grid::grid.draw(gTable$grobs[[1]])
+ grid::grid.text(i, x = unit(0.1, "npc"), y = unit(0.1, "npc"))
+ grid::grid.newpage()
+}
+
+ for(i in 1:length(gTable$grobs)){
+   grid::grid.draw(gTable$grobs[[i]])
+   grid::grid.text(i, x = unit(0.1, "npc"), y = unit(0.1, "npc"))
+   grid::grid.newpage()
+ }
+
+ str(my_plot)
+ g$mapping$y <- my_plot$data$gdpPercap
+ g
+ g$labels$y <- "GDP per cap"
+```
+
+
+
+```{r}
+# scatterplot example
+# create scatterplot plot(1:10)
+# using the grid package
+library(grid)
+# create and draw a rectangle - line type = dashed
+rectGrob(gp = gpar(lty = "dashed")) -> gRect1
+grid.draw(gRect1)
+# create the data points
+1:10 -> 
+  x ->
+  y
+# create a viewport providing the margins as number of text lines
+plotViewport(c(5.1,4.1,4.1,2.1)) ->
+  vp1
+# navigate into the created viewport
+pushViewport(vp1)
+# create a viewport with x and y scales
+# based on provided values
+dataViewport(x,y) ->
+  dvp1
+# navigate into the created viewport
+pushViewport(dvp1)
+# create and draw a rectangle
+gRect2 <- rectGrob()
+grid.draw(gRect2)
+# create and draws the x and y axis
+gXaxis <- xaxisGrob()
+grid.draw(gXaxis)
+gYaxis <- yaxisGrob()
+grid.draw(gYaxis)
+# create and draw the data points
+gPoints <- pointsGrob(x,y)
+grid.draw(gPoints)
+# create and draw text
+gYText <- textGrob("y = 1:10", x = unit(-3, "lines"), rot = 90)
+grid.draw(gYText)
+gXText <- textGrob("x = 1:10", y = unit(-3, "lines"))
+grid.draw(gXText)
+# exit the 2 viewports
+popViewport(2)
+
+
+g <- ggplot(cars, aes(x = speed))
+g1 <- ggplot(cars, aes(x = speed))
+g2 <- ggplot(cars) + aes(x = speed)
+
+
+
+for (i in 1:9){
+  
+print(identical(g[[i]], g1[[i]]))
+  
+}
+
+identical(
+str(g2),
+str(g1))
+identical(map(g1, class), map(g2, class))
+
+identical(ggplot(cars, aes(x = speed)), ggplot(cars, aes(x = speed)))
+
+```
+
+
+
+
+
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 40%}
+```

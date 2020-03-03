@@ -1,0 +1,182 @@
+---
+title: "ggplot2 grammar cheat sheet"
+author: "Evangeline Reynolds"
+date: "11/12/2019"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+"Hacker News" exchange about ggplot2: 	
+	
+sk5t 8 months ago [-]
+
+*I can't help but wonder--as someone who has flirted with R but certainly not committed--how much time and practice it takes to acquire decent fluency with these half-magical incantations to become productive.*
+
+jhbadger 8 months ago [-]
+
+*Not that long. The trick is to really understand what each clause is doing. It's easy to just find some code on the Web for a graph similar to what you want and tweak it for your data, and I did that myself in the beginning, but then they will remain "half-magical incantations" as you put it. The thing about ggplot is nothing is there arbitrarily -- it is really describing how the plot is put together.*
+
+
+#### ggplot2 grammar:
+
+1. [**The Declarative Mood**, declaring data, *ggplot(data = gapminder)*](#data)
+2. [**The Interogative Mood**, aesthetic mapping, *aes(**color** = pop)*](#aes)
+      a. [**Modifiers I**, changing aes scales, *scale\_**color**\_viridis_d()*](#scales)
+      b. [**Modifiers II**, changing aes and plot labels, *labs(**color** = "continent")*](#labs)
+      c. [**Modifiers III**, changing the coordinate system, *coord\_polar()*](#coords)
+3. [**Nouns**, geometric objects, *geom\_point()*](#geoms)
+4. [**The Conditional Mood** aesthetics tied to specific "geoms"](#local)
+      a. data, *geom\_point(data = gapminder)*
+      b. mapped aesthetic, *geom\_point(aes(**color** = continent))*
+      c. unmapped aesthetics (**i.e. The Imperative Mood**), *geom_point(**color** = "blue")*
+5. [**Interjections**, annotation - geoms not connected to data, *annotate(geom = "point", ...)*](#annotation)
+6. [**Punctuation**, small multiple plots,  *facet_wrap(~continent)*](#facets)
+7. [**Greetings**, changing plot look and feel, *theme_minimal()*](#themes)
+8. [**The Written Language**, saving plots, *ggsave(file = "plot.png", plot = g)*](#saving)
+
+\clearpage
+
+```{r, include = F}
+knitr::opts_chunk$set(message = F)
+```
+
+
+```{r, message = F}
+# some data wrangling
+library(tidyverse)
+library(gapminder) 
+gapminder %>% 
+  filter(year == 2002) ->
+gapminder_2002
+gapminder_2002 %>% 
+  filter(continent == "Europe") ->
+gapminder_2002_europe
+```
+---
+```{r}
+# Declarative mood - declare data
+ggplot(data = gapminder_2002) +
+# Interogative mood - ask aesthetic for representation
+  # x, y, color, fill, linetype, linewidth, size, alpha, shape
+  aes(x = gdpPercap) +    # x position
+# Noun - declare geometric object
+  geom_rug() +  # above aes are required for point
+# Modifiers I - changing default aesthetic scales
+  scale_x_log10() + # also scale_y_*, scale_color_*, scale_size_*
+# Modifiers II - changing default labels
+  labs(x = "GDP per cap") +  # also y axis and color, size etc. legend labels
+# Modifiers IIb. Note that labs is also used to adjust *plot* labels()
+  labs(title = "GDP in 2002") +  # also subtitle, caption, tag
+# Modifiers III - changing default coordinate system (cartesian)
+  coord_flip() + # flip x and y coordinates, also coord_equal, coord_polar ...
+# Conditional Mood - for specific geoms, locally defining:
+      # 1) data, 2) aesthetic representation, 3) *unmapped* aesthetics (the Imparative mood)
+  geom_rug(
+    data = gapminder_2002_europe,  # local data
+    aes(color = pop),  # local aesthetics representation
+    size = .5 # local across-the-board aesthetics
+  ) +
+# Interjections - annotation - geometric objects not tied to data
+  annotate(geom = "rug", # define which geometric shape
+           x = 10000, # define required aesthetic for geom
+           color = "red" # define optional aesthetic
+           ) +
+  # Idioms (don't quite fit the grammar) annotation geoms...  
+  geom_abline(slope = .01, intercept = 0) +  # line equation
+  geom_hline(yintercept = 70,   # horizontal line
+             linetype = "dotted") +  
+  geom_vline(xintercept = c(1000, 10000), # vertical line
+             linetype = "dashed") +
+# Punctuation - small multiples with facet statements
+  facet_wrap(~ continent, ncol = 2) + # small multiples by one variable  
+# Greetings - what meets the eye - changing default plot look and feel
+  theme_minimal() ->  # also theme_bw, theme_classic, theme_grey
+  g
+# Written Language
+ggsave(filename = "my_plot.png", plot = g)
+```
+
+
+
+<!-- --- -->
+<!-- ```{r, eval = T, message = F} -->
+<!-- # Declarative mood - declare data -->
+<!-- ggplot(data = gapminder_2002) + -->
+<!-- # Interogative mood - ask for representation -->
+<!--   aes(x = gdpPercap) +    # x position -->
+<!--   aes(y = lifeExp) +      # y position -->
+<!-- # Noun - declare geometric object -->
+<!--   geom_point() +  # above aes are required for point -->
+<!-- # And back to Interogative mood - ask for representation -->
+<!--   # aes(color = continent) +  # color -->
+<!--   aes(shape = continent) +  # shape -->
+<!--   aes(size = pop) +   # size -->
+<!--   aes(alpha = lifeExp) +  # transparency  -->
+<!--   # aes(color = lifeExp) # color's representing continuous variable -->
+<!-- # Modifiers I - changing default aesthetic scales -->
+<!--   scale_x_log10() + -->
+<!--   # scale_y_reverse(limits = c(100, 0)) + -->
+<!--   # scale_color_viridis_d() + -->
+<!--   scale_shape_discrete(solid = F) + -->
+<!--   scale_size_continuous(breaks = c(100, 1000, 10000, 100000)) + -->
+<!--   scale_alpha(range = c(.5, 1)) + # full transparency is 0 -->
+<!-- # Modifiers II - changing default labels -->
+<!--   labs(x = "GDP per cap") +  -->
+<!--   labs(y = "Life Expectency") +  -->
+<!--   # labs(color = "Continent") +  -->
+<!--   labs(shape = "Continent") +  -->
+<!--   labs(size = "GDP per cap") +  -->
+<!--   labs(alpha = "GDP per cap") +  -->
+<!-- # Modifiers IIb. Note that labs is also used to adjust *plot* labels() -->
+<!--   labs(title = "GDP per Cap versus Life Expectancy\nin 2002") +  -->
+<!--   labs(subtitle = "Data: Gapminder Data in R") +  -->
+<!--   labs(caption = "Visualization: @EvaMaeRey") +  -->
+<!--   labs(tag = "Plot 1") +  -->
+<!-- # Modifiers III - changing default coordinate system (cartesian) -->
+<!--   # coord_flip() + # flip x and y coordinates -->
+<!--   # coord_equal() + # make x and y scaling equal -->
+<!--   # coord_fixed(ratio = 4000) + # define ratio for x and y -->
+<!--   # coord_polar() # polar coordinate system -->
+<!-- # Imparative mood - unmapped aesthetics -->
+<!-- # Imparative mood -->
+<!--   aes(color = I("steelblue")) + -->
+<!--   # Conditional Mood - for specific geoms, locally defining: -->
+<!--       # 1) data, 2) aesthetic representation, 3) *unmapped* aesthetics (the Imparative mood) -->
+<!--   geom_point( -->
+<!--   data = gapminder_2002_europe,  # local data -->
+<!--   aes(size = pop),  # local mapped aesthetics -->
+<!--   color = "orange" # local across-the-board aesthetics -->
+<!--    ) + -->
+<!-- # Interjections - annotation - geometric objects not tied to data -->
+<!--   annotate(geom = "point", # define geometric shape -->
+<!--            x = 10000, # define required aesthetic for geom -->
+<!--            y = 60, # define required aesthetic -->
+<!--            color = "red" # define optional aesthetic -->
+<!--            ) + -->
+<!--   annotate(geom = "text",  -->
+<!--            x = c(1000, 10000), y = 80, label = "Hello") + -->
+<!--   annotate(geom = "curve", -->
+<!--            x = 1000, y = 80, xend = 10000, yend = 60, -->
+<!--            color = "green", arrow = arrow()) + -->
+<!--   # annotation geoms...   -->
+<!--   geom_abline(slope = .01, intercept = 0) +   -->
+<!--   geom_hline(yintercept = 70,   -->
+<!--              linetype = "dotted") +   -->
+<!--   geom_vline(xintercept = c(1000, 10000), -->
+<!--              linetype = "dashed") + -->
+<!-- # Punctuation - small multiples with facet statements -->
+<!--   facet_wrap(~ continent, ncol = 2) + # small multiples by one variable   -->
+<!--   # facet_grid(pop > 10000000 ~  -->
+<!--   #              continent)  # by two variables -->
+<!-- # Greetings - what meets the eye - changing default plot look and feel -->
+<!--   # theme_bw() +   -->
+<!--   # theme_light(base_size = 5,   -->
+<!--   #            base_family = "Times") +   -->
+<!--   # theme_dark()   -->
+<!--   theme_minimal() -> -->
+<!-- g -->
+<!-- # Written Language -->
+<!-- ggsave(filename = "my_plot.png", plot = g) -->
+<!-- ```   -->

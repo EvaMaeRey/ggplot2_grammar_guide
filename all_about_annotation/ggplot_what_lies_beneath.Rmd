@@ -1,0 +1,205 @@
+---
+title: "Flipbooks"
+author: "Gina Reynolds, November 2019"
+output:
+  xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    css: ["kunoichi", "ninjutsu"]
+    nature:
+      ratio: 16:10
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+```{r setup, include=F}
+knitr::opts_chunk$set(fig.width = 6, message = F, warning = F, 
+                      comment = "", cache = T)
+```
+
+
+# What are Flipbooks?
+# Show an one example - ggplot2 flipbook
+# What are their advantages (Don Norman, the Design of Everyday Things)
+ - natural mapping (matching code-output temporal changes)
+ - affordances (ease of use - motion detection, name, automatic parsing - low additional burden on creator)
+ - feedback (minimal changes mean that feedback is digestible)
+# How is it implemented?
+  # automation... (technical side)
+  # And how YOU can make one ...
+# Extending the basic
+  ## adding connectors, allowing code wrapping, using a parser (making it safe for human consumption)
+  ## using %>% .[] - data.table
+  ## Regular Assignment
+  ## Non sequential reveal (not yet implemented)
+  ## Traditional presentations
+  ## Ensembles (not yet stable)
+  ## python, C++ (not yet implemented)
+  ## Visual Table of contents - "You do not need a slide for the Table of Contents!"
+  ## Flipbook mini (not yet final)
+# resources
+  ## package
+  ## flipbooks library (my uses)
+  ## minimal examples
+  ## video?
+# caveats
+  # irreproducibility across platforms (fonts)
+  # output not supported by remark.js, not going to work
+  # may load slow (or not at all - leaflet)
+# future...???
+
+---
+
+# Introduction
+
+This is a minimal example to demonstrate how to create a flipbook with data from #TidyTuesday.  It walks through data wrangling and plots pipelines made with the Tidyverse.  The functions that make this possible are the work of Emi Tanaka, Garrick Aden-Buie and myself, and are built for Xaringan, an Rmarkdown file type for creating presentation slides; the functions make use of the function `knitr:::knit_code$get()`.
+
+The code to create the flipbook is an .Rmd that you can download [**here**](https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/master/tidytuesday_minimal_example/tidytuesday_minimal_example.Rmd).
+
+---
+
+Interested in more flipbooks? Check out 
+
+- [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html)
+- [The Tidyverse in Action](https://evamaerey.github.io/tidyverse_in_action/tidyverse_in_action.html)
+- [the ggplot2 grammar guide](https://evamaerey.github.io/ggplot2_grammar_guide/ggplot2_grammar_guide)
+
+and 
+
+- [the little flipbooks libraray](https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library)
+
+
+For more about Xaringan:
+
+- [Xaringan presentation slides](https://slides.yihui.name/xaringan/)
+
+The sequential workflow of the Tidyverse makes incremental display of pipelines and ggplot statements ideal:  
+
+- [www.tidyverse.org](https://www.tidyverse.org/)
+
+
+---
+
+
+# What's the slow ggplot style?
+
+"Slow ggplot" just means working more incrementally than is typical. Elements of the approach are as follows:
+
+- pulling out aes() from the ggplot() function:  
+- using fewer functions; example - using labs() to add a title instead of ggtitle()
+- using functions multiple times; example aes(x = var1) + aes(y = var2) rather than aes(x = var1, y = var2)
+- using base R functions and tidyverse functions.  For other packages, the :: style to call them
+- write out arguments (no shortcuts)  aes(x = gdppercap) not aes(gdppercap)
+- order ggplot commands so that reactivity is obvious; scale adjustments to aesthetics might also be near the aesthetic declaration. 
+
+
+---
+
+Here, I contrast the usual plotting method to slow ggplotting:
+
+Usual approach:
+
+```{r, eval = F}
+ggplot(my_data, aes(var1, y = var2, col = var3)) +
+  geom_point() +
+  ggtitle("My Title") +
+  labs(x = "the x label", y = "the y label", col = "legend title")
+```
+
+Using slow ggplotting: 
+
+```{r, eval = F}
+ggplot(data = my_data) +
+  aes(x = var1) +
+  aes(y = var2) +
+  geom_point() +
+  aes(col = var3) +
+  labs(y = "the y label") +
+  labs(x = "the x label") +
+  labs(col = "legend title") +
+  labs(title = "My title")
+```
+
+
+
+
+---
+
+# Set up
+
+Okay. Let's load the the `flipbookr` and the `tidyverse` packages.
+
+```{r, cache = F}
+library(flipbookr)
+library(tidyverse)
+```
+
+And load the data from the tidytuesday github page. 
+
+```{r}
+# nobel_winners <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-05-14/nobel_winners.csv")
+# source("../../../../../R/flipbook_mini.R")
+# source("../../../../../R/base_parse_reveal_xaringan.R")
+# source("../../../../../R/non_sequential_reveal.R")
+```
+
+---
+
+# Where we are going: 
+
+We'll create this plot.  I have **echo** set to FALSE in the code chunk options here so that you don't see the code, and **eval** to TRUE so that the plot output is produced.  The code chunk is given the name "nobel", and this is used in the in apply_reveal function, which breaks down code by wrangling and plot statements. 
+
+```{r , echo = F, eval = T, fig.height=5}
+g <-  cars %>%             # the data  #REVEAL
+  filter(speed > 4) %>%  # subset
+ ggplot() +              # pipe to ggplot
+  aes(x = speed) +
+  aes(y = dist) +
+  # Describing what follows
+  geom_point(alpha = .3) + #REVEAL
+  aes(color =
+  speed > 14
+  ) %+%
+  cars
+
+str(g)
+
+
+g1 <- ggplot(cars, aes(x = speed)) 
+g2 <- ggplot(cars, aes(x = speed))
+
+
+for (i in 1:9) {
+  
+identical(g2[[i]], g1[[i]]) %>% 
+    print()
+  
+}
+
+g2$mapping
+g1$mapping
+g1$labels
+
+
+```
+ 
+
+ 
+---
+
+# How do we get there?
+
+In the next slide, we'll walk through the code that produces this plot, and the output along the way. We use the code `apply_reveal("nobel")` in-line to access the code from the code chunk called *nobel*.
+ 
+---
+
+`r apply_reveal("nobel")`
+
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 80%}
+```

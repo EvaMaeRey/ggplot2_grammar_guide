@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>A ggplot2 grammar guide</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds, July 2019" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# A ggplot2 grammar guide
+### Gina Reynolds, July 2019
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+
+&lt;!-- # For teachers --&gt;
+
+&lt;!-- This is a collection of thoughts about how to teach ggplot2, and any other grammar of graphics type data visualization system.   --&gt;
+
+&lt;!-- It is tempting to rush to build a publication-ready plot right out of the gate.   --&gt;
+
+&lt;!-- But maybe we should resist this temptation. Maybe we should "hang out" in each of the component zones for a bit.  Explore. Get comfy in a zone.  Then move on. --&gt;
+
+
+
+
+
+---
+
+# Modifiers
+
+*"The book is on the table"* or *"The huge book is on the purple table"?*
+
+We are able to learn something about our data with very few inputs with ggplot2!  Part of the reason for this is there are convenient and reasonable defaults related to the aesthetics.  In the first sentence above, we might have a picture of the book without any modifiers -- it is some "default image" of books.  In ggplot2, also, we can write short "sentences" and get a meaningful plot in return because of helpful defaults.  But we can use modifiers to change these defaults.  
+
+---
+
+# Modifiers
+
+
+Modifiers adjust the default for:
+
+--
+
+1. the aesthetic scales *themselves* (we have seen a "blues" scale by default for the color aesthetic, but it could be greens, or yellows)
+
+--
+2. the scale *labels* (the scale labels are the variable names by default, but they could be something else)
+
+--
+3. the *coordinate system* (the default coordinate system is cartesian (x horizontal, y vertical), but it could be something else - like polar)
+
+
+---
+
+name: scales
+
+## Modifying aesthetic scales 
+
+With the aes() statement we have declared a variable mapped to an aesthetic, like x position, color, line width, etc.  To go back and ask for a modified scale, we use scales\_\* statements.  These statements provide a quick way to update our preferences for all the mapped aesthetics.   
+
+&lt;!-- Start with a scales_x_* and look at the variety of scale options associated with the x position aesthetic.   --&gt;
+
+Let's look at how we modify the default scale with a scales\_\* statement. 
+
+---
+
+## Scales
+
+
+There are a variety of scaling alternatives for the x position aesthetic:  
+
+- scale_x_log10()
+- scale_x_reverse()
+- scale_x_sqrt()
+
+
+---
+
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002) +
+* aes(x = gdpPercap) +
+* aes(y = lifeExp) +
+* geom_point()   # this much is familiar
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/x_scales_user_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  # this much is familiar 
+* scale_x_log10()   # overrides default
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/x_scales_user_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  # this much is familiar 
+  scale_x_log10() +  # overrides default  
+* scale_x_reverse()   # overrides log10
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/x_scales_user_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  # this much is familiar 
+  scale_x_log10() +  # overrides default  
+  scale_x_reverse() +  # overrides log10  
+* scale_x_sqrt()  # overrides reverse
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/x_scales_user_4_output-1.png" width="100%" /&gt;
+]]
+
+
+---
+
+### More aesthetic scale modifications
+
+*Note that using multiple scales associated with a single aesthetic is not typical.  We are just doing it here to expose you quickly to a variety of possibilities.  ggplot2 uses whatever scale specification last declared in our examples.*
+
+Analogously, we can use scale\_\*\_\* statements to modify other aesthetic scales.  Here are some examples
+
+&lt;!-- I think people find it easy to think about x and y position and adjusting those scales, and related adjustment like labs() and scale_*, but we teachers need to help extend these logics to the other aesthetics.  --&gt;
+
+
+- scale_x_log10() 
+- scale_y_reverse(limits = c(100, 0)) 
+- scale_color_viridis_d() 
+- scale_shape_discrete(solid = F) 
+- scale_size_continuous(breaks = c(100, 1000, 10000, 100000)) 
+- scale_alpha(range = c(.5, 1)) # full transparency is 0
+
+
+Let's tour several of those to get a taste.  
+
+---
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002) +
+* aes(x = gdpPercap) +
+* aes(y = lifeExp) +
+* geom_point() +
+* aes(color = continent) +
+* aes(size = gdpPercap) +
+* aes(shape = continent) +
+* aes(alpha = gdpPercap)   # We've done this much
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/scales_user_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = gdpPercap) +  
+  aes(shape = continent) +  
+  aes(alpha = gdpPercap) +  # We've done this much 
+* scale_x_log10()
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/scales_user_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = gdpPercap) +  
+  aes(shape = continent) +  
+  aes(alpha = gdpPercap) +  # We've done this much 
+  scale_x_log10() +  
+* scale_y_reverse(limits = c(100, 0))
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/scales_user_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = gdpPercap) +  
+  aes(shape = continent) +  
+  aes(alpha = gdpPercap) +  # We've done this much 
+  scale_x_log10() +  
+  scale_y_reverse(limits = c(100, 0)) +  
+* scale_color_viridis_d()
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/scales_user_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = gdpPercap) +  
+  aes(shape = continent) +  
+  aes(alpha = gdpPercap) +  # We've done this much 
+  scale_x_log10() +  
+  scale_y_reverse(limits = c(100, 0)) +  
+  scale_color_viridis_d() +  
+* scale_shape_discrete(solid = F)
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/scales_user_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = gdpPercap) +  
+  aes(shape = continent) +  
+  aes(alpha = gdpPercap) +  # We've done this much 
+  scale_x_log10() +  
+  scale_y_reverse(limits = c(100, 0)) +  
+  scale_color_viridis_d() +  
+  scale_shape_discrete(solid = F) +  
+* scale_size_continuous(
+*   breaks = c(100, 1000, 10000, 100000),
+*   limits = c(0, 100000))
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/scales_user_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = gdpPercap) +  
+  aes(shape = continent) +  
+  aes(alpha = gdpPercap) +  # We've done this much 
+  scale_x_log10() +  
+  scale_y_reverse(limits = c(100, 0)) +  
+  scale_color_viridis_d() +  
+  scale_shape_discrete(solid = F) +  
+  scale_size_continuous(  
+    breaks = c(100, 1000, 10000, 100000),  
+    limits = c(0, 100000)) +  
+* scale_alpha(range = c(.3, .8))
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/scales_user_7_output-1.png" width="100%" /&gt;
+]]
+
+---
+
+## Questions:
+
+&lt;!-- to ponder --&gt;
+
+- What does the parameter "breaks" seem to control?
+
+- What are some additional color scales that can be used?  Use auto complete in RStudio.  (i.e. type "scale_color" and then "tab" to see your options)
+
+- What does "d" stand for in the scale_color_viridis_d()? Use the help pane.
+
+- While you are in the help pane, see how would you set missing values (NA) to "black".
+
+
+
+---
+
+name: labs
+
+## Modifying aesthetic scale labels
+
+Aesthetic scales also get default *labels* which are the variable names.  We can also modify these.  
+
+The syntax is labs(\* = "New label"), where the \* is the aesthetic name.  
+
+`labs()` can also be used to add plot labels, plot title, caption, subtitle and tag.
+
+Let's see how. 
+
+---
+
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002) +
+* aes(x = gdpPercap) +
+* aes(y = lifeExp) +
+* geom_point() +
+* aes(color = continent) +
+* aes(shape = continent) +
+* aes(size = gdpPercap) +
+* aes(alpha = gdpPercap)   # this much is familiar
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/labs_user_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(shape = continent) +  
+  aes(size = gdpPercap) +  
+  aes(alpha = gdpPercap) +  # this much is familiar 
+* labs(x = "GDP per cap")
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/labs_user_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(shape = continent) +  
+  aes(size = gdpPercap) +  
+  aes(alpha = gdpPercap) +  # this much is familiar 
+  labs(x = "GDP per cap") +  
+* labs(y = "Life Expectency")
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/labs_user_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(shape = continent) +  
+  aes(size = gdpPercap) +  
+  aes(alpha = gdpPercap) +  # this much is familiar 
+  labs(x = "GDP per cap") +  
+  labs(y = "Life Expectency") +  
+* labs(color = "Continent")
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/labs_user_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(shape = continent) +  
+  aes(size = gdpPercap) +  
+  aes(alpha = gdpPercap) +  # this much is familiar 
+  labs(x = "GDP per cap") +  
+  labs(y = "Life Expectency") +  
+  labs(color = "Continent") +  
+* labs(shape = "Continent")
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/labs_user_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(shape = continent) +  
+  aes(size = gdpPercap) +  
+  aes(alpha = gdpPercap) +  # this much is familiar 
+  labs(x = "GDP per cap") +  
+  labs(y = "Life Expectency") +  
+  labs(color = "Continent") +  
+  labs(shape = "Continent") +  
+* labs(size = "GDP per cap")
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/labs_user_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(shape = continent) +  
+  aes(size = gdpPercap) +  
+  aes(alpha = gdpPercap) +  # this much is familiar 
+  labs(x = "GDP per cap") +  
+  labs(y = "Life Expectency") +  
+  labs(color = "Continent") +  
+  labs(shape = "Continent") +  
+  labs(size = "GDP per cap") +  
+* labs(alpha = "GDP per cap")
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/labs_user_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(shape = continent) +  
+  aes(size = gdpPercap) +  
+  aes(alpha = gdpPercap) +  # this much is familiar 
+  labs(x = "GDP per cap") +  
+  labs(y = "Life Expectency") +  
+  labs(color = "Continent") +  
+  labs(shape = "Continent") +  
+  labs(size = "GDP per cap") +  
+  labs(alpha = "GDP per cap") +  
+* # Note: labs is also used to adjust *plot* labels  # Note: labs is also used to adjust *plot* labels
+* labs(title = "GDP per Cap versus Life Expectancy\nin 2002")
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/labs_user_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(shape = continent) +  
+  aes(size = gdpPercap) +  
+  aes(alpha = gdpPercap) +  # this much is familiar 
+  labs(x = "GDP per cap") +  
+  labs(y = "Life Expectency") +  
+  labs(color = "Continent") +  
+  labs(shape = "Continent") +  
+  labs(size = "GDP per cap") +  
+  labs(alpha = "GDP per cap") +  
+  # Note: labs is also used to adjust *plot* labels  # Note: labs is also used to adjust *plot* labels
+  labs(title = "GDP per Cap versus Life Expectancy\nin 2002") +  
+* labs(subtitle = "Data: Gapminder Data in R")
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/labs_user_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(shape = continent) +  
+  aes(size = gdpPercap) +  
+  aes(alpha = gdpPercap) +  # this much is familiar 
+  labs(x = "GDP per cap") +  
+  labs(y = "Life Expectency") +  
+  labs(color = "Continent") +  
+  labs(shape = "Continent") +  
+  labs(size = "GDP per cap") +  
+  labs(alpha = "GDP per cap") +  
+  # Note: labs is also used to adjust *plot* labels  # Note: labs is also used to adjust *plot* labels
+  labs(title = "GDP per Cap versus Life Expectancy\nin 2002") +  
+  labs(subtitle = "Data: Gapminder Data in R") +  
+* labs(caption = "Visualization: @EvaMaeRey")
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/labs_user_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(shape = continent) +  
+  aes(size = gdpPercap) +  
+  aes(alpha = gdpPercap) +  # this much is familiar 
+  labs(x = "GDP per cap") +  
+  labs(y = "Life Expectency") +  
+  labs(color = "Continent") +  
+  labs(shape = "Continent") +  
+  labs(size = "GDP per cap") +  
+  labs(alpha = "GDP per cap") +  
+  # Note: labs is also used to adjust *plot* labels  # Note: labs is also used to adjust *plot* labels
+  labs(title = "GDP per Cap versus Life Expectancy\nin 2002") +  
+  labs(subtitle = "Data: Gapminder Data in R") +  
+  labs(caption = "Visualization: @EvaMaeRey") +  
+* labs(tag = "Plot 1")
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/labs_user_11_output-1.png" width="100%" /&gt;
+]]
+
+---
+
+## Questions:
+
+- When might you use labs(tag = )?
+- What does the character string "\n" do in the place of a space in the plot title?
+- Color and shape variables represent the same variable, and labs(color = \*) labs(shape = \*) have the same input, "Continent".  What does this mean for the legend? Change the labels to be different and see.
+- Change the y label to an empty string, '""'.  What does this do?  
+
+
+
+---
+
+name: coords
+
+## Modifying x and y position coordinate system
+
+A third default for how aesthetic mapping of *positions x and y* are manifest is the coordinate system.  The default is cartesian coordinates - where x lies on the horizontal and is pependicular to y.  
+
+But let's quickly check out some of the different options for coordinates systems.  When we use a coord_* statement in ggplot, we can overwrite the default.    
+
+---
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002)
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/coords_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+* aes(x = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/coords_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/coords_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/coords_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* coord_equal()   # overriding default
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/coords_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  coord_equal() +  # overriding default
+* coord_fixed(ratio = 400)   # overriding equal
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/coords_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  coord_equal() +  # overriding default
+  coord_fixed(ratio = 400) +  # overriding equal
+* coord_flip()   # overriding fixed
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/coords_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  coord_equal() +  # overriding default
+  coord_fixed(ratio = 400) +  # overriding equal
+  coord_flip() +  # overriding fixed
+* coord_polar()  # overriding flip
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/coords_auto_8_output-1.png" width="100%" /&gt;
+]]
+
+
+---
+
+## Modifiers - Review
+
+We have seen that there are three modifiers to aesthetic mapping.
+
+- scale_*
+- labs(* = )
+- coords_? (applies x,y position aesthetics only)
+
+
+To review, let's just look at modifiers for the horizontal *x* position aesthetic.
+
+---
+
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002)
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/modifiers_review_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+* aes(x = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/modifiers_review_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/modifiers_review_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/modifiers_review_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_log10()   # modify x scale
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/modifiers_review_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  scale_x_log10() +  # modify x scale
+* labs(x = "GDP per cap")   # modify x label
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/modifiers_review_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  scale_x_log10() +  # modify x scale
+  labs(x = "GDP per cap") +  # modify x label 
+* coord_polar()  # modify x and y coordinate system
+```
+]]
+.column[.content[
+&lt;img src="modifiers_files/figure-html/modifiers_review_auto_7_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 70%}
+&lt;/style&gt;
+
+
+&lt;!-- ```{r, dpi=400, eval = F} --&gt;
+&lt;!-- gapminder %&gt;%  --&gt;
+&lt;!--   select(continent) %&gt;%  --&gt;
+&lt;!--   ggplot() + --&gt;
+&lt;!--   aes(x = 1) + --&gt;
+&lt;!--   aes(fill = continent) + --&gt;
+&lt;!--   geom_bar(color = "white", size = .2) + --&gt;
+&lt;!--   coord_polar(theta = "y") + --&gt;
+&lt;!--   theme_void() + --&gt;
+&lt;!--   scale_fill_viridis_d() + --&gt;
+&lt;!--   theme(rect = element_rect(fill = "grey",  --&gt;
+&lt;!--                             color = "grey",  --&gt;
+&lt;!--                             linetype = "solid", --&gt;
+&lt;!--                             size = 0)) --&gt;
+
+&lt;!-- ggsave("pie.svg", dpi = 320,device = "svg") --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- Or at least an organized twitter thread!?  Another idea for you: pull aes() out of ggplot(). Do you do it? Lot's of reasons to do it! Downside is currently most examples make use of nested approach. @grrrck does this too, and esquisse --&gt;
+
+&lt;!-- ggplot(data = my_data) +  --&gt;
+&lt;!--    aes(x = my_var) --&gt;
+
+&lt;!-- Is it possible to do this with multiple geoms? I usually specify aes within the geom like  --&gt;
+
+&lt;!-- ggplot(data) + --&gt;
+&lt;!--   geom_point(aes(x, y)) + --&gt;
+&lt;!--   geom_line(aes(x, y, group = id))  --&gt;
+
+&lt;!-- I prefer this approach because it's explicit which aesthetics are bound to which geoms --&gt;
+
+&lt;!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! --&gt;
+
+
+&lt;!-- To change the data used for a plot, use the %+% operator! Oh!!!  --&gt;
+
+
+&lt;!-- # Stat_* --&gt;
+
+&lt;!-- ## Univariate discrete --&gt;
+
+
+
+&lt;!-- ```{r univariate_discrete, eval = F, echo = F} --&gt;
+&lt;!-- ggplot(gapminder_2002) + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   stat_count() + --&gt;
+&lt;!--   geom_bar() # convenience geom --&gt;
+&lt;!--             # default counting --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- r chunk_reveal("univariate_discrete")` --&gt;
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- ggplot(data = gapminder_2002) + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   aes(y = lifeExp) + --&gt;
+&lt;!--   geom_point(alpha = .1) + --&gt;
+&lt;!--   stat_summary( --&gt;
+&lt;!--     fun.ymin = min, --&gt;
+&lt;!--     fun.ymax = max, --&gt;
+&lt;!--     fun.y = median --&gt;
+&lt;!--   ) --&gt;
+&lt;!-- ``` --&gt;
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- gapminder_2002 %&gt;%  --&gt;
+&lt;!--   mutate(seventy_plus = lifeExp &gt; 60) %&gt;%  --&gt;
+&lt;!-- ggplot() + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   aes(fill = seventy_plus) + --&gt;
+&lt;!--   geom_bar(alpha = .2) --&gt;
+&lt;!-- ``` --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

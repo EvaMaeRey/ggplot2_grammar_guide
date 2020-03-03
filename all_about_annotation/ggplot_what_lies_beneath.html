@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Flipbooks</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds, November 2019" />
+    <link href="libs/remark-css-0.0.1/kunoichi.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Flipbooks
+### Gina Reynolds, November 2019
+
+---
+
+
+
+
+
+
+# What are Flipbooks?
+# Show an one example - ggplot2 flipbook
+# What are their advantages (Don Norman, the Design of Everyday Things)
+ - natural mapping (matching code-output temporal changes)
+ - affordances (ease of use - motion detection, name, automatic parsing - low additional burden on creator)
+ - feedback (minimal changes mean that feedback is digestible)
+# How is it implemented?
+  # automation... (technical side)
+  # And how YOU can make one ...
+# Extending the basic
+  ## adding connectors, allowing code wrapping, using a parser (making it safe for human consumption)
+  ## using %&gt;% .[] - data.table
+  ## Regular Assignment
+  ## Non sequential reveal (not yet implemented)
+  ## Traditional presentations
+  ## Ensembles (not yet stable)
+  ## python, C++ (not yet implemented)
+  ## Visual Table of contents - "You do not need a slide for the Table of Contents!"
+  ## Flipbook mini (not yet final)
+# resources
+  ## package
+  ## flipbooks library (my uses)
+  ## minimal examples
+  ## video?
+# caveats
+  # irreproducibility across platforms (fonts)
+  # output not supported by remark.js, not going to work
+  # may load slow (or not at all - leaflet)
+# future...???
+
+---
+
+# Introduction
+
+This is a minimal example to demonstrate how to create a flipbook with data from #TidyTuesday.  It walks through data wrangling and plots pipelines made with the Tidyverse.  The functions that make this possible are the work of Emi Tanaka, Garrick Aden-Buie and myself, and are built for Xaringan, an Rmarkdown file type for creating presentation slides; the functions make use of the function `knitr:::knit_code$get()`.
+
+The code to create the flipbook is an .Rmd that you can download [**here**](https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/master/tidytuesday_minimal_example/tidytuesday_minimal_example.Rmd).
+
+---
+
+Interested in more flipbooks? Check out 
+
+- [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html)
+- [The Tidyverse in Action](https://evamaerey.github.io/tidyverse_in_action/tidyverse_in_action.html)
+- [the ggplot2 grammar guide](https://evamaerey.github.io/ggplot2_grammar_guide/ggplot2_grammar_guide)
+
+and 
+
+- [the little flipbooks libraray](https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library)
+
+
+For more about Xaringan:
+
+- [Xaringan presentation slides](https://slides.yihui.name/xaringan/)
+
+The sequential workflow of the Tidyverse makes incremental display of pipelines and ggplot statements ideal:  
+
+- [www.tidyverse.org](https://www.tidyverse.org/)
+
+
+---
+
+
+# What's the slow ggplot style?
+
+"Slow ggplot" just means working more incrementally than is typical. Elements of the approach are as follows:
+
+- pulling out aes() from the ggplot() function:  
+- using fewer functions; example - using labs() to add a title instead of ggtitle()
+- using functions multiple times; example aes(x = var1) + aes(y = var2) rather than aes(x = var1, y = var2)
+- using base R functions and tidyverse functions.  For other packages, the :: style to call them
+- write out arguments (no shortcuts)  aes(x = gdppercap) not aes(gdppercap)
+- order ggplot commands so that reactivity is obvious; scale adjustments to aesthetics might also be near the aesthetic declaration. 
+
+
+---
+
+Here, I contrast the usual plotting method to slow ggplotting:
+
+Usual approach:
+
+
+```r
+ggplot(my_data, aes(var1, y = var2, col = var3)) +
+  geom_point() +
+  ggtitle("My Title") +
+  labs(x = "the x label", y = "the y label", col = "legend title")
+```
+
+Using slow ggplotting: 
+
+
+```r
+ggplot(data = my_data) +
+  aes(x = var1) +
+  aes(y = var2) +
+  geom_point() +
+  aes(col = var3) +
+  labs(y = "the y label") +
+  labs(x = "the x label") +
+  labs(col = "legend title") +
+  labs(title = "My title")
+```
+
+
+
+
+---
+
+# Set up
+
+Okay. Let's load the the `flipbookr` and the `tidyverse` packages.
+
+
+```r
+library(flipbookr)
+library(tidyverse)
+```
+
+And load the data from the tidytuesday github page. 
+
+
+```r
+# nobel_winners &lt;- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-05-14/nobel_winners.csv")
+# source("../../../../../R/flipbook_mini.R")
+# source("../../../../../R/base_parse_reveal_xaringan.R")
+# source("../../../../../R/non_sequential_reveal.R")
+```
+
+---
+
+# Where we are going: 
+
+We'll create this plot.  I have **echo** set to FALSE in the code chunk options here so that you don't see the code, and **eval** to TRUE so that the plot output is produced.  The code chunk is given the name "nobel", and this is used in the in apply_reveal function, which breaks down code by wrangling and plot statements. 
+
+![](ggplot_what_lies_beneath_files/figure-html/nobel-1.png)&lt;!-- --&gt;
+ 
+
+ 
+---
+
+# How do we get there?
+
+In the next slide, we'll walk through the code that produces this plot, and the output along the way. We use the code `apply_reveal("nobel")` in-line to access the code from the code chunk called *nobel*.
+ 
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*cars   # the data
+```
+]]
+.column[.content[
+
+```
+   speed dist
+1      4    2
+2      4   10
+3      7    4
+4      7   22
+5      8   16
+6      9   10
+7     10   18
+8     10   26
+9     10   34
+10    11   17
+11    11   28
+12    12   14
+13    12   20
+14    12   24
+15    12   28
+16    13   26
+17    13   34
+18    13   34
+19    13   46
+20    14   26
+21    14   36
+22    14   60
+23    14   80
+24    15   20
+25    15   26
+26    15   54
+27    16   32
+28    16   40
+29    17   32
+30    17   40
+31    17   50
+32    18   42
+33    18   56
+34    18   76
+35    18   84
+36    19   36
+37    19   46
+38    19   68
+39    20   32
+40    20   48
+41    20   52
+42    20   56
+43    20   64
+44    22   66
+45    23   54
+46    24   70
+47    24   92
+48    24   93
+49    24  120
+50    25   85
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  # the data  
+* filter(speed &gt; 4)   # subset
+```
+]]
+.column[.content[
+
+```
+   speed dist
+1      7    4
+2      7   22
+3      8   16
+4      9   10
+5     10   18
+6     10   26
+7     10   34
+8     11   17
+9     11   28
+10    12   14
+11    12   20
+12    12   24
+13    12   28
+14    13   26
+15    13   34
+16    13   34
+17    13   46
+18    14   26
+19    14   36
+20    14   60
+21    14   80
+22    15   20
+23    15   26
+24    15   54
+25    16   32
+26    16   40
+27    17   32
+28    17   40
+29    17   50
+30    18   42
+31    18   56
+32    18   76
+33    18   84
+34    19   36
+35    19   46
+36    19   68
+37    20   32
+38    20   48
+39    20   52
+40    20   56
+41    20   64
+42    22   66
+43    23   54
+44    24   70
+45    24   92
+46    24   93
+47    24  120
+48    25   85
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  # subset
+* ggplot()   # pipe to ggplot
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_nobel_3-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  # subset
+  ggplot() +  # pipe to ggplot
+* aes(x = speed)
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_nobel_4-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  # subset
+  ggplot() +  # pipe to ggplot
+  aes(x = speed) +  
+* aes(y = dist)
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_nobel_5-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  # subset
+  ggplot() +  # pipe to ggplot
+  aes(x = speed) +  
+  aes(y = dist) +  
+* # Describing what follows
+* geom_point(alpha = .3)
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_nobel_7-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  # subset
+  ggplot() +  # pipe to ggplot
+  aes(x = speed) +  
+  aes(y = dist) +  
+  # Describing what follows
+  geom_point(alpha = .3) +  
+* aes(color =
+* speed &gt; 14
+* )
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_nobel_10-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  # subset
+  ggplot() +  # pipe to ggplot
+  aes(x = speed) +  
+  aes(y = dist) +  
+  # Describing what follows
+  geom_point(alpha = .3) +  
+  aes(color =  
+  speed &gt; 14  
+  ) %+%  
+* cars
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_nobel_11-1.png)&lt;!-- --&gt;
+]]
+
+
+---
+
+
+# Embracing reverse assignment
+
+# A second approach: Separate the data manipulation from the plotting.
+
+If you'd like, you can also save your manipulated data and then plot, using the `%&gt;%` to create your pipe line, and then reverse assignment operator `-&gt;`.  An example follows. 
+
+---
+
+
+
+
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*cars   # the data
+```
+]]
+.column[.content[
+
+```
+   speed dist
+1      4    2
+2      4   10
+3      7    4
+4      7   22
+5      8   16
+6      9   10
+7     10   18
+8     10   26
+9     10   34
+10    11   17
+11    11   28
+12    12   14
+13    12   20
+14    12   24
+15    12   28
+16    13   26
+17    13   34
+18    13   34
+19    13   46
+20    14   26
+21    14   36
+22    14   60
+23    14   80
+24    15   20
+25    15   26
+26    15   54
+27    16   32
+28    16   40
+29    17   32
+30    17   40
+31    17   50
+32    18   42
+33    18   56
+34    18   76
+35    18   84
+36    19   36
+37    19   46
+38    19   68
+39    20   32
+40    20   48
+41    20   52
+42    20   56
+43    20   64
+44    22   66
+45    23   54
+46    24   70
+47    24   92
+48    24   93
+49    24  120
+50    25   85
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  # the data  
+* filter(speed &gt; 4)
+```
+]]
+.column[.content[
+
+```
+   speed dist
+1      7    4
+2      7   22
+3      8   16
+4      9   10
+5     10   18
+6     10   26
+7     10   34
+8     11   17
+9     11   28
+10    12   14
+11    12   20
+12    12   24
+13    12   28
+14    13   26
+15    13   34
+16    13   34
+17    13   46
+18    14   26
+19    14   36
+20    14   60
+21    14   80
+22    15   20
+23    15   26
+24    15   54
+25    16   32
+26    16   40
+27    17   32
+28    17   40
+29    17   50
+30    18   42
+31    18   56
+32    18   76
+33    18   84
+34    19   36
+35    19   46
+36    19   68
+37    20   32
+38    20   48
+39    20   52
+40    20   56
+41    20   64
+42    22   66
+43    23   54
+44    24   70
+45    24   92
+46    24   93
+47    24  120
+48    25   85
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  
+* mutate(var = 2)
+```
+]]
+.column[.content[
+
+```
+   speed dist var
+1      7    4   2
+2      7   22   2
+3      8   16   2
+4      9   10   2
+5     10   18   2
+6     10   26   2
+7     10   34   2
+8     11   17   2
+9     11   28   2
+10    12   14   2
+11    12   20   2
+12    12   24   2
+13    12   28   2
+14    13   26   2
+15    13   34   2
+16    13   34   2
+17    13   46   2
+18    14   26   2
+19    14   36   2
+20    14   60   2
+21    14   80   2
+22    15   20   2
+23    15   26   2
+24    15   54   2
+25    16   32   2
+26    16   40   2
+27    17   32   2
+28    17   40   2
+29    17   50   2
+30    18   42   2
+31    18   56   2
+32    18   76   2
+33    18   84   2
+34    19   36   2
+35    19   46   2
+36    19   68   2
+37    20   32   2
+38    20   48   2
+39    20   52   2
+40    20   56   2
+41    20   64   2
+42    22   66   2
+43    23   54   2
+44    24   70   2
+45    24   92   2
+46    24   93   2
+47    24  120   2
+48    25   85   2
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  
+  mutate(var = 2) -&gt;  
+*my_data
+```
+]]
+.column[.content[
+
+]]
+
+---
+
+# Plotting the transformed data (and *not* revealing your plot in advance -- *just* showing the build).
+
+Now you can use the transformed data to start the plot.  
+
+Note that you also might prefer a behavior where you don't show a preview of the finished plot in advance.  I show an example of this below. I don't evaluate the code chunk (i.e. I've set eval to FALSE) and I don't echo it (i.e. echo is set to false). This means that the code chunk itself won't yeild any output (code or plot) to be put on a slide.  This means that I don't need to use the dashes, \-\-\- to separate the code chunk from the `apply_reveal()` statement, which differs from previous set-ups where a slide separator directly preceded the `apply_reveal()` call. 
+
+---
+
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*ggplot(data = my_data)   # pipe to ggplot
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_just_plotting_1-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = my_data) +  # pipe to ggplot
+* aes(x = speed)
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_just_plotting_2-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = my_data) +  # pipe to ggplot
+  aes(x = speed) +  
+* aes(y = dist)
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_just_plotting_3-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = my_data) +  # pipe to ggplot
+  aes(x = speed) +  
+  aes(y = dist) +  
+* # Describing what follows
+* geom_point(alpha = .3)
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_just_plotting_5-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = my_data) +  # pipe to ggplot
+  aes(x = speed) +  
+  aes(y = dist) +  
+  # Describing what follows
+  geom_point(alpha = .3) +  
+* aes(
+*   color = speed &gt; 14
+* )
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_just_plotting_8-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = my_data) +  # pipe to ggplot
+  aes(x = speed) +  
+  aes(y = dist) +  
+  # Describing what follows
+  geom_point(alpha = .3) +  
+  aes(  
+    color = speed &gt; 14  
+  ) %+%  
+* cars
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_just_plotting_9-1.png)&lt;!-- --&gt;
+]]
+
+
+```r
+# make_flipbook_mini_chunk(chunk_name = "just_plotting", file_out = "a_flipbook_mini_example.gif")
+```
+
+---
+
+# Can't stomach reverse assignment?
+
+
+---
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*a_plot &lt;- cars   # the data
+ 
+a_plot # print object
+```
+]]
+.column[.content[
+
+```
+   speed dist
+1      4    2
+2      4   10
+3      7    4
+4      7   22
+5      8   16
+6      9   10
+7     10   18
+8     10   26
+9     10   34
+10    11   17
+11    11   28
+12    12   14
+13    12   20
+14    12   24
+15    12   28
+16    13   26
+17    13   34
+18    13   34
+19    13   46
+20    14   26
+21    14   36
+22    14   60
+23    14   80
+24    15   20
+25    15   26
+26    15   54
+27    16   32
+28    16   40
+29    17   32
+30    17   40
+31    17   50
+32    18   42
+33    18   56
+34    18   76
+35    18   84
+36    19   36
+37    19   46
+38    19   68
+39    20   32
+40    20   48
+41    20   52
+42    20   56
+43    20   64
+44    22   66
+45    23   54
+46    24   70
+47    24   92
+48    24   93
+49    24  120
+50    25   85
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+a_plot &lt;- cars %&gt;%  # the data  
+* filter(speed &gt; 4)   # subset
+ 
+a_plot # print object
+```
+]]
+.column[.content[
+
+```
+   speed dist
+1      7    4
+2      7   22
+3      8   16
+4      9   10
+5     10   18
+6     10   26
+7     10   34
+8     11   17
+9     11   28
+10    12   14
+11    12   20
+12    12   24
+13    12   28
+14    13   26
+15    13   34
+16    13   34
+17    13   46
+18    14   26
+19    14   36
+20    14   60
+21    14   80
+22    15   20
+23    15   26
+24    15   54
+25    16   32
+26    16   40
+27    17   32
+28    17   40
+29    17   50
+30    18   42
+31    18   56
+32    18   76
+33    18   84
+34    19   36
+35    19   46
+36    19   68
+37    20   32
+38    20   48
+39    20   52
+40    20   56
+41    20   64
+42    22   66
+43    23   54
+44    24   70
+45    24   92
+46    24   93
+47    24  120
+48    25   85
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+a_plot &lt;- cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  # subset
+* ggplot()   # pipe to ggplot
+ 
+a_plot # print object
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_regular_assignment_3-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+a_plot &lt;- cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  # subset
+  ggplot() +  # pipe to ggplot
+* aes(x = speed)
+ 
+a_plot # print object
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_regular_assignment_4-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+a_plot &lt;- cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  # subset
+  ggplot() +  # pipe to ggplot
+  aes(x = speed) +  
+* aes(y = dist)
+ 
+a_plot # print object
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_regular_assignment_5-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+a_plot &lt;- cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  # subset
+  ggplot() +  # pipe to ggplot
+  aes(x = speed) +  
+  aes(y = dist) +  
+* # Describing what follows
+* geom_point(alpha = .3)
+ 
+a_plot # print object
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_regular_assignment_7-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+a_plot &lt;- cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  # subset
+  ggplot() +  # pipe to ggplot
+  aes(x = speed) +  
+  aes(y = dist) +  
+  # Describing what follows
+  geom_point(alpha = .3) +  
+* aes(color =
+* speed &gt; 14
+* )
+ 
+a_plot # print object
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_regular_assignment_10-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+a_plot &lt;- cars %&gt;%  # the data  
+  filter(speed &gt; 4) %&gt;%  # subset
+  ggplot() +  # pipe to ggplot
+  aes(x = speed) +  
+  aes(y = dist) +  
+  # Describing what follows
+  geom_point(alpha = .3) +  
+  aes(color =  
+  speed &gt; 14  
+  ) %+%  
+* cars
+ 
+a_plot # print object
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_regular_assignment_11-1.png)&lt;!-- --&gt;
+]]
+
+
+
+
+---
+
+# User defined reveal
+
+---
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*ggplot(data = my_data) +  # pipe to ggplot
+* aes(x = speed) +
+* aes(y = dist)
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_user_definded_reveal_3-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = my_data) +  # pipe to ggplot
+  aes(x = speed) +  
+  aes(y = dist) +  
+* # Describing what follows
+* geom_blank() +
+* geom_point(data = my_data %&gt;% slice(1))
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_user_definded_reveal_6-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = my_data) +  # pipe to ggplot
+  aes(x = speed) +  
+  aes(y = dist) +  
+  # Describing what follows
+  geom_blank() +  
+  geom_point(data = my_data %&gt;% slice(1)) +  
+* geom_point()
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_user_definded_reveal_7-1.png)&lt;!-- --&gt;
+]]
+
+
+---
+
+# User defined reveal
+
+---
+
+
+
+
+![](ggplot_what_lies_beneath_files/figure-html/output_slow_traditional_presentation_4-1.png)&lt;!-- --&gt;
+---
+![](ggplot_what_lies_beneath_files/figure-html/output_slow_traditional_presentation_5-1.png)&lt;!-- --&gt;
+---
+![](ggplot_what_lies_beneath_files/figure-html/output_slow_traditional_presentation_9-1.png)&lt;!-- --&gt;
+---
+![](ggplot_what_lies_beneath_files/figure-html/output_slow_traditional_presentation_10-1.png)&lt;!-- --&gt;
+---
+![](ggplot_what_lies_beneath_files/figure-html/output_slow_traditional_presentation_11-1.png)&lt;!-- --&gt;
+---
+![](ggplot_what_lies_beneath_files/figure-html/output_slow_traditional_presentation_12-1.png)&lt;!-- --&gt;
+
+
+
+---
+
+# Non sequential reveal (or can't stomach "slow ggplot"?)
+
+---
+
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  
+  mutate(speed_14_plus = speed &gt;= 14) %&gt;%  
+  ggplot() +  
+  aes(x = speed) +  
+  aes(y = dist) +  
+  # Describing what follows  # Describing what follows
+  geom_point(  
+  
+  
+  
+    ) +  
+  aes(color = speed_14_plus)  
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_non_sequential_1-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  
+  mutate(speed_14_plus = speed &gt;= 14) %&gt;%  
+  ggplot() +  
+  aes(x = speed) +  
+  aes(y = dist) +  
+  # Describing what follows  # Describing what follows
+  geom_point(  
+*   size = 2, #REVEAL2
+  
+  
+    ) +  
+  aes(color = speed_14_plus)  
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_non_sequential_2-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  
+  mutate(speed_14_plus = speed &gt;= 14) %&gt;%  
+  ggplot() +  
+  aes(x = speed) +  
+  aes(y = dist) +  
+  # Describing what follows  # Describing what follows
+  geom_point(  
+    size = 2, #REVEAL2  
+*   alpha = .3, #REVEAL3
+  
+    ) +  
+  aes(color = speed_14_plus)  
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_non_sequential_3-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+cars %&gt;%  
+  mutate(speed_14_plus = speed &gt;= 14) %&gt;%  
+  ggplot() +  
+  aes(x = speed) +  
+  aes(y = dist) +  
+  # Describing what follows  # Describing what follows
+  geom_point(  
+    size = 2, #REVEAL2  
+    alpha = .3, #REVEAL3  
+*   color = "blue", #REVEAL4
+    ) +  
+  aes(color = speed_14_plus)  
+```
+]]
+.column[.content[
+![](ggplot_what_lies_beneath_files/figure-html/output_non_sequential_4-1.png)&lt;!-- --&gt;
+]]
+
+---
+
+# Non-traditional pipelines 
+
+---
+
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*list(thing_1 = "a",
+*    thing_2 = matrix(data = 1:5, nrow = 2))
+```
+]]
+.column[.content[
+
+```
+$thing_1
+[1] "a"
+
+$thing_2
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    1
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+list(thing_1 = "a",  
+     thing_2 = matrix(data = 1:5, nrow = 2)) -&gt;  
+*my_named_list
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+list(thing_1 = "a",  
+     thing_2 = matrix(data = 1:5, nrow = 2)) -&gt;  
+my_named_list  
+*list("a",
+*1:5,
+*my_named_list)
+```
+]]
+.column[.content[
+
+```
+[[1]]
+[1] "a"
+
+[[2]]
+[1] 1 2 3 4 5
+
+[[3]]
+[[3]]$thing_1
+[1] "a"
+
+[[3]]$thing_2
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    1
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+list(thing_1 = "a",  
+     thing_2 = matrix(data = 1:5, nrow = 2)) -&gt;  
+my_named_list  
+list("a",  
+1:5,  
+my_named_list) %&gt;%  
+*.[[3]]
+```
+]]
+.column[.content[
+
+```
+$thing_1
+[1] "a"
+
+$thing_2
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    1
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+list(thing_1 = "a",  
+     thing_2 = matrix(data = 1:5, nrow = 2)) -&gt;  
+my_named_list  
+list("a",  
+1:5,  
+my_named_list) %&gt;%  
+.[[3]] %&gt;%  
+*.$thing_2
+```
+]]
+.column[.content[
+
+```
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    1
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+list(thing_1 = "a",  
+     thing_2 = matrix(data = 1:5, nrow = 2)) -&gt;  
+my_named_list  
+list("a",  
+1:5,  
+my_named_list) %&gt;%  
+.[[3]] %&gt;%  
+.$thing_2 %&gt;%  
+*.[3]
+```
+]]
+.column[.content[
+
+```
+[1] 3
+```
+]]
+
+---
+
+
+# data.table
+
+
+
+
+
+
+---
+
+# Thanks
+
+Flipbooker visionaries and developers
+
+- Emi Tanaka
+- Garrick Aden-Buie
+- Ryan Granier
+- Suraj Tharpa
+
+Key Infrastructure
+
+- Yihui Xie (Rmarkdown, Xaringan), Allison Pres Hill
+- Hadley Wickham (ggplot, tidyverse)
+- Stefan Milton Bache (magrittr %&gt;%)
+- Claus Wilke (cowplot::plot_grid())
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 80%}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:10",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

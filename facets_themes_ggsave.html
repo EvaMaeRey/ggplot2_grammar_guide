@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Facets, quick themes, ggsave</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds, July 2019" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Facets, quick themes, ggsave
+### Gina Reynolds, July 2019
+
+---
+
+
+
+
+
+
+
+
+---
+
+name: facets
+
+# Punctuation: Small multiples
+
+Punctuation helps us break up language into digestible pieces. Breaking up visualization can also be helpful.  
+
+Creating *small multiples* also known as *faceting* is a powerful way to make data more digestible.   In ggplot, small plots based on a categorical variable can be visualized side by side.  
+
+
+
+
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002)
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/facets_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+* aes(x = gdpPercap / 1000)
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/facets_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/facets_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/facets_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* facet_wrap(~ continent, ncol = 2)
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/facets_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  facet_wrap(~ continent, ncol = 2) +  
+* aes(color = continent)
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/facets_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  facet_wrap(~ continent, ncol = 2) +  
+  aes(color = continent) +  
+* facet_null()   # overrides facet_wrap
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/facets_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  facet_wrap(~ continent, ncol = 2) +  
+  aes(color = continent) +  
+  facet_null() +  # overrides facet_wrap
+* facet_grid(
+*   pop &gt; 10000000 ~ continent
+*   )  # overrides facet_null
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/facets_auto_8_output-1.png" width="100%" /&gt;
+]]
+
+
+---
+
+
+
+---
+
+name: themes
+
+# Greetings: Themes
+
+It may seem just cosmetic, but themes can have a big impact on the look and feel of you final plot.  The thematic elements are what first meet the eye.  For more information on fine adjustment of thematic elements, have a look at the [taming ggplot themes flipbook](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1).  For now, check out how to change the look and feel of your graph with some preset themes.  
+
+
+
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002)
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/themes_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+* aes(x = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/themes_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/themes_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/themes_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* aes(color = continent)
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/themes_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* theme_bw()
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/themes_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  theme_bw() +  
+* theme_light(base_size = 5,
+*             base_family = "Times")
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/themes_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  theme_bw() +  
+  theme_light(base_size = 5,  
+              base_family = "Times") +  
+* theme_classic(base_size = 15,
+*               base_family = "Rockwell")
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/themes_auto_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  theme_bw() +  
+  theme_light(base_size = 5,  
+              base_family = "Times") +  
+  theme_classic(base_size = 15,  
+                base_family = "Rockwell") +  
+* theme_dark()
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/themes_auto_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  theme_bw() +  
+  theme_light(base_size = 5,  
+              base_family = "Times") +  
+  theme_classic(base_size = 15,  
+                base_family = "Rockwell") +  
+  theme_dark() +  
+* theme_minimal()
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/themes_auto_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  theme_bw() +  
+  theme_light(base_size = 5,  
+              base_family = "Times") +  
+  theme_classic(base_size = 15,  
+                base_family = "Rockwell") +  
+  theme_dark() +  
+  theme_minimal() +  
+* ggdark::dark_theme_dark()
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/themes_auto_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  theme_bw() +  
+  theme_light(base_size = 5,  
+              base_family = "Times") +  
+  theme_classic(base_size = 15,  
+                base_family = "Rockwell") +  
+  theme_dark() +  
+  theme_minimal() +  
+  ggdark::dark_theme_dark() +  
+* ggthemes::theme_excel()
+```
+]]
+.column[.content[
+&lt;img src="facets_themes_ggsave_files/figure-html/themes_auto_12_output-1.png" width="100%" /&gt;
+]]
+
+
+---
+
+name: saving
+
+# The written language: Save plots as objects and to disk
+
+Now you should know how to build a ggplot.  How can you save that plot?  
+
+First, you can save the entire plot as an object using the assignment operatore `&lt;-`.  Below we call the plot `g`.  Then use the function ggsave() to save out your plot.  
+
+
+```r
+g &lt;- ggplot(gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() 
+
+ggsave(filename = "my_plot.png", 
+       plot = g)
+```
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 70%}
+&lt;/style&gt;
+
+
+&lt;!-- ```{r, dpi=400, eval = F} --&gt;
+&lt;!-- gapminder %&gt;%  --&gt;
+&lt;!--   select(continent) %&gt;%  --&gt;
+&lt;!--   ggplot() + --&gt;
+&lt;!--   aes(x = 1) + --&gt;
+&lt;!--   aes(fill = continent) + --&gt;
+&lt;!--   geom_bar(color = "white", size = .2) + --&gt;
+&lt;!--   coord_polar(theta = "y") + --&gt;
+&lt;!--   theme_void() + --&gt;
+&lt;!--   scale_fill_viridis_d() + --&gt;
+&lt;!--   theme(rect = element_rect(fill = "grey",  --&gt;
+&lt;!--                             color = "grey",  --&gt;
+&lt;!--                             linetype = "solid", --&gt;
+&lt;!--                             size = 0)) --&gt;
+
+&lt;!-- ggsave("pie.svg", dpi = 320,device = "svg") --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- Or at least an organized twitter thread!?  Another idea for you: pull aes() out of ggplot(). Do you do it? Lot's of reasons to do it! Downside is currently most examples make use of nested approach. @grrrck does this too, and esquisse --&gt;
+
+&lt;!-- ggplot(data = my_data) +  --&gt;
+&lt;!--    aes(x = my_var) --&gt;
+
+&lt;!-- Is it possible to do this with multiple geoms? I usually specify aes within the geom like  --&gt;
+
+&lt;!-- ggplot(data) + --&gt;
+&lt;!--   geom_point(aes(x, y)) + --&gt;
+&lt;!--   geom_line(aes(x, y, group = id))  --&gt;
+
+&lt;!-- I prefer this approach because it's explicit which aesthetics are bound to which geoms --&gt;
+
+&lt;!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! --&gt;
+
+
+&lt;!-- To change the data used for a plot, use the %+% operator! Oh!!!  --&gt;
+
+
+&lt;!-- # Stat_* --&gt;
+
+&lt;!-- ## Univariate discrete --&gt;
+
+
+
+&lt;!-- ```{r univariate_discrete, eval = F, echo = F} --&gt;
+&lt;!-- ggplot(gapminder_2002) + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   stat_count() + --&gt;
+&lt;!--   geom_bar() # convenience geom --&gt;
+&lt;!--             # default counting --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- r chunk_reveal("univariate_discrete")` --&gt;
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- ggplot(data = gapminder_2002) + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   aes(y = lifeExp) + --&gt;
+&lt;!--   geom_point(alpha = .1) + --&gt;
+&lt;!--   stat_summary( --&gt;
+&lt;!--     fun.ymin = min, --&gt;
+&lt;!--     fun.ymax = max, --&gt;
+&lt;!--     fun.y = median --&gt;
+&lt;!--   ) --&gt;
+&lt;!-- ``` --&gt;
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- gapminder_2002 %&gt;%  --&gt;
+&lt;!--   mutate(seventy_plus = lifeExp &gt; 60) %&gt;%  --&gt;
+&lt;!-- ggplot() + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   aes(fill = seventy_plus) + --&gt;
+&lt;!--   geom_bar(alpha = .2) --&gt;
+&lt;!-- ``` --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

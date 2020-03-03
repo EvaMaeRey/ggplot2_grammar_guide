@@ -13,14 +13,14 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
 knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
-try(source("https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/master/xaringan_reveal_parentheses_balanced.R"))
-try(source("../flipbooks/xaringan_reveal_parentheses_balanced.R"))
-
+library(flipbookr)
+library(gapminder)
+load("data_products/manipulations.Rdata")
 ```
 
 
 ```{r xaringan-themer, include = FALSE, eval = F}
-# library(xaringanthemer)
+library(xaringanthemer)
 
 
 # xaringanthemer::write_xaringan_theme(text_font_size = ".75cm",
@@ -49,127 +49,74 @@ xaringanthemer::mono_accent(
 
 ```
 
+A data visualization:
+
+- is composed of geometric shapes
+
+--
+
+- that take on aesthetics
+
+--
+
+- that represent variables
+
+--
+
+- from a data set
+
+
+---
+
+We can say this another way -- a more classic definition too:
+
+A statistical graphic 
+-- 
+(data visualization)
+
+--
+
+....
+
+
+
+--
+
+--
 
 
 
 ---
 
-
-<!-- # For teachers -->
-
-<!-- This is a collection of thoughts about how to teach ggplot2, and any other grammar of graphics type data visualization system.   -->
-
-<!-- It is tempting to rush to build a publication-ready plot right out of the gate.   -->
-
-<!-- But maybe we should resist this temptation. Maybe we should "hang out" in each of the component zones for a bit.  Explore. Get comfy in a zone.  Then move on. -->
-
-
-
-
-# Introduction
-
-ggplot2 is an implementation of the "grammar of graphics" for R.  The grammar of graphics is a framework that enables users to go beyond predetermined chart types by mapping variables of a dataset to the aesthetics characteristics of geometric objects, giving users greater expressive freedom.  The grammar of graphics tool gives the user the control to build nearly any chart that she imagines.  
-
-Nevertheless, sometimes people use ggplot2 without much real *fluency* --- copying and pasting existing code and making minor tweeks to get the results they want.  Without a theoretical knowledge of the framework, it is unlikely that users will completely unlock the freedom that the ggplot2 graphing library affords.  
-
-This book seeks to provide an introduction to the ggplot2 grammar that will provide a basis for fluency with this framework.  
-
-<!-- Analogy? -->
-
-<!-- The goal of the package is to "'bring together in a coherent way things that previously appeared unrelated and which also will provide a basis for dealing systematically with new situations'" (D.R. Cox 1978 quoted in Wickham 2010). This is cool. -->
-
----
-
-
-# Acknowledgements
-
-ggplot2 is a powerful library and the product of a lot of hard work. I'm grateful to the original author Hadley Wickham and the entire [ggplot2](https://ggplot2.tidyverse.org/reference/) team for continuing to build and maintaining an amazing tool. 
-
-This presentation is built with the Xaringan slide show tool, and I'm indebted to Yihui Xie and the rest of the Xaringan development team. Code is presented incrementally so that the link between code and output is easy to track.  Special thanks are due to Emi Tanaka and Garrick Aden-Buie for their invaluable contributions to getting automated side-by-side code-output evolution, ["flipbooks"](https://evamaerey.github.io/little_flipbooks_library/about/what_the_flipbook)], up and running.  
+# The ggplot2 grammar follows this order second order... Let's see a simple example this. (First watch the Hans Rosling clip  - )
 
 
 ---
 
-For inspiration, thanks to Will Chase for seeding a valuable discussion about the challenges of ggplot2 and for encouraging me to write about some of my ideas in that discussion.  Thanks also to MPI-Dresden and TU-Dresden's summer 2019 workshop organizer Ulirk Günther and participants for their interest in R and ggplot2 which helped propel the project foward, as well as to my students at University of Denver for candid feedback about their experience.  I'm grateful also to those who verbalized their support for [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html#1); the response has been incredibly motivating.  
+`r chunk_reveal("overview")`
 
-
----
-
-# Grammar lesson order:
-
-0. [**The Declarative Mood**, declaring data, *ggplot(data = gapminder)*](#data)
-1. [**The Interogative Mood**, aesthetic mapping, *aes(**color** = pop)*](#aes)
-  - [**Modifiers I**, changing aes scales, *scale\_**color**\_viridis_d()*](#scales)
-  - [**Modifiers II**, changing aes and plot labels, *labs(**color** = "continent")*](#labs)
-  - [**Modifiers III**, changing the coordinate system, *coord\_polar()*](#coords)
-1. [**Nouns**, geometric objects, *geom\_point()*](#geoms)
-1. [**The Conditional Mood** aesthetics tied to specific "geoms"](#local)
-  - data, *geom\_point(data = gapminder)*
-  - mapped aesthetic, *geom\_point(aes(color = continent))*
-  - unmapped aesthetics (**i.e. The Imperative Mood**), *geom_point(color = "blue")*
-1. [**Interjections**, annotation, *annotate(geom = "point", ...)*](#annotation)
-1. [**Punctuation**, small multiple plots,  *facet_wrap(~continent)*](#facets)
-1. [**Greetings**, changing plot look and feel, *theme_minimal()*](#themes)
-1. [**The Written Language**, saving plots, *ggsave(file = "plot.png", plot = g)*](#saving)
-
-<!-- asking for aesthetics representation -->
-
----
-
-## Save for later:
-
-Some topics not currently covered are:
-
-- plotting statistics
-- detailed thematic adjustments, but these are covered in [Tuning ggplot themes](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1)
-
-<!-- Write out sentences? -->
-
----
-
-# Loading packages
-
-`ggplot2` is one of a set of packages called the `tidyverse` that are designed to be used together.  Before we can use the package we must load it.  We'll also use data from the `gapminder` package, so we'll load that too.
-
----
-
-```{r libraries, eval = F, echo = F}
-library(tidyverse)
-library(gapminder)
+```{r overview, include = F}
+# specify the data for the plot
+ggplot(data = gapminder_2002) + 
+  # the x position will represent 
+  # the gdp per capita variable
+  aes(x = gdpPercap) +  # x position 
+  # the y position will represent 
+  # the lifeExp variable
+  aes(y = lifeExp) +
+  # the point geometric shape
+  # take on the positions according
+  # to the specified mapping
+  # i.e. the representation
+  geom_point() 
 ```
 
 
-`r apply_reveal("libraries")`
+
 
 ---
 
-# Prepping data
-
-We'll also prep some data --- `gapminder_2002`,  `gapminder_2002_europe`, and `continent_aggregate`  --- which are subsets of the data made available in the `gapminder` data package.  
-
-We won't go into detail about data manipulation much here, but more basic info about data wrangling in *flipbook* style can be found here [The Tidyverse in Action](https://evamaerey.github.io/tidyverse_in_action/tidyverse_in_action.html).
-
----
-
-# Code to prep data
-
-```{r prep_data, eval = T, echo = F}
-gapminder %>% # data from package
-  filter(year == 2002) -> # filtering
-gapminder_2002 # saving subset object
-gapminder_2002 %>% 
-  filter(continent == "Europe") ->
-gapminder_2002_europe  
-gapminder %>% 
-  filter(continent == "Europe") ->
-gapminder_europe
-gapminder %>% 
-  select(country, continent) %>% 
-  distinct() %>% 
-  group_by(continent) %>% 
-  summarise(country_count = n()) ->
-continent_aggregate
-```
+Let's look at each of these steps one at a time.  
 
 ---
 
@@ -181,11 +128,13 @@ Let's do it.
 
 ---
 
-```{r declare_data, eval = F, echo = F}
-ggplot(data = gapminder_2002) # That's all!
+`r chunk_reveal("declare_data", break_type = 1)`
+
+```{r declare_data, include = F}
+ggplot(data = gapminder_2002) # That's it
 ```
 
-`r apply_reveal("declare_data")`
+
 
 
 ---
@@ -207,7 +156,7 @@ Let's see how this works. Then we'll move on to the second step in this grammar 
 ---
 
 
-`r apply_reveal("declare_data_option_2")`
+`r chunk_reveal("declare_data_option_2")`
 
 ---
 
@@ -219,7 +168,7 @@ name: aes
 <!-- > aes(color = temperature) translates to "Please represent 'temperature' for me, color aesthetic!"  -->
 
 
-Different aesthetics --- like position, color, and size --- represent variables which does a lot of work for us in data visualization. 
+Aesthetics --- like position, color, and size --- represent variables which do a lot of work for us in data visualization. 
 
 Distributions in values --- which can be painstaking to digest in their "raw" form in a table of numbers or categories --- are easy to communicate when represented by position, color, size and so on.  
 
@@ -310,7 +259,7 @@ gapminder_2002 %>%
 ```
 
 
-`r apply_reveal("x_and_y")`
+`r chunk_reveal("x_and_y")`
 
 
 ---
@@ -335,7 +284,7 @@ gapminder_2002 %>%
 ```
 
 
-`r apply_reveal("geom_for_aes")`
+`r chunk_reveal("geom_for_aes")`
 
 ---
 
@@ -375,7 +324,7 @@ ggplot(data = gapminder_2002) +
 
 
 
-`r apply_reveal("aesthetics_point")`
+`r chunk_reveal("aesthetics_point")`
 
 
 
@@ -405,44 +354,8 @@ continent_aggregate %>%
 ```
 
 
-`r apply_reveal("aesthetics_area")`
+`r chunk_reveal("aesthetics_area")`
 
----
-
-# A final aesthetic mapping: group
-
-Using geom_line(), you can use many of the same aesthetics as before as well as one special aesthetic: `group`.
-
-Group is like a declaration that instead of plotting the entire data set all together, instead you will plot many small data sets, each defined by the categorical variable "mapped" to `group`.  
-
-Let's see how this works with the following example. 
-
----
-
-```{r aes_group, eval = F, echo = F}
-gapminder_europe %>% 
-  ggplot() +
-  aes(x = year) +
-  aes(y = lifeExp) +
-  geom_line() +
-  aes(group = country) +
-  # turning group back off
-  aes(group = NULL) + 
-  # mapping discrete data to color
-  # or linetype has similar effects
-  aes(color = country) +
-  geom_point()
-```
-
-`r apply_reveal("aes_group")`
-
----
-
-The geometric object `line` connects all points as it moves along the x axis.  If a group is not defined, the geom_line is hard to interpret, as seen before group is added.  
-
-We also see that mapping discrete data to the color or linetype aesthetics has a similar effect to declaring that there are groups in the data. 
-
-Another thing we observe in the last addition to the last plot is adding an additional geometric layer.  The point layer, because it follows the line layer, appears on top of the line layer.  
 
 
 
@@ -454,244 +367,9 @@ Another thing we observe in the last addition to the last plot is adding an addi
 
 - What are the names of seven different aesthetics that we used above?
 
-- What is the difference between the fill and color aesthetic? 
+- What is the difference between the *fill* and *color* aesthetic? 
 
-- What is the group aesthetic?
-
-- Look at the help for geom_text.  What are the required aesthetics?  What are some aesthetics that we haven't covered above, that are optional for geom_text()?
-
----
-
-# Modifiers
-
-*"The book is on the table"* or *"The huge book is on the purple table"?*
-
-We are able to learn something about our data with very few inputs with ggplot2!  Part of the reason for this is there are convenient and reasonable defaults related to the aesthetics.  In the first sentence above, we might have a picture of the book without any modifiers -- it is some "default image" of books.  In ggplot2, also, we can write short "sentences" and get a meaningful plot in return because of helpful defaults.  But we can use modifiers to change these defaults.  
-
----
-
-# Modifiers
-
-
-Modifiers adjust the default for:
-
---
-
-1. the aesthetic scales *themselves* (we have seen a "blues" scale by default for the color aesthetic, but it could be greens, or yellows)
-
---
-2. the scale *labels* (the scale labels are the variable names by default, but they could be something else)
-
---
-3. the *coordinate system* (the default coordinate system is cartesian (x horizontal, y vertical), but it could be something else - like polar)
-
-
----
-
-name: scales
-
-## Modifying aesthetic scales 
-
-With the aes() statement we have declared a variable mapped to an aesthetic, like x position, color, line width, etc.  To go back and ask for a modified scale, we use scales\_\* statements.  These statements provide a quick way to update our preferences for all the mapped aesthetics.   
-
-<!-- Start with a scales_x_* and look at the variety of scale options associated with the x position aesthetic.   -->
-
-Let's look at how we modify the default scale with a scales\_\* statement. 
-
----
-
-## Scales
-
-
-There are a variety of scaling alternatives for the x position aesthetic:  
-
-- scale_x_log10()
-- scale_x_reverse()
-- scale_x_sqrt()
-
-
----
-
-
-```{r x_scales, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  geom_point() +  # this much is familiar #REVEAL
-  scale_x_log10() + # overrides default  #REVEAL
-  scale_x_reverse() + # overrides log10  #REVEAL
-  scale_x_sqrt() # overrides reverse  #REVEAL
-```
-
-`r apply_reveal("x_scales", user_reveal_defined = T)`
-
-
----
-
-### More aesthetic scale modifications
-
-*Note that using multiple scales associated with a single aesthetic is not typical.  We are just doing it here to expose you quickly to a variety of possibilities.  ggplot2 uses whatever scale specification last declared in our examples.*
-
-Analogously, we can use scale\_\*\_\* statements to modify other aesthetic scales.  Here are some examples
-
-<!-- I think people find it easy to think about x and y position and adjusting those scales, and related adjustment like labs() and scale_*, but we teachers need to help extend these logics to the other aesthetics.  -->
-
-
-- scale_x_log10() 
-- scale_y_reverse(limits = c(100, 0)) 
-- scale_color_viridis_d() 
-- scale_shape_discrete(solid = F) 
-- scale_size_continuous(breaks = c(100, 1000, 10000, 100000)) 
-- scale_alpha(range = c(.5, 1)) # full transparency is 0
-
-
-Let's tour several of those to get a taste.  
-
----
-
-```{r scales, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  geom_point() +
-  aes(color = continent) +
-  aes(size = gdpPercap) +
-  aes(shape = continent) +
-  aes(alpha = gdpPercap) + # We've done this much #REVEAL
-  scale_x_log10() +  #REVEAL
-  scale_y_reverse(limits = c(100, 0)) +  #REVEAL
-  scale_color_viridis_d() +  #REVEAL
-  scale_shape_discrete(solid = F) +  #REVEAL
-  scale_size_continuous(  
-    breaks = c(100, 1000, 10000, 100000),
-    limits = c(0, 100000)) + #REVEAL
-  scale_alpha(range = c(.3, .8)) #REVEAL
-```
-
-`r apply_reveal("scales", user_reveal_defined = T)`
-
----
-
-## Questions:
-
-<!-- to ponder -->
-
-- What does the parameter "breaks" seem to control?
-
-- What are some additional color scales that can be used?  Use auto complete in RStudio.  (i.e. type "scale_color" and then "tab" to see your options)
-
-- What does "d" stand for in the scale_color_viridis_d()? Use the help pane.
-
-- While you are in the help pane, see how would you set missing values (NA) to "black".
-
-
-
----
-
-name: labs
-
-## Modifying aesthetic scale labels
-
-Aesthetic scales also get default *labels* which are the variable names.  We can also modify these.  
-
-The syntax is labs(\* = "New label"), where the \* is the aesthetic name.  
-
-`labs()` can also be used to add plot labels, plot title, caption, subtitle and tag.
-
-Let's see how. 
-
----
-
-```{r labs, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  geom_point() +
-  aes(color = continent) +
-  aes(shape = continent) +
-  aes(size = gdpPercap) +
-  aes(alpha = gdpPercap) + # this much is familiar #REVEAL
-  labs(x = "GDP per cap") + #REVEAL
-  labs(y = "Life Expectency") + #REVEAL
-  labs(color = "Continent") + #REVEAL
-  labs(shape = "Continent") + #REVEAL
-  labs(size = "GDP per cap") + #REVEAL
-  labs(alpha = "GDP per cap") + #REVEAL
-  # Note: labs is also used to adjust *plot* labels
-  labs(title = "GDP per Cap versus Life Expectancy\nin 2002") + #REVEAL
-  labs(subtitle = "Data: Gapminder Data in R") + #REVEAL
-  labs(caption = "Visualization: @EvaMaeRey") + #REVEAL
-  labs(tag = "Plot 1") #REVEAL
-```
-
-
-`r apply_reveal("labs", user_reveal_defined = T)`
-
----
-
-## Questions:
-
-- When might you use labs(tag = )?
-- What does the character string "\n" do in the place of a space in the plot title?
-- Color and shape variables represent the same variable, and labs(color = \*) labs(shape = \*) have the same input, "Continent".  What does this mean for the legend? Change the labels to be different and see.
-- Change the y label to an empty string, '""'.  What does this do?  
-
-
-
----
-
-name: coords
-
-## Modifying x and y position coordinate system
-
-A third default for how aesthetic mapping of *positions x and y* are manifest is the coordinate system.  The default is cartesian coordinates - where x lies on the horizontal and is pependicular to y.  
-
-But let's quickly check out some of the different options for coordinates systems.  When we use a coord_* statement in ggplot, we can overwrite the default.    
-
----
-
-```{r coords, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  geom_point() +
-  coord_equal() + # overriding default
-  coord_fixed(ratio = 400) + # overriding equal
-  coord_flip() + # overriding fixed
-  coord_polar() # overriding flip
-```
-
-`r apply_reveal("coords")`
-
-
----
-
-## Modifiers - Review
-
-We have seen that there are three modifiers to aesthetic mapping.
-
-- scale_*
-- labs(* = )
-- coords_? (applies x,y position aesthetics only)
-
-
-To review, let's just look at modifiers for the horizontal *x* position aesthetic.
-
----
-
-```{r modifiers_review, include = FALSE}
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  geom_point() +
-  scale_x_log10() + # modify x scale
-  labs(x = "GDP per cap") + # modify x label #REVEAL
-  coord_polar() # modify x and y coordinate system 
-```
-
-
-`r apply_reveal("modifiers_review")`
-
+- Look at the *help* for geom_text.  What are the *required* aesthetics?  
 
 ---
 name: geoms
@@ -700,11 +378,13 @@ name: geoms
 
 So far, we have seen a few geometric objects: geom_point(), geom_col(), geom_line().
 
-We won't cover many more here.  Why? The celebrated language teacher, Michel Thomas, argued that building up vocabulary should not be a major focus in becoming fluent in a foreign language.  I'm of the same mind.  
+We won't cover many more here.  Why?   The celebrated language teacher, Michel Thomas, argued that building up vocabulary should not be a major focus in becoming fluent in a foreign language.  I'm of the same mind.  
 
 Geometric objects --- our "nouns" --- are abundant.  But we can use rather few of them and still work towards a profound working understanding of the ggplot2 grammar. With that work done, exchanging one geom for another, like a language learner exchanging "dog" for "canine", is a rather easy business. 
 
-We'll see a few more geometric objects along the way in this book.  And, I've provided a supplement, ["geom pile ons"] so you can have a look at some more.  
+But there are some grammatical things that we'll come back to, as well. 
+
+We'll see a few more geometric objects along the way as we move forward.  And, then come back to this topic squarely later on.  
 
 
 ---
@@ -728,20 +408,26 @@ ggplot(data = gapminder_2002) + # global data
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +   
   geom_point() + 
+  aes(color = continent) +
   # xend and yend are required for geom_segment
   # like creating a column with a single value, 0
   aes(xend = 0) + 
   # like creating a column with a single value, 0
   aes(yend = 0) +
   # geom specific data
-  geom_segment(data = gapminder_2002_europe)
+  geom_segment(
+    data = gapminder_2002_europe, #BREAK2
+    aes(size = gdpPercap, #BREAK3
+        alpha = pop), #BREAK3
+    color = "orange" #BREAK4
+    )
 ```
 
 
 
 ---
 
-`r apply_reveal("local_data")`
+`r chunk_reveal("local_data")`
 
 ---
 
@@ -766,7 +452,7 @@ ggplot(data = gapminder_2002_europe) +
                  size = pop)) 
 ```
 
-`r apply_reveal("geom_specific_aes_mapping")`
+`r chunk_reveal("geom_specific_aes_mapping")`
 
 
 
@@ -802,7 +488,7 @@ ggplot(data = gapminder_2002) +
 
 
 
-`r apply_reveal("unmapped_aes")`
+`r chunk_reveal("unmapped_aes")`
 
 ---
 
@@ -816,25 +502,31 @@ Now you know about *global* and *local* data, aesthetic representing variables, 
 Look at the code that follows.  What are your expectations for the result?  Move forward in the presentation to check if your expectations match the actual result. 
 
 ```{r all_conditional, eval = F, echo = T}
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  geom_point(color = "green") + 
-  geom_point(
-    # local data
-    data = gapminder_2002_europe,
-    # local mapped aesthetics
-    aes(color = pop),
-    # local across-the-board aesthetics
-    size = 5
+ggplot(data = gapminder_2002) + # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +   
+  geom_point(size = 5,
+             alpha = .7) + 
+  aes(color = continent) +
+  # xend and yend are required for geom_segment
+  # like creating a column with a single value, 0
+  aes(xend = 0) + 
+  # like creating a column with a single value, 0
+  aes(yend = 0) +
+  # geom specific data
+  geom_segment(
+    data = gapminder_2002_europe, #BREAK2
+    aes(size = gdpPercap, #BREAK3
+        alpha = pop), #BREAK3
+    color = "orange" #BREAK4
     )
 ```
 
 ---
 
-`r apply_reveal("all_conditional")`
+`r chunk_reveal("all_conditional")`
 
-
+---
 
 name: annotate
 
@@ -849,8 +541,8 @@ ggplot(data = gapminder_2002) +
   aes(y = lifeExp) +
   geom_point() +
   annotate(geom = "point", 
-             x = 10000,
-             y = 60, 
+           x = 10000,
+           y = 60, 
            color = "red") +
   annotate(geom = "text",
            x = c(3000, 10000, 40000),
@@ -859,18 +551,18 @@ ggplot(data = gapminder_2002) +
            color = "blue") +
   annotate(geom = "curve",
            x = 3000,
-           y = 80, 
-           xend = 10000,
-           yend = 60,
+           y = 79, 
+           xend = 10000 - 500,
+           yend = 60 + .3,
            color = "green",
-           arrow = arrow())
+           arrow = arrow(angle = 20))
 ```
 
-`r apply_reveal("annotate")`
+`r chunk_reveal("annotate")`
 
 ---
 
-## Convenience geoms
+## Convenience annotation geoms
 
 Some convenience functions have also been written for annotation using the geom_*() syntax. 
 
@@ -892,222 +584,11 @@ ggplot(data = gapminder_2002) +
              linetype = "dashed")
 ```
 
-`r apply_reveal("annotation_geoms")`
+`r chunk_reveal("annotation_geoms")`
 
 
 
 
----
-
-name: facets
-
-# Punctuation: Small multiples
-
-Punctuation helps us break up language into digestible pieces. Breaking up visualization can also be helpful.  
-
-Creating *small multiples* also known as *faceting* is a powerful way to make data more digestible.   In ggplot, small plots based on a categorical variable can be visualized side by side.  
-
-
-```{r facets, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap / 1000) +
-  aes(y = lifeExp) +
-  geom_point() +
-  facet_wrap(~ continent, ncol = 2) +
-  aes(color = continent) +
-  facet_null() + # overrides facet_wrap
-  facet_grid(
-    pop > 10000000 ~ continent
-    ) # overrides facet_null
-```
-
----
-
-`r apply_reveal("facets")`
-
-
----
-
-
-
----
-
-name: themes
-
-# Greetings: Themes
-
-It may seem just cosmetic, but themes can have a big impact on the look and feel of you final plot.  The thematic elements are what first meet the eye.  For more information on fine adjustment of thematic elements, have a look at the [taming ggplot themes flipbook](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1).  For now, check out how to change the look and feel of your graph with some preset themes.  
-
-```{r themes, eval = F, echo= F}
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  geom_point() +
-  aes(color = continent) +
-  theme_bw() +
-  theme_light(base_size = 5, 
-              base_family = "Times") + 
-  theme_classic(base_size = 15,
-                base_family = "Rockwell") +
-  theme_dark() +
-  theme_minimal() +
-  ggdark::dark_theme_dark() +
-  ggthemes::theme_excel()
-```
-
----
-
-`r apply_reveal("themes")`
-
-
----
-
-name: saving
-
-# The written language: Save plots as objects and to disk
-
-Now you should know how to build a ggplot.  How can you save that plot?  
-
-First, you can save the entire plot as an object using the assignment operatore `<-`.  Below we call the plot `g`.  Then use the function ggsave() to save out your plot.  
-
-```{r}
-g <- ggplot(gapminder_2002) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  geom_point() 
-
-ggsave(filename = "my_plot.png", 
-       plot = g)
-```
-
-
-
-
----
-
-#  Don't sweat the small stuff
-
-Instead of calling this "a ggplot grammar of graphics guide" I might have called it a "grammar primer".  
-
-There is a lot to learn when it comes to ggplot, and there are topics that have not yet been covered in this guide.  But I do hope that it might have helped you see some of its underlying logic, and might help you in gaining greater fluency with this powerful package.   
-
-
----
-
-# More resources from the author
-
-- [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html#1) contains many examples of plots created with ggplot2  in the same "flipbook" style
-
-- [The Tidyverse in Action](https://evamaerey.github.io/tidyverse_in_action/tidyverse_in_action.html)
-
-- [Little Flipbooks Library](https://github.com/EvaMaeRey/little_flipbooks_library) contains links to many more data wrangling and visualization walk-throughs
-
-Source code for these resources are available at https://github.com/EvaMaeRey.
-
-
-
-
----
-
-# Afterward
-
----
-
-# Our code doesn't look like other examples I've seen
-
-This book uses a "slow ggplot" style, which is a bit verbose and is not all that typical. More often, you will see global aesthetics tucked together in the ggplot statement. Also, labs statements will typically be nested together. Finally, you might not see every parameter spelled out, rather position in the function is used to indicate the parameters being set. 
-
-
-```{r, eval = F}
-ggplot(gapminder_2002, aes(gdpPercap, lifeExp)) + 
-  geom_point() +
-  labs(x = "GDP per Cap",
-       y = "Life Expectancy",
-       title = "My Title")
-```
-
----
-
-# Our code doesn't look like other examples I've seen
-
-Multiple x scales and y scales...
-
-
----
-
-# Take me to the geoms pile on!
-
-Earlier, I dismissed the importance of geometric objects to understanding the grammar of graphics rather quickly.  But finding exactly the right word (nouns included) is actually the spice of language isn't it?  Moreover, choice of geometric objects also leads to a lot of contentious debate in the data visualization community, so you'll probably want to try everything out and develope your own opinions so you can jump into the debate.  
-
-What is also not developed here, and which I feel like I really come back to is geometric objects that aggregate data in an inbetween step before mapping.  But. I'm. Feeling. Done. So there won't be a discussion for now. I'm sorry!!!
-
----
-
-# Other great resources for getting up and running with ggplot2
-
-There are many great resources about ggplot2 which I've found invaluable.  As noted above, the prefered syntax in these guides is bit different than what this guide. 
-
-- [the ggplot2 website](https://ggplot2.tidyverse.org/reference/) and [ggplot2:
-Elegant Graphics for Data Analysis](https://www.springer.com/gp/book/9780387981413) are definitive guides
-- [RStudio's ggplot cheat sheet](https://www.rstudio.com/resources/cheatsheets/) on ggplot2 which is a great quick reference
-- [R for Data Science](https://r4ds.had.co.nz/index.html) is also an excellent resource
-
-Presetations
-
-- [Will Chase's R you ready to  make charts](https://www.williamrchase.com/slides/ggplot_intro.html#1)
-- [Garrick Aden-Buie's A Gentle Guide to the Grammar of Graphics
-with ggplot2](https://pkg.garrickadenbuie.com/gentle-ggplot2/#1)
-
-
-
----
-
-# I noticed that we've made some ugly charts
-
-This book is not aimed at advising on chart design principles.  Because of the freedom ggplot2 affords, it is of course possible to make a lot of ugly, confusing, or misleading charts!
-
-For discussion of best practices in creating informative and attractive charts you might consult these classics including:
-
-- [The Visual Display of Quantitative Information, Eduard Tufte](https://www.amazon.de/Visual-Display-Quantitative-Information/dp/1930824130)
-- [Data Visualization: A Practical Introduction, Kieran Healy](http://socviz.co)
-- [Fundamentals of Data Visualization, Claus Wilke](https://serialmentor.com/dataviz/)
-- [Storytelling with Data: A Data Visualization Guide for Business Professionals, Cole Nussbaumer-Knaflic](https://www.amazon.de/Visual-Display-Quantitative-Information/dp/1930824130)
-
----
-
-# Key packages used to create this book
-
-H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
-
-Yihui Xie (2019). xaringan: Presentation Ninja. R package version 0.11.
-  https://CRAN.R-project.org/package=xaringan
-
-Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2019). dplyr: A Grammar
-  of Data Manipulation. R package version 0.8.3. https://CRAN.R-project.org/package=dplyr
-
-Jennifer Bryan (2017). gapminder: Data from Gapminder. R package version 0.3.0.
-  https://CRAN.R-project.org/package=gapminder
-
-
----
-
-
-## What is a pie chart?
-
----
-
-```{r pie, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
-  aes(x = 1, fill = continent) +
-  geom_bar() +
-  coord_polar(theta = "y") +
-  theme_void() +
-  labs(fill = "") +
-  scale_fill_viridis_d(option =
-                         "cividis")
-```
-
-`r apply_reveal("pie")`
 
 
 ```{css, eval = TRUE, echo = F}
@@ -1170,7 +651,7 @@ ggplot(data = gapminder_2002) +
 
 <!-- --- -->
 
-<!-- r apply_reveal("univariate_discrete")` -->
+<!-- r chunk_reveal("univariate_discrete")` -->
 
 
 <!-- --- -->

@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>A Minimal #TidyTuesday Flipbook</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds, May 2019" />
+    <link href="libs/remark-css-0.0.1/kunoichi.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# A Minimal #TidyTuesday Flipbook
+### Gina Reynolds, May 2019
+
+---
+
+
+
+
+
+
+
+
+---
+
+# Introduction
+
+This is a minimal example to demonstrate how to create a flipbook with data from #TidyTuesday.  It walks through data wrangling and plots pipelines made with the Tidyverse.  The functions that make this possible are the work of Emi Tanaka, Garrick Aden-Buie and myself, and are built for Xaringan, an Rmarkdown file type for creating presentation slides; the functions make use of the function `knitr:::knit_code$get()`.
+
+The code to create the flipbook is an .Rmd that you can download [**here**](https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/master/tidytuesday_minimal_example/tidytuesday_minimal_example.Rmd).
+
+---
+
+Interested in more flipbooks? Check out 
+
+- [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html)
+- [The Tidyverse in Action](https://evamaerey.github.io/tidyverse_in_action/tidyverse_in_action.html)
+
+
+
+
+For more about Xaringan:
+
+- [Xaringan presentation slides](https://slides.yihui.name/xaringan/)
+
+The sequential workflow of the Tidyverse makes incremental display of pipelines and ggplot statements ideal:  
+
+- [www.tidyverse.org](https://www.tidyverse.org/)
+
+
+---
+
+
+# What's the slow ggplot style?
+
+"Slow ggplot" just means working more incrementally than is typical. Elements of the approach are as follows:
+
+- pulling out aes() from the ggplot() function:  
+- using fewer functions; example - using labs() to add a title instead of ggtitle()
+- using functions multiple times; example aes(x = var1) + aes(y = var2) rather than aes(x = var1, y = var2)
+- using base R functions and tidyverse functions.  For other packages, the :: style to call them
+- write out arguments (no shortcuts)  aes(x = gdppercap) not aes(gdppercap)
+- order ggplot commands so that reactivity is obvious; scale adjustments to aesthetics might also be near the aesthetic declaration. 
+
+
+---
+
+Here, I contrast the usual plotting method to slow ggplotting:
+
+Usual approach:
+
+
+```r
+ggplot(my_data, aes(var1, y = var2, col = var3)) +
+  geom_point() +
+  ggtitle("My Title") +
+  labs(x = "the x label", y = "the y label", col = "legend title")
+```
+
+Using slow ggplotting: 
+
+
+```r
+ggplot(data = my_data) +
+  aes(x = var1) +
+  labs(x = "the x label") +
+  aes(y = var2) +
+  labs(y = "the y label") +
+  geom_point() +
+  aes(col = var3) +
+  labs(col = "legend title") +
+  labs(title = "My title")
+```
+
+
+
+
+---
+
+# Set up
+
+Okay. Let's load the the `reveal for xaringan` functions for "flipbooking" and the `tidyverse`.
+
+
+```r
+source(file = "https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/master/xaringan_reveal_parentheses_balanced.R")
+```
+
+And load the tidyverse.
+
+
+```r
+library(tidyverse)
+```
+
+And load the data from the tidytuesday github page. 
+
+
+```r
+download.file("https://github.com/rfordatascience/tidytuesday/raw/master/data/2019/2019-01-01/tidytuesday_tweets.rds", destfile = "temp.rds")
+data_tidytuesday &lt;- readRDS("temp.rds")
+unlink("temp.rds")
+library(tidyverse)
+```
+
+
+
+
+---
+
+# Where we are going: 
+
+We'll create this plot.  I have **echo** set to FALSE in the code chunk options here so that you don't see the code, and **eval** to TRUE so that the plot output is produced.  The code chunk is given the name "nobel", and this is used in the in apply_reveal function, which breaks down code by wrangling and plot statements. 
+
+![](ggforce_files/figure-html/link2-1.png)&lt;!-- --&gt;
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*data_tidytuesday
+```
+]]
+.column[.content[
+
+```
+# A tibble: 1,565 x 88
+   user_id status_id created_at          screen_name text  source
+   &lt;chr&gt;   &lt;chr&gt;     &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; 
+ 1 161366… 10752648… 2018-12-19 05:41:40 Eeysirhc    "#ti… Twitt…
+ 2 161366… 10727286… 2018-12-12 05:43:24 Eeysirhc    "#ti… Twitt…
+ 3 161366… 10744881… 2018-12-17 02:15:24 Eeysirhc    "I r… Twitt…
+ 4 318198… 10751972… 2018-12-19 01:12:56 clairemcwh… "@th… Twitt…
+ 5 470648… 10751869… 2018-12-19 00:32:07 stevie_t13  #Bec… Twitt…
+ 6 470648… 10725183… 2018-12-11 15:47:52 stevie_t13  #Ari… Twitt…
+ 7 124181… 10746644… 2018-12-17 13:55:51 thomas_mock "The… Twitt…
+ 8 124181… 10750289… 2018-12-18 14:04:19 thomas_mock "#r4… Twitt…
+ 9 124181… 10721630… 2018-12-10 16:15:56 thomas_mock "The… Twitt…
+10 124181… 10751734… 2018-12-18 23:38:18 thomas_mock "@js… Twitt…
+# … with 1,555 more rows, and 82 more variables: display_text_width &lt;dbl&gt;,
+#   reply_to_status_id &lt;chr&gt;, reply_to_user_id &lt;chr&gt;,
+#   reply_to_screen_name &lt;chr&gt;, is_quote &lt;lgl&gt;, is_retweet &lt;lgl&gt;,
+#   favorite_count &lt;int&gt;, retweet_count &lt;int&gt;, hashtags &lt;list&gt;,
+#   symbols &lt;list&gt;, urls_url &lt;list&gt;, urls_t.co &lt;list&gt;,
+#   urls_expanded_url &lt;list&gt;, media_url &lt;list&gt;, media_t.co &lt;list&gt;,
+#   media_expanded_url &lt;list&gt;, media_type &lt;list&gt;, ext_media_url &lt;list&gt;,
+#   ext_media_t.co &lt;list&gt;, ext_media_expanded_url &lt;list&gt;,
+#   ext_media_type &lt;chr&gt;, mentions_user_id &lt;list&gt;,
+#   mentions_screen_name &lt;list&gt;, lang &lt;chr&gt;, quoted_status_id &lt;chr&gt;,
+#   quoted_text &lt;chr&gt;, quoted_created_at &lt;dttm&gt;, quoted_source &lt;chr&gt;,
+#   quoted_favorite_count &lt;int&gt;, quoted_retweet_count &lt;int&gt;,
+#   quoted_user_id &lt;chr&gt;, quoted_screen_name &lt;chr&gt;, quoted_name &lt;chr&gt;,
+#   quoted_followers_count &lt;int&gt;, quoted_friends_count &lt;int&gt;,
+#   quoted_statuses_count &lt;int&gt;, quoted_location &lt;chr&gt;,
+#   quoted_description &lt;chr&gt;, quoted_verified &lt;lgl&gt;,
+#   retweet_status_id &lt;chr&gt;, retweet_text &lt;chr&gt;,
+#   retweet_created_at &lt;dttm&gt;, retweet_source &lt;chr&gt;,
+#   retweet_favorite_count &lt;int&gt;, retweet_retweet_count &lt;int&gt;,
+#   retweet_user_id &lt;chr&gt;, retweet_screen_name &lt;chr&gt;, retweet_name &lt;chr&gt;,
+#   retweet_followers_count &lt;int&gt;, retweet_friends_count &lt;int&gt;,
+#   retweet_statuses_count &lt;int&gt;, retweet_location &lt;chr&gt;,
+#   retweet_description &lt;chr&gt;, retweet_verified &lt;lgl&gt;, place_url &lt;chr&gt;,
+#   place_name &lt;chr&gt;, place_full_name &lt;chr&gt;, place_type &lt;chr&gt;,
+#   country &lt;chr&gt;, country_code &lt;chr&gt;, geo_coords &lt;list&gt;,
+#   coords_coords &lt;list&gt;, bbox_coords &lt;list&gt;, status_url &lt;chr&gt;,
+#   name &lt;chr&gt;, location &lt;chr&gt;, description &lt;chr&gt;, url &lt;chr&gt;,
+#   protected &lt;lgl&gt;, followers_count &lt;int&gt;, friends_count &lt;int&gt;,
+#   listed_count &lt;int&gt;, statuses_count &lt;int&gt;, favourites_count &lt;int&gt;,
+#   account_created_at &lt;dttm&gt;, verified &lt;lgl&gt;, profile_url &lt;chr&gt;,
+#   profile_expanded_url &lt;chr&gt;, account_lang &lt;chr&gt;,
+#   profile_banner_url &lt;chr&gt;, profile_background_url &lt;chr&gt;,
+#   profile_image_url &lt;chr&gt;
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+* mutate(day = lubridate::date(created_at))
+```
+]]
+.column[.content[
+
+```
+# A tibble: 1,565 x 89
+   user_id status_id created_at          screen_name text  source
+   &lt;chr&gt;   &lt;chr&gt;     &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; 
+ 1 161366… 10752648… 2018-12-19 05:41:40 Eeysirhc    "#ti… Twitt…
+ 2 161366… 10727286… 2018-12-12 05:43:24 Eeysirhc    "#ti… Twitt…
+ 3 161366… 10744881… 2018-12-17 02:15:24 Eeysirhc    "I r… Twitt…
+ 4 318198… 10751972… 2018-12-19 01:12:56 clairemcwh… "@th… Twitt…
+ 5 470648… 10751869… 2018-12-19 00:32:07 stevie_t13  #Bec… Twitt…
+ 6 470648… 10725183… 2018-12-11 15:47:52 stevie_t13  #Ari… Twitt…
+ 7 124181… 10746644… 2018-12-17 13:55:51 thomas_mock "The… Twitt…
+ 8 124181… 10750289… 2018-12-18 14:04:19 thomas_mock "#r4… Twitt…
+ 9 124181… 10721630… 2018-12-10 16:15:56 thomas_mock "The… Twitt…
+10 124181… 10751734… 2018-12-18 23:38:18 thomas_mock "@js… Twitt…
+# … with 1,555 more rows, and 83 more variables: display_text_width &lt;dbl&gt;,
+#   reply_to_status_id &lt;chr&gt;, reply_to_user_id &lt;chr&gt;,
+#   reply_to_screen_name &lt;chr&gt;, is_quote &lt;lgl&gt;, is_retweet &lt;lgl&gt;,
+#   favorite_count &lt;int&gt;, retweet_count &lt;int&gt;, hashtags &lt;list&gt;,
+#   symbols &lt;list&gt;, urls_url &lt;list&gt;, urls_t.co &lt;list&gt;,
+#   urls_expanded_url &lt;list&gt;, media_url &lt;list&gt;, media_t.co &lt;list&gt;,
+#   media_expanded_url &lt;list&gt;, media_type &lt;list&gt;, ext_media_url &lt;list&gt;,
+#   ext_media_t.co &lt;list&gt;, ext_media_expanded_url &lt;list&gt;,
+#   ext_media_type &lt;chr&gt;, mentions_user_id &lt;list&gt;,
+#   mentions_screen_name &lt;list&gt;, lang &lt;chr&gt;, quoted_status_id &lt;chr&gt;,
+#   quoted_text &lt;chr&gt;, quoted_created_at &lt;dttm&gt;, quoted_source &lt;chr&gt;,
+#   quoted_favorite_count &lt;int&gt;, quoted_retweet_count &lt;int&gt;,
+#   quoted_user_id &lt;chr&gt;, quoted_screen_name &lt;chr&gt;, quoted_name &lt;chr&gt;,
+#   quoted_followers_count &lt;int&gt;, quoted_friends_count &lt;int&gt;,
+#   quoted_statuses_count &lt;int&gt;, quoted_location &lt;chr&gt;,
+#   quoted_description &lt;chr&gt;, quoted_verified &lt;lgl&gt;,
+#   retweet_status_id &lt;chr&gt;, retweet_text &lt;chr&gt;,
+#   retweet_created_at &lt;dttm&gt;, retweet_source &lt;chr&gt;,
+#   retweet_favorite_count &lt;int&gt;, retweet_retweet_count &lt;int&gt;,
+#   retweet_user_id &lt;chr&gt;, retweet_screen_name &lt;chr&gt;, retweet_name &lt;chr&gt;,
+#   retweet_followers_count &lt;int&gt;, retweet_friends_count &lt;int&gt;,
+#   retweet_statuses_count &lt;int&gt;, retweet_location &lt;chr&gt;,
+#   retweet_description &lt;chr&gt;, retweet_verified &lt;lgl&gt;, place_url &lt;chr&gt;,
+#   place_name &lt;chr&gt;, place_full_name &lt;chr&gt;, place_type &lt;chr&gt;,
+#   country &lt;chr&gt;, country_code &lt;chr&gt;, geo_coords &lt;list&gt;,
+#   coords_coords &lt;list&gt;, bbox_coords &lt;list&gt;, status_url &lt;chr&gt;,
+#   name &lt;chr&gt;, location &lt;chr&gt;, description &lt;chr&gt;, url &lt;chr&gt;,
+#   protected &lt;lgl&gt;, followers_count &lt;int&gt;, friends_count &lt;int&gt;,
+#   listed_count &lt;int&gt;, statuses_count &lt;int&gt;, favourites_count &lt;int&gt;,
+#   account_created_at &lt;dttm&gt;, verified &lt;lgl&gt;, profile_url &lt;chr&gt;,
+#   profile_expanded_url &lt;chr&gt;, account_lang &lt;chr&gt;,
+#   profile_banner_url &lt;chr&gt;, profile_background_url &lt;chr&gt;,
+#   profile_image_url &lt;chr&gt;, day &lt;date&gt;
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+* group_by(day)
+```
+]]
+.column[.content[
+
+```
+# A tibble: 1,565 x 89
+# Groups:   day [237]
+   user_id status_id created_at          screen_name text  source
+   &lt;chr&gt;   &lt;chr&gt;     &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; 
+ 1 161366… 10752648… 2018-12-19 05:41:40 Eeysirhc    "#ti… Twitt…
+ 2 161366… 10727286… 2018-12-12 05:43:24 Eeysirhc    "#ti… Twitt…
+ 3 161366… 10744881… 2018-12-17 02:15:24 Eeysirhc    "I r… Twitt…
+ 4 318198… 10751972… 2018-12-19 01:12:56 clairemcwh… "@th… Twitt…
+ 5 470648… 10751869… 2018-12-19 00:32:07 stevie_t13  #Bec… Twitt…
+ 6 470648… 10725183… 2018-12-11 15:47:52 stevie_t13  #Ari… Twitt…
+ 7 124181… 10746644… 2018-12-17 13:55:51 thomas_mock "The… Twitt…
+ 8 124181… 10750289… 2018-12-18 14:04:19 thomas_mock "#r4… Twitt…
+ 9 124181… 10721630… 2018-12-10 16:15:56 thomas_mock "The… Twitt…
+10 124181… 10751734… 2018-12-18 23:38:18 thomas_mock "@js… Twitt…
+# … with 1,555 more rows, and 83 more variables: display_text_width &lt;dbl&gt;,
+#   reply_to_status_id &lt;chr&gt;, reply_to_user_id &lt;chr&gt;,
+#   reply_to_screen_name &lt;chr&gt;, is_quote &lt;lgl&gt;, is_retweet &lt;lgl&gt;,
+#   favorite_count &lt;int&gt;, retweet_count &lt;int&gt;, hashtags &lt;list&gt;,
+#   symbols &lt;list&gt;, urls_url &lt;list&gt;, urls_t.co &lt;list&gt;,
+#   urls_expanded_url &lt;list&gt;, media_url &lt;list&gt;, media_t.co &lt;list&gt;,
+#   media_expanded_url &lt;list&gt;, media_type &lt;list&gt;, ext_media_url &lt;list&gt;,
+#   ext_media_t.co &lt;list&gt;, ext_media_expanded_url &lt;list&gt;,
+#   ext_media_type &lt;chr&gt;, mentions_user_id &lt;list&gt;,
+#   mentions_screen_name &lt;list&gt;, lang &lt;chr&gt;, quoted_status_id &lt;chr&gt;,
+#   quoted_text &lt;chr&gt;, quoted_created_at &lt;dttm&gt;, quoted_source &lt;chr&gt;,
+#   quoted_favorite_count &lt;int&gt;, quoted_retweet_count &lt;int&gt;,
+#   quoted_user_id &lt;chr&gt;, quoted_screen_name &lt;chr&gt;, quoted_name &lt;chr&gt;,
+#   quoted_followers_count &lt;int&gt;, quoted_friends_count &lt;int&gt;,
+#   quoted_statuses_count &lt;int&gt;, quoted_location &lt;chr&gt;,
+#   quoted_description &lt;chr&gt;, quoted_verified &lt;lgl&gt;,
+#   retweet_status_id &lt;chr&gt;, retweet_text &lt;chr&gt;,
+#   retweet_created_at &lt;dttm&gt;, retweet_source &lt;chr&gt;,
+#   retweet_favorite_count &lt;int&gt;, retweet_retweet_count &lt;int&gt;,
+#   retweet_user_id &lt;chr&gt;, retweet_screen_name &lt;chr&gt;, retweet_name &lt;chr&gt;,
+#   retweet_followers_count &lt;int&gt;, retweet_friends_count &lt;int&gt;,
+#   retweet_statuses_count &lt;int&gt;, retweet_location &lt;chr&gt;,
+#   retweet_description &lt;chr&gt;, retweet_verified &lt;lgl&gt;, place_url &lt;chr&gt;,
+#   place_name &lt;chr&gt;, place_full_name &lt;chr&gt;, place_type &lt;chr&gt;,
+#   country &lt;chr&gt;, country_code &lt;chr&gt;, geo_coords &lt;list&gt;,
+#   coords_coords &lt;list&gt;, bbox_coords &lt;list&gt;, status_url &lt;chr&gt;,
+#   name &lt;chr&gt;, location &lt;chr&gt;, description &lt;chr&gt;, url &lt;chr&gt;,
+#   protected &lt;lgl&gt;, followers_count &lt;int&gt;, friends_count &lt;int&gt;,
+#   listed_count &lt;int&gt;, statuses_count &lt;int&gt;, favourites_count &lt;int&gt;,
+#   account_created_at &lt;dttm&gt;, verified &lt;lgl&gt;, profile_url &lt;chr&gt;,
+#   profile_expanded_url &lt;chr&gt;, account_lang &lt;chr&gt;,
+#   profile_banner_url &lt;chr&gt;, profile_background_url &lt;chr&gt;,
+#   profile_image_url &lt;chr&gt;, day &lt;date&gt;
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+* tally()
+```
+]]
+.column[.content[
+
+```
+# A tibble: 237 x 2
+   day            n
+   &lt;date&gt;     &lt;int&gt;
+ 1 2018-04-02     4
+ 2 2018-04-03    25
+ 3 2018-04-04    16
+ 4 2018-04-05     4
+ 5 2018-04-06     5
+ 6 2018-04-07     1
+ 7 2018-04-08     4
+ 8 2018-04-09    16
+ 9 2018-04-10    20
+10 2018-04-11    10
+# … with 227 more rows
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+* mutate(day_of_week = lubridate::wday(day, label = T))
+```
+]]
+.column[.content[
+
+```
+# A tibble: 237 x 3
+   day            n day_of_week
+   &lt;date&gt;     &lt;int&gt; &lt;ord&gt;      
+ 1 2018-04-02     4 Mon        
+ 2 2018-04-03    25 Tue        
+ 3 2018-04-04    16 Wed        
+ 4 2018-04-05     4 Thu        
+ 5 2018-04-06     5 Fri        
+ 6 2018-04-07     1 Sat        
+ 7 2018-04-08     4 Sun        
+ 8 2018-04-09    16 Mon        
+ 9 2018-04-10    20 Tue        
+10 2018-04-11    10 Wed        
+# … with 227 more rows
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+*ggplot()
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_6-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+* aes(x = day)
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_7-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+* aes(xend = lag(day))
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_8-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+* aes(y = n)
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_9-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+* aes(yend = lag(n))
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_10-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+* aes(col = n)
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_11-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+  aes(col = n) +  
+* ggforce::geom_link2()
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_12-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+  aes(col = n) +  
+  ggforce::geom_link2() +  
+* geom_point(aes(alpha = day_of_week == "Tue"))
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_13-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+  aes(col = n) +  
+  ggforce::geom_link2() +  
+  geom_point(aes(alpha = day_of_week == "Tue")) +  
+* geom_text(nudge_y = 1.5, label = "Tues.", size = 2.5,
+*           aes(alpha = day_of_week == "Tue"))
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_15-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+  aes(col = n) +  
+  ggforce::geom_link2() +  
+  geom_point(aes(alpha = day_of_week == "Tue")) +  
+  geom_text(nudge_y = 1.5, label = "Tues.", size = 2.5,  
+            aes(alpha = day_of_week == "Tue")) +  
+* scale_alpha_discrete(range = c(0,1), guide = F)
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_16-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+  aes(col = n) +  
+  ggforce::geom_link2() +  
+  geom_point(aes(alpha = day_of_week == "Tue")) +  
+  geom_text(nudge_y = 1.5, label = "Tues.", size = 2.5,  
+            aes(alpha = day_of_week == "Tue")) +  
+  scale_alpha_discrete(range = c(0,1), guide = F) +  
+* theme_minimal()
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_17-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+  aes(col = n) +  
+  ggforce::geom_link2() +  
+  geom_point(aes(alpha = day_of_week == "Tue")) +  
+  geom_text(nudge_y = 1.5, label = "Tues.", size = 2.5,  
+            aes(alpha = day_of_week == "Tue")) +  
+  scale_alpha_discrete(range = c(0,1), guide = F) +  
+  theme_minimal() +  
+* scale_color_viridis_c(option = "magma", guide = F)
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_18-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+  aes(col = n) +  
+  ggforce::geom_link2() +  
+  geom_point(aes(alpha = day_of_week == "Tue")) +  
+  geom_text(nudge_y = 1.5, label = "Tues.", size = 2.5,  
+            aes(alpha = day_of_week == "Tue")) +  
+  scale_alpha_discrete(range = c(0,1), guide = F) +  
+  theme_minimal() +  
+  scale_color_viridis_c(option = "magma", guide = F) +  
+* labs(title = "#TidyTuesday tweeted mostly Tuesdays")
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_19-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+  aes(col = n) +  
+  ggforce::geom_link2() +  
+  geom_point(aes(alpha = day_of_week == "Tue")) +  
+  geom_text(nudge_y = 1.5, label = "Tues.", size = 2.5,  
+            aes(alpha = day_of_week == "Tue")) +  
+  scale_alpha_discrete(range = c(0,1), guide = F) +  
+  theme_minimal() +  
+  scale_color_viridis_c(option = "magma", guide = F) +  
+  labs(title = "#TidyTuesday tweeted mostly Tuesdays") +  
+* labs(subtitle = "Fifteen hundred #TidyTuesday tweets from April to December 2018")
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_20-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+  aes(col = n) +  
+  ggforce::geom_link2() +  
+  geom_point(aes(alpha = day_of_week == "Tue")) +  
+  geom_text(nudge_y = 1.5, label = "Tues.", size = 2.5,  
+            aes(alpha = day_of_week == "Tue")) +  
+  scale_alpha_discrete(range = c(0,1), guide = F) +  
+  theme_minimal() +  
+  scale_color_viridis_c(option = "magma", guide = F) +  
+  labs(title = "#TidyTuesday tweeted mostly Tuesdays") +  
+  labs(subtitle = "Fifteen hundred #TidyTuesday tweets from April to December 2018") +  
+* labs(caption = "@EvaMaeRey | Data: rtweets &amp; #TidyTuesday | Per day calculations based on __ time zone")
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_21-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+  aes(col = n) +  
+  ggforce::geom_link2() +  
+  geom_point(aes(alpha = day_of_week == "Tue")) +  
+  geom_text(nudge_y = 1.5, label = "Tues.", size = 2.5,  
+            aes(alpha = day_of_week == "Tue")) +  
+  scale_alpha_discrete(range = c(0,1), guide = F) +  
+  theme_minimal() +  
+  scale_color_viridis_c(option = "magma", guide = F) +  
+  labs(title = "#TidyTuesday tweeted mostly Tuesdays") +  
+  labs(subtitle = "Fifteen hundred #TidyTuesday tweets from April to December 2018") +  
+  labs(caption = "@EvaMaeRey | Data: rtweets &amp; #TidyTuesday | Per day calculations based on __ time zone") +  
+* labs(y = "Tweets per day")
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_22-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+  aes(col = n) +  
+  ggforce::geom_link2() +  
+  geom_point(aes(alpha = day_of_week == "Tue")) +  
+  geom_text(nudge_y = 1.5, label = "Tues.", size = 2.5,  
+            aes(alpha = day_of_week == "Tue")) +  
+  scale_alpha_discrete(range = c(0,1), guide = F) +  
+  theme_minimal() +  
+  scale_color_viridis_c(option = "magma", guide = F) +  
+  labs(title = "#TidyTuesday tweeted mostly Tuesdays") +  
+  labs(subtitle = "Fifteen hundred #TidyTuesday tweets from April to December 2018") +  
+  labs(caption = "@EvaMaeRey | Data: rtweets &amp; #TidyTuesday | Per day calculations based on __ time zone") +  
+  labs(y = "Tweets per day") +  
+* labs(x = "")
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_23-1.png)&lt;!-- --&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+ data_tidytuesday %&gt;%  
+  mutate(day = lubridate::date(created_at)) %&gt;%  
+  group_by(day) %&gt;%  
+  tally() %&gt;%  
+  mutate(day_of_week = lubridate::wday(day, label = T)) %&gt;%  
+ggplot() +  
+  aes(x = day) +  
+  aes(xend = lag(day)) +  
+  aes(y = n) +  
+  aes(yend = lag(n)) +  
+  aes(col = n) +  
+  ggforce::geom_link2() +  
+  geom_point(aes(alpha = day_of_week == "Tue")) +  
+  geom_text(nudge_y = 1.5, label = "Tues.", size = 2.5,  
+            aes(alpha = day_of_week == "Tue")) +  
+  scale_alpha_discrete(range = c(0,1), guide = F) +  
+  theme_minimal() +  
+  scale_color_viridis_c(option = "magma", guide = F) +  
+  labs(title = "#TidyTuesday tweeted mostly Tuesdays") +  
+  labs(subtitle = "Fifteen hundred #TidyTuesday tweets from April to December 2018") +  
+  labs(caption = "@EvaMaeRey | Data: rtweets &amp; #TidyTuesday | Per day calculations based on __ time zone") +  
+  labs(y = "Tweets per day") +  
+  labs(x = "") +  
+* ggdark::dark_theme_light()
+```
+]]
+.column[.content[
+![](ggforce_files/figure-html/output_link2_24-1.png)&lt;!-- --&gt;
+]]
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 80%}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:10",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
