@@ -369,8 +369,19 @@ summary {
 </div>
 
 
-<p>These are ideas about the <em>grammar</em> of ggplot2. ggplot2 is based on the grammar of graphics. But it has its own grammar too — it is a <em>particular</em> implementation of the grammar of graphics — and a lot of really helpful decisions are part of its grammar (like having set defaults for aesthetic scales, and scale and plot labels make it easier to build plots quickly). If you are teaching ggplot2, you might think about teaching the grammar of ggplot2 <em>first</em> and then come back to the <em>grammar of graphics</em> — because there will be more context for seeing how an implemenation relates to the larger philosophy. There are a lot of great resources out there already teaching the grammar of graphics which are sources of inspiration for the <em>guide</em>.</p>
+<p>These are my ideas about the <em>grammar</em> of ggplot2. ggplot2 is based on the grammar of graphics. But it has its <em>own</em> grammar too — it is a <em>particular</em> implementation of the grammar of graphics — and a lot of really helpful decisions are part of its grammar (like having set defaults for aesthetic scales, and scale and plot labels make it easier to build plots quickly). If you are teaching ggplot2, you might think about teaching the grammar of ggplot2 <em>first</em> and then come back to the <em>grammar of graphics</em> — because there will be more context for seeing how an implemenation relates to the larger philosophy. There are a lot of great resources out there already teaching the grammar of graphics which are sources of inspiration for the <em>guide</em>.</p>
+<!-- > ggplot2 is the "programmatic reflection of [the grammar of graphics] theory" - Thomas Lin Pederson -->
+<!-- > mapped aesthetics are the "graphical properties of the geometries."  -->
+<!-- > scales translate back and forth between values in variables and percievable properties.  -->
+<!-- > "geometries are pretty much all you think about all the time" - no -->
+<!-- > "basic geometries"  boxplot - rectangle and some lines... -->
+<!-- > "globular..." -->
+<!-- > "color profile"  in printing... -->
+<!-- > theme doesn't flow from the data itself...  "aesthetically pleaseing plots are more readable and likeable, but doesn't relate to the data" -->
+<!-- > "legends guides axes are instrumental to understanding the plot - how can I interpret these graphical properties" -->
 <!-- Of course it's interesting to teach the grammar of graphics along with ggplot2 --- ggplot2 is an implementation of the grammar of graphics.  But ggplot2 has its own grammar, so if you are teaching that tool, might as well teach that specific grammar.  -->
+<!-- > guides... -->
+<!-- > setting aesthetics, vs mapping aesthetics... -->
 <table>
 <colgroup>
 <col width="33%"></col>
@@ -379,92 +390,102 @@ summary {
 </colgroup>
 <thead>
 <tr class="header">
-<th>What?</th>
+<th>Grammar Analogy</th>
 <th>How?</th>
-<th>Description</th>
+<th>What?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1. <a href="ggplot2_grammar_guide.html#data" target="_blank"><strong>The Declarative Mood</strong></a></td>
-<td><em>ggplot(data = gapminder) +</em></td>
-<td>Declaring the <strong>data</strong>.</td>
+<td>1. <strong>The Declarative Mood</strong></td>
+<td>ggplot(data = gapminder) +</td>
+<td><a href="ggplot2_grammar_guide.html#data" target="_blank">Declaring the <strong>data</strong></a></td>
 </tr>
 <tr class="even">
-<td>2. <a href="ggplot2_grammar_guide.html#aes" target="_blank"><strong>The Interogative Mood</strong></a></td>
-<td><em>aes(<strong>color</strong> = pop) +</em></td>
-<td>Asking for <strong>representation of variables by aesthetics</strong> (color, size, x position, etc.) (also known as <strong>aesthetic mapping</strong>)</td>
+<td>2. <strong>The Interogative Mood</strong></td>
+<td>aes(<strong>color</strong> = pop) +</td>
+<td><a href="ggplot2_grammar_guide.html#aes" target="_blank">Asking for <strong>representation of variables by aesthetics</strong> (color, size, x position, etc.) (also known as <strong>aesthetic mapping</strong>)</a></td>
 </tr>
 <tr class="odd">
-<td>- <a href="modifiers.html#scales" target="_blank"><em>Modifiers I</em></a></td>
+<td>- <em>Modifiers I</em></td>
 <td><em>scale_<strong>color</strong>_viridis_d() +</em></td>
-<td>modifying <em>default</em> <strong>aesthetic scales</strong></td>
+<td><a href="modifiers.html#scales" target="_blank">modifying <em>default</em> <strong>aesthetic scales</strong></a></td>
 </tr>
 <tr class="even">
-<td>- <a href="modifiers.html#labs" target="_blank"><em>Modifiers II</em></a></td>
+<td>- <em>Modifiers II</em></td>
 <td><em>labs(<strong>color</strong> = continent) +<br>labs(title = “my title”) +</em></td>
-<td>modifying <em>default</em> <strong>aesthetic labels</strong> (and <strong>plot labels</strong>)</td>
+<td><a href="modifiers.html#labs" target="_blank">modifying <em>default</em> <strong>aesthetic labels</strong> (and <strong>plot labels</strong>)</a></td>
 </tr>
 <tr class="odd">
-<td>- <a href="modifiers.html#coords" target="_blank"><em>Modifiers III</em></a></td>
-<td><em>coord_polar() +</em></td>
-<td>modifying the <em>default</em> <strong>coordinate system</strong> (how the <em>positional</em> aesthetics appear - x and y)</td>
+<td>- <em>Modifiers III</em></td>
+<td>coord_polar() +</td>
+<td><a href="modifiers.html#coords" target="_blank">modifying the <em>default</em> <strong>coordinate system</strong> (how the <em>positional</em> aesthetics appear - x and y)</a></td>
 </tr>
 <tr class="even">
-<td>3. <a href="ggplot2_grammar_guide.html#geoms" target="_blank"><strong>Nouns</strong></a></td>
+<td>- <em>Modifiers IV</em></td>
+<td>guides() +</td>
+<td>[to be added]</td>
+</tr>
+<tr class="odd">
+<td>3. <strong>Nouns</strong></td>
 <td><em>geom_point() +</em></td>
-<td><strong>geometric layers</strong> taking on the aesthetics representing variables</td>
-</tr>
-<tr class="odd">
-<td>4.<a href="ggplot2_grammar_guide.html#local" target="_blank"><strong>The Conditional Mood</strong></a></td>
-<td><em>geom_point(</em></td>
-<td>Making <strong>local</strong>, <strong>geom specific</strong> declarations rather than <strong>global</strong> declarations</td>
+<td><a href="ggplot2_grammar_guide.html#geoms" target="_blank"><strong>geometric layers</strong> taking on the aesthetics representing variables</a></td>
 </tr>
 <tr class="even">
+<td>4.<strong>The Conditional Mood</strong></td>
+<td><em>geom_point(</em></td>
+<td><a href="ggplot2_grammar_guide.html#local" target="_blank">Making <strong>local</strong>, <strong>geom specific</strong> declarations rather than <strong>global</strong> declarations</a></td>
+</tr>
+<tr class="odd">
 <td></td>
 <td><em>data = gapminder,</em></td>
 <td><strong>data</strong> is <br> geom specific</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td></td>
 <td><em>aes(<strong>size</strong> = population),</em></td>
 <td><strong>aesthetic representation</strong><br> is geom specific</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td></td>
 <td><em><strong>color</strong> = “blue”<br></em></td>
 <td><strong>aesthetics <em>not</em> representing variables; <em>unmapped</em> aesthetics</strong> (i.e. <strong>The Imperative Mood)</strong></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td></td>
 <td>) +</td>
 <td></td>
 </tr>
-<tr class="even">
-<td>5. <a href="ggplot2_grammar_guide.html#annotation" target="_blank"><strong>Interjections</strong></a></td>
-<td><em>annotate(geom = “point”, …)</em></td>
-<td>Adding context with <strong>annotation layers</strong></td>
-</tr>
 <tr class="odd">
-<td>6. <a href="facets_themes_ggsave.html#facets" target="_blank"><strong>Punctuation</strong></a></td>
+<td>5. <strong>Interjections</strong></td>
+<td><em>annotate(geom = “point”, <br> x = 10, <br> y = 12, <br> color = “blue”)</em></td>
+<td><a href="ggplot2_grammar_guide.html#annotation" target="_blank">Adding context with <strong>annotation layers</strong></a></td>
+</tr>
+<tr class="even">
+<td>6. <strong>Punctuation</strong></td>
 <td><em>facet_wrap(~continent)</em></td>
-<td><strong>faceting</strong> breaks a plot into small plots (or <em>“small multiples”</em>) based on categorical variables</td>
-</tr>
-<tr class="even">
-<td>7. <a href="facets_themes_ggsave.html#themes" target="_blank"><strong>Greetings</strong></a></td>
-<td><em>theme_minimal()</em></td>
-<td><strong>themes</strong> changing plot look and feel</td>
+<td><a href="facets_themes_ggsave.html#facets" target="_blank"><strong>faceting</strong> breaks a plot into small plots (or <em>“small multiples”</em>) based on categorical variables</a></td>
 </tr>
 <tr class="odd">
-<td>8. <a href="facets_themes_ggsave.html#saving" target="_blank"><strong>The Written Language</strong></a></td>
-<td><em>ggsave(file = “plot.png”, plot = g, <br> height = “4in”, width = “6in”)</em></td>
-<td>save plots with different <strong>resolutions</strong> and <strong>file formats</strong></td>
+<td>7. <strong>Greetings</strong></td>
+<td><em>theme_minimal()</em></td>
+<td><a href="facets_themes_ggsave.html#themes" target="_blank"><strong>themes</strong> changing plot look and feel</a></td>
+</tr>
+<tr class="even">
+<td>8. <strong>The Written Language</strong></td>
+<td><em>ggsave(file = “plot.png”, <br> plot = g, <br> height = “4in”, <br> width = “6in”)</em></td>
+<td><a href="facets_themes_ggsave.html#saving" target="_blank">save plots with different <strong>resolutions</strong> and <strong>file formats</strong></a></td>
+</tr>
+<tr class="odd">
+<td>9. <strong>Collecting and composing</strong></td>
+<td><em>library(patchwork) <br> (g1 + g2) | g3 <br> library(cowplot)</em></td>
+<td>[to be added]</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<div id="how-to-navigateteach-the-ggplot-grammar-guide" class="section level1">
-<h1>How to navigate/teach the ggplot grammar guide:</h1>
+<div id="how-to-navigateteach-a-ggplot-grammar-guide" class="section level1">
+<h1>How to navigate/teach “a ggplot grammar guide”:</h1>
 <div id="part-i-geometric-objects-that-take-on-aesthetics-that-represent-variables-from-a-data-set-focus-on-aesthetic-mapping---the-heros-of-data-viz" class="section level3">
 <h3>Part I: geometric objects that take on aesthetics that represent variables from a data set (focus on aesthetic mapping - the heros of data viz!)</h3>
 <ul>
@@ -527,7 +548,7 @@ summary {
 <p><em>20 minute break</em></p>
 </div>
 <div id="part-v-themes" class="section level3">
-<h3>Part V: <a href>Themes</a></h3>
+<h3>Part V: <a href="taming_themes_in_ggplot/taming_ggplot_themes.html" target="_blank">Themes</a></h3>
 <p>themes</p>
 </div>
 </div>
@@ -537,6 +558,26 @@ summary {
 </div>
 <div id="more-data-vis-topics" class="section level1">
 <h1>More data vis topics</h1>
+<ul>
+<li>spatial</li>
+<li>base R</li>
+</ul>
+</div>
+<div id="external-flipbook-resources" class="section level1">
+<h1>External flipbook resources</h1>
+<style type="text/css">
+.button {
+  background-color: #4682b4; /* Blue */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+</style>
+<p><a href="https://evamaerey.github.io/data_manipulation/about" class="button">Data Wrangling</a> <a href="https://evamaerey.github.io/statistics/about" class="button">Statistical Analysis</a></p>
 </div>
 
 
