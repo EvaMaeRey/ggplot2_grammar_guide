@@ -7,6 +7,8 @@ output: html_document
 
 These are my ideas about the *grammar* of ggplot2.  ggplot2 is based on the grammar of graphics.  But it has its *own* grammar too --- it is a *particular* implementation of the grammar of graphics --- and a lot of really helpful decisions are part of its grammar (like having set defaults for aesthetic scales, and scale and plot labels make it easier to build plots quickly).  If you are teaching ggplot2, you might think about teaching the grammar of ggplot2 *first* and then come back to the *grammar of graphics* --- because there will be more context for seeing how an implemenation relates to the larger philosophy.  There are a lot of great resources out there already teaching the grammar of graphics which are sources of inspiration for the *guide*.  
 
+*Not into grammar?  Ignor about that analogy column!*
+
 <!-- > ggplot2 is the "programmatic reflection of [the grammar of graphics] theory" - Thomas Lin Pederson -->
 
 <!-- > mapped aesthetics are the "graphical properties of the geometries."  -->
@@ -42,8 +44,8 @@ Grammar Analogy | How?  | What?
     - *Modifiers I* | *scale\_**color**\_viridis_d() +* | [modifying *default* **aesthetic scales**](modifiers.html#scales){target="_blank"}
     - *Modifiers II* | *labs(**color** = continent) +<br>labs(title = "my title") +* | [modifying *default* **aesthetic labels** (and **plot labels**)](modifiers.html#labs){target="_blank"}
     - *Modifiers III* | coord_polar() + | [modifying the *default* **coordinate system** (how the *positional* aesthetics appear - x and y)](modifiers.html#coords){target="_blank"}
-    - *Modifiers IV* | guides() + | [to be added]
-3. **Nouns** | *geom\_point() +* | [**geometric layers** taking on the aesthetics representing variables](ggplot2_grammar_guide.html#geoms){target="_blank"}
+    - *Modifiers IV* | guides() + | [to be added?]
+3. **Nouns** | *geom\_point() +* | [**geometric layers** taking on the aesthetics representing variables](ggplot2_grammar_guide.html#geoms){target="_blank"} 
 4.**The Conditional Mood**|*geom\_point(* | [Making **local**, **geom specific** declarations rather than **global** declarations](ggplot2_grammar_guide.html#local){target="_blank"} 
 | | *data = gapminder,* | **data** is <br> geom specific 
   | |  *aes(**size** = population),* |  **aesthetic representation**<br> is geom specific
@@ -53,77 +55,29 @@ Grammar Analogy | How?  | What?
 6. **Punctuation**  | *facet_wrap(~continent)*| [**faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables ](facets_themes_ggsave.html#facets){target="_blank"}
 7. **Greetings**|*theme_minimal()* | [**themes** changing plot look and feel](facets_themes_ggsave.html#themes){target="_blank"}
 8. **The Written Language** | *ggsave(file = "plot.png", <br> plot = g, <br>  height = "4in", <br> width = "6in")*|[save plots with different **resolutions** and **file formats**](facets_themes_ggsave.html#saving){target="_blank"}
-9. **Collecting and composing** | *library(patchwork) <br> (g1 + g2) \| g3 <br> library(cowplot)* | [to be added]
+9. **Composition** | *library(patchwork) <br> (g1 + g2) \| g3 <br> <br> library(cowplot) <br> plotgrid(...,)* | [to be added]
 ---
 
-# How to navigate/teach "a ggplot grammar guide":
 
-### Part I: geometric objects that take on aesthetics that represent variables from a data set (focus on aesthetic mapping - the heros of data viz!)
+### A closer look topics: geoms, themes
 
-- Work through steps 1,2, & 3. A data visualization is composed of geometric shapes that taking on the aesthetics that represent variables from a data set.   Focus on aesthetic mapping --- this does all the heavy lifting in data visualization, so do aas much aesthetic mapping as possible (use double, tripple or quadruple mapping, or exchange mappings). *Introduce as few geoms as possible here - and only simple ones*
+Above, the geom and theme topics are intentionally cursory.  There are tons of geoms, and they can get distracting.  Also themes doesn't directly relate to the data, though it is important.  Theme design almost has its own grammar, it can also be put off until fundamentals are taken on. 
 
-*5 minute break*
-
-- Work through 4 --- geom layer with *locally* specified data and aesthetics and the topic of unmapped aesthetics
-- Work through 5 --- annotation layer, geoms *without data*
-
-*5 minute break*
-
-- Then
-
-  - Slow down and reflect
-  - Emphasize parallells between "grammar" of specifying these
-  - Demonstrate that you can mix an match local and globally specified data, aesthetics
-  - Not everything needs to be specified globally or locally for a particular geom
-
-*15 minute break*
-
-### Part II: [Modifiers](modifiers.html#4){target="_blank"}
-
-- Return to simple globally declarations plot.  Walk through modifiers I (scales_\*_?), modifiers II (labs(\* = ?)), modifiers III (coords_?).  
-
-*15 minute break*
+1. [Returning to geoms](geoms.html){target="_blank"}
+    - simple
+   - collective
+2. [stats to be added]
+2. [Returning to themes](taming_themes_in_ggplot.html){target="_blank"}
 
 
-### Part III: [Facetting, Themes, Saving](facets_themes_ggsave.html){target="_blank"}
+---
 
-- go through 6 (this facetting topic ... also a good time to talk about patchwork and cowplot - composing a collection of plots), 7, 8
+# Navigating the grammar guide
 
+<a href="order.html" class="button">Suggested Navigation</a>
 
-*Lunch break*
+---
 
-### Part IV: [Geoms/Stats Pile-on/Deep-Dive](geoms.html){target="_blank"}
-
-geom types
-
-  - simple
-  - collective
-  - after transformation
-
-*5 minute break*
-
-stats
-
-- univariate
-  - continuous
-  - discrete
-
-- bivariate
-  - continuous-continuous
-  - discrete-discrete
-  - continuous-discrete
-
-*20 minute break*
-
-### Part V: [Themes](taming_themes_in_ggplot/taming_ggplot_themes.html){target="_blank"} 
-
-themes
-
-
-# Other guides to ggplot2
-
-ggplot2 is very flexible, so there often there are more than one way of getting things done --- which also means there is more than one way to introduce ggplot2.
-If you aren't on board with this guide (and even if you are)   you may want check out other resouces.  The more definitive and comprehensive guide to ggplot2 is, the 3rd edition of [*ggplot2: elegant graphics for data analysis*](ggplot2-book.org).  Some other workshop materials are Garrick Aden-Buie's [*A Gentle Guide to the Grammar of Graphics with ggplot2*](https://pkg.garrickadenbuie.com/gentle-ggplot2/#1), Will Chase's [*R you ready to make charts?*](https://www.williamrchase.com/slides/ggplot_intro.html#1), Malcom Barrett's [*Designing ggplots making clear figures that communicate*](https://designing-ggplots.netlify.com/#1), and Thomas Lin Pederson's [*Drawing anything with ggplot2*](https://github.com/thomasp85/ggplot2_workshop/blob/master/presentation.pdf).
 
 # More data vis topics
 
@@ -131,7 +85,31 @@ If you aren't on board with this guide (and even if you are)   you may want chec
 - base R
 
 
-# External flipbook resources
+
+
+```{css, echo = F}
+.button {
+  background-color: #4682b4; /* Blue */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+```
+
+
+
+
+# Other guides to ggplot2
+
+ggplot2 is very flexible, so there often there are more than one way of getting things done --- which also means there is more than one way to introduce ggplot2.
+If you aren't on board with this guide (and even if you are)   you may want check out other resouces.  The more definitive and comprehensive guide to ggplot2 is, the 3rd edition of [*ggplot2: elegant graphics for data analysis*](ggplot2-book.org){target="_blank"}.  Some other workshop materials are Garrick Aden-Buie's [*A Gentle Guide to the Grammar of Graphics with ggplot2*](https://pkg.garrickadenbuie.com/gentle-ggplot2/#1){target="_blank"}, Will Chase's [*R you ready to make charts?*](https://www.williamrchase.com/slides/ggplot_intro.html#1){target="_blank"}, Malcom Barrett's [*Designing ggplots making clear figures that communicate*](https://designing-ggplots.netlify.com/#1){target="_blank"}, and Thomas Lin Pederson's [*Drawing anything with ggplot2*](https://github.com/thomasp85/ggplot2_workshop/blob/master/presentation.pdf){target="_blank"}.  [The ggplot2 cheatsheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf){target="_blank"} is also excellent. 
+
+
+# Flipbook on other topics
 
 
 
