@@ -2,12 +2,15 @@
 title: "a ggplot2 grammar guide"
 author: "Gina Reynolds"
 date: "February, 2020"
-output: html_document
+output: 
+  html_document:
+    theme: yeti
+    highlight: monochrome
 ---
 
 These are my ideas about the *grammar* of ggplot2.  ggplot2 is based on the grammar of graphics.  But it has its *own* grammar too --- it is a *particular* implementation of the grammar of graphics --- and a lot of really helpful decisions are part of its grammar (like having set defaults for aesthetic scales, and scale and plot labels make it easier to build plots quickly).  If you are teaching ggplot2, you might think about teaching the grammar of ggplot2 *first* and then come back to the *grammar of graphics* --- because there will be more context for seeing how an implemenation relates to the larger philosophy.  There are a lot of great resources out there already teaching the grammar of graphics which are sources of inspiration for the *guide*.  
 
-*Not into grammar?  Ignor about that analogy column!*
+*Not into human language grammar?  Just ignor that first column!*
 
 <!-- > ggplot2 is the "programmatic reflection of [the grammar of graphics] theory" - Thomas Lin Pederson -->
 
