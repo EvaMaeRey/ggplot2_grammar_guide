@@ -1,0 +1,324 @@
+---
+title: "Aesthetic Mapping"
+author: "Evangeline Reynolds"
+date: "4/6/2020"
+output: html_document
+---
+
+# Set-up... Data package and ggplot2 package
+
+```{r setup}
+library(gapminder)
+library(ggplot2)
+```
+
+
+# Data manipulation
+
+```{r data_manipulation}
+gm_2002 <- gapminder[gapminder$year == 2002, ]
+gm_2002_eu <- gm_2002[gm_2002$continent == "Europe", ]
+continent_count <- data.frame(continent = c("Africa", "Americas", "Asia", "Europe", "Oceania"),
+                              count = c(52, 25, 33, 30, 2))
+```
+
+
+## Task 1: First plot (same as Hans Rosling -- but a moment in time - 2002)
+
+```{r}
+ggplot(data = gm_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  aes(size = pop) +
+  aes(color = continent)
+```
+
+
+# Task 2: 
+
+- Use *shape* instead of *color* to represent continent.
+
+```{r}
+
+```
+
+
+
+# Task 3:
+
+- Use *shape* and *color* to representing continent.
+
+```{r}
+
+```
+
+
+
+# Task 4:
+
+- use the aesthetic named *alpha* to represents gdp per cap
+
+
+```{r}
+
+```
+
+What does this aesthetic seem to be?
+
+> Your answer
+
+---
+
+
+
+
+# Task 5:
+
+# plotting the gm_2002_eu data
+
+create a ggplot where the data is gm_2002_eu (look at the result as you build your plots)
+
+- have *x* represent the variable gdp per capita
+- have *y* represent the variable life expectancy
+- have *color* represent the variable  population
+- use a **point** to take on these aesthetics (i.e add a geom_point() statement)
+- *also* use a **rug** geometry to take on these aesthetics (i.e. add a geom_rug() statement)
+- have *label* represent the variable continent
+- use **text** *also* to take on these aesthetics (i.e. add a geom_text() statement -- will look a bit messy - don't worry about this).
+
+```{r}
+
+```
+
+Answer the question:  What is the *default color scale* for continuous variables? 
+
+> your answer here
+
+
+---
+
+# Task 6:
+
+
+# The continent_count data
+
+
+In a new code chunk create a plot:
+
+  - where the data is continent_count (this much is set up for you)
+  - where *x* represent the variable continent
+  - where *y* represent the variable count
+  - where the geom taking on the x and y position is **point**
+  
+```{r}
+ggplot(data = continent_count)
+```
+
+---
+
+# Task 7:
+
+
+Now, using the code above, change geom_point() to geom_col().  *In addition* to *x* representing continent and *y* representing count:
+
+- have *color* represent continent
+- have *linetype* represent continent
+- have *fill* represent continent
+- have *alpha* represent count
+
+**Execute the code as you build to see the changes you are triggering.**
+
+```{r}
+
+```
+
+Based on your experience above, how is the aesthetic, *fill*, different from the aesthetic *color*?
+
+> your answer here
+
+
+---
+
+# Task 8:
+
+
+# geom_tile()
+
+The next plot you'll create uses the **tile** geom, geom_tile().
+
+Use the data, gm_americas, that is created below.  Then build the plot (it is started for you).
+
+- have *x* position represent year
+- have *y* position represent country
+- have the geometric shape **tiles** take in the x and y aesthetics (i.e. add a geom_tile() statement)
+- have *fill* represent life expectancy (lifeExp)
+
+```{r}
+gm_americas <- gapminder[gapminder$continent == "Americas",]
+  
+ggplot(data = gm_americas)
+```
+
+
+
+---
+
+# Task 9:
+
+
+# A scatter plot with cars
+
+Examine the data "cars" that is available from "base" R. You can search cars in the help, if you need a reminder
+
+Build a scatterplot with this data in ggplot2 (i.e. declare the data, declare desired aesthetic representation, and use geom_point() ).
+
+```{r}
+ggplot(data = cars)
+```
+
+---
+
+# Task 10:
+
+
+# A scatterplot with pressure
+
+Examine the data "pressure" that is available from "base" R. You can search pressure in the help, if you need a reminder.
+
+Build a scatterplot with this data in ggplot2 (i.e. declare the data, declare aesthetic representation, and use geom_point() ).
+
+```{r}
+ggplot(data = pressure)
+```
+
+---
+
+# Task 11:
+
+
+# geom_rect()
+
+Execute the code below, then just answer the questions. 
+
+The geom_rect() is a rectangle defined by xmin, xmax, ymin, and ymax.  Here were seeing a few new things.  First we can make adjustments on the fly to variables.  It might be best to show gdpPercap **in thousands**.  We can do that *on the fly*, by dividing by 1000.  Same with population --- writing all the zeros out is not a great choice, we can report in millions --- so we divide the variable through by 1000000. 
+
+Can you do arithmetic operations with variables on the fly?
+
+> yes or no?
+
+We can also create something like a variable on the fly.  Where we see xmin set to zero, *this is like having a variable (a column in the data), that is filled from top to bottom with zeros*.  Same with ymin.  
+
+We see xmin set to zero.  What is this like? You can retype the explanation imediately above, try to internalize of course.  
+
+> your answer here...
+
+
+We also see facet_wrap(~country) being used.  Describe the behavior of facet_wrap(~country) --- (i.e. What does it do?)
+
+> your answer
+
+What does the area of the rectangle capture?  Hint, the width is gdp per cap, and the height is population.  The area is multiplying these two giving you ...
+
+> your idea here...
+
+
+```{r}
+options(scipen = 10)  # this tells r to not turn on scientific notation too soon
+
+# this is a comment - if you want to write comments 
+# use the hashtag at the beginning of the line
+ggplot(data = gm_2002_eu) +
+  aes(xmax = gdpPercap/1000) +
+  aes(ymax = pop/1000000) +
+  aes(xmin = 0) +
+  aes(ymin = 0) +
+  geom_rect() +
+  facet_wrap(~country)
+```
+
+---
+
+# Task 12:
+
+
+Execute the code below.  
+
+What aes() statements does the point use?  
+
+> 
+
+What aes() statements does the segement use?
+
+>
+
+You can also search geom_point and geom_segment in Rstudio help to answer these questions.  Scroll down in the "documentation" to the section "Aesthetics".
+
+
+```{r}
+options(scipen = 10)
+ggplot(data = gm_2002_eu) +
+  aes(x = gdpPercap/1000) +
+  aes(y = pop/1000000) +
+  aes(xend = 0) +
+  aes(yend = 0) +
+  geom_segment() +
+  geom_point() +
+  facet_wrap(~country)
+```
+
+
+---
+
+# Task 13: Deconstructing a plot.
+
+
+Examine code below, and execute.  
+
+What is the name of the object which contains the dataset for the plot?  
+
+> your answer
+
+What variable is represented by the x position?
+
+> your answer
+
+What variable is represented by the y position?
+
+> your answer
+
+What is the geometric shape that is taking on the aesthetic representations?
+
+> your answer
+
+
+Is there a probelm with this visual representation?  If yes, describe that problem...
+
+> your answer
+
+
+```{r}
+ggplot(data = diamonds) +
+  aes(x = depth) +
+  aes(y = price) +
+  geom_point()
+```
+
+# Task 14: Write the concise "grammar of graphics" definition of a data visualization/statistical graphic (choose either the colloquial or academic).
+
+
+> A data visualization is ...
+
+or 
+
+> A statistical graphic is ...
+
+Note the parallel with construction of ggplots:  
+
+declare data + 
+
+declare aesthetic representations + 
+
+declare geometry that will take on aesthetics.
+
+
