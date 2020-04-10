@@ -68,6 +68,8 @@ What does this aesthetic seem to be?
 
 > Your answer
 
+
+
 ---
 
 
@@ -84,7 +86,7 @@ create a ggplot where the data is gm_2002_eu (look at the result as you build yo
 - have *color* represent the variable  population
 - use a **point** to take on these aesthetics (i.e add a geom_point() statement)
 - *also* use a **rug** geometry to take on these aesthetics (i.e. add a geom_rug() statement)
-- have *label* represent the variable continent
+- have *label* represent the variable continent, then switch to country  
 - use **text** *also* to take on these aesthetics (i.e. add a geom_text() statement -- will look a bit messy - don't worry about this).
 
 ```{r}
@@ -92,6 +94,10 @@ create a ggplot where the data is gm_2002_eu (look at the result as you build yo
 ```
 
 Answer the question:  What is the *default color scale* for continuous variables? 
+
+> your answer here
+
+Does it make more sense for the variable continent or country to be represented by the label aesthetic?
 
 > your answer here
 
