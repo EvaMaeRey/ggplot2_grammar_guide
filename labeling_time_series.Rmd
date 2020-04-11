@@ -1,0 +1,158 @@
+---
+title: "Labeling time series data"
+subtitle: "With flipbookr and xaringan"
+author: "Gina Reynolds, December 2019"
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: [default, ninjutsu]
+    nature:
+      ratio: 16:10
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+class: left, top
+background-image: url(https://images.unsplash.com/photo-1454944338482-a69bb95894af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1504&q=80)
+background-size: 170%
+
+
+
+# .right.large[Labeling time series <br>in {ggplot2}]
+<br>
+<br>
+<br>
+<br>
+<!-- ### An exploration <br>with {flipbookr}<br>and {xaringan} -->
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+#### Edited: Gina Reynolds<br>Photo Credit: Lauren Mancke
+
+```{r setup, include = F}
+# This is the recommended set up for flipbooks
+# you might think about setting cache to TRUE as you gain practice --- building flipbooks from scracth can be time consuming
+knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, comment = "", cache = T, fig.retina = 3)
+library(flipbookr)
+library(tidyverse)
+```
+
+---
+
+
+```{r data_prep, include=F}
+library(tidyverse)
+library(patchwork)
+
+tibble(
+  year = 2016:2018,
+  Oranges = c(4.25, 4, 5.55),
+  Lemons = c(4, 4.75, NA),
+  Grapes = c(3.25, 3.75, 4.85)
+)  ->
+dat_wide
+
+dat_wide %>%
+  pivot_longer(
+    cols = c(Oranges, Lemons, Grapes),
+    names_to = "fruit",
+    values_to = "price") %>%
+  mutate(
+    fruit_ABCD = factor(fruit),
+    fruit_sane = fct_reorder2(fruit, year, price)
+  ) ->
+dat
+```
+
+
+
+
+
+---
+
+`r chunk_reveal("plots")`
+
+```{r plots, include=F}
+dat %>% 
+  ggplot() +
+  aes(x = year, y = price) + 
+  geom_line(size = 1.5) + 
+  aes(colour = fruit_ABCD) + 
+  theme_minimal(base_size = 25) +
+  scale_x_continuous(breaks = 2016:2018) +
+  labs(title = "Price of produce: Edible?") + #BREAK
+  # overwrite with a more appropriate factor ordering
+  aes(colour = fruit_sane) +
+  # put the key near the data
+  theme(legend.justification = c(1, 0.85)) +
+  labs(colour = NULL) + 
+  labs(title = "Price of produce: Fancy") + #BREAK
+  # but you might directly label the series 
+  # so we do not necessarily need the legend
+  theme(legend.position = "none") +
+  aes(color = fruit) +
+  geom_text(data = . %>% 
+              group_by(fruit) %>% 
+              drop_na() %>% 
+              filter(year == max(year)),
+            aes(label = fruit),
+            nudge_x = .2,
+            nudge_y = .12,
+            color = "black",
+            size = 7) +
+  # give them a cute little end point
+  geom_point(data = dat %>% 
+              group_by(fruit) %>% 
+              drop_na() %>% 
+              filter(year == max(year)),
+            aes(fill = fruit),
+            shape = 21,
+            size = 6,
+            color = "white") +
+  # but probably wider x axis
+  scale_x_continuous(breaks = 2016:2018, 
+                     expand = c(0.1,0),
+                     limits = c(2016,2018.3)) +
+  scale_y_continuous(labels = scales::dollar_format(),
+                     expand = c(0,.15)) + 
+  labs(x = NULL, y = NULL) +
+  theme(panel.grid.minor.x = element_blank()) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(plot.title.position = "plot") +
+  theme(plot.background = element_rect(fill = "grey98")) +
+  theme(axis.line.x = element_line(color = "grey20")) + 
+  theme(axis.ticks.x = element_line(color = "grey20")) +
+  labs(title = "Price of produce: Extra Fancy") #BREAK
+```
+
+---
+class: inverse, center, middle
+
+# Interested in data prep?
+
+
+
+---
+
+
+`r chunk_reveal("data_prep")`
+
+---
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 45%}
+```
