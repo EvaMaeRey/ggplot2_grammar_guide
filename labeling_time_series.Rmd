@@ -240,13 +240,13 @@ g +
 ---
 class: inverse, center, middle
 
-# Interested in the simulated data & prep?
+# Interested in the toy data prep?
 --
 
-## Uses pivot longer!
+## Uses the newish pivot_longer()!
 
 --
-### This is basically all Jenny Bryan
+### This is basically [Jenny Bryan's set up](https://gist.github.com/jennybc/847c6b43c4e35cec2e5bb30a3f38af73)
 
 
 ---
