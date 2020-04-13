@@ -8,14 +8,16 @@ output: html_document
 
 ### Part I: geometric objects that take on aesthetics that represent variables from a data set (focus on aesthetic mapping - the heros of data viz!)
 
-- Work through steps 1,2, & 3. A data visualization is composed of geometric shapes that taking on the aesthetics that represent variables from a data set.   Focus on aesthetic mapping --- this does all the heavy lifting in data visualization, so do aas much aesthetic mapping as possible (use double, tripple or quadruple mapping, or exchange mappings). *Introduce as few geoms as possible here - and only simple ones*
+- Work through steps 1,2, & 3. A data visualization is composed of geometric shapes that taking on the aesthetics that represent variables from a data set.   Focus on aesthetic mapping --- this does all the heavy lifting in data visualization, so do aas much aesthetic mapping as possible (use double, tripple or quadruple mapping, or exchange mappings). *Introduce as few geoms as possible here - and only individual ones*
 
-*short break*
+
+---
+
 
 - Work through 4 --- geom layer with *locally* specified data and aesthetics and the topic of unmapped aesthetics
 - Work through 5 --- annotation layer, geoms *without data*
 
-*short break*
+---
 
 - Then
 
@@ -24,21 +26,20 @@ output: html_document
   - Demonstrate that you can mix an match local and globally specified data, aesthetics
   - Not everything needs to be specified globally or locally for a particular geom
 
-*long break*
+---
 
 ### Part II: [Modifiers](modifiers.html#4){target="_blank"}
 
 - Return to simple globally declarations plot.  Walk through modifiers I (scales_\*_?), modifiers II (labs(\* = ?)), modifiers III (coords_?).  
 
-*long break*
-
+---
 
 ### Part III: [Facetting, Themes, Saving](facets_themes_ggsave.html){target="_blank"}
 
 - go through 6 (this facetting topic ... also a good time to talk about patchwork and cowplot - composing a collection of plots), 7, 8
 
 
-*long break*
+---
 
 ### Part IV: [Geoms/Stats closer look](geoms.html){target="_blank"}
 
@@ -48,7 +49,7 @@ geom types
   - collective
   - after transformation
 
-*break*
+---
 
 stats
 

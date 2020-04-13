@@ -45,12 +45,24 @@ background-size: 170%
 ```{r setup, include = F}
 # This is the recommended set up for flipbooks
 # you might think about setting cache to TRUE as you gain practice --- building flipbooks from scracth can be time consuming
-knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, comment = "", cache = T, fig.retina = 3)
+knitr::opts_chunk$set(fig.width = 12, message = FALSE, warning = FALSE, comment = "", cache = T, fig.retina = 3)
 library(flipbookr)
 library(tidyverse)
 ```
 
 ---
+
+
+Viz and Code Inspirations:
+
+- [Jenny Bryan](https://twitter.com/JennyBryan/status/1244499728831672320)  
+- [John Burn-Murdoch](https://gist.githubusercontent.com/johnburnmurdoch/34bd7470dca92e470fd5f12a488923ce/raw/c7a66c8a718299ecfdb9b7c922daca5d33eb8aa0/coronavirus_cases_trajectories.R)
+- [Allison Horst](https://twitter.com/allison_horst/status/1248765119334498305)
+- [Hiroaki Yutani](https://yutani.rbind.io/post/gghighlight-0-2-0/)
+- [Malcolm Barrett](https://designing-ggplots.netlify.com/#1)
+- [Taming Themes in ggplot2](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html)
+
+
 
 
 ```{r data_prep, include=F}
@@ -79,7 +91,11 @@ dat
 
 
 
+---
+class: inverse, center, middle
 
+
+# Legend, ordered legend, or direct label
 
 ---
 
@@ -90,18 +106,17 @@ dat %>%
   ggplot() +
   aes(x = year, y = price) + 
   geom_line(size = 1.5) + 
-  aes(colour = fruit_ABCD) + 
+  aes(colour = fruit) + 
   theme_minimal(base_size = 25) +
   scale_x_continuous(breaks = 2016:2018) +
   labs(title = "Price of produce: Edible?") + #BREAK
   # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +
+  aes(colour = fct_reorder2(fruit, year, price)) +
   # put the key near the data
   theme(legend.justification = c(1, 0.85)) +
   labs(colour = NULL) + 
   labs(title = "Price of produce: Fancy") + #BREAK
   # but you might directly label the series 
-  # so we do not necessarily need the legend
   theme(legend.position = "none") +
   aes(color = fruit) +
   geom_text(data = . %>% 
@@ -109,7 +124,7 @@ dat %>%
               drop_na() %>% 
               filter(year == max(year)),
             aes(label = fruit),
-            nudge_x = .2,
+            nudge_x = .1,
             nudge_y = .12,
             color = "black",
             size = 7) +
@@ -125,7 +140,7 @@ dat %>%
   # but probably wider x axis
   scale_x_continuous(breaks = 2016:2018, 
                      expand = c(0.1,0),
-                     limits = c(2016,2018.3)) +
+                     limits = c(2016,2018.2)) +
   scale_y_continuous(labels = scales::dollar_format(),
                      expand = c(0,.15)) + 
   labs(x = NULL, y = NULL) +
@@ -138,11 +153,100 @@ dat %>%
   labs(title = "Price of produce: Extra Fancy") #BREAK
 ```
 
+
+
+
+
 ---
 class: inverse, center, middle
 
-# Interested in data prep?
 
+# Faceting
+
+
+---
+
+
+--
+
+`r chunk_reveal("faceting")`
+
+```{r faceting, include=F}
+library(gghighlight)
+dat %>% 
+  ggplot() +
+  aes(x = year) + 
+  aes(y = price) + 
+  facet_wrap(~fruit) + #ROTATE
+  geom_line(data = . %>% 
+              mutate(fruit_grey = fruit) %>% 
+              select(-fruit),
+            aes(group = fruit_grey), 
+            color = "grey") +
+  geom_line(size = 1.5,
+            color = "steelblue") + 
+  theme_minimal(base_size = 18) +
+  scale_x_continuous(breaks = 2016:2018) +
+  theme(legend.position = "none") +
+  theme(strip.text =
+          element_text(color = "steelblue", 
+                       size = 20,
+                       face = "bold")) +
+  theme(panel.spacing.x =
+          unit(2, "lines")) +
+  # beyond alphabetical for faceting too
+  facet_wrap(~fct_reorder2(fruit, year, price)) + #ROTATE
+  labs(x = NULL, y = NULL) +
+  scale_y_continuous(labels = scales::dollar_format())
+```
+
+
+---
+class: inverse, center, middle
+
+
+# gghighlight
+
+---
+
+`r chunk_reveal("gghighlight")`
+
+```{r gghighlight, include=F}
+library(gghighlight)
+dat %>% 
+  ggplot() +
+  aes(x = year, y = price) + 
+  geom_line(size = 1.5) + 
+  aes(colour = fruit) + 
+  theme_minimal(base_size = 25) +
+  scale_x_continuous(breaks = 2016:2018) ->
+g
+
+
+g +
+  gghighlight(max(price, na.rm = T) > 5,
+              keep_scales = TRUE) ->
+g2
+
+g +
+  gghighlight(max(price, na.rm = T) > 3,
+              keep_scales = TRUE)
+
+```
+
+
+
+
+---
+class: inverse, center, middle
+
+# Interested in the simulated data & prep?
+--
+
+## Uses pivot longer!
+
+--
+### This is basically all Jenny Bryan
 
 
 ---

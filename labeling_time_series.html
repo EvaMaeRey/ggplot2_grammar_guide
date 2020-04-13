@@ -44,11 +44,27 @@ background-size: 170%
 ---
 
 
+Viz and Code Inspirations:
+
+- [Jenny Bryan](https://twitter.com/JennyBryan/status/1244499728831672320)  
+- [John Burn-Murdoch](https://gist.githubusercontent.com/johnburnmurdoch/34bd7470dca92e470fd5f12a488923ce/raw/c7a66c8a718299ecfdb9b7c922daca5d33eb8aa0/coronavirus_cases_trajectories.R)
+- [Allison Horst](https://twitter.com/allison_horst/status/1248765119334498305)
+- [Hiroaki Yutani](https://yutani.rbind.io/post/gghighlight-0-2-0/)
+- [Malcolm Barrett](https://designing-ggplots.netlify.com/#1)
+- [Taming Themes in ggplot2](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html)
 
 
 
 
 
+
+
+
+---
+class: inverse, center, middle
+
+
+# Legend, ordered legend, or direct label
 
 ---
 
@@ -94,7 +110,7 @@ dat %&gt;%
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_2_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_2_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -111,7 +127,7 @@ dat %&gt;%
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_3_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_3_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -129,7 +145,7 @@ dat %&gt;%
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_4_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_4_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -144,11 +160,11 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-* aes(colour = fruit_ABCD)
+* aes(colour = fruit)
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_5_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_5_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -163,12 +179,12 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
 * theme_minimal(base_size = 25)
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_6_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_6_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -183,13 +199,13 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
 * scale_x_continuous(breaks = 2016:2018)
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_7_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_7_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -204,14 +220,14 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
 * labs(title = "Price of produce: Edible?")
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_8_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_8_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -226,16 +242,16 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-* aes(colour = fruit_sane)
+* aes(colour = fct_reorder2(fruit, year, price))
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_9_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_9_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -250,18 +266,18 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
 * theme(legend.justification = c(1, 0.85))
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_10_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_10_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -276,19 +292,19 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
 * labs(colour = NULL)
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_11_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_11_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -303,12 +319,12 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
@@ -316,7 +332,7 @@ dat %&gt;%
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_12_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_12_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -331,23 +347,22 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
 * theme(legend.position = "none")
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_13_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_13_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -362,24 +377,23 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
 * aes(color = fruit)
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_14_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_14_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -394,18 +408,17 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
   aes(color = fruit) +  
 * geom_text(data = . %&gt;%
@@ -413,14 +426,14 @@ dat %&gt;%
 *             drop_na() %&gt;%
 *             filter(year == max(year)),
 *           aes(label = fruit),
-*           nudge_x = .2,
+*           nudge_x = .1,
 *           nudge_y = .12,
 *           color = "black",
 *           size = 7)
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_15_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_15_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -435,18 +448,17 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
   aes(color = fruit) +  
   geom_text(data = . %&gt;%  
@@ -454,7 +466,7 @@ dat %&gt;%
               drop_na() %&gt;%  
               filter(year == max(year)),  
             aes(label = fruit),  
-            nudge_x = .2,  
+            nudge_x = .1,  
             nudge_y = .12,  
             color = "black",  
             size = 7) +  
@@ -470,7 +482,7 @@ dat %&gt;%
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_16_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_16_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -485,18 +497,17 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
   aes(color = fruit) +  
   geom_text(data = . %&gt;%  
@@ -504,7 +515,7 @@ dat %&gt;%
               drop_na() %&gt;%  
               filter(year == max(year)),  
             aes(label = fruit),  
-            nudge_x = .2,  
+            nudge_x = .1,  
             nudge_y = .12,  
             color = "black",  
             size = 7) +  
@@ -520,11 +531,11 @@ dat %&gt;%
 # but probably wider x axis
 * scale_x_continuous(breaks = 2016:2018,
 *                    expand = c(0.1,0),
-*                    limits = c(2016,2018.3))
+*                    limits = c(2016,2018.2))
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_17_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_17_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -539,18 +550,17 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
   aes(color = fruit) +  
   geom_text(data = . %&gt;%  
@@ -558,7 +568,7 @@ dat %&gt;%
               drop_na() %&gt;%  
               filter(year == max(year)),  
             aes(label = fruit),  
-            nudge_x = .2,  
+            nudge_x = .1,  
             nudge_y = .12,  
             color = "black",  
             size = 7) +  
@@ -574,13 +584,13 @@ dat %&gt;%
 # but probably wider x axis
   scale_x_continuous(breaks = 2016:2018,  
                      expand = c(0.1,0),  
-                     limits = c(2016,2018.3)) +  
+                     limits = c(2016,2018.2)) +  
 * scale_y_continuous(labels = scales::dollar_format(),
 *                    expand = c(0,.15))
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_18_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_18_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -595,18 +605,17 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
   aes(color = fruit) +  
   geom_text(data = . %&gt;%  
@@ -614,7 +623,7 @@ dat %&gt;%
               drop_na() %&gt;%  
               filter(year == max(year)),  
             aes(label = fruit),  
-            nudge_x = .2,  
+            nudge_x = .1,  
             nudge_y = .12,  
             color = "black",  
             size = 7) +  
@@ -630,14 +639,14 @@ dat %&gt;%
 # but probably wider x axis
   scale_x_continuous(breaks = 2016:2018,  
                      expand = c(0.1,0),  
-                     limits = c(2016,2018.3)) +  
+                     limits = c(2016,2018.2)) +  
   scale_y_continuous(labels = scales::dollar_format(),  
                      expand = c(0,.15)) +  
 * labs(x = NULL, y = NULL)
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_19_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_19_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -652,18 +661,17 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
   aes(color = fruit) +  
   geom_text(data = . %&gt;%  
@@ -671,7 +679,7 @@ dat %&gt;%
               drop_na() %&gt;%  
               filter(year == max(year)),  
             aes(label = fruit),  
-            nudge_x = .2,  
+            nudge_x = .1,  
             nudge_y = .12,  
             color = "black",  
             size = 7) +  
@@ -687,7 +695,7 @@ dat %&gt;%
 # but probably wider x axis
   scale_x_continuous(breaks = 2016:2018,  
                      expand = c(0.1,0),  
-                     limits = c(2016,2018.3)) +  
+                     limits = c(2016,2018.2)) +  
   scale_y_continuous(labels = scales::dollar_format(),  
                      expand = c(0,.15)) +  
   labs(x = NULL, y = NULL) +  
@@ -695,7 +703,7 @@ dat %&gt;%
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_20_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_20_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -710,18 +718,17 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
   aes(color = fruit) +  
   geom_text(data = . %&gt;%  
@@ -729,7 +736,7 @@ dat %&gt;%
               drop_na() %&gt;%  
               filter(year == max(year)),  
             aes(label = fruit),  
-            nudge_x = .2,  
+            nudge_x = .1,  
             nudge_y = .12,  
             color = "black",  
             size = 7) +  
@@ -745,7 +752,7 @@ dat %&gt;%
 # but probably wider x axis
   scale_x_continuous(breaks = 2016:2018,  
                      expand = c(0.1,0),  
-                     limits = c(2016,2018.3)) +  
+                     limits = c(2016,2018.2)) +  
   scale_y_continuous(labels = scales::dollar_format(),  
                      expand = c(0,.15)) +  
   labs(x = NULL, y = NULL) +  
@@ -754,7 +761,7 @@ dat %&gt;%
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_21_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_21_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -769,18 +776,17 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
   aes(color = fruit) +  
   geom_text(data = . %&gt;%  
@@ -788,7 +794,7 @@ dat %&gt;%
               drop_na() %&gt;%  
               filter(year == max(year)),  
             aes(label = fruit),  
-            nudge_x = .2,  
+            nudge_x = .1,  
             nudge_y = .12,  
             color = "black",  
             size = 7) +  
@@ -804,7 +810,7 @@ dat %&gt;%
 # but probably wider x axis
   scale_x_continuous(breaks = 2016:2018,  
                      expand = c(0.1,0),  
-                     limits = c(2016,2018.3)) +  
+                     limits = c(2016,2018.2)) +  
   scale_y_continuous(labels = scales::dollar_format(),  
                      expand = c(0,.15)) +  
   labs(x = NULL, y = NULL) +  
@@ -814,7 +820,7 @@ dat %&gt;%
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_22_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_22_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -829,18 +835,17 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
   aes(color = fruit) +  
   geom_text(data = . %&gt;%  
@@ -848,7 +853,7 @@ dat %&gt;%
               drop_na() %&gt;%  
               filter(year == max(year)),  
             aes(label = fruit),  
-            nudge_x = .2,  
+            nudge_x = .1,  
             nudge_y = .12,  
             color = "black",  
             size = 7) +  
@@ -864,7 +869,7 @@ dat %&gt;%
 # but probably wider x axis
   scale_x_continuous(breaks = 2016:2018,  
                      expand = c(0.1,0),  
-                     limits = c(2016,2018.3)) +  
+                     limits = c(2016,2018.2)) +  
   scale_y_continuous(labels = scales::dollar_format(),  
                      expand = c(0,.15)) +  
   labs(x = NULL, y = NULL) +  
@@ -875,7 +880,7 @@ dat %&gt;%
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_23_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_23_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -890,18 +895,17 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
   aes(color = fruit) +  
   geom_text(data = . %&gt;%  
@@ -909,7 +913,7 @@ dat %&gt;%
               drop_na() %&gt;%  
               filter(year == max(year)),  
             aes(label = fruit),  
-            nudge_x = .2,  
+            nudge_x = .1,  
             nudge_y = .12,  
             color = "black",  
             size = 7) +  
@@ -925,7 +929,7 @@ dat %&gt;%
 # but probably wider x axis
   scale_x_continuous(breaks = 2016:2018,  
                      expand = c(0.1,0),  
-                     limits = c(2016,2018.3)) +  
+                     limits = c(2016,2018.2)) +  
   scale_y_continuous(labels = scales::dollar_format(),  
                      expand = c(0,.15)) +  
   labs(x = NULL, y = NULL) +  
@@ -937,7 +941,7 @@ dat %&gt;%
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_24_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_24_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -952,18 +956,17 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
   aes(color = fruit) +  
   geom_text(data = . %&gt;%  
@@ -971,7 +974,7 @@ dat %&gt;%
               drop_na() %&gt;%  
               filter(year == max(year)),  
             aes(label = fruit),  
-            nudge_x = .2,  
+            nudge_x = .1,  
             nudge_y = .12,  
             color = "black",  
             size = 7) +  
@@ -987,7 +990,7 @@ dat %&gt;%
 # but probably wider x axis
   scale_x_continuous(breaks = 2016:2018,  
                      expand = c(0.1,0),  
-                     limits = c(2016,2018.3)) +  
+                     limits = c(2016,2018.2)) +  
   scale_y_continuous(labels = scales::dollar_format(),  
                      expand = c(0,.15)) +  
   labs(x = NULL, y = NULL) +  
@@ -1000,7 +1003,7 @@ dat %&gt;%
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_25_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_25_output-1.png" width="864" /&gt;
 ]]
 ---
 class: split-40
@@ -1015,18 +1018,17 @@ dat %&gt;%
   ggplot() +  
   aes(x = year, y = price) +  
   geom_line(size = 1.5) +  
-  aes(colour = fruit_ABCD) +  
+  aes(colour = fruit) +  
   theme_minimal(base_size = 25) +  
   scale_x_continuous(breaks = 2016:2018) +  
   labs(title = "Price of produce: Edible?") +  
 # overwrite with a more appropriate factor ordering
-  aes(colour = fruit_sane) +  
+  aes(colour = fct_reorder2(fruit, year, price)) +  
 # put the key near the data
   theme(legend.justification = c(1, 0.85)) +  
   labs(colour = NULL) +  
   labs(title = "Price of produce: Fancy") +  
 # but you might directly label the series
-# so we do not necessarily need the legend
   theme(legend.position = "none") +  
   aes(color = fruit) +  
   geom_text(data = . %&gt;%  
@@ -1034,7 +1036,7 @@ dat %&gt;%
               drop_na() %&gt;%  
               filter(year == max(year)),  
             aes(label = fruit),  
-            nudge_x = .2,  
+            nudge_x = .1,  
             nudge_y = .12,  
             color = "black",  
             size = 7) +  
@@ -1050,7 +1052,7 @@ dat %&gt;%
 # but probably wider x axis
   scale_x_continuous(breaks = 2016:2018,  
                      expand = c(0.1,0),  
-                     limits = c(2016,2018.3)) +  
+                     limits = c(2016,2018.2)) +  
   scale_y_continuous(labels = scales::dollar_format(),  
                      expand = c(0,.15)) +  
   labs(x = NULL, y = NULL) +  
@@ -1064,16 +1066,863 @@ dat %&gt;%
 ```
 ]]
 .column[.content[
-&lt;img src="labeling_time_series_files/figure-html/plots_auto_26_output-1.png" width="432" /&gt;
+&lt;img src="labeling_time_series_files/figure-html/plots_auto_26_output-1.png" width="864" /&gt;
 ]]
+
+
+
+
 
 
 
 ---
 class: inverse, center, middle
 
-# Interested in data prep?
 
+# Faceting
+
+
+---
+
+
+--
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*library(gghighlight)
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+*dat
+```
+]]
+.column[.content[
+
+```
+# A tibble: 9 x 5
+   year fruit   price fruit_ABCD fruit_sane
+  &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;     
+1  2016 Oranges  4.25 Oranges    Oranges   
+2  2016 Lemons   4    Lemons     Lemons    
+3  2016 Grapes   3.25 Grapes     Grapes    
+4  2017 Oranges  4    Oranges    Oranges   
+5  2017 Lemons   4.75 Lemons     Lemons    
+6  2017 Grapes   3.75 Grapes     Grapes    
+7  2018 Oranges  5.55 Oranges    Oranges   
+8  2018 Lemons  NA    Lemons     Lemons    
+9  2018 Grapes   4.85 Grapes     Grapes    
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_3_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+* aes(x = year)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_4_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+* aes(y = price)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_5_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = price) +  
+* facet_wrap(~fruit)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_6_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = price) +  
+  facet_wrap(~fruit) +  
+* geom_line(data = . %&gt;%
+*             mutate(fruit_grey = fruit) %&gt;%
+*             select(-fruit),
+*           aes(group = fruit_grey),
+*           color = "grey")
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_7_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = price) +  
+  facet_wrap(~fruit) +  
+  geom_line(data = . %&gt;%  
+              mutate(fruit_grey = fruit) %&gt;%  
+              select(-fruit),  
+            aes(group = fruit_grey),  
+            color = "grey") +  
+* geom_line(size = 1.5,
+*           color = "steelblue")
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_8_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = price) +  
+  facet_wrap(~fruit) +  
+  geom_line(data = . %&gt;%  
+              mutate(fruit_grey = fruit) %&gt;%  
+              select(-fruit),  
+            aes(group = fruit_grey),  
+            color = "grey") +  
+  geom_line(size = 1.5,  
+            color = "steelblue") +  
+* theme_minimal(base_size = 18)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_9_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = price) +  
+  facet_wrap(~fruit) +  
+  geom_line(data = . %&gt;%  
+              mutate(fruit_grey = fruit) %&gt;%  
+              select(-fruit),  
+            aes(group = fruit_grey),  
+            color = "grey") +  
+  geom_line(size = 1.5,  
+            color = "steelblue") +  
+  theme_minimal(base_size = 18) +  
+* scale_x_continuous(breaks = 2016:2018)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_10_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = price) +  
+  facet_wrap(~fruit) +  
+  geom_line(data = . %&gt;%  
+              mutate(fruit_grey = fruit) %&gt;%  
+              select(-fruit),  
+            aes(group = fruit_grey),  
+            color = "grey") +  
+  geom_line(size = 1.5,  
+            color = "steelblue") +  
+  theme_minimal(base_size = 18) +  
+  scale_x_continuous(breaks = 2016:2018) +  
+* theme(legend.position = "none")
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_11_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = price) +  
+  facet_wrap(~fruit) +  
+  geom_line(data = . %&gt;%  
+              mutate(fruit_grey = fruit) %&gt;%  
+              select(-fruit),  
+            aes(group = fruit_grey),  
+            color = "grey") +  
+  geom_line(size = 1.5,  
+            color = "steelblue") +  
+  theme_minimal(base_size = 18) +  
+  scale_x_continuous(breaks = 2016:2018) +  
+  theme(legend.position = "none") +  
+* theme(strip.text =
+*         element_text(color = "steelblue",
+*                      size = 20,
+*                      face = "bold"))
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_12_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = price) +  
+  facet_wrap(~fruit) +  
+  geom_line(data = . %&gt;%  
+              mutate(fruit_grey = fruit) %&gt;%  
+              select(-fruit),  
+            aes(group = fruit_grey),  
+            color = "grey") +  
+  geom_line(size = 1.5,  
+            color = "steelblue") +  
+  theme_minimal(base_size = 18) +  
+  scale_x_continuous(breaks = 2016:2018) +  
+  theme(legend.position = "none") +  
+  theme(strip.text =  
+          element_text(color = "steelblue",  
+                       size = 20,  
+                       face = "bold")) +  
+* theme(panel.spacing.x =
+*         unit(2, "lines"))
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_13_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = price) +  
+  facet_wrap(~fruit) +  
+  geom_line(data = . %&gt;%  
+              mutate(fruit_grey = fruit) %&gt;%  
+              select(-fruit),  
+            aes(group = fruit_grey),  
+            color = "grey") +  
+  geom_line(size = 1.5,  
+            color = "steelblue") +  
+  theme_minimal(base_size = 18) +  
+  scale_x_continuous(breaks = 2016:2018) +  
+  theme(legend.position = "none") +  
+  theme(strip.text =  
+          element_text(color = "steelblue",  
+                       size = 20,  
+                       face = "bold")) +  
+  theme(panel.spacing.x =  
+          unit(2, "lines")) +  
+# beyond alphabetical for faceting too
+* facet_wrap(~fct_reorder2(fruit, year, price))
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_14_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = price) +  
+  facet_wrap(~fruit) +  
+  geom_line(data = . %&gt;%  
+              mutate(fruit_grey = fruit) %&gt;%  
+              select(-fruit),  
+            aes(group = fruit_grey),  
+            color = "grey") +  
+  geom_line(size = 1.5,  
+            color = "steelblue") +  
+  theme_minimal(base_size = 18) +  
+  scale_x_continuous(breaks = 2016:2018) +  
+  theme(legend.position = "none") +  
+  theme(strip.text =  
+          element_text(color = "steelblue",  
+                       size = 20,  
+                       face = "bold")) +  
+  theme(panel.spacing.x =  
+          unit(2, "lines")) +  
+# beyond alphabetical for faceting too
+  facet_wrap(~fct_reorder2(fruit, year, price)) +  
+* labs(x = NULL, y = NULL)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_15_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = price) +  
+  facet_wrap(~fruit) +  
+  geom_line(data = . %&gt;%  
+              mutate(fruit_grey = fruit) %&gt;%  
+              select(-fruit),  
+            aes(group = fruit_grey),  
+            color = "grey") +  
+  geom_line(size = 1.5,  
+            color = "steelblue") +  
+  theme_minimal(base_size = 18) +  
+  scale_x_continuous(breaks = 2016:2018) +  
+  theme(legend.position = "none") +  
+  theme(strip.text =  
+          element_text(color = "steelblue",  
+                       size = 20,  
+                       face = "bold")) +  
+  theme(panel.spacing.x =  
+          unit(2, "lines")) +  
+# beyond alphabetical for faceting too
+  facet_wrap(~fct_reorder2(fruit, year, price)) +  
+  labs(x = NULL, y = NULL) +  
+* scale_y_continuous(labels = scales::dollar_format())
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/faceting_auto_16_output-1.png" width="864" /&gt;
+]]
+
+
+
+
+---
+class: inverse, center, middle
+
+
+# gghighlight
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*library(gghighlight)
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+*dat
+```
+]]
+.column[.content[
+
+```
+# A tibble: 9 x 5
+   year fruit   price fruit_ABCD fruit_sane
+  &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;     
+1  2016 Oranges  4.25 Oranges    Oranges   
+2  2016 Lemons   4    Lemons     Lemons    
+3  2016 Grapes   3.25 Grapes     Grapes    
+4  2017 Oranges  4    Oranges    Oranges   
+5  2017 Lemons   4.75 Lemons     Lemons    
+6  2017 Grapes   3.75 Grapes     Grapes    
+7  2018 Oranges  5.55 Oranges    Oranges   
+8  2018 Lemons  NA    Lemons     Lemons    
+9  2018 Grapes   4.85 Grapes     Grapes    
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/gghighlight_auto_3_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+* aes(x = year, y = price)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/gghighlight_auto_4_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year, y = price) +  
+* geom_line(size = 1.5)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/gghighlight_auto_5_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year, y = price) +  
+  geom_line(size = 1.5) +  
+* aes(colour = fruit)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/gghighlight_auto_6_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year, y = price) +  
+  geom_line(size = 1.5) +  
+  aes(colour = fruit) +  
+* theme_minimal(base_size = 25)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/gghighlight_auto_7_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year, y = price) +  
+  geom_line(size = 1.5) +  
+  aes(colour = fruit) +  
+  theme_minimal(base_size = 25) +  
+* scale_x_continuous(breaks = 2016:2018)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/gghighlight_auto_8_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year, y = price) +  
+  geom_line(size = 1.5) +  
+  aes(colour = fruit) +  
+  theme_minimal(base_size = 25) +  
+  scale_x_continuous(breaks = 2016:2018) -&gt;  
+*g 
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year, y = price) +  
+  geom_line(size = 1.5) +  
+  aes(colour = fruit) +  
+  theme_minimal(base_size = 25) +  
+  scale_x_continuous(breaks = 2016:2018) -&gt;  
+g  
+
+
+*g 
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/gghighlight_auto_10_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year, y = price) +  
+  geom_line(size = 1.5) +  
+  aes(colour = fruit) +  
+  theme_minimal(base_size = 25) +  
+  scale_x_continuous(breaks = 2016:2018) -&gt;  
+g  
+
+
+g +  
+* gghighlight(max(price, na.rm = T) &gt; 5,
+*             keep_scales = TRUE)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/gghighlight_auto_11_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year, y = price) +  
+  geom_line(size = 1.5) +  
+  aes(colour = fruit) +  
+  theme_minimal(base_size = 25) +  
+  scale_x_continuous(breaks = 2016:2018) -&gt;  
+g  
+
+
+g +  
+  gghighlight(max(price, na.rm = T) &gt; 5,  
+              keep_scales = TRUE) -&gt;  
+*g2
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year, y = price) +  
+  geom_line(size = 1.5) +  
+  aes(colour = fruit) +  
+  theme_minimal(base_size = 25) +  
+  scale_x_continuous(breaks = 2016:2018) -&gt;  
+g  
+
+
+g +  
+  gghighlight(max(price, na.rm = T) &gt; 5,  
+              keep_scales = TRUE) -&gt;  
+g2  
+
+*g 
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/gghighlight_auto_13_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year, y = price) +  
+  geom_line(size = 1.5) +  
+  aes(colour = fruit) +  
+  theme_minimal(base_size = 25) +  
+  scale_x_continuous(breaks = 2016:2018) -&gt;  
+g  
+
+
+g +  
+  gghighlight(max(price, na.rm = T) &gt; 5,  
+              keep_scales = TRUE) -&gt;  
+g2  
+
+g +  
+* gghighlight(max(price, na.rm = T) &gt; 3,
+*             keep_scales = TRUE)
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/gghighlight_auto_14_output-1.png" width="864" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gghighlight)  
+dat %&gt;%  
+  ggplot() +  
+  aes(x = year, y = price) +  
+  geom_line(size = 1.5) +  
+  aes(colour = fruit) +  
+  theme_minimal(base_size = 25) +  
+  scale_x_continuous(breaks = 2016:2018) -&gt;  
+g  
+
+
+g +  
+  gghighlight(max(price, na.rm = T) &gt; 5,  
+              keep_scales = TRUE) -&gt;  
+g2  
+
+g +  
+  gghighlight(max(price, na.rm = T) &gt; 3,  
+              keep_scales = TRUE)  
+```
+]]
+.column[.content[
+&lt;img src="labeling_time_series_files/figure-html/gghighlight_auto_15_output-1.png" width="864" /&gt;
+]]
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Interested in the simulated data &amp; prep?
+--
+
+## Uses pivot longer!
+
+--
+### This is basically all Jenny Bryan
 
 
 ---

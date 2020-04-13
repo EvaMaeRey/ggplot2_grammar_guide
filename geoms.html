@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>geom pile on</title>
     <meta charset="utf-8" />
@@ -21,22 +21,15 @@ class: center, middle, inverse, title-slide
 
 
 
-```r
-library(tidyverse)
-library(gapminder)
-```
 
 
 
-name: geoms
 
 
-&lt;!-- But beyond understanding the philosophy, practice (including when things fail, and figuring out why they fail) is really important. Why initiatives like #tidytuesday are so valuable. --&gt;
 
-&lt;!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! --&gt;
+---
 
-
-# Nouns:  The geom_*() pile on
+# 'Nouns':  The geom_*() pile on
 
 It is probably not good practice to include too many geoms in any one plot that you present.  But it might be instructive to go ahead do so here, to see how they relate, and represent the same underlying data.  
 
@@ -47,16 +40,24 @@ In the first example many "variables" are "computed on the fly", like the 0 repr
 ---
 
 
+&gt; In ggplot2, geoms can be roughly divided into individual and collective geoms. An individual geom has a distinctive graphical object for each row in the data frame. For example, the point geom has a single point for each observation. On the other hand, collective geoms represent multiple observations. This may be a result of a statistical summary, or may be fundamental to the display of the geom, as with polygons. Lines and paths fall somewhere in between: each overall line is composed of a set of straight segments, but each segment represents two points. --- Hadley Wickham *ggplot2: Elegant graphics for data analysis*
 
-## Bivariate continuous
+
+
+---
+class: inverse, center, middle
+name: cc
+
+## continous x and y
 
 
 ---
 
-
-
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -69,6 +70,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -82,6 +86,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -96,6 +103,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -111,6 +121,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -130,6 +143,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -150,6 +166,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -171,6 +190,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -193,6 +215,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -216,6 +241,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -240,6 +268,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -265,6 +296,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -291,6 +325,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -318,6 +355,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -347,6 +387,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -377,6 +420,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -408,6 +454,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -440,6 +489,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -471,6 +523,10 @@ ggplot(gapminder_2002) +
 &lt;img src="geoms_files/figure-html/geom_2_continuous_auto_18_output-1.png" width="100%" /&gt;
 ]]
 
+
+
+
+
 ---
 
 ## Questions
@@ -484,9 +540,8 @@ ggplot(gapminder_2002) +
 - Does order of the geom_*() statements matter to the end result?  How?
 
 
-
-
 ---
+name: cc
 
 ## Two continuous variables
 
@@ -496,15 +551,17 @@ There are a lot of geometric objects that can be used to represent *two continuo
 [Or I'm on the overview track, take me to the next session](#local)
 
 ---
+class: inverse, center, middle
 
 ## Two continuous, continued
 
 ---
 
-
-
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -517,6 +574,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -530,6 +590,9 @@ ggplot(data = gapminder_2002 ) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -544,6 +607,9 @@ ggplot(data = gapminder_2002 ) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -559,6 +625,9 @@ ggplot(data = gapminder_2002 ) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -575,6 +644,9 @@ ggplot(data = gapminder_2002 ) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -595,6 +667,9 @@ ggplot(data = gapminder_2002 ) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -618,6 +693,9 @@ ggplot(data = gapminder_2002 ) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -642,6 +720,9 @@ ggplot(data = gapminder_2002 ) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -667,6 +748,9 @@ ggplot(data = gapminder_2002 ) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -693,6 +777,9 @@ ggplot(data = gapminder_2002 ) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -719,6 +806,10 @@ ggplot(data = gapminder_2002 ) +
 ]]
 
 
+
+
+
+
 ---
 
 ## Questions
@@ -730,22 +821,19 @@ geom_area() is a special case of what other geom_*()?  Use the help to answer th
 Geoms is a long section consider because there are many geoms. Consider taking the [overview track](#local).
 
 ---
-
-
-name: dvsc
+class: inverse, center, middle
+name: dc
 
 ## Discrete v. Continuous
 
 ---
 
 
-
-
-
-
-
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -758,6 +846,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -771,6 +862,9 @@ ggplot(gapminder) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -785,6 +879,9 @@ ggplot(gapminder) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -800,6 +897,9 @@ ggplot(gapminder) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -816,6 +916,9 @@ ggplot(gapminder) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -835,6 +938,9 @@ ggplot(gapminder) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -855,6 +961,9 @@ ggplot(gapminder) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -877,6 +986,9 @@ ggplot(gapminder) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -903,6 +1015,9 @@ ggplot(gapminder) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -930,6 +1045,9 @@ ggplot(gapminder) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -956,18 +1074,26 @@ ggplot(gapminder) +
 &lt;img src="geoms_files/figure-html/geom_discrete_continuous_auto_11_output-1.png" width="100%" /&gt;
 ]]
 
----
 
+
+
+
+
+
+
+
+---
 name: c
 
 ## Continuous Univariate
 
 ---
 
-
-
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -980,6 +1106,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -993,6 +1122,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1007,6 +1139,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1023,6 +1158,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1041,6 +1179,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1061,6 +1202,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1082,6 +1226,9 @@ ggplot(gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1102,12 +1249,17 @@ ggplot(gapminder_2002) +
 &lt;img src="geoms_files/figure-html/univariate_continuous_auto_8_output-1.png" width="100%" /&gt;
 ]]
 
+
+
+
+
 ---
-
-
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1120,6 +1272,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1133,6 +1288,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1148,6 +1306,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1167,6 +1328,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1188,6 +1352,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1210,16 +1377,23 @@ ggplot(data = gapminder_2002) +
 ]]
 
 
+
+
+
+
 ---
+class: inverse, center, middle
+name: dd
 
 ## Discrete v. Discrete
 
 ---
 
-
-
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1248,6 +1422,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1277,6 +1454,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1311,6 +1491,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1330,6 +1513,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1350,6 +1536,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1362,7 +1551,7 @@ gapminder_2002 %&gt;%
                        "&lt; Seventy")) %&gt;%  
   ggplot() +  
   aes(x = continent) +  
-* aes(y = seventy_plus)
+* aes(y = age_category)
 ```
 ]]
 .column[.content[
@@ -1371,6 +1560,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1383,7 +1575,7 @@ gapminder_2002 %&gt;%
                        "&lt; Seventy")) %&gt;%  
   ggplot() +  
   aes(x = continent) +  
-  aes(y = seventy_plus) +  
+  aes(y = age_category) +  
 * geom_count(col = "magenta",
 *            alpha = .6)
 ```
@@ -1394,6 +1586,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1406,7 +1601,7 @@ gapminder_2002 %&gt;%
                        "&lt; Seventy")) %&gt;%  
   ggplot() +  
   aes(x = continent) +  
-  aes(y = seventy_plus) +  
+  aes(y = age_category) +  
   geom_count(col = "magenta",  
              alpha = .6) +  
 * labs(size = "Number of \ncountries")
@@ -1418,6 +1613,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1430,7 +1628,7 @@ gapminder_2002 %&gt;%
                        "&lt; Seventy")) %&gt;%  
   ggplot() +  
   aes(x = continent) +  
-  aes(y = seventy_plus) +  
+  aes(y = age_category) +  
   geom_count(col = "magenta",  
              alpha = .6) +  
   labs(size = "Number of \ncountries") +  
@@ -1446,6 +1644,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1458,7 +1659,7 @@ gapminder_2002 %&gt;%
                        "&lt; Seventy")) %&gt;%  
   ggplot() +  
   aes(x = continent) +  
-  aes(y = seventy_plus) +  
+  aes(y = age_category) +  
   geom_count(col = "magenta",  
              alpha = .6) +  
   labs(size = "Number of \ncountries") +  
@@ -1475,6 +1676,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1487,7 +1691,7 @@ gapminder_2002 %&gt;%
                        "&lt; Seventy")) %&gt;%  
   ggplot() +  
   aes(x = continent) +  
-  aes(y = seventy_plus) +  
+  aes(y = age_category) +  
   geom_count(col = "magenta",  
              alpha = .6) +  
   labs(size = "Number of \ncountries") +  
@@ -1505,6 +1709,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1517,7 +1724,7 @@ gapminder_2002 %&gt;%
                        "&lt; Seventy")) %&gt;%  
   ggplot() +  
   aes(x = continent) +  
-  aes(y = seventy_plus) +  
+  aes(y = age_category) +  
   geom_count(col = "magenta",  
              alpha = .6) +  
   labs(size = "Number of \ncountries") +  
@@ -1536,6 +1743,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1548,7 +1758,7 @@ gapminder_2002 %&gt;%
                        "&lt; Seventy")) %&gt;%  
   ggplot() +  
   aes(x = continent) +  
-  aes(y = seventy_plus) +  
+  aes(y = age_category) +  
   geom_count(col = "magenta",  
              alpha = .6) +  
   labs(size = "Number of \ncountries") +  
@@ -1566,6 +1776,10 @@ gapminder_2002 %&gt;%
 &lt;img src="geoms_files/figure-html/discrete2x_auto_13_output-1.png" width="100%" /&gt;
 ]]
 
+
+
+
+
 ---
 
 
@@ -1576,6 +1790,9 @@ gapminder_2002 %&gt;%
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1604,6 +1821,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1633,6 +1853,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1667,6 +1890,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1686,6 +1912,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1706,6 +1935,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1727,6 +1959,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1749,6 +1984,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1773,6 +2011,270 @@ gapminder_2002 %&gt;%
 ]]
 
 ---
+
+
+
+
+---
+class: inverse, center, middle
+name: group
+
+## The group aesthetic and geometric objects
+
+
+---
+
+# A final aesthetic mapping: group
+
+Using geom_line(), you can use many of the same aesthetics as before as well as one special aesthetic: `group`.
+
+&gt; Lines and paths fall somewhere in between: each overall line is composed of a set of straight segments, but each segment represents two points. --- Hadley Wickham
+
+
+Group is like a declaration that instead of plotting the entire data set all together, instead you will plot many small data sets, each defined by the categorical variable "mapped" to `group`.  
+
+Let's see how this works with the following example. 
+
+---
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*gapminder_europe
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 360 x 6
+     country continent  year lifeExp     pop gdpPercap
+     &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
+   1 Albania Europe     1952    55.2 1282697     1601.
+   2 Albania Europe     1957    59.3 1476505     1942.
+   3 Albania Europe     1962    64.8 1728137     2313.
+   4 Albania Europe     1967    66.2 1984060     2760.
+   5 Albania Europe     1972    67.7 2263554     3313.
+   6 Albania Europe     1977    68.9 2509048     3533.
+   7 Albania Europe     1982    70.4 2780097     3631.
+   8 Albania Europe     1987    72   3075321     3739.
+   9 Albania Europe     1992    71.6 3326498     2497.
+  10 Albania Europe     1997    73.0 3428038     3193.
+  # … with 350 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_europe %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/aes_group_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_europe %&gt;%  
+  ggplot() +  
+* aes(x = year)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/aes_group_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_europe %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/aes_group_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_europe %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/aes_group_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_europe %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* geom_line()
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/aes_group_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_europe %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  geom_line() +  
+* aes(group = country)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/aes_group_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_europe %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  geom_line() +  
+  aes(group = country) +  
+# turning group back off
+* aes(group = NULL)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/aes_group_auto_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_europe %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  geom_line() +  
+  aes(group = country) +  
+# turning group back off
+  aes(group = NULL) +  
+# mapping discrete data to color
+# or linetype has similar effects
+* aes(color = country)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/aes_group_auto_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_europe %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  geom_line() +  
+  aes(group = country) +  
+# turning group back off
+  aes(group = NULL) +  
+# mapping discrete data to color
+# or linetype has similar effects
+  aes(color = country) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/aes_group_auto_10_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+---
+
+The geometric object `line` connects all points as it moves along the x axis.  If a group is not defined, the geom_line is hard to interpret, as seen before group is added.  
+
+We also see that mapping discrete data to the color or linetype aesthetics has a similar effect to declaring that there are groups in the data. 
+
+Another thing we observe in the last addition to the last plot is adding an additional geometric layer.  The point layer, because it follows the line layer, appears on top of the line layer.  
+
+
+
+
+&lt;!-- But beyond understanding the philosophy, practice (including when things fail, and figuring out why they fail) is really important. Why initiatives like #tidytuesday are so valuable. --&gt;
+
+&lt;!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! --&gt;
 
 
 
@@ -1825,9 +2327,35 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  /* Replace <script> tags in slides area to make them executable
+   *
+   * Runs after post-processing of markdown source into slides and replaces only
+   * <script>s on the last slide of continued slides using the .has-continuation
+   * class added by xaringan. Finally, any <script>s in the slides area that
+   * aren't executed are commented out.
+   */
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+  var scriptsNotExecuted = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container.has-continuation script'
+  );
+  if (!scriptsNotExecuted.length) return;
+  for (var i = 0; i < scriptsNotExecuted.length; i++) {
+    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
+    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -1836,7 +2364,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
   }
 })();
-</script>
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 slideshow._releaseMath = function(el) {

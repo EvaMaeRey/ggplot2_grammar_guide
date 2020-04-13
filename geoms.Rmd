@@ -17,7 +17,7 @@ library(flipbookr)
 ```
 
 
-```{r}
+```{r, include = F}
 library(tidyverse)
 library(gapminder)
 ```
@@ -40,53 +40,12 @@ gapminder %>%
 continent_aggregate
 ```
 
-name: geoms
 
 
-# A final aesthetic mapping: group
-
-Using geom_line(), you can use many of the same aesthetics as before as well as one special aesthetic: `group`.
-
-Group is like a declaration that instead of plotting the entire data set all together, instead you will plot many small data sets, each defined by the categorical variable "mapped" to `group`.  
-
-Let's see how this works with the following example. 
 
 ---
 
-```{r aes_group, eval = F, echo = F}
-gapminder_europe %>% 
-  ggplot() +
-  aes(x = year) +
-  aes(y = lifeExp) +
-  geom_line() +
-  aes(group = country) +
-  # turning group back off
-  aes(group = NULL) + 
-  # mapping discrete data to color
-  # or linetype has similar effects
-  aes(color = country) +
-  geom_point()
-```
-
-`r apply_reveal("aes_group")`
-
----
-
-The geometric object `line` connects all points as it moves along the x axis.  If a group is not defined, the geom_line is hard to interpret, as seen before group is added.  
-
-We also see that mapping discrete data to the color or linetype aesthetics has a similar effect to declaring that there are groups in the data. 
-
-Another thing we observe in the last addition to the last plot is adding an additional geometric layer.  The point layer, because it follows the line layer, appears on top of the line layer.  
-
-
-
-
-<!-- But beyond understanding the philosophy, practice (including when things fail, and figuring out why they fail) is really important. Why initiatives like #tidytuesday are so valuable. -->
-
-<!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! -->
-
-
-# Nouns:  The geom_*() pile on
+# 'Nouns':  The geom_*() pile on
 
 It is probably not good practice to include too many geoms in any one plot that you present.  But it might be instructive to go ahead do so here, to see how they relate, and represent the same underlying data.  
 
@@ -97,11 +56,21 @@ In the first example many "variables" are "computed on the fly", like the 0 repr
 ---
 
 
+> In ggplot2, geoms can be roughly divided into individual and collective geoms. An individual geom has a distinctive graphical object for each row in the data frame. For example, the point geom has a single point for each observation. On the other hand, collective geoms represent multiple observations. This may be a result of a statistical summary, or may be fundamental to the display of the geom, as with polygons. Lines and paths fall somewhere in between: each overall line is composed of a set of straight segments, but each segment represents two points. --- Hadley Wickham *ggplot2: Elegant graphics for data analysis*
 
-## Bivariate continuous
 
 
 ---
+class: inverse, center, middle
+name: cc
+
+## continous x and y
+
+
+---
+
+`r chunk_reveal("geom_2_continuous")`
+
 
 ```{r geom_2_continuous, eval = F, echo = F}
 ggplot(gapminder_2002) +
@@ -128,7 +97,6 @@ ggplot(gapminder_2002) +
   geom_label() 
 ```
 
-`r chunk_reveal("geom_2_continuous")`
 
 ---
 
@@ -143,9 +111,8 @@ ggplot(gapminder_2002) +
 - Does order of the geom_*() statements matter to the end result?  How?
 
 
-
-
 ---
+name: cc
 
 ## Two continuous variables
 
@@ -155,10 +122,14 @@ There are a lot of geometric objects that can be used to represent *two continuo
 [Or I'm on the overview track, take me to the next session](#local)
 
 ---
+class: inverse, center, middle
 
 ## Two continuous, continued
 
 ---
+
+`r chunk_reveal("geom_2_continuous_2")`
+
 
 ```{r geom_2_continuous_2, eval = F, echo = F}
 ggplot(data = gapminder_2002 ) +
@@ -179,7 +150,6 @@ ggplot(data = gapminder_2002 ) +
   facet_wrap(~continent)
 ```
 
-`r chunk_reveal("geom_2_continuous_2")`
 
 
 ---
@@ -193,13 +163,16 @@ geom_area() is a special case of what other geom_*()?  Use the help to answer th
 Geoms is a long section consider because there are many geoms. Consider taking the [overview track](#local).
 
 ---
-
-
-name: dvsc
+class: inverse, center, middle
+name: dc
 
 ## Discrete v. Continuous
 
 ---
+
+
+`r chunk_reveal("geom_discrete_continuous")`
+
 
 ```{r geom_discrete_continuous, eval = F, echo = F}
 ggplot(gapminder) +
@@ -225,15 +198,16 @@ ggplot(gapminder) +
 
 
 
-`r chunk_reveal("geom_discrete_continuous")`
 
 ---
-
 name: c
 
 ## Continuous Univariate
 
 ---
+
+`r chunk_reveal("univariate_continuous")`
+
 
 ```{r, univariate_continuous, eval = F, echo = F}
 ggplot(gapminder_2002) +
@@ -249,9 +223,11 @@ ggplot(gapminder_2002) +
   facet_grid(continent ~ .) 
 ```
 
-`r chunk_reveal("univariate_continuous")`
 
 ---
+
+`r chunk_reveal("univariate_density")`
+
 
 ```{r univariate_density, eval = F, echo = F}
 ggplot(data = gapminder_2002) +
@@ -268,14 +244,18 @@ ggplot(data = gapminder_2002) +
                adjust = 1/2)
 ```
 
-`r chunk_reveal("univariate_density")`
 
 
 ---
+class: inverse, center, middle
+name: dd
 
 ## Discrete v. Discrete
 
 ---
+
+`r chunk_reveal("discrete2x")`
+
 
 ```{r discrete2x, eval = F, echo = F}
 gapminder_2002 %>% 
@@ -287,7 +267,7 @@ gapminder_2002 %>%
                        "< Seventy")) %>% 
   ggplot() +
   aes(x = continent) +
-  aes(y = seventy_plus) +
+  aes(y = age_category) +
   geom_count(col = "magenta",
              alpha = .6) +
   labs(size = "Number of \ncountries") +
@@ -301,7 +281,6 @@ gapminder_2002 %>%
   theme_minimal() 
 ```
 
-`r chunk_reveal("discrete2x")`
 
 ---
 
@@ -358,6 +337,68 @@ ggplot(data = titanic) +
   ggmosaic::geom_mosaic(aes(weight = Freq, x = product(Class), y = Sex, fill = Survived))
 
 ```
+
+
+---
+class: inverse, center, middle
+name: group
+
+## The group aesthetic and geometric objects
+
+
+---
+
+# A final aesthetic mapping: group
+
+Using geom_line(), you can use many of the same aesthetics as before as well as one special aesthetic: `group`.
+
+> Lines and paths fall somewhere in between: each overall line is composed of a set of straight segments, but each segment represents two points. --- Hadley Wickham
+
+
+Group is like a declaration that instead of plotting the entire data set all together, instead you will plot many small data sets, each defined by the categorical variable "mapped" to `group`.  
+
+Let's see how this works with the following example. 
+
+---
+
+
+`r chunk_reveal("aes_group")`
+
+
+
+```{r aes_group, eval = F, echo = F}
+gapminder_europe %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = lifeExp) +
+  geom_point() +
+  geom_line() +
+  aes(group = country) +
+  # turning group back off
+  aes(group = NULL) + 
+  # mapping discrete data to color
+  # or linetype has similar effects
+  aes(color = country) +
+  geom_point()
+```
+
+
+---
+
+The geometric object `line` connects all points as it moves along the x axis.  If a group is not defined, the geom_line is hard to interpret, as seen before group is added.  
+
+We also see that mapping discrete data to the color or linetype aesthetics has a similar effect to declaring that there are groups in the data. 
+
+Another thing we observe in the last addition to the last plot is adding an additional geometric layer.  The point layer, because it follows the line layer, appears on top of the line layer.  
+
+
+
+
+<!-- But beyond understanding the philosophy, practice (including when things fail, and figuring out why they fail) is really important. Why initiatives like #tidytuesday are so valuable. -->
+
+<!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! -->
+
+
 
 
 ```{css, eval = TRUE, echo = F}

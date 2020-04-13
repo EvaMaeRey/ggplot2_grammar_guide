@@ -47,7 +47,6 @@ Grammar Analogy | How?  | What?
     - *Modifiers I* | *scale\_**color**\_viridis_d() +* | [modifying *default* **aesthetic scales**](modifiers.html#scales){target="_blank"}
     - *Modifiers II* | *labs(**color** = continent) +<br>labs(title = "my title") +* | [modifying *default* **aesthetic labels** (and **plot labels**)](modifiers.html#labs){target="_blank"}
     - *Modifiers III* | coord_polar() + | [modifying the *default* **coordinate system** (how the *positional* aesthetics appear - x and y)](modifiers.html#coords){target="_blank"}
-    - *Modifiers IV* | guides() + | [to be added?]
 3. **Nouns** | *geom\_point() +* | [**geometric layers** taking on the aesthetics representing variables](ggplot2_grammar_guide.html#geoms){target="_blank"} 
 4.**The Conditional Mood**|*geom\_point(* | [Making **local**, **geom specific** declarations rather than **global** declarations](ggplot2_grammar_guide.html#local){target="_blank"} 
 | | *data = gapminder,* | **data** is <br> geom specific 
@@ -62,22 +61,37 @@ Grammar Analogy | How?  | What?
 ---
 
 
+<!-- - *Modifiers IV* | guides() + | [to be added?] -->
+
 ### A closer look topics: geoms, themes
 
 Above, the geom and theme topics are intentionally cursory.  There are tons of geoms, and they can get distracting.  Also themes doesn't directly relate to the data, though it is important.  Theme design almost has its own grammar, it can also be put off until fundamentals are taken on. 
 
-1. [Returning to geoms](geoms.html){target="_blank"}
-    - simple
-   - collective
-2. [stats to be added]
-2. [Returning to themes](taming_themes_in_ggplot.html){target="_blank"}
+1. [A closer look at geoms](geoms.html){target="_blank"}
+    - [continuous - continuous](geoms.html#cc){target="_blank"}
+    - [1 continuous](geoms.html#c){target="_blank"}
+    - [1 discrete](geoms.html#d){target="_blank"}
+    - [continuous - discrete](geoms.html#cd){target="_blank"}
+    - [discrete - discrete](geoms.html#dd){target="_blank"}
+2. [stats? (to be added)]
+2. [A closer look at themes](taming_ggplot_themes.html){target="_blank"}
+    - [Text Elements](taming_ggplot_themes.html#textelements){target="_blank"}
+    - [Rectangular Elements](taming_ggplot_themes.html#rectangularelements){target="_blank"}
+    - [Line Elements](taming_ggplot_themes.html#lineelements){target="_blank"}
+    - [Legends](taming_ggplot_themes.html#legend){target="_blank"}
+    - [Sundry](taming_ggplot_themes.html#sundry){target="_blank"}
+    - [Facets](taming_ggplot_themes.html#facet){target="_blank"}
+3. [A closer look at annotation]()
+    - [Annotating time series](labeling_time_series.html){target="_blank"}
+    - []
+    
 
 
 ---
 
 # Navigating the grammar guide
 
-<a href="order.html" class="button">Suggested Navigation</a>
+<a href="navigate.html" class="button">Suggested Navigation</a>
 
 ---
 
@@ -88,6 +102,9 @@ Above, the geom and theme topics are intentionally cursory.  There are tons of g
 - base R
 
 
+# ggplot extensions
+
+    - [ggpattern]()
 
 
 ```{css, echo = F}

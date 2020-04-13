@@ -426,61 +426,56 @@ summary {
 <td><a href="modifiers.html#coords" target="_blank">modifying the <em>default</em> <strong>coordinate system</strong> (how the <em>positional</em> aesthetics appear - x and y)</a></td>
 </tr>
 <tr class="even">
-<td>- <em>Modifiers IV</em></td>
-<td>guides() +</td>
-<td>[to be added?]</td>
-</tr>
-<tr class="odd">
 <td>3. <strong>Nouns</strong></td>
 <td><em>geom_point() +</em></td>
 <td><a href="ggplot2_grammar_guide.html#geoms" target="_blank"><strong>geometric layers</strong> taking on the aesthetics representing variables</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>4.<strong>The Conditional Mood</strong></td>
 <td><em>geom_point(</em></td>
 <td><a href="ggplot2_grammar_guide.html#local" target="_blank">Making <strong>local</strong>, <strong>geom specific</strong> declarations rather than <strong>global</strong> declarations</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td></td>
 <td><em>data = gapminder,</em></td>
 <td><strong>data</strong> is <br> geom specific</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td></td>
 <td><em>aes(<strong>size</strong> = population),</em></td>
 <td><strong>aesthetic representation</strong><br> is geom specific</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td></td>
 <td><em><strong>color</strong> = “blue”<br></em></td>
 <td><strong>aesthetics <em>not</em> representing variables; <em>unmapped</em> aesthetics</strong> (i.e. <strong>The Imperative Mood)</strong></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td></td>
 <td>) +</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>5. <strong>Interjections</strong></td>
 <td><em>annotate(geom = “point”, <br> x = 10, <br> y = 12, <br> color = “blue”)</em></td>
 <td><a href="ggplot2_grammar_guide.html#annotation" target="_blank">Adding context with <strong>annotation layers</strong></a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>6. <strong>Punctuation</strong></td>
 <td><em>facet_wrap(~continent)</em></td>
 <td><a href="facets_themes_ggsave.html#facets" target="_blank"><strong>faceting</strong> breaks a plot into small plots (or <em>“small multiples”</em>) based on categorical variables</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>7. <strong>Greetings</strong></td>
 <td><em>theme_minimal()</em></td>
 <td><a href="facets_themes_ggsave.html#themes" target="_blank"><strong>themes</strong> changing plot look and feel</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>8. <strong>The Written Language</strong></td>
 <td><em>ggsave(file = “plot.png”, <br> plot = g, <br> height = “4in”, <br> width = “6in”)</em></td>
 <td><a href="facets_themes_ggsave.html#saving" target="_blank">save plots with different <strong>resolutions</strong> and <strong>file formats</strong></a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>9. <strong>Composition</strong></td>
 <td><em>library(patchwork) <br> (g1 + g2) | g3 <br> <br> library(cowplot) <br> plotgrid(…,)</em></td>
 <td>[to be added]</td>
@@ -488,23 +483,40 @@ summary {
 </tbody>
 </table>
 <hr />
+<!-- - *Modifiers IV* | guides() + | [to be added?] -->
 <div id="a-closer-look-topics-geoms-themes" class="section level3">
 <h3>A closer look topics: geoms, themes</h3>
 <p>Above, the geom and theme topics are intentionally cursory. There are tons of geoms, and they can get distracting. Also themes doesn’t directly relate to the data, though it is important. Theme design almost has its own grammar, it can also be put off until fundamentals are taken on.</p>
 <ol style="list-style-type: decimal">
-<li><a href="geoms.html" target="_blank">Returning to geoms</a>
+<li><a href="geoms.html" target="_blank">A closer look at geoms</a>
 <ul>
-<li>simple</li>
-<li>collective</li>
+<li><a href="geoms.html#cc" target="_blank">continuous - continuous</a></li>
+<li><a href="geoms.html#c" target="_blank">1 continuous</a></li>
+<li><a href="geoms.html#d" target="_blank">1 discrete</a></li>
+<li><a href="geoms.html#cd" target="_blank">continuous - discrete</a></li>
+<li><a href="geoms.html#dd" target="_blank">discrete - discrete</a></li>
 </ul></li>
-<li>[stats to be added]</li>
-<li><a href="taming_themes_in_ggplot.html" target="_blank">Returning to themes</a></li>
+<li>[stats? (to be added)]</li>
+<li><a href="taming_ggplot_themes.html" target="_blank">A closer look at themes</a>
+<ul>
+<li><a href="taming_ggplot_themes.html#textelements" target="_blank">Text Elements</a></li>
+<li><a href="taming_ggplot_themes.html#rectangularelements" target="_blank">Rectangular Elements</a></li>
+<li><a href="taming_ggplot_themes.html#lineelements" target="_blank">Line Elements</a></li>
+<li><a href="taming_ggplot_themes.html#legend" target="_blank">Legends</a></li>
+<li><a href="taming_ggplot_themes.html#sundry" target="_blank">Sundry</a></li>
+<li><a href="taming_ggplot_themes.html#facet" target="_blank">Facets</a></li>
+</ul></li>
+<li><a href>A closer look at annotation</a>
+<ul>
+<li><a href="labeling_time_series.html" target="_blank">Annotating time series</a></li>
+<li>[]</li>
+</ul></li>
 </ol>
 <hr />
 </div>
 <div id="navigating-the-grammar-guide" class="section level1">
 <h1>Navigating the grammar guide</h1>
-<p><a href="order.html" class="button">Suggested Navigation</a></p>
+<p><a href="navigate.html" class="button">Suggested Navigation</a></p>
 <hr />
 </div>
 <div id="more-data-vis-topics" class="section level1">
@@ -513,6 +525,10 @@ summary {
 <li>spatial</li>
 <li>base R</li>
 </ul>
+</div>
+<div id="ggplot-extensions" class="section level1">
+<h1>ggplot extensions</h1>
+<pre><code>- [ggpattern]()</code></pre>
 <style type="text/css">
 .button {
   background-color: #4682b4; /* Blue */
