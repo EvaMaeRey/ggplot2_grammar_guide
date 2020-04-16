@@ -58,6 +58,7 @@ Grammar Analogy | How?  | What?
 7. **Greetings**|*theme_minimal()* | [**themes** changing plot look and feel](facets_themes_ggsave.html#themes){target="_blank"}
 8. **The Written Language** | *ggsave(file = "plot.png", <br> plot = g, <br>  height = "4in", <br> width = "6in")*|[save plots with different **resolutions** and **file formats**](facets_themes_ggsave.html#saving){target="_blank"}
 9. **Composition** | *library(patchwork) <br> (g1 + g2) \| g3 <br> <br> library(cowplot) <br> plotgrid(...,)* | [to be added]
+10. **Concision** | last_plot(), writing functions | We've been intentionally verbose, but we can chose to be more concise
 ---
 
 

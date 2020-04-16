@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Scales</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds, July 2019" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Scales
+### Gina Reynolds, July 2019
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+
+&lt;!-- # For teachers --&gt;
+
+&lt;!-- This is a collection of thoughts about how to teach ggplot2, and any other grammar of graphics type data visualization system.   --&gt;
+
+&lt;!-- It is tempting to rush to build a publication-ready plot right out of the gate.   --&gt;
+
+&lt;!-- But maybe we should resist this temptation. Maybe we should "hang out" in each of the component zones for a bit.  Explore. Get comfy in a zone.  Then move on. --&gt;
+
+
+
+
+
+---
+
+# Modifiers
+
+*"The book is on the table"* or *"The huge book is on the purple table"?*
+
+We are able to learn something about our data with very few inputs with ggplot2!  Part of the reason for this is there are convenient and reasonable defaults related to the aesthetics.  In the first sentence above, we might have a picture of the book without any modifiers -- it is some "default image" of books.  In ggplot2, also, we can write short "sentences" and get a meaningful plot in return because of helpful defaults.  But we can use modifiers to change these defaults.  
+
+---
+
+# Modifiers
+
+
+Modifiers adjust the default for:
+
+--
+
+1. the aesthetic scales *themselves* (we have seen a "blues" scale by default for the color aesthetic, but it could be greens, or yellows)
+
+--
+2. the scale *labels* (the scale labels are the variable names by default, but they could be something else)
+
+--
+3. the *coordinate system* (the default coordinate system is cartesian (x horizontal, y vertical), but it could be something else - like polar)
+
+
+---
+
+name: scales
+
+## Modifying aesthetic scales 
+
+With the aes() statement we have declared a variable mapped to an aesthetic, like x position, color, line width, etc.  To go back and ask for a modified scale, we use scales\_\* statements.  These statements provide a quick way to update our preferences for all the scales used for mapped aesthetics.   
+
+&lt;!-- Start with a scales_x_* and look at the variety of scale options associated with the x position aesthetic.   --&gt;
+
+Let's look at how we modify the default scale with a scales\_\* statement.
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+* aes(x = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+* scale_x_continuous(trans = "log10")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  scale_x_continuous(trans = "log10") +  
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  scale_x_continuous(trans = "log10") +  
+  aes(y = lifeExp) +  
+* scale_y_continuous(breaks = c(50,70))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  scale_x_continuous(trans = "log10") +  
+  aes(y = lifeExp) +  
+  scale_y_continuous(breaks = c(50,70)) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  scale_x_continuous(trans = "log10") +  
+  aes(y = lifeExp) +  
+  scale_y_continuous(breaks = c(50,70)) +  
+  geom_point() +  
+* aes(color = continent)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  scale_x_continuous(trans = "log10") +  
+  aes(y = lifeExp) +  
+  scale_y_continuous(breaks = c(50,70)) +  
+  geom_point() +  
+  aes(color = continent) +  
+* scale_color_viridis_d()
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  scale_x_continuous(trans = "log10") +  
+  aes(y = lifeExp) +  
+  scale_y_continuous(breaks = c(50,70)) +  
+  geom_point() +  
+  aes(color = continent) +  
+  scale_color_viridis_d() +  
+* aes(size = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  scale_x_continuous(trans = "log10") +  
+  aes(y = lifeExp) +  
+  scale_y_continuous(breaks = c(50,70)) +  
+  geom_point() +  
+  aes(color = continent) +  
+  scale_color_viridis_d() +  
+  aes(size = gdpPercap) +  
+* scale_size_continuous(
+*   breaks = c(100, 1000, 10000, 100000),
+*   limits = c(0, 100000))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  scale_x_continuous(trans = "log10") +  
+  aes(y = lifeExp) +  
+  scale_y_continuous(breaks = c(50,70)) +  
+  geom_point() +  
+  aes(color = continent) +  
+  scale_color_viridis_d() +  
+  aes(size = gdpPercap) +  
+  scale_size_continuous(  
+    breaks = c(100, 1000, 10000, 100000),  
+    limits = c(0, 100000)) +  
+* aes(shape = continent)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  scale_x_continuous(trans = "log10") +  
+  aes(y = lifeExp) +  
+  scale_y_continuous(breaks = c(50,70)) +  
+  geom_point() +  
+  aes(color = continent) +  
+  scale_color_viridis_d() +  
+  aes(size = gdpPercap) +  
+  scale_size_continuous(  
+    breaks = c(100, 1000, 10000, 100000),  
+    limits = c(0, 100000)) +  
+  aes(shape = continent) +  
+* scale_shape_discrete(solid = F)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_12_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  scale_x_continuous(trans = "log10") +  
+  aes(y = lifeExp) +  
+  scale_y_continuous(breaks = c(50,70)) +  
+  geom_point() +  
+  aes(color = continent) +  
+  scale_color_viridis_d() +  
+  aes(size = gdpPercap) +  
+  scale_size_continuous(  
+    breaks = c(100, 1000, 10000, 100000),  
+    limits = c(0, 100000)) +  
+  aes(shape = continent) +  
+  scale_shape_discrete(solid = F) +  
+* aes(alpha = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_13_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  scale_x_continuous(trans = "log10") +  
+  aes(y = lifeExp) +  
+  scale_y_continuous(breaks = c(50,70)) +  
+  geom_point() +  
+  aes(color = continent) +  
+  scale_color_viridis_d() +  
+  aes(size = gdpPercap) +  
+  scale_size_continuous(  
+    breaks = c(100, 1000, 10000, 100000),  
+    limits = c(0, 100000)) +  
+  aes(shape = continent) +  
+  scale_shape_discrete(solid = F) +  
+  aes(alpha = gdpPercap) +  
+* scale_alpha(range = c(.4, .9))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scales_auto_14_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+---
+
+# Concepts
+
+- breaks - *values* to be labeled along aesthetic scales
+- break labels - i.e. the exact text of the labels)
+- *value* limits of variable representation
+- transformations
+- range of *aesthetic* values
+
+---
+
+## Scales
+
+
+There are a variety of scaling alternatives for the x position aesthetic:  
+
+- scale_x_log10()
+- scale_x_reverse()
+- scale_x_sqrt()
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  scale_x_continuous(trans = "hms")   
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_trans_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(trans = "sqrt")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_trans_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(trans = "log10")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_trans_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(trans = "log1p")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_trans_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(trans = "log2")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_trans_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(trans = "pseudo_log")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_trans_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(trans = "reciprocal")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_trans_rotate_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(trans = "reverse")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_trans_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(trans = "sqrt")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_trans_rotate_9_output-1.png" width="100%" /&gt;
+]]
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  scale_x_continuous(breaks = NULL)   
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_break_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(breaks = 1:3*10000)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_break_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(breaks = c(1000, 7090))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_break_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(breaks = (1:10)^4)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_break_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(labels = scales::label_dollar())
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_break_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(labels = scales::label_percent())
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_break_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(labels = scales::label_pvalue())
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_break_rotate_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(labels = scales::label_comma())
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_break_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(labels = scales::label_math())
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_break_rotate_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(labels = scales::label_number_si(unit = "g"))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_break_rotate_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(labels = scales::label_number_si())
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_break_rotate_11_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+---
+
+
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002) +
+* aes(x = gdpPercap) +
+* aes(y = lifeExp) +
+* geom_point()   # this much is familiar
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_scales_user_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  # this much is familiar 
+* scale_x_log10()   # overrides default
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_scales_user_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  # this much is familiar 
+  scale_x_log10() +  # overrides default  
+* scale_x_reverse()   # overrides log10
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_scales_user_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  # this much is familiar 
+  scale_x_log10() +  # overrides default  
+  scale_x_reverse() +  # overrides log10  
+* scale_x_sqrt()  # overrides reverse
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/x_scales_user_4_output-1.png" width="100%" /&gt;
+]]
+
+
+---
+
+### More aesthetic scale modifications
+
+*Note that using multiple scales associated with a single aesthetic is not typical.  We are just doing it here to expose you quickly to a variety of possibilities.  ggplot2 uses whatever scale specification last declared in our examples.*
+
+Analogously, we can use scale\_\*\_\* statements to modify other aesthetic scales.  Here are some examples
+
+&lt;!-- I think people find it easy to think about x and y position and adjusting those scales, and related adjustment like labs() and scale_*, but we teachers need to help extend these logics to the other aesthetics.  --&gt;
+
+
+- scale_x_log10() 
+- scale_y_reverse(limits = c(100, 0)) 
+- scale_color_viridis_d() 
+- scale_shape_discrete(solid = F) 
+- scale_size_continuous(breaks = c(100, 1000, 10000, 100000)) 
+- scale_alpha(range = c(.5, 1)) # full transparency is 0
+
+
+Let's tour several of those to get a taste.  
+
+
+---
+
+## Questions:
+
+&lt;!-- to ponder --&gt;
+
+- What does the parameter "breaks" seem to control?
+
+- What are some additional color scales that can be used?  Use auto complete in RStudio.  (i.e. type "scale_color" and then "tab" to see your options)
+
+- What does "d" stand for in the scale_color_viridis_d()? Use the help pane.
+
+- While you are in the help pane, see how would you set missing values (NA) to "black".
+
+
+---
+class: center, middle, inverse
+
+
+# Color scales
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+  scale_color_viridis_c(option = "cividis")   
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+* scale_color_viridis_c(option = "magma")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+* scale_color_viridis_c(option = "plasma")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+* scale_color_viridis_c(option = "inferno")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+* scale_color_viridis_c(option = "viridis")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+* scale_color_viridis_c(direction = -1)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+* scale_color_viridis_c(begin = .2, end = .5)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+* scale_color_viridis_c(breaks = 76, label = "76 years")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+* scale_color_viridis_c(guide = F)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+* scale_color_continuous(type = "gradient")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+* scale_color_continuous(type = "viridis")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+* scale_color_gradient(low = "blue", high = "green")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_12_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = lifeExp) +  
+* scale_color_gradient2(low = "blue", mid = "red", high = "green")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_c_rotate_13_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = continent) +  
+  facet_wrap(~continent) +  
+  scale_color_viridis_d(option = "viridis")   
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_d_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = continent) +  
+  facet_wrap(~continent) +  
+* scale_color_viridis_d(option = "magma")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_d_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = continent) +  
+  facet_wrap(~continent) +  
+* scale_color_viridis_d(option = "cividis")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_d_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = continent) +  
+  facet_wrap(~continent) +  
+* scale_color_viridis_d(option = "plasma")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_d_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = continent) +  
+  facet_wrap(~continent) +  
+* scale_color_viridis_d(option = "inferno")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_d_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = continent) +  
+  facet_wrap(~continent) +  
+* scale_color_viridis_d()
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_d_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = continent) +  
+  facet_wrap(~continent) +  
+* scale_color_viridis_d(direction = -1)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_d_rotate_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = continent) +  
+  facet_wrap(~continent) +  
+* scale_color_viridis_d(breaks = c("Asia", "Europe", "Oceania", "Africa", "Americas"))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_d_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = continent) +  
+  facet_wrap(~continent) +  
+* scale_color_viridis_d(breaks = c("Asia"))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_d_rotate_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = continent) +  
+  facet_wrap(~continent) +  
+* scale_color_viridis_d(breaks = c("Asia"), labels = c("A continent"))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_d_rotate_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = continent) +  
+  facet_wrap(~continent) +  
+* scale_color_viridis_d(labels = c("AFRICA", "EUROPE", "OEANIA", "AFRICA", "AMERICAS"))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_d_rotate_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 4,  
+             alpha = .8) +  
+  aes(color = continent) +  
+  facet_wrap(~continent) +  
+* scale_color_viridis_d(guide = F)
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/viridis_d_rotate_12_output-1.png" width="100%" /&gt;
+]]
+
+
+
+---
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 50%}
+&lt;/style&gt;
+
+
+&lt;!-- ```{r, dpi=400, eval = F} --&gt;
+&lt;!-- gapminder %&gt;%  --&gt;
+&lt;!--   select(continent) %&gt;%  --&gt;
+&lt;!--   ggplot() + --&gt;
+&lt;!--   aes(x = 1) + --&gt;
+&lt;!--   aes(fill = continent) + --&gt;
+&lt;!--   geom_bar(color = "white", size = .2) + --&gt;
+&lt;!--   coord_polar(theta = "y") + --&gt;
+&lt;!--   theme_void() + --&gt;
+&lt;!--   scale_fill_viridis_d() + --&gt;
+&lt;!--   theme(rect = element_rect(fill = "grey",  --&gt;
+&lt;!--                             color = "grey",  --&gt;
+&lt;!--                             linetype = "solid", --&gt;
+&lt;!--                             size = 0)) --&gt;
+
+&lt;!-- ggsave("pie.svg", dpi = 320,device = "svg") --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- Or at least an organized twitter thread!?  Another idea for you: pull aes() out of ggplot(). Do you do it? Lot's of reasons to do it! Downside is currently most examples make use of nested approach. @grrrck does this too, and esquisse --&gt;
+
+&lt;!-- ggplot(data = my_data) +  --&gt;
+&lt;!--    aes(x = my_var) --&gt;
+
+&lt;!-- Is it possible to do this with multiple geoms? I usually specify aes within the geom like  --&gt;
+
+&lt;!-- ggplot(data) + --&gt;
+&lt;!--   geom_point(aes(x, y)) + --&gt;
+&lt;!--   geom_line(aes(x, y, group = id))  --&gt;
+
+&lt;!-- I prefer this approach because it's explicit which aesthetics are bound to which geoms --&gt;
+
+&lt;!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! --&gt;
+
+
+&lt;!-- To change the data used for a plot, use the %+% operator! Oh!!!  --&gt;
+
+
+&lt;!-- # Stat_* --&gt;
+
+&lt;!-- ## Univariate discrete --&gt;
+
+
+
+&lt;!-- ```{r univariate_discrete, eval = F, echo = F} --&gt;
+&lt;!-- ggplot(gapminder_2002) + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   stat_count() + --&gt;
+&lt;!--   geom_bar() # convenience geom --&gt;
+&lt;!--             # default counting --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- r chunk_reveal("univariate_discrete")` --&gt;
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- ggplot(data = gapminder_2002) + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   aes(y = lifeExp) + --&gt;
+&lt;!--   geom_point(alpha = .1) + --&gt;
+&lt;!--   stat_summary( --&gt;
+&lt;!--     fun.ymin = min, --&gt;
+&lt;!--     fun.ymax = max, --&gt;
+&lt;!--     fun.y = median --&gt;
+&lt;!--   ) --&gt;
+&lt;!-- ``` --&gt;
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- gapminder_2002 %&gt;%  --&gt;
+&lt;!--   mutate(seventy_plus = lifeExp &gt; 60) %&gt;%  --&gt;
+&lt;!-- ggplot() + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   aes(fill = seventy_plus) + --&gt;
+&lt;!--   geom_bar(alpha = .2) --&gt;
+&lt;!-- ``` --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  /* Replace <script> tags in slides area to make them executable
+   *
+   * Runs after post-processing of markdown source into slides and replaces only
+   * <script>s on the last slide of continued slides using the .has-continuation
+   * class added by xaringan. Finally, any <script>s in the slides area that
+   * aren't executed are commented out.
+   */
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+  var scriptsNotExecuted = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container.has-continuation script'
+  );
+  if (!scriptsNotExecuted.length) return;
+  for (var i = 0; i < scriptsNotExecuted.length; i++) {
+    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
+    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

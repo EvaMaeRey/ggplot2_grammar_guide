@@ -1,0 +1,138 @@
+---
+title: 'visualizing distributions lab'
+author: "Evangeline Reynolds"
+date: "2/2/2020"
+output: html_document
+---
+
+
+For this assignment, consult the [ggplot2 Cheat Sheet]( https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) from RStudio and [geoms: a closer look](https://evamaerey.github.io/ggplot2_grammar_guide/geoms.html#1).  
+
+On the ggplot2 Cheat Sheet, there are panels that talk about relevant to  "univariate" description (uni = one) and "bivariate" description (bi = two).  What exactly are the titles of these panels on the cheat sheet?
+
+> your answer
+
+Within these panels, what are some of the subcategories? 
+
+
+```{r setup, include = F}
+knitr::opts_chunk$set(message = F)
+library(tidyverse)
+library(gapminder)
+```
+
+
+```{r}
+gapminder$long_life <- gapminder$lifeExp >= 70 
+gapminder$life_cat <- ifelse(gapminder$long_life, "70+", "<70")
+gapminder_2007 <- gapminder[gapminder$year == 2007,]
+```
+
+# Plotting
+
+With the `gapminder_2007` object you've created, create the following visualizations and state the type of variable is each variable is (either **continuous** or **discrete**?)
+
+## Visualizing bivariate (2 variables joint) distributions
+
+### 1. visualize the relationship between gdp per capita and population
+
+> variable types (**continuous** or **discrete**?): 
+
+Use **two** geometric layers (geom_*) in the same plot.  Remember, the second geom in the code will plot atop the first geom; make sure both are somewhat visible.  
+
+```{r}
+
+```
+
+### 2. visualize the relationship between gdp per capita and continent
+
+> variable types (**continuous** or **discrete**?): 
+
+Use **two** geometric layers in the same plot.
+
+
+```{r}
+
+```
+
+###  3. visualize the relationship between continent and "life_cat"
+
+> variable types (**continuous** or **discrete**?): 
+
+Use **one** geometric layers in the same plot; consult the RStudio cheat sheet.  (you may also add geom_count, but this is bonus.)
+
+```{r}
+
+```
+
+
+## Univariate (single variables) distribution
+
+
+### 1. Distribution of all countries' population
+
+Use **two** geometric layers in the same plot.  
+
+```{r}
+
+```
+
+### 2. Distribution within life span categories (life_cat).  (The number of countries within the categories)
+
+> variable type (**continuous** or **discrete**?): 
+
+Below, the plot have already been created for you, in 2 ways.  Both versions of the code yeild the same plot.  Which geometric object geom_col or geom_bar has included an intermediate step of data manipulation done automatically for you? 
+
+>
+
+Try to add a geom_point() layer to each plot.  In which is this possible?  Look at the help pane for geom_point().  Try to explain the behavior. 
+
+>
+
+```{r}
+gapminder_2007 %>% 
+  count(life_cat) %>% 
+  ggplot() +
+  aes(x = life_cat) +
+  aes(y = n) +
+  geom_col()
+```
+
+```{r}
+gapminder_2007 %>% 
+  ggplot() +
+  aes(x = life_cat) +
+  geom_bar()
+```
+
+
+---
+
+# On your own
+
+Check out the short description of data, and look at the objects created in the following code chunk `game_goals`, `office_ratings`, `sf_trees`, or `tb_age`.
+
+- [SF trees](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-28/readme.md)
+- [nhl](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-03-03/readme.md)
+- [The Office](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-03-17/readme.md)
+- [Brain](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-03-24/readme.md)
+
+```{r}
+# nhl data
+game_goals <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv')
+
+# the office series ratings
+office_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-17/office_ratings.csv')
+
+sf_trees <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-28/sf_trees.csv')
+
+# brain
+tbi_age <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-24/tbi_age.csv')
+```
+
+Build one or two plots with one of these data sets...
+
+```{r}
+# ggplot(data = ?) # uncomment and begin
+```
+
