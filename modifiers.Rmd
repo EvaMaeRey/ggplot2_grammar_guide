@@ -1,5 +1,5 @@
 ---
-title: "A ggplot2 grammar guide"
+title: "Modifiers"
 author: "Gina Reynolds, July 2019"
 output:
   xaringan::moon_reader:
@@ -69,30 +69,175 @@ library(tidyverse)
 ```
 
 
----
-
-# Modifiers
-
-*"The book is on the table"* or *"The huge book is on the purple table"?*
-
-We are able to learn something about our data with very few inputs with ggplot2!  Part of the reason for this is there are convenient and reasonable defaults related to the aesthetics.  In the first sentence above, we might have a picture of the book without any modifiers -- it is some "default image" of books.  In ggplot2, also, we can write short "sentences" and get a meaningful plot in return because of helpful defaults.  But we can use modifiers to change these defaults.  
 
 ---
 
 # Modifiers
 
+> *"The book is on the table"* 
 
-Modifiers adjust the default for:
+--
+
+or 
+
+> *"The huge, paperback book is on the purple table"?*
+
+
+---
+class: center, middle
+
+We are able to learn something about our data with very few inputs with ggplot2: 
 
 --
 
-1. the aesthetic scales *themselves* (we have seen a "blues" scale by default for the color aesthetic, but it could be greens, or yellows)
+declare data -- `ggplot(data = ?)`
 
 --
-2. the scale *labels* (the scale labels are the variable names by default, but they could be something else)
+
+declare aesthetic representation -- `aes(x = ?)`
 
 --
-3. the *coordinate system* (the default coordinate system is cartesian (x horizontal, y vertical), but it could be something else - like polar)
+
+declare geom  -- `geom_rug()`
+
+--
+
+... and we get a plot back.
+
+---
+class: center, middle
+
+Part of the reason we have such a concise "grammar of graphics sentence" is there are convenient and reasonable defaults related to the aesthetics.  
+
+--
+
+In the first human, "The book is on the table", we also might a picture of the book and table -- it is some reasonable "default image" of books -- a genaric book, a genaric table.  
+
+--
+
+But we might use modifiers to change the picture, to specify that the table is not *brown* as we might imagine by default, but *purple*!
+
+---
+class: center, middle
+
+The same is true in ggplot2, also, we can write short "sentences" and get a meaningful plot in return because of helpful defaults.  But we can use modifiers to change these defaults.  
+
+---
+
+# Modifiers
+
+
+Modifiers adjust the default associated with aesthetic representations for:
+
+--
+
+1. Easy: the scale *labels* (the scale labels are the variable names by default, but they could be something else).  *Mastry is fairly easy. *
+
+--
+
+2. Medium: the *coordinate system* (the default coordinate system is cartesian (x horizontal, y vertical), but it could be something else - like polar).  *There's a bit more to know here.*
+
+--
+
+3. Hard: the aesthetic scales *themselves* (we have seen a "blues" scale by default for the continuous color aesthetic, but it could be greens, or yellows). *There's a lot to learn here!* 
+
+
+
+
+
+---
+
+name: labs
+
+## Modifying aesthetic scale labels
+
+Aesthetic scales also get default *labels* which are the variable names.  We can also modify these.  
+
+The syntax is labs(\* = "New label"), where the \* is the aesthetic name.  
+
+`labs()` can also be used to add plot labels, plot title, caption, subtitle and tag.
+
+Let's see how. 
+
+---
+
+```{r labs, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  aes(color = continent) +
+  aes(shape = continent) +
+  aes(size = gdpPercap) +
+  aes(alpha = gdpPercap) + # this much is familiar #BREAK
+  labs(x = "GDP per cap") + #BREAK
+  labs(y = "Life Expectency") + #BREAK
+  labs(color = "Continent") + #BREAK
+  labs(shape = "Continent") + #BREAK
+  labs(size = "GDP per cap") + #BREAK
+  labs(alpha = "GDP per cap") + #BREAK
+  # Note: labs is also used to adjust *plot* labels
+  labs(title = "GDP per Cap versus\nLife Expectancy in 2002") + #BREAK
+  labs(subtitle = "Data: Gapminder Data in R") + #BREAK
+  labs(caption = "Visualization: @EvaMaeRey") + #BREAK
+  labs(tag = "Plot 1") #BREAK
+```
+
+
+`r chunk_reveal("labs", break_type = "user")`
+
+---
+
+## Questions:
+
+- When might you use labs(tag = )?
+- What does the character string "\n" do in the place of a space in the plot title?
+- Color and shape variables represent the same variable, and labs(color = \*) labs(shape = \*) have the same input, "Continent".  What does this mean for the legend? Change the labels to be different and see.
+- Change the y label to an empty string, '""'.  What does this do?  
+
+
+
+---
+
+name: coords
+
+## Modifying x and y position coordinate system
+
+A third default for how aesthetic mapping of *positions x and y* are manifest is the coordinate system.  The default is cartesian coordinates - where x lies on the horizontal and is pependicular to y.  
+
+But let's quickly check out some of the different options for coordinates systems.  When we use a coord_* statement in ggplot, we can overwrite the default.    
+
+---
+
+`r chunk_reveal("coords", break_type = "rotate")`
+
+```{r coords, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  coord_cartesian() + #ROTATE
+  coord_equal() + #ROTATE
+  coord_fixed(ratio = 400) + #ROTATE
+  coord_flip() + #ROTATE
+  coord_polar() + #ROTATE
+```
+
+
+
+
+---
+
+name: scales
+
+## Modifying aesthetic scales 
+
+With the aes() statement we have declared a variable mapped to an aesthetic, like x position, color, line width, etc.  To go back and ask for a modified scale, we use scales\_\* statements.  These statements provide a quick way to update our preferences for all the scales used for mapped aesthetics.   
+
+<!-- Start with a scales_x_* and look at the variety of scale options associated with the x position aesthetic.   -->
+
+Let's look at how we modify the default scale with a scales\_\* statement.
+
 
 
 ---
@@ -158,26 +303,26 @@ Let's tour several of those to get a taste.
 
 ---
 
+`r chunk_reveal("scales")`
+
 ```{r scales, eval = F, echo = F}
 ggplot(data = gapminder_2002) +
   aes(x = gdpPercap) +
+  scale_x_continuous(trans = "log10") +  
   aes(y = lifeExp) +
+  scale_y_continuous(breaks = c(50,70)) +  
   geom_point() +
   aes(color = continent) +
+  scale_color_viridis_d() +
   aes(size = gdpPercap) +
+  scale_size_continuous(limits = c(0, 400000)) +
   aes(shape = continent) +
-  aes(alpha = gdpPercap) + # We've done this much #BREAK
-  scale_x_log10() +  #BREAK
-  scale_y_reverse(limits = c(100, 0)) +  #BREAK
-  scale_color_viridis_d() +  #BREAK
-  scale_shape_discrete(solid = F) +  #BREAK
-  scale_size_continuous(  
-    breaks = c(100, 1000, 10000, 100000),
-    limits = c(0, 100000)) + #BREAK
-  scale_alpha(range = c(.3, .8)) #BREAK
+  scale_shape_discrete(solid = F) + 
+  aes(alpha = gdpPercap) +
+  scale_alpha(range = c(.4, .9))
 ```
 
-`r chunk_reveal("scales", break_type = "user")`
+
 
 ---
 
@@ -193,82 +338,15 @@ ggplot(data = gapminder_2002) +
 
 - While you are in the help pane, see how would you set missing values (NA) to "black".
 
-
-
 ---
 
-name: labs
-
-## Modifying aesthetic scale labels
-
-Aesthetic scales also get default *labels* which are the variable names.  We can also modify these.  
-
-The syntax is labs(\* = "New label"), where the \* is the aesthetic name.  
-
-`labs()` can also be used to add plot labels, plot title, caption, subtitle and tag.
-
-Let's see how. 
-
----
-
-```{r labs, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  geom_point() +
-  aes(color = continent) +
-  aes(shape = continent) +
-  aes(size = gdpPercap) +
-  aes(alpha = gdpPercap) + # this much is familiar #BREAK
-  labs(x = "GDP per cap") + #BREAK
-  labs(y = "Life Expectency") + #BREAK
-  labs(color = "Continent") + #BREAK
-  labs(shape = "Continent") + #BREAK
-  labs(size = "GDP per cap") + #BREAK
-  labs(alpha = "GDP per cap") + #BREAK
-  # Note: labs is also used to adjust *plot* labels
-  labs(title = "GDP per Cap versus Life Expectancy\nin 2002") + #BREAK
-  labs(subtitle = "Data: Gapminder Data in R") + #BREAK
-  labs(caption = "Visualization: @EvaMaeRey") + #BREAK
-  labs(tag = "Plot 1") #BREAK
-```
-
-
-`r chunk_reveal("labs", break_type = "user")`
-
----
-
-## Questions:
-
-- When might you use labs(tag = )?
-- What does the character string "\n" do in the place of a space in the plot title?
-- Color and shape variables represent the same variable, and labs(color = \*) labs(shape = \*) have the same input, "Continent".  What does this mean for the legend? Change the labels to be different and see.
-- Change the y label to an empty string, '""'.  What does this do?  
+For a full tour of scale modifications check out the [scales second look](https://evamaerey.github.io/ggplot2_grammar_guide/scales). 
 
 
 
----
 
-name: coords
 
-## Modifying x and y position coordinate system
 
-A third default for how aesthetic mapping of *positions x and y* are manifest is the coordinate system.  The default is cartesian coordinates - where x lies on the horizontal and is pependicular to y.  
-
-But let's quickly check out some of the different options for coordinates systems.  When we use a coord_* statement in ggplot, we can overwrite the default.    
-
----
-
-```{r coords, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  geom_point() +
-  coord_equal() + # overriding default
-  coord_fixed(ratio = 400) + # overriding equal
-  coord_flip() + # overriding fixed
-  coord_polar() # overriding flip
-```
 
 `r chunk_reveal("coords")`
 

@@ -44,9 +44,9 @@ Grammar Analogy | How?  | What?
 ---|---|---
 1. **The Declarative Mood**  | ggplot(data = gapminder) +| [Declaring the **data**](ggplot2_grammar_guide.html#data){target="_blank"}
 2. **The Interogative Mood** |aes(**color** = pop) + | [Asking for **representation of variables by aesthetics** (color, size, x position, etc.) (also known as **aesthetic mapping**) ](ggplot2_grammar_guide.html#aes){target="_blank"}
-    - *Modifiers I* | *scale\_**color**\_viridis_d() +* | [modifying *default* **aesthetic scales**](modifiers.html#scales){target="_blank"}
-    - *Modifiers II* | *labs(**color** = continent) +<br>labs(title = "my title") +* | [modifying *default* **aesthetic labels** (and **plot labels**)](modifiers.html#labs){target="_blank"}
-    - *Modifiers III* | coord_polar() + | [modifying the *default* **coordinate system** (how the *positional* aesthetics appear - x and y)](modifiers.html#coords){target="_blank"}
+    - *Modifiers I* | *labs(**color** = continent) +<br>labs(title = "my title") +* | [modifying *default* **aesthetic labels** (and **plot labels**)](modifiers.html#labs){target="_blank"}
+    - *Modifiers II* | coord_polar() + | [modifying the *default* **coordinate system** (how the *positional* aesthetics appear - x and y)](modifiers.html#coords){target="_blank"}
+    - *Modifiers III* | *scale\_**color**\_viridis_d() +* | [modifying *default* **aesthetic scales**](modifiers.html#scales){target="_blank"}
 3. **Nouns** | *geom\_point() +* | [**geometric layers** taking on the aesthetics representing variables](ggplot2_grammar_guide.html#geoms){target="_blank"} 
 4.**The Conditional Mood**|*geom\_point(* | [Making **local**, **geom specific** declarations rather than **global** declarations](ggplot2_grammar_guide.html#local){target="_blank"} 
 | | *data = gapminder,* | **data** is <br> geom specific 
@@ -84,7 +84,7 @@ Above, the geom and theme topics are intentionally cursory.  There are tons of g
     - [Facets](taming_ggplot_themes.html#facet){target="_blank"}
 3. [A closer look at annotation]()
     - [Annotating time series](labeling_time_series.html){target="_blank"}
-    - []
+4. [A closer look at scales](scales.html){target="_blank"}
     
 
 

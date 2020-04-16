@@ -73,45 +73,6 @@ library(tidyverse)
 ```
 
 
----
-
-# Modifiers
-
-*"The book is on the table"* or *"The huge book is on the purple table"?*
-
-We are able to learn something about our data with very few inputs with ggplot2!  Part of the reason for this is there are convenient and reasonable defaults related to the aesthetics.  In the first sentence above, we might have a picture of the book without any modifiers -- it is some "default image" of books.  In ggplot2, also, we can write short "sentences" and get a meaningful plot in return because of helpful defaults.  But we can use modifiers to change these defaults.  
-
----
-
-# Modifiers
-
-
-Modifiers adjust the default for:
-
---
-
-1. the aesthetic scales *themselves* (we have seen a "blues" scale by default for the color aesthetic, but it could be greens, or yellows)
-
---
-2. the scale *labels* (the scale labels are the variable names by default, but they could be something else)
-
---
-3. the *coordinate system* (the default coordinate system is cartesian (x horizontal, y vertical), but it could be something else - like polar)
-
-
----
-
-name: scales
-
-## Modifying aesthetic scales 
-
-With the aes() statement we have declared a variable mapped to an aesthetic, like x position, color, line width, etc.  To go back and ask for a modified scale, we use scales\_\* statements.  These statements provide a quick way to update our preferences for all the scales used for mapped aesthetics.   
-
-<!-- Start with a scales_x_* and look at the variety of scale options associated with the x position aesthetic.   -->
-
-Let's look at how we modify the default scale with a scales\_\* statement.
-
-
 
 ---
 
@@ -127,9 +88,7 @@ ggplot(data = gapminder_2002) +
   aes(color = continent) +
   scale_color_viridis_d() +
   aes(size = gdpPercap) +
-  scale_size_continuous(
-    breaks = c(100, 1000, 10000, 100000),
-    limits = c(0, 100000)) +
+  scale_size_continuous(limits = c(0, 400000)) +
   aes(shape = continent) +
   scale_shape_discrete(solid = F) + 
   aes(alpha = gdpPercap) +
@@ -149,6 +108,46 @@ ggplot(data = gapminder_2002) +
 - range of *aesthetic* values
 
 ---
+
+
+`r chunk_reveal("scale_options", break_type = "rotate")`
+
+```{r scale_options, include=F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  aes(color = gdpPercap) +
+  aes(alpha = lifeExp) +
+  geom_point() +
+  scale_x_continuous() + #ROTATE
+  scale_x_continuous(breaks = c(1500, 15431)) + #ROTATE
+  scale_y_continuous(breaks = c(50, 76, 81.3)) + #ROTATE
+  scale_color_continuous(breaks = c(1500, 15431)) + #ROTATE
+  scale_alpha_continuous(breaks = c(50, 76, 81.3)) + #ROTATE
+  scale_x_continuous(breaks = c(1000, 1500), labels = c("1k", "15k")) + #ROTATE
+  scale_y_continuous(labels = c("40y", "50y", "60y","70y", "80y")) + #ROTATE
+  scale_color_continuous(breaks = c(1000, 1500), labels = c("1k", "15k")) + #ROTATE
+  scale_alpha_continuous(labels = c("40y", "50y", "60y","70y", "80y")) + #ROTATE
+  scale_x_continuous(limits = c(-1000,100000)) + #ROTATE
+  scale_y_continuous(limits = c(30,100)) + #ROTATE
+  scale_color_continuous(limits = c(-1000,100000)) + #ROTATE
+  scale_alpha_continuous(limits = c(30,100)) + #ROTATE
+  scale_x_continuous(trans = "log10") + #ROTATE
+  scale_y_continuous(trans = "reverse") + #ROTATE
+  scale_color_continuous(trans = "log10") + #ROTATE
+  scale_alpha_continuous(trans = "reverse") + #ROTATE
+  scale_x_continuous(expand = c(1,2)) + #ROTATE
+  scale_y_continuous(expand = c(.1,.1)) + #ROTATE
+  scale_color_continuous(expand = c(1,2)) + #ROTATE
+  scale_alpha_continuous(expand = c(1,2)) #ROTATE
+```
+
+
+
+
+
+---
+
 
 ## Scales
 
@@ -262,7 +261,6 @@ class: center, middle, inverse
 
 
 # Color scales
-
 
 
 ---

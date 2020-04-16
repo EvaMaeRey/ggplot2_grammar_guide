@@ -270,9 +270,7 @@ ggplot(data = gapminder_2002) +
   aes(color = continent) +  
   scale_color_viridis_d() +  
   aes(size = gdpPercap) +  
-* scale_size_continuous(
-*   breaks = c(100, 1000, 10000, 100000),
-*   limits = c(0, 100000))
+* scale_size_continuous(limits = c(0, 400000))
 ```
 ]]
 .column[.content[
@@ -296,9 +294,7 @@ ggplot(data = gapminder_2002) +
   aes(color = continent) +  
   scale_color_viridis_d() +  
   aes(size = gdpPercap) +  
-  scale_size_continuous(  
-    breaks = c(100, 1000, 10000, 100000),  
-    limits = c(0, 100000)) +  
+  scale_size_continuous(limits = c(0, 400000)) +  
 * aes(shape = continent)
 ```
 ]]
@@ -323,9 +319,7 @@ ggplot(data = gapminder_2002) +
   aes(color = continent) +  
   scale_color_viridis_d() +  
   aes(size = gdpPercap) +  
-  scale_size_continuous(  
-    breaks = c(100, 1000, 10000, 100000),  
-    limits = c(0, 100000)) +  
+  scale_size_continuous(limits = c(0, 400000)) +  
   aes(shape = continent) +  
 * scale_shape_discrete(solid = F)
 ```
@@ -351,9 +345,7 @@ ggplot(data = gapminder_2002) +
   aes(color = continent) +  
   scale_color_viridis_d() +  
   aes(size = gdpPercap) +  
-  scale_size_continuous(  
-    breaks = c(100, 1000, 10000, 100000),  
-    limits = c(0, 100000)) +  
+  scale_size_continuous(limits = c(0, 400000)) +  
   aes(shape = continent) +  
   scale_shape_discrete(solid = F) +  
 * aes(alpha = gdpPercap)
@@ -380,9 +372,7 @@ ggplot(data = gapminder_2002) +
   aes(color = continent) +  
   scale_color_viridis_d() +  
   aes(size = gdpPercap) +  
-  scale_size_continuous(  
-    breaks = c(100, 1000, 10000, 100000),  
-    limits = c(0, 100000)) +  
+  scale_size_continuous(limits = c(0, 400000)) +  
   aes(shape = continent) +  
   scale_shape_discrete(solid = F) +  
   aes(alpha = gdpPercap) +  
@@ -408,6 +398,457 @@ ggplot(data = gapminder_2002) +
 - range of *aesthetic* values
 
 ---
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+  scale_x_continuous()   
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(breaks = c(1500, 15431))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_y_continuous(breaks = c(50, 76, 81.3))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_color_continuous(breaks = c(1500, 15431))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_alpha_continuous(breaks = c(50, 76, 81.3))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(breaks = c(1000, 1500), labels = c("1k", "15k"))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_y_continuous(labels = c("40y", "50y", "60y","70y", "80y"))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_color_continuous(breaks = c(1000, 1500), labels = c("1k", "15k"))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_alpha_continuous(labels = c("40y", "50y", "60y","70y", "80y"))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(limits = c(-1000,100000))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_y_continuous(limits = c(30,100))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_color_continuous(limits = c(-1000,100000))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_12_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_alpha_continuous(limits = c(30,100))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_13_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(trans = "log10")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_14_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_y_continuous(trans = "reverse")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_15_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_color_continuous(trans = "log10")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_16_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_alpha_continuous(trans = "reverse")
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_17_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_x_continuous(expand = c(1,2))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_18_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_y_continuous(expand = c(.1,.1))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_19_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_color_continuous(expand = c(1,2))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_20_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(color = gdpPercap) +  
+  aes(alpha = lifeExp) +  
+  geom_point() +  
+* scale_alpha_continuous(expand = c(1,2))
+```
+]]
+.column[.content[
+&lt;img src="scales_files/figure-html/scale_options_rotate_21_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+
+---
+
 
 ## Scales
 
