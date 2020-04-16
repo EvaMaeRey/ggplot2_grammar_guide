@@ -120,7 +120,7 @@ Modifiers adjust the default associated with aesthetic representations for:
 
 name: labs
 
-## Modifying aesthetic scale labels
+## Modifiers I: aesthetic scale labels
 
 Aesthetic scales also get default *labels* which are the variable names.  We can also modify these.  
 
@@ -451,7 +451,7 @@ ggplot(data = gapminder_2002) +
 
 name: coords
 
-## Modifying x and y position coordinate system
+## Modifiers II: x and y position coordinate system
 
 A third default for how aesthetic mapping of *positions x and y* are manifest is the coordinate system.  The default is cartesian coordinates - where x lies on the horizontal and is pependicular to y.  
 
@@ -563,7 +563,7 @@ ggplot(data = gapminder_2002) +
 
 name: scales
 
-## Modifying aesthetic scales 
+## Modifiers III: aesthetic mapping (representation) scales 
 
 With the aes() statement we have declared a variable mapped to an aesthetic, like x position, color, line width, etc.  To go back and ask for a modified scale, we use scales\_\* statements.  These statements provide a quick way to update our preferences for all the scales used for mapped aesthetics.   
 
@@ -572,22 +572,9 @@ With the aes() statement we have declared a variable mapped to an aesthetic, lik
 Let's look at how we modify the default scale with a scales\_\* statement.
 
 
-
 ---
 
-name: scales
-
-## Modifying aesthetic scales 
-
-With the aes() statement we have declared a variable mapped to an aesthetic, like x position, color, line width, etc.  To go back and ask for a modified scale, we use scales\_\* statements.  These statements provide a quick way to update our preferences for all the mapped aesthetics.   
-
-&lt;!-- Start with a scales_x_* and look at the variety of scale options associated with the x position aesthetic.   --&gt;
-
-Let's look at how we modify the default scale with a scales\_\* statement. 
-
----
-
-## Scales
+### Scales statements
 
 
 There are a variety of scaling alternatives for the x position aesthetic:  
@@ -1032,179 +1019,6 @@ For a full tour of scale modifications check out the [scales second look](https:
 
 
 
-
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-*ggplot(data = gapminder_2002)
-```
-]]
-.column[.content[
-&lt;img src="modifiers_files/figure-html/coords_auto_1_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +  
-* aes(x = gdpPercap)
-```
-]]
-.column[.content[
-&lt;img src="modifiers_files/figure-html/coords_auto_2_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +  
-  aes(x = gdpPercap) +  
-* aes(y = lifeExp)
-```
-]]
-.column[.content[
-&lt;img src="modifiers_files/figure-html/coords_auto_3_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +  
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +  
-* geom_point()
-```
-]]
-.column[.content[
-&lt;img src="modifiers_files/figure-html/coords_auto_4_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +  
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +  
-  geom_point() +  
-* coord_cartesian()
-```
-]]
-.column[.content[
-&lt;img src="modifiers_files/figure-html/coords_auto_5_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +  
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +  
-  geom_point() +  
-  coord_cartesian() +  
-* coord_equal()
-```
-]]
-.column[.content[
-&lt;img src="modifiers_files/figure-html/coords_auto_6_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +  
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +  
-  geom_point() +  
-  coord_cartesian() +  
-  coord_equal() +  
-* coord_fixed(ratio = 400)
-```
-]]
-.column[.content[
-&lt;img src="modifiers_files/figure-html/coords_auto_7_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +  
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +  
-  geom_point() +  
-  coord_cartesian() +  
-  coord_equal() +  
-  coord_fixed(ratio = 400) +  
-* coord_flip()
-```
-]]
-.column[.content[
-&lt;img src="modifiers_files/figure-html/coords_auto_8_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +  
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +  
-  geom_point() +  
-  coord_cartesian() +  
-  coord_equal() +  
-  coord_fixed(ratio = 400) +  
-  coord_flip() +  
-* coord_polar()
-```
-]]
-.column[.content[
-&lt;img src="modifiers_files/figure-html/coords_auto_9_output-1.png" width="100%" /&gt;
-]]
-
-
 ---
 
 ## Modifiers - Review
@@ -1301,7 +1115,7 @@ ggplot(data = gapminder_2002) +
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
   geom_point() +  
-* scale_x_log10()   # modify x scale
+* labs(x = "GDP per cap")   # modify x label
 ```
 ]]
 .column[.content[
@@ -1320,8 +1134,8 @@ ggplot(data = gapminder_2002) +
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
   geom_point() +  
-  scale_x_log10() +  # modify x scale
-* labs(x = "GDP per cap")   # modify x label
+  labs(x = "GDP per cap") +  # modify x label 
+* coord_polar()   # modify x and y coordinate system
 ```
 ]]
 .column[.content[
@@ -1340,9 +1154,9 @@ ggplot(data = gapminder_2002) +
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
   geom_point() +  
-  scale_x_log10() +  # modify x scale
   labs(x = "GDP per cap") +  # modify x label 
-* coord_polar()  # modify x and y coordinate system
+  coord_polar() +  # modify x and y coordinate system
+* scale_x_log10()  # modify x scale
 ```
 ]]
 .column[.content[
