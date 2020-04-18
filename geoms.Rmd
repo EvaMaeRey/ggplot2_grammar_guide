@@ -399,6 +399,21 @@ Another thing we observe in the last addition to the last plot is adding an addi
 <!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! -->
 
 ---
+class: middle, center, inverse
+
+# geom stats
+
+--
+
+### identity
+
+--
+
+
+### count
+
+
+---
 
 
 `r chunk_reveal("stat")`
@@ -418,7 +433,10 @@ game_goals %>%
   geom_line() + # stat is identity
   geom_area(alpha = .2, # stat is identity
             fill = "magenta") +
-  aes(fill = season) ->
+  aes(fill = season) +
+  aes(xend = season) + 
+  aes(yend = 0) +
+  geom_segment(linetype = "dotted") ->
 you_aggregate_then_plot
 
 game_goals %>%
@@ -435,9 +453,33 @@ ggplot_aggregates_for_you
 ```
 
 
+---
+
+`r chunk_reveal("bar_discrete_continuous")`
+
+```{r bar_discrete_continuous, include = F}
+tibble(my_var = c(1, 2.5, 2.5, 2.5,
+                  7, 7.25, 7.25)) %>% 
+  ggplot() +
+  aes(x = my_var) +
+  geom_bar(fill = "blue", # default is  
+           alpha = .5, # widths adjusted so 
+           linetype = "dotted") + # no overlap
+  geom_bar(alpha = .5, 
+           width = .6, #setting width
+           fill = "orange") + 
+  # replacing previous aes x statement
+  # each category take up horizontal space of 1 
+  aes(x = as_factor(my_var)) 
+```
+
+
+
+---
+
 
 
 ```{css, eval = TRUE, echo = F}
-.remark-code{line-height: 1.5; font-size: 60%}
+.remark-code{line-height: 1.5; font-size: 55%}
 ```
 

@@ -2277,6 +2277,21 @@ Another thing we observe in the last addition to the last plot is adding an addi
 &lt;!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! --&gt;
 
 ---
+class: middle, center, inverse
+
+# geom stats
+
+--
+
+### identity
+
+--
+
+
+### count
+
+
+---
 
 
 class: split-40
@@ -2659,7 +2674,103 @@ game_goals %&gt;%
   geom_line() +  # stat is identity
   geom_area(alpha = .2,  # stat is identity
             fill = "magenta") +  
-  aes(fill = season) -&gt;  
+  aes(fill = season) +  
+* aes(xend = season)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_14_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) +  
+  aes(xend = season) +  
+* aes(yend = 0)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_15_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) +  
+  aes(xend = season) +  
+  aes(yend = 0) +  
+* geom_segment(linetype = "dotted")
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_16_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) +  
+  aes(xend = season) +  
+  aes(yend = 0) +  
+  geom_segment(linetype = "dotted") -&gt;  
 *you_aggregate_then_plot
 ```
 ]]
@@ -2689,7 +2800,10 @@ game_goals %&gt;%
   geom_line() +  # stat is identity
   geom_area(alpha = .2,  # stat is identity
             fill = "magenta") +  
-  aes(fill = season) -&gt;  
+  aes(fill = season) +  
+  aes(xend = season) +  
+  aes(yend = 0) +  
+  geom_segment(linetype = "dotted") -&gt;  
 you_aggregate_then_plot  
 
 *game_goals
@@ -2741,116 +2855,14 @@ game_goals %&gt;%
   geom_line() +  # stat is identity
   geom_area(alpha = .2,  # stat is identity
             fill = "magenta") +  
-  aes(fill = season) -&gt;  
+  aes(fill = season) +  
+  aes(xend = season) +  
+  aes(yend = 0) +  
+  geom_segment(linetype = "dotted") -&gt;  
 you_aggregate_then_plot  
 
 game_goals %&gt;%  
 * ggplot()
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_16_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) -&gt;  
-you_aggregate_then_plot  
-
-game_goals %&gt;%  
-  ggplot() +  
-* aes(x = season)
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_17_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) -&gt;  
-you_aggregate_then_plot  
-
-game_goals %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-* geom_bar()   # a version of geom column
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_18_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) -&gt;  
-you_aggregate_then_plot  
-
-game_goals %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  geom_bar() +  # a version of geom column
-* geom_point(stat = "count")
 ```
 ]]
 .column[.content[
@@ -2879,15 +2891,15 @@ game_goals %&gt;%
   geom_line() +  # stat is identity
   geom_area(alpha = .2,  # stat is identity
             fill = "magenta") +  
-  aes(fill = season) -&gt;  
+  aes(fill = season) +  
+  aes(xend = season) +  
+  aes(yend = 0) +  
+  geom_segment(linetype = "dotted") -&gt;  
 you_aggregate_then_plot  
 
 game_goals %&gt;%  
   ggplot() +  
-  aes(x = season) +  
-  geom_bar() +  # a version of geom column
-  geom_point(stat = "count") +  
-* geom_line(stat = "count")
+* aes(x = season)
 ```
 ]]
 .column[.content[
@@ -2916,18 +2928,16 @@ game_goals %&gt;%
   geom_line() +  # stat is identity
   geom_area(alpha = .2,  # stat is identity
             fill = "magenta") +  
-  aes(fill = season) -&gt;  
+  aes(fill = season) +  
+  aes(xend = season) +  
+  aes(yend = 0) +  
+  geom_segment(linetype = "dotted") -&gt;  
 you_aggregate_then_plot  
 
 game_goals %&gt;%  
   ggplot() +  
   aes(x = season) +  
-  geom_bar() +  # a version of geom column
-  geom_point(stat = "count") +  
-  geom_line(stat = "count") +  
-* geom_area(stat = "count",
-*           alpha = .2,
-*           fill = "magenta")
+* geom_bar()   # a version of geom column
 ```
 ]]
 .column[.content[
@@ -2956,19 +2966,17 @@ game_goals %&gt;%
   geom_line() +  # stat is identity
   geom_area(alpha = .2,  # stat is identity
             fill = "magenta") +  
-  aes(fill = season) -&gt;  
+  aes(fill = season) +  
+  aes(xend = season) +  
+  aes(yend = 0) +  
+  geom_segment(linetype = "dotted") -&gt;  
 you_aggregate_then_plot  
 
 game_goals %&gt;%  
   ggplot() +  
   aes(x = season) +  
   geom_bar() +  # a version of geom column
-  geom_point(stat = "count") +  
-  geom_line(stat = "count") +  
-  geom_area(stat = "count",  
-            alpha = .2,  
-            fill = "magenta") +  
-* aes(fill = season)   # not completely grasping why fill cant work here
+* geom_point(stat = "count")
 ```
 ]]
 .column[.content[
@@ -2997,7 +3005,137 @@ game_goals %&gt;%
   geom_line() +  # stat is identity
   geom_area(alpha = .2,  # stat is identity
             fill = "magenta") +  
-  aes(fill = season) -&gt;  
+  aes(fill = season) +  
+  aes(xend = season) +  
+  aes(yend = 0) +  
+  geom_segment(linetype = "dotted") -&gt;  
+you_aggregate_then_plot  
+
+game_goals %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  geom_bar() +  # a version of geom column
+  geom_point(stat = "count") +  
+* geom_line(stat = "count")
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_23_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) +  
+  aes(xend = season) +  
+  aes(yend = 0) +  
+  geom_segment(linetype = "dotted") -&gt;  
+you_aggregate_then_plot  
+
+game_goals %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  geom_bar() +  # a version of geom column
+  geom_point(stat = "count") +  
+  geom_line(stat = "count") +  
+* geom_area(stat = "count",
+*           alpha = .2,
+*           fill = "magenta")
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_24_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) +  
+  aes(xend = season) +  
+  aes(yend = 0) +  
+  geom_segment(linetype = "dotted") -&gt;  
+you_aggregate_then_plot  
+
+game_goals %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  geom_bar() +  # a version of geom column
+  geom_point(stat = "count") +  
+  geom_line(stat = "count") +  
+  geom_area(stat = "count",  
+            alpha = .2,  
+            fill = "magenta") +  
+* aes(fill = season)   # not completely grasping why fill cant work here
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_25_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) +  
+  aes(xend = season) +  
+  aes(yend = 0) +  
+  geom_segment(linetype = "dotted") -&gt;  
 you_aggregate_then_plot  
 
 game_goals %&gt;%  
@@ -3020,10 +3158,153 @@ game_goals %&gt;%
 
 
 
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*tibble(my_var = c(1, 2.5, 2.5, 2.5,
+*                 7, 7.25, 7.25))
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 7 x 1
+    my_var
+     &lt;dbl&gt;
+  1   1   
+  2   2.5 
+  3   2.5 
+  4   2.5 
+  5   7   
+  6   7.25
+  7   7.25
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tibble(my_var = c(1, 2.5, 2.5, 2.5,  
+                  7, 7.25, 7.25)) %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/bar_discrete_continuous_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tibble(my_var = c(1, 2.5, 2.5, 2.5,  
+                  7, 7.25, 7.25)) %&gt;%  
+  ggplot() +  
+* aes(x = my_var)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/bar_discrete_continuous_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tibble(my_var = c(1, 2.5, 2.5, 2.5,  
+                  7, 7.25, 7.25)) %&gt;%  
+  ggplot() +  
+  aes(x = my_var) +  
+* geom_bar(fill = "blue",  # default is
+*          alpha = .5,  # widths adjusted so
+*          linetype = "dotted")   # no overlap
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/bar_discrete_continuous_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tibble(my_var = c(1, 2.5, 2.5, 2.5,  
+                  7, 7.25, 7.25)) %&gt;%  
+  ggplot() +  
+  aes(x = my_var) +  
+  geom_bar(fill = "blue",  # default is
+           alpha = .5,  # widths adjusted so
+           linetype = "dotted") +  # no overlap
+* geom_bar(alpha = .5,
+*          width = .6,  #setting width
+*          fill = "orange")
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/bar_discrete_continuous_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tibble(my_var = c(1, 2.5, 2.5, 2.5,  
+                  7, 7.25, 7.25)) %&gt;%  
+  ggplot() +  
+  aes(x = my_var) +  
+  geom_bar(fill = "blue",  # default is
+           alpha = .5,  # widths adjusted so
+           linetype = "dotted") +  # no overlap
+  geom_bar(alpha = .5,  
+           width = .6,  #setting width
+           fill = "orange") +  
+# replacing previous aes x statement
+# each category take up horizontal space of 1
+* aes(x = as_factor(my_var))
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/bar_discrete_continuous_auto_6_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+---
+
 
 
 &lt;style type="text/css"&gt;
-.remark-code{line-height: 1.5; font-size: 60%}
+.remark-code{line-height: 1.5; font-size: 55%}
 &lt;/style&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
