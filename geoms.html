@@ -2276,11 +2276,754 @@ Another thing we observe in the last addition to the last plot is adding an addi
 
 &lt;!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! --&gt;
 
+---
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv')
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 49,384 x 25
+     player season  rank date       game_num age   team  at    opp   location
+     &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
+   1 Alex …   2006     1 2005-10-05        1 20-0… WSH   &lt;NA&gt;  CBJ   Home    
+   2 Alex …   2006     2 2005-10-07        2 20-0… WSH   &lt;NA&gt;  ATL   Home    
+   3 Alex …   2006     3 2005-10-08        3 20-0… WSH   @     ATL   Away    
+   4 Alex …   2006     4 2005-10-10        4 20-0… WSH   &lt;NA&gt;  NYR   Home    
+   5 Alex …   2006     5 2005-10-12        5 20-0… WSH   @     CAR   Away    
+   6 Alex …   2006     6 2005-10-13        6 20-0… WSH   &lt;NA&gt;  NYI   Home    
+   7 Alex …   2006     7 2005-10-16        7 20-0… WSH   &lt;NA&gt;  TBL   Home    
+   8 Alex …   2006     8 2005-10-20        8 20-0… WSH   @     FLA   Away    
+   9 Alex …   2006     9 2005-10-22        9 20-0… WSH   &lt;NA&gt;  CAR   Home    
+  10 Alex …   2006    10 2005-10-26       10 20-0… WSH   @     BUF   Away    
+  # … with 49,374 more rows, and 15 more variables: outcome &lt;chr&gt;, goals &lt;dbl&gt;,
+  #   assists &lt;dbl&gt;, points &lt;dbl&gt;, plus_minus &lt;dbl&gt;, penalty_min &lt;dbl&gt;,
+  #   goals_even &lt;dbl&gt;, goals_powerplay &lt;dbl&gt;, goals_short &lt;dbl&gt;,
+  #   goals_gamewinner &lt;dbl&gt;, assists_even &lt;dbl&gt;, assists_powerplay &lt;dbl&gt;,
+  #   assists_short &lt;dbl&gt;, shots &lt;dbl&gt;, shot_percent &lt;dbl&gt;
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+* game_goals
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+*game_goals
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 49,384 x 25
+     player season  rank date       game_num age   team  at    opp   location
+     &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
+   1 Alex …   2006     1 2005-10-05        1 20-0… WSH   &lt;NA&gt;  CBJ   Home    
+   2 Alex …   2006     2 2005-10-07        2 20-0… WSH   &lt;NA&gt;  ATL   Home    
+   3 Alex …   2006     3 2005-10-08        3 20-0… WSH   @     ATL   Away    
+   4 Alex …   2006     4 2005-10-10        4 20-0… WSH   &lt;NA&gt;  NYR   Home    
+   5 Alex …   2006     5 2005-10-12        5 20-0… WSH   @     CAR   Away    
+   6 Alex …   2006     6 2005-10-13        6 20-0… WSH   &lt;NA&gt;  NYI   Home    
+   7 Alex …   2006     7 2005-10-16        7 20-0… WSH   &lt;NA&gt;  TBL   Home    
+   8 Alex …   2006     8 2005-10-20        8 20-0… WSH   @     FLA   Away    
+   9 Alex …   2006     9 2005-10-22        9 20-0… WSH   &lt;NA&gt;  CAR   Home    
+  10 Alex …   2006    10 2005-10-26       10 20-0… WSH   @     BUF   Away    
+  # … with 49,374 more rows, and 15 more variables: outcome &lt;chr&gt;, goals &lt;dbl&gt;,
+  #   assists &lt;dbl&gt;, points &lt;dbl&gt;, plus_minus &lt;dbl&gt;, penalty_min &lt;dbl&gt;,
+  #   goals_even &lt;dbl&gt;, goals_powerplay &lt;dbl&gt;, goals_short &lt;dbl&gt;,
+  #   goals_gamewinner &lt;dbl&gt;, assists_even &lt;dbl&gt;, assists_powerplay &lt;dbl&gt;,
+  #   assists_short &lt;dbl&gt;, shots &lt;dbl&gt;, shot_percent &lt;dbl&gt;
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+* count(season)
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 40 x 2
+     season     n
+      &lt;dbl&gt; &lt;int&gt;
+   1   1980   231
+   2   1981   339
+   3   1982   385
+   4   1983   430
+   5   1984   528
+   6   1985   556
+   7   1986   580
+   8   1987   697
+   9   1988   799
+  10   1989   877
+  # … with 30 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+* full_join(tibble(season = 1980:2020))
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 41 x 2
+     season     n
+      &lt;dbl&gt; &lt;int&gt;
+   1   1980   231
+   2   1981   339
+   3   1982   385
+   4   1983   430
+   5   1984   528
+   6   1985   556
+   7   1986   580
+   8   1987   697
+   9   1988   799
+  10   1989   877
+  # … with 31 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+* aes(x = season)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+* aes(y = n)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+* geom_col()   # stat is identity
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+* geom_point()   # stat is identity
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+* geom_line()   # stat is identity
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+* geom_area(alpha = .2,  # stat is identity
+*           fill = "magenta")
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_12_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+* aes(fill = season)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_13_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) -&gt;  
+*you_aggregate_then_plot
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) -&gt;  
+you_aggregate_then_plot  
+
+*game_goals
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 49,384 x 25
+     player season  rank date       game_num age   team  at    opp   location
+     &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
+   1 Alex …   2006     1 2005-10-05        1 20-0… WSH   &lt;NA&gt;  CBJ   Home    
+   2 Alex …   2006     2 2005-10-07        2 20-0… WSH   &lt;NA&gt;  ATL   Home    
+   3 Alex …   2006     3 2005-10-08        3 20-0… WSH   @     ATL   Away    
+   4 Alex …   2006     4 2005-10-10        4 20-0… WSH   &lt;NA&gt;  NYR   Home    
+   5 Alex …   2006     5 2005-10-12        5 20-0… WSH   @     CAR   Away    
+   6 Alex …   2006     6 2005-10-13        6 20-0… WSH   &lt;NA&gt;  NYI   Home    
+   7 Alex …   2006     7 2005-10-16        7 20-0… WSH   &lt;NA&gt;  TBL   Home    
+   8 Alex …   2006     8 2005-10-20        8 20-0… WSH   @     FLA   Away    
+   9 Alex …   2006     9 2005-10-22        9 20-0… WSH   &lt;NA&gt;  CAR   Home    
+  10 Alex …   2006    10 2005-10-26       10 20-0… WSH   @     BUF   Away    
+  # … with 49,374 more rows, and 15 more variables: outcome &lt;chr&gt;, goals &lt;dbl&gt;,
+  #   assists &lt;dbl&gt;, points &lt;dbl&gt;, plus_minus &lt;dbl&gt;, penalty_min &lt;dbl&gt;,
+  #   goals_even &lt;dbl&gt;, goals_powerplay &lt;dbl&gt;, goals_short &lt;dbl&gt;,
+  #   goals_gamewinner &lt;dbl&gt;, assists_even &lt;dbl&gt;, assists_powerplay &lt;dbl&gt;,
+  #   assists_short &lt;dbl&gt;, shots &lt;dbl&gt;, shot_percent &lt;dbl&gt;
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) -&gt;  
+you_aggregate_then_plot  
+
+game_goals %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_16_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) -&gt;  
+you_aggregate_then_plot  
+
+game_goals %&gt;%  
+  ggplot() +  
+* aes(x = season)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_17_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) -&gt;  
+you_aggregate_then_plot  
+
+game_goals %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+* geom_bar()   # a version of geom column
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_18_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) -&gt;  
+you_aggregate_then_plot  
+
+game_goals %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  geom_bar() +  # a version of geom column
+* geom_point(stat = "count")
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_19_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) -&gt;  
+you_aggregate_then_plot  
+
+game_goals %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  geom_bar() +  # a version of geom column
+  geom_point(stat = "count") +  
+* geom_line(stat = "count")
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_20_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) -&gt;  
+you_aggregate_then_plot  
+
+game_goals %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  geom_bar() +  # a version of geom column
+  geom_point(stat = "count") +  
+  geom_line(stat = "count") +  
+* geom_area(stat = "count",
+*           alpha = .2,
+*           fill = "magenta")
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_21_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) -&gt;  
+you_aggregate_then_plot  
+
+game_goals %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  geom_bar() +  # a version of geom column
+  geom_point(stat = "count") +  
+  geom_line(stat = "count") +  
+  geom_area(stat = "count",  
+            alpha = .2,  
+            fill = "magenta") +  
+* aes(fill = season)   # not completely grasping why fill cant work here
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/stat_auto_22_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
+  game_goals  
+
+game_goals %&gt;%  
+  count(season) %&gt;%  
+  full_join(tibble(season = 1980:2020)) %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  aes(y = n) +  
+  geom_col() +  # stat is identity
+  geom_point() +  # stat is identity
+  geom_line() +  # stat is identity
+  geom_area(alpha = .2,  # stat is identity
+            fill = "magenta") +  
+  aes(fill = season) -&gt;  
+you_aggregate_then_plot  
+
+game_goals %&gt;%  
+  ggplot() +  
+  aes(x = season) +  
+  geom_bar() +  # a version of geom column
+  geom_point(stat = "count") +  
+  geom_line(stat = "count") +  
+  geom_area(stat = "count",  
+            alpha = .2,  
+            fill = "magenta") +  
+  aes(fill = season) -&gt;  # not completely grasping why fill cant work here
+*ggplot_aggregates_for_you
+```
+]]
+.column[.content[
+
+]]
+
+
+
 
 
 
 &lt;style type="text/css"&gt;
-.remark-code{line-height: 1.5; font-size: 70%}
+.remark-code{line-height: 1.5; font-size: 60%}
 &lt;/style&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

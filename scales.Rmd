@@ -72,7 +72,9 @@ load("data_products/manipulations.Rdata")
 library(tidyverse)
 ```
 
+---
 
+## Each aesthetic (color, x-position, size), that does representation for us has a scale associated with it..
 
 ---
 
