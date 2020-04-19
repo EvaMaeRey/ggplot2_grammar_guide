@@ -1,0 +1,415 @@
+---
+title: "Color"
+subtitle: "With flipbookr and xaringan"
+author: "Gina Reynolds, December 2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, hygge, ninjutsu]
+    nature:
+      ratio: 16:10
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+
+```{r setup, include = F}
+# This is the recommended set up for flipbooks
+# you might think about setting cache to TRUE as you gain practice --- building flipbooks from scracth can be time consuming
+knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, comment = "", cache = T, fig.retina = 3)
+library(flipbookr)
+library(tidyverse)
+```
+
+---
+
+
+
+---
+
+
+# Named Colors
+
+---
+
+`r chunk_reveal("named_prep")`
+
+```{r named_prep, include=F}
+colors() %>% 
+  length()
+
+tibble(rows = rep(1:26, 26),
+       cols = sort(rep(1:26, 26))) ->
+dat
+
+dat$r_color <- NA; dat
+dat$r_color[1:length(colors())] <- colors(); dat
+```
+
+
+---
+
+`r chunk_reveal("named_plot")`
+
+```{r named_plot, include=F}
+dat %>% 
+  ggplot() +
+  aes(x = rows) +
+  aes(y = cols) +
+  geom_tile(color = "white") +
+  aes(fill = r_color) +
+  scale_fill_identity() +
+  scale_y_reverse() +
+  theme_void() +
+  theme(plot.background = 
+          element_rect(fill = "oldlace")) ->
+g
+```
+
+---
+
+
+```{r, out.width="100%", out.height="100%", echo = F}
+g %+% 
+  (dat %>% slice(1:(26*7))) +
+  aes(label = r_color) +
+  geom_text(angle = 45,
+            size = 2)
+```
+
+---
+
+
+```{r, out.width="100%", out.height="100%", echo = F}
+g %+% 
+  (dat %>% slice((26*7 + 1):(26*14))) +
+  aes(label = r_color) +
+  geom_text(angle = 45,
+            size = 2)
+```
+
+---
+
+
+```{r, out.width="100%", out.height="100%", echo = F}
+g %+% 
+  (dat %>% slice((26*14 + 1):(26*21))) +
+  aes(label = r_color) +
+  geom_text(angle = 45,
+            size = 2)
+```
+
+
+---
+
+`r chunk_reveal("gt")`
+
+```{r gt, include= F}
+colors()[1:18] %>% 
+  matrix(ncol = 1, byrow = T) %>% 
+  as_tibble() %>%
+  gt::gt() %>% 
+  gt::data_color(columns = vars(V1),
+                 colors = scales::col_factor(palette = sort(colors()[1:18]),
+                                             domain = NULL )
+                 )
+```
+
+
+
+---
+
+```{r}
+c("red", "orange", "yellow", 
+  "green", "blue", "purple") %>% 
+  fct_inorder() %>% 
+  tibble(roygbv = .) %>% 
+  mutate(rank = rep(1:2, 3)) ->
+color_wheel_data
+
+ggplot(data = color_wheel_data) +
+  aes(x = roygbv) +
+  aes(y = 1) +
+  geom_col(width = 1,
+           alpha = .7) +
+  aes(fill = roygbv) +
+  scale_fill_identity() +
+  coord_polar() +
+  aes(y = 1/rank) +
+  theme_classic() +
+  scale_y_sqrt() ->
+g
+```
+
+---
+
+<!-- https://images.unsplash.com/photo-1504197885-609741792ce7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80 -->
+
+`r chunk_reveal("rgb", break_type = "rotate")`
+
+```{r rgb, eval = F, echo = F}
+ggplot() +
+  aes(x = 1) +
+  aes(y = 1) +
+  geom_tile(
+    fill = 
+      rgb(red =  0, green = 0, blue = 0, alpha = .8) #ROTATE
+      rgb(red = .1, green = 0, blue = 0, alpha = .8) #ROTATE
+      rgb(red = .2, green = 0, blue = 0, alpha = .8) #ROTATE
+      rgb(red = .3, green = 0, blue = 0, alpha = .8) #ROTATE
+      rgb(red = .4, green = 0, blue = 0, alpha = .8) #ROTATE
+      rgb(red = .5, green = 0, blue = 0, alpha = .8) #ROTATE
+      rgb(red = .6, green = 0, blue = 0, alpha = .8) #ROTATE
+      rgb(red = .7, green = 0, blue = 0, alpha = .8) #ROTATE
+      rgb(red = .8, green = 0, blue = 0, alpha = .8) #ROTATE
+      rgb(red = .9, green = 0, blue = 0, alpha = .8) #ROTATE
+      rgb(red =  1, green = 0, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 1, green =  0, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 1, green = .1, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 1, green = .2, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 1, green = .3, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 1, green = .4, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 1, green = .5, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 1, green = .6, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 1, green = .7, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 1, green = .8, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 1, green = .9, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 1, green =  1, blue = 0, alpha = .8) #ROTATE
+      rgb(red =  1, green = 1, blue = .1, alpha = .8) #ROTATE
+      rgb(red =  1, green = 1, blue = .2, alpha = .8) #ROTATE
+      rgb(red =  1, green = 1, blue = .3, alpha = .8) #ROTATE
+      rgb(red =  1, green = 1, blue = .4, alpha = .8) #ROTATE
+      rgb(red =  1, green = 1, blue = .5, alpha = .8) #ROTATE
+      rgb(red =  1, green = 1, blue = .6, alpha = .8) #ROTATE
+      rgb(red =  1, green = 1, blue = .7, alpha = .8) #ROTATE
+      rgb(red =  1, green = 1, blue = .8, alpha = .8) #ROTATE
+      rgb(red =  1, green = 1, blue = .9, alpha = .8) #ROTATE
+      rgb(red =  1, green = 1, blue =  1, alpha = .8) #ROTATE
+      rgb(red = .9, green = 1, blue = 1, alpha = .8) #ROTATE
+      rgb(red = .8, green = 1, blue = 1, alpha = .8) #ROTATE
+      rgb(red = .7, green = 1, blue = 1, alpha = .8) #ROTATE
+      rgb(red = .6, green = 1, blue = 1, alpha = .8) #ROTATE
+      rgb(red = .5, green = 1, blue = 1, alpha = .8) #ROTATE
+      rgb(red = .4, green = 1, blue = 1, alpha = .8) #ROTATE
+      rgb(red = .3, green = 1, blue = 1, alpha = .8) #ROTATE
+      rgb(red = .2, green = 1, blue = 1, alpha = .8) #ROTATE
+      rgb(red = .1, green = 1, blue = 1, alpha = .8) #ROTATE
+      rgb(red =  0, green = 1, blue = 1, alpha = .8) #ROTATE
+      rgb(red = 0, green = .9, blue = 1, alpha = .8) #ROTATE
+      rgb(red = 0, green = .8, blue = 1, alpha = .8) #ROTATE
+      rgb(red = 0, green = .7, blue = 1, alpha = .8) #ROTATE
+      rgb(red = 0, green = .6, blue = 1, alpha = .8) #ROTATE
+      rgb(red = 0, green = .5, blue = 1, alpha = .8) #ROTATE
+      rgb(red = 0, green = .4, blue = 1, alpha = .8) #ROTATE
+      rgb(red = 0, green = .3, blue = 1, alpha = .8) #ROTATE
+      rgb(red = 0, green = .2, blue = 1, alpha = .8) #ROTATE
+      rgb(red = 0, green = .1, blue = 1, alpha = .8) #ROTATE
+      rgb(red = 0, green =  0, blue = 1, alpha = .8) #ROTATE
+      rgb(red = 0, green = 0, blue = .9, alpha = .8) #ROTATE
+      rgb(red = 0, green = 0, blue = .8, alpha = .8) #ROTATE
+      rgb(red = 0, green = 0, blue = .7, alpha = .8) #ROTATE
+      rgb(red = 0, green = 0, blue = .6, alpha = .8) #ROTATE
+      rgb(red = 0, green = 0, blue = .5, alpha = .8) #ROTATE
+      rgb(red = 0, green = 0, blue = .4, alpha = .8) #ROTATE
+      rgb(red = 0, green = 0, blue = .3, alpha = .8) #ROTATE
+      rgb(red = 0, green = 0, blue = .2, alpha = .8) #ROTATE
+      rgb(red = 0, green = 0, blue = .1, alpha = .8) #ROTATE
+      rgb(red = 0, green = 0, blue =  0, alpha = .8) #ROTATE
+      rgb(red = 0, green = .1, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 0, green = .2, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 0, green = .3, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 0, green = .4, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 0, green = .5, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 0, green = .6, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 0, green = .7, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 0, green = .8, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 0, green = .9, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 0, green =  1, blue = 0, alpha = .8) #ROTATE
+      rgb(red = 0, green = 1, blue = .1, alpha = .8) #ROTATE
+      rgb(red = 0, green = 1, blue = .2, alpha = .8) #ROTATE
+      rgb(red = 0, green = 1, blue = .3, alpha = .8) #ROTATE
+      rgb(red = 0, green = 1, blue = .4, alpha = .8) #ROTATE
+      rgb(red = 0, green = 1, blue = .5, alpha = .8) #ROTATE
+      rgb(red = 0, green = 1, blue = .6, alpha = .8) #ROTATE
+      rgb(red = 0, green = 1, blue = .7, alpha = .8) #ROTATE
+      rgb(red = 0, green = 1, blue = .8, alpha = .8) #ROTATE
+      rgb(red = 0, green = 1, blue = .9, alpha = .8) #ROTATE
+      rgb(red = 0, green = 1, blue =  1, alpha = .8) #ROTATE
+              )
+```
+
+
+---
+
+
+`r chunk_reveal("hex", break_type = "rotate")`
+
+```{r hex, eval = F, echo= F}
+rgb(red =  0, green = 0, blue = 0, alpha = 1) #ROTATE
+rgb(red = .1, green = 0, blue = 0, alpha = 1) #ROTATE
+rgb(red = .2, green = 0, blue = 0, alpha = 1) #ROTATE
+rgb(red = .3, green = 0, blue = 0, alpha = 1) #ROTATE
+rgb(red = .4, green = 0, blue = 0, alpha = 1) #ROTATE
+rgb(red = .5, green = 0, blue = 0, alpha = 1) #ROTATE
+rgb(red = .6, green = 0, blue = 0, alpha = 1) #ROTATE
+rgb(red = .7, green = 0, blue = 0, alpha = 1) #ROTATE
+rgb(red = .8, green = 0, blue = 0, alpha = 1) #ROTATE
+rgb(red = .9, green = 0, blue = 0, alpha = 1) #ROTATE
+rgb(red =  1, green = 0, blue = 0, alpha = 1) #ROTATE
+rgb(red = 1, green =  0, blue = 0, alpha = 1) #ROTATE
+rgb(red = 1, green = .1, blue = 0, alpha = 1) #ROTATE
+rgb(red = 1, green = .2, blue = 0, alpha = 1) #ROTATE
+rgb(red = 1, green = .3, blue = 0, alpha = 1) #ROTATE
+rgb(red = 1, green = .4, blue = 0, alpha = 1) #ROTATE
+rgb(red = 1, green = .5, blue = 0, alpha = 1) #ROTATE
+rgb(red = 1, green = .6, blue = 0, alpha = 1) #ROTATE
+rgb(red = 1, green = .7, blue = 0, alpha = 1) #ROTATE
+rgb(red = 1, green = .8, blue = 0, alpha = 1) #ROTATE
+rgb(red = 1, green = .9, blue = 0, alpha = 1) #ROTATE
+rgb(red = 1, green =  1, blue = 0, alpha = 1) #ROTATE
+rgb(red =  1, green = 1, blue = .1, alpha = 1) #ROTATE
+rgb(red =  1, green = 1, blue = .2, alpha = 1) #ROTATE
+rgb(red =  1, green = 1, blue = .3, alpha = 1) #ROTATE
+rgb(red =  1, green = 1, blue = .4, alpha = 1) #ROTATE
+rgb(red =  1, green = 1, blue = .5, alpha = 1) #ROTATE
+rgb(red =  1, green = 1, blue = .6, alpha = 1) #ROTATE
+rgb(red =  1, green = 1, blue = .7, alpha = 1) #ROTATE
+rgb(red =  1, green = 1, blue = .8, alpha = 1) #ROTATE
+rgb(red =  1, green = 1, blue = .9, alpha = 1) #ROTATE
+rgb(red =  1, green = 1, blue =  1, alpha = 1) #ROTATE
+rgb(red = .9, green = 1, blue = 1, alpha = 1) #ROTATE
+rgb(red = .8, green = 1, blue = 1, alpha = 1) #ROTATE
+rgb(red = .7, green = 1, blue = 1, alpha = 1) #ROTATE
+rgb(red = .6, green = 1, blue = 1, alpha = 1) #ROTATE
+rgb(red = .5, green = 1, blue = 1, alpha = 1) #ROTATE
+rgb(red = .4, green = 1, blue = 1, alpha = 1) #ROTATE
+rgb(red = .3, green = 1, blue = 1, alpha = 1) #ROTATE
+rgb(red = .2, green = 1, blue = 1, alpha = 1) #ROTATE
+rgb(red = .1, green = 1, blue = 1, alpha = 1) #ROTATE
+rgb(red =  0, green = 1, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .9, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .8, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .7, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .6, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .5, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .4, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .3, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .2, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .1, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green =  0, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = 0, blue = .9, alpha = 1) #ROTATE
+rgb(red = 0, green = 0, blue = .8, alpha = 1) #ROTATE
+rgb(red = 0, green = 0, blue = .7, alpha = 1) #ROTATE
+rgb(red = 0, green = 0, blue = .6, alpha = 1) #ROTATE
+rgb(red = 0, green = 0, blue = .5, alpha = 1) #ROTATE
+rgb(red = 0, green = 0, blue = .4, alpha = 1) #ROTATE
+rgb(red = 0, green = 0, blue = .3, alpha = 1) #ROTATE
+rgb(red = 0, green = 0, blue = .2, alpha = 1) #ROTATE
+rgb(red = 0, green = 0, blue = .1, alpha = 1) #ROTATE
+rgb(red = 0, green = 0, blue =  0, alpha = 1) #ROTATE
+rgb(red = 0, green = .1, blue = 0, alpha = 1) #ROTATE
+rgb(red = 0, green = .2, blue = 0, alpha = 1) #ROTATE
+rgb(red = 0, green = .3, blue = 0, alpha = 1) #ROTATE
+rgb(red = 0, green = .4, blue = 0, alpha = 1) #ROTATE
+rgb(red = 0, green = .5, blue = 0, alpha = 1) #ROTATE
+rgb(red = 0, green = .6, blue = 0, alpha = 1) #ROTATE
+rgb(red = 0, green = .7, blue = 0, alpha = 1) #ROTATE
+rgb(red = 0, green = .8, blue = 0, alpha = 1) #ROTATE
+rgb(red = 0, green = .9, blue = 0, alpha = 1) #ROTATE
+rgb(red = 0, green =  1, blue = 0, alpha = 1) #ROTATE
+rgb(red = 0, green = 1, blue = .1, alpha = 1) #ROTATE
+rgb(red = 0, green = 1, blue = .2, alpha = 1) #ROTATE
+rgb(red = 0, green = 1, blue = .3, alpha = 1) #ROTATE
+rgb(red = 0, green = 1, blue = .4, alpha = 1) #ROTATE
+rgb(red = 0, green = 1, blue = .5, alpha = 1) #ROTATE
+rgb(red = 0, green = 1, blue = .6, alpha = 1) #ROTATE
+rgb(red = 0, green = 1, blue = .7, alpha = 1) #ROTATE
+rgb(red = 0, green = 1, blue = .8, alpha = 1) #ROTATE
+rgb(red = 0, green = 1, blue = .9, alpha = 1) #ROTATE
+rgb(red = 0, green = 1, blue =  1, alpha = 1) #ROTATE
+```
+
+
+---
+
+`r chunk_reveal("hex_to_rgb", break_type = "rotate")`
+
+```{r hex_to_rgb, eval = F, echo = F}
+col2rgb("#FFFFFF") #ROTATE 
+col2rgb("#FFFFFE") #ROTATE
+col2rgb("#FFFFFD") #ROTATE
+col2rgb("#FFFFFC") #ROTATE
+col2rgb("#FFFFFB") #ROTATE
+col2rgb("#FFFFFA") #ROTATE
+col2rgb("#FFFF00") #ROTATE
+col2rgb("#FFFF01") #ROTATE
+col2rgb("#FFFF02") #ROTATE
+col2rgb("#FFFF03") #ROTATE
+col2rgb("#FFFF04") #ROTATE
+col2rgb("#FFFF05") #ROTATE
+col2rgb("#FFFF09") #ROTATE
+col2rgb("#FFFF0A") #ROTATE
+col2rgb("#FFFF0B") #ROTATE
+col2rgb("#FFFF0C") #ROTATE
+col2rgb("#FFFF0D") #ROTATE
+col2rgb("#FFFF0E") #ROTATE
+col2rgb("#FFFF0F") #ROTATE
+col2rgb("#FFFF11") #ROTATE
+col2rgb("#FFFF12") #ROTATE
+col2rgb("#FFFF13") #ROTATE
+col2rgb("#FFFF14") #ROTATE
+col2rgb("#FFFF15") #ROTATE
+col2rgb("#FFFF16") #ROTATE
+col2rgb("#FFFF17") #ROTATE
+col2rgb("#FFFF18") #ROTATE
+col2rgb("#FFFF19") #ROTATE
+col2rgb("#FFFF1A") #ROTATE
+col2rgb("#FFFF1B") #ROTATE
+col2rgb("#FFFF1C") #ROTATE
+col2rgb("#FFFF1D") #ROTATE
+col2rgb("#FFFF1E") #ROTATE
+col2rgb("#FFFF1F") #ROTATE
+col2rgb("#FFFF20") #ROTATE
+col2rgb("#FFFF21") #ROTATE
+col2rgb("#FFFF21") #ROTATE
+col2rgb("#FFFF22") #ROTATE
+col2rgb("#FFFF23") #ROTATE
+col2rgb("#FFFF24") #ROTATE
+col2rgb("#FFFF25") #ROTATE
+col2rgb("#FFFF26") #ROTATE
+col2rgb("#FFFF27") #ROTATE
+col2rgb("#FFFF28") #ROTATE
+col2rgb("#FFFF29") #ROTATE
+col2rgb("#FFFF2A") #ROTATE
+col2rgb("#FFFF2B") #ROTATE
+col2rgb("#FFFF2C") #ROTATE
+col2rgb("#FFFF2D") #ROTATE
+col2rgb("#FFFF2E") #ROTATE
+col2rgb("#FFFF2F") #ROTATE
+col2rgb("#FFFF30") #ROTATE
+col2rgb("#FFFF31") #ROTATE
+```
+
+
+
+---
+
+`r chunk_reveal("viridis")`
+
+```{r viridis, include = F}
+viridis::viridis.map %>% 
+  count(opt)
+
+
+```
+
+
+---
+
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 70%}
+```
