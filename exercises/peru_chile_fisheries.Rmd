@@ -1,0 +1,317 @@
+---
+title: "Chile"
+subtitle: "With flipbookr and xaringan"
+author: "Gina Reynolds, December 2019"
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: [default, hygge, ninjutsu]
+    nature:
+      ratio: 16:10
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+---
+
+
+
+
+class: left, top, inverse
+background-image: url(https://images.unsplash.com/photo-1569001804799-1ff94b1a1a68?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80)
+background-size: cover
+
+# .large[Building a viz about the fish market]
+### Context for understanding a resource conflict
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+#### .right[[https://en.wikipedia.org/wiki/Fishing_industry_by_country](https://en.wikipedia.org/wiki/Fishing_industry_by_country)<br>Edited: Gina Reynolds<br>Photo Credit: Hendrik Will in Dafen, Shenzhen, China]
+
+```{r setup, include = F}
+# This is the recommended set up for flipbooks
+# you might think about setting cache to TRUE as you gain practice --- building flipbooks from scracth can be time consuming
+knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, comment = "", cache = T, fig.retina = 3)
+library(flipbookr)
+library(tidyverse)
+```
+
+---
+
+```{r, echo = F}
+knitr::opts_chunk$set(message = F, warning = F)
+```
+
+# Overview
+
+In the following lab, you will answer some questions and create an annotated plot. 
+
+
+
+
+# Background
+
+In 1879–1883, Chile and Peru fought a war over resources.  What is the name of that war and what resource(s) were involved?  What other counrtry was involved? Not sure? You can search the web for this answer. 
+
+> Answers the question in your lab
+
+More recently a case was brought to the ICJ again over resources. *In a few sentences summarize the dispute.* Reference: https://www.icj-cij.org/en/case/137
+
+> Answers the question in your lab
+
+
+---
+
+Now, check out the maps in the judgement:  https://www.icj-cij.org/files/case-related/137/137-20140127-JUD-01-00-EN.pdf
+In these maps, the water is colored blue. *Now, what color is the land?*  
+
+> Answers the question in your lab
+
+*How are the maps used to illuminate the dispute and ICJ's resolution of the dispute?  Which pages of the document contain these two maps?*
+
+> Answers the question in your lab
+
+*Beyond fishing, name a one commodity for Chile's and one of Peru's of great importance for each state's economy.* You may search the web!
+
+---
+
+### The data and existing plots 
+
+Fisheries and Aquaculture Department of the Food and Agriculture Organization of the United Nations collects data on fisheries production of countries. [This Wikipedia page](https://en.wikipedia.org/wiki/Fishing_industry_by_country) 
+lists fishery production of countries for 2005. For each country tonnage from 
+capture and aquaculture are listed. Note that countries which harvested less 
+than 100,000 tons are not included in the data. 
+
+---
+
+Given below are existing data visualizations that violate many data visualization best practices. *Describe some what you think some problems w/ these might be here.*
+
+> Answers the question in your lab
+
+![fisheries-plot](https://raw.githubusercontent.com/rstudio-education/datascience-box/master/assignments/hw-01/img/fisheries.png)
+
+### Reading in the data
+
+Your visualization will give important context to the ICJ case.  You will use the same data as used in the visualizations above, but will create better visualizations!  
+
+### Install packages
+
+What are the packages you need to install (in the console - not in the .Rmd!) to do this lab?  *Install them (in the console!).*
+
+```{r load libraries}
+library(tidyverse)
+options(scipen = 10)  # scientific notation turns on later
+```
+
+### Importing data
+
+The data cleaning has been done for you in the code below.  Check out the walk through here: https://evamaerey.github.io/little_flipbooks_library/data_cleaning/data_cleaning#26
+Describe three or four data cleaning "moves" that you see done in this pipeline:
+
+> your answer 
+
+
+---
+
+```{r data cleaning}
+# using the htmltab package to scan html file
+htmltab::htmltab(doc = "https://en.wikipedia.org/wiki/Fishing_industry_by_country",  
+                 which = 2) ->  
+fisheries_2015_raw
+```
+
+
+---
+
+```{r}
+# code to read in the data and clean it is done for you here
+fisheries_2015_raw %>%  
+  as_tibble() %>%  # show data in "tidyverse" way, as_tibble
+  janitor::clean_names(case = "snake") %>%  # snake is the default too
+  mutate(capture =  
+           readr::parse_number(x = capture)) %>%  
+  mutate(aquaculture =  
+           readr::parse_number(x = aquaculture)) %>%  
+  mutate(total =  
+           readr::parse_number(x = total)) %>%  
+  mutate(country = str_trim(string = country)) %>%  
+  mutate(region =  
+           countrycode::countrycode(  
+             sourcevar = country,  
+             origin = "country.name",  
+             dest = "region")) %>%  
+  # country codes are useful for merging data
+  mutate(iso3c =  
+           countrycode::countrycode(  
+             sourcevar = country,  
+             origin = "country.name",  
+             dest = "iso3c")) %>%  
+  # one row is an aggregation - deleting this
+  filter(country != "Total (2015)") %>% 
+  mutate(country = str_replace(country, "Â", "")) %>%  # on PCs this step seems to be required because of how the data is read in. # won't cause problems for mac. 
+  mutate(country = str_trim(country)) %>%  # this is another cleaning step that is needed for PCs, and won't cause problems for mac.
+  mutate(peru_or_chile = country == "Chile" | country == "Peru") ->   
+fisheries
+```
+
+---
+
+
+```{r}
+# starting with fisheries, wrangle to only the peru and chile cases, and create the object...
+fisheries %>% 
+  filter(country %in% c("Chile", "Peru")) ->
+fisheries_peru_chile
+
+save(fisheries, fisheries_peru_chile, file = "fisheries.Rdata")
+```
+
+
+
+
+### Data wrangling: creating a subset of fisheries
+
+Now, in the next code chunk, create a subset of your data, containing only the Chile and Peru cases.  User `filter` on fisheries and create a new object called fisheries_peru_chile
+
+```{r}
+load("fisheries.Rdata")
+```
+
+
+### Create a scatter plot
+
+- Create a scatter plot (geom_point) of capture v. aquaculture across all countries
+- use color to represent the variable peru_or_chile
+- Use the log10 scales for the x and y (scale_y_... )
+
+- add a `geom_label()` layer and let the data for this layer be only `fisheries_peru_chile`.  You will need to add an `aes(label = ?)` statement to your ggplot.
+
+- adjust labels for your *plot* as needed (title, subtitle, caption, x, y, color)
+
+---
+
+`r chunk_reveal("var1", display_type = "both")`
+
+```{r var1, include = F}
+# so scientific notation doesn't turn on too quick
+options(scipen = 10) 
+ggplot(data = fisheries) +
+  aes(x = capture) +
+  aes(y = aquaculture) +
+  geom_point() + 
+  scale_x_log10() + 
+  scale_y_log10() +
+  aes(color = peru_or_chile) +
+  scale_color_manual(
+    values = c("grey", "steelblue")
+    ) +
+  aes(label = country) +
+  geom_text(aes(alpha = peru_or_chile),
+            nudge_y = .3, 
+            fontface = "bold") +
+  scale_alpha_discrete(range = c(0,1)) +
+  theme_minimal() +
+  theme(legend.position = "none") + 
+  annotate(geom = "text",
+           x = 300, 
+           y = 3000000,
+           label = "Chile and Peru's fish production\nis some of the highest\nin the world",
+           color = "steelblue",
+           fontface = "bold",
+           hjust = 0
+           )
+```
+
+---
+
+
+# Now you and your group
+
+---
+
+`r chunk_reveal("data_layer", display_type = "output")`
+
+```{r data_layer, include = F}
+# Your ggplot here
+ggplot(data = fisheries) +
+  aes(x = capture) +
+  aes(y = aquaculture) +
+  geom_point(color = "grey") + 
+  scale_x_log10() + 
+  scale_y_log10() +
+  geom_point(data = fisheries_peru_chile,
+             color = "steelblue") +
+  geom_text(data = fisheries_peru_chile,
+            aes(label = country),
+            color = "steelblue",
+            nudge_y = .3,
+            fontface = "bold") +
+  theme_minimal() + 
+  annotate(geom = "text",
+           x = 300, 
+           y = 3000000,
+           color = "steelblue",
+           label = "Chile and Peru's fish production\n is some of the highest\nin the world",
+           fontface = "bold"
+           )
+```
+
+
+---
+
+# An ugly plot to help you
+
+---
+
+`r chunk_reveal("ugly", display_type = "both")`
+
+```{r ugly, include = F}
+library(gapminder)
+gapminder %>% 
+  filter(year == 2002) ->
+gm_2002
+
+gm_2002 %>% 
+  filter(continent == "Americas") ->
+gm_2002_am
+
+ggplot(gm_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point(color = "pink") +
+  geom_point(data = gm_2002_am,
+             color = "green") +
+  geom_text(data = gm_2002_am,
+            aes(label = country), # label should
+            color = "red", # be country name
+            nudge_y = 1.5) + 
+  annotate(geom = "tile",
+           x = 30000, # required aesthetics
+           y = 55, # required aesthetics
+           width = 10000, # optional aesthetics
+           height = 5, # optional aesthetics
+           fill = "orange") + # optional aesthetics
+  annotate(geom = "label",
+           x = 30000, # required aesthetics
+           y = 55, # required aesthetics
+           label = "A tile!", # required aesthetics
+           size = 9, # optional aesthetics
+           fill = "magenta", # optional aesthetics
+           color = "oldlace") # optional aesthetics
+```
+
+
+
+

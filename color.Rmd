@@ -1,7 +1,7 @@
 ---
 title: "Color"
 subtitle: "With flipbookr and xaringan"
-author: "Gina Reynolds, December 2019"
+author: "Gina Reynolds, April 2020"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -25,98 +25,65 @@ library(tidyverse)
 
 ---
 
-
-
----
-
-
-# Named Colors
-
----
-
-`r chunk_reveal("named_prep")`
-
-```{r named_prep, include=F}
-colors() %>% 
-  length()
-
-tibble(rows = rep(1:26, 26),
-       cols = sort(rep(1:26, 26))) ->
-dat
-
-dat$r_color <- NA; dat
-dat$r_color[1:length(colors())] <- colors(); dat
-```
-
-
----
-
-`r chunk_reveal("named_plot")`
-
-```{r named_plot, include=F}
-dat %>% 
-  ggplot() +
-  aes(x = rows) +
-  aes(y = cols) +
-  geom_tile(color = "white") +
-  aes(fill = r_color) +
-  scale_fill_identity() +
-  scale_y_reverse() +
-  theme_void() +
-  theme(plot.background = 
-          element_rect(fill = "oldlace")) ->
-g
-```
+> *We need color maps/scale [as well as other aesthetic maps - x position, y position, size, shape] because they're an interface between your data and your brain* - Nathaniel Smith "A Better Default Colormap for Matplotlib"
 
 ---
 
 
-```{r, out.width="100%", out.height="100%", echo = F}
-g %+% 
-  (dat %>% slice(1:(26*7))) +
-  aes(label = r_color) +
-  geom_text(angle = 45,
-            size = 2)
-```
+## What do we want in a default colormap/colorscale?
 
----
+Colorful
 
+--
 
-```{r, out.width="100%", out.height="100%", echo = F}
-g %+% 
-  (dat %>% slice((26*7 + 1):(26*14))) +
-  aes(label = r_color) +
-  geom_text(angle = 45,
-            size = 2)
-```
+Beautiful
 
----
+--
 
+Sequential
 
-```{r, out.width="100%", out.height="100%", echo = F}
-g %+% 
-  (dat %>% slice((26*14 + 1):(26*21))) +
-  aes(label = r_color) +
-  geom_text(angle = 45,
-            size = 2)
-```
+--
+
+Accuritely represents the data (change in values)
+
+--
+
+Works in black and white
+
+--
+
+Accessible to colorblind viewers
 
 
 ---
 
-`r chunk_reveal("gt")`
+## Which is the good colormap from Matlab?
 
-```{r gt, include= F}
-colors()[1:18] %>% 
-  matrix(ncol = 1, byrow = T) %>% 
-  as_tibble() %>%
-  gt::gt() %>% 
-  gt::data_color(columns = vars(V1),
-                 colors = scales::col_factor(palette = sort(colors()[1:18]),
-                                             domain = NULL )
-                 )
-```
+--
 
+Parula
+
+--
+
+What's the old, problematic one?
+
+--
+
+Jet (rainbow-y)
+
+
+---
+
+# viridis > parula
+
+- More brightness variation 
+- Less hue variation  
+- public use 
+- greens!
+
+---
+
+![Isaac Newton's Color Wheel - creative commons, via Wikipedia](https://upload.wikimedia.org/wikipedia/commons/0/0a/Newton%27s_colour_circle.png)
 
 
 ---
@@ -142,6 +109,111 @@ ggplot(data = color_wheel_data) +
   scale_y_sqrt() ->
 g
 ```
+
+---
+
+
+![Author/Copyright holder: Unknown. Copyright terms and licence: Unknown via https://www.interaction-design.org/](https://public-media.interaction-design.org/images/uploads/ecd8ffd0de8cb38865b4bfc247419e08.jpg)
+
+
+
+---
+
+# Duke Ellington:  "If it sounds good it is good."
+
+
+
+---
+class: inverse, middle, center
+
+# Getting colors
+
+--
+
+## Named colors
+
+--
+
+## RGB 0 to 1
+
+--
+
+## Hexidecimal RGB
+
+--
+
+## RGB 0 to 255 
+
+
+---
+class: inverse, middle, center
+
+# Named Colors
+
+--
+
+http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
+
+---
+
+`r chunk_reveal("named_prep")`
+
+```{r named_prep, include=F}
+colors() %>% 
+  length()
+```
+
+
+---
+
+`r chunk_reveal("named_plot", break_type = 1)`
+
+```{r named_plot, include=F}
+tibble(rows = rep(1:26, 26),
+       cols = sort(rep(1:26, 26))) ->
+dat
+
+dat$r_color <- NA
+dat$r_color[1:length(colors())] <- colors()
+
+dat %>% 
+  ggplot() +
+  aes(x = rows) +
+  aes(y = cols) +
+  geom_tile(color = "white") +
+  aes(fill = r_color) +
+  scale_fill_identity() +
+  scale_y_reverse() +
+  theme_void() +
+  theme(plot.background = 
+          element_rect(fill = "oldlace")) 
+```
+
+
+
+```{r gt, include= F}
+colors()[1:18] %>% 
+  matrix(ncol = 1, byrow = T) %>% 
+  as_tibble() %>%
+  gt::gt() %>% 
+  gt::data_color(columns = vars(V1),
+                 colors = scales::col_factor(palette = sort(colors()[1:18]),
+                                             domain = NULL )
+                 )
+```
+
+
+
+
+
+
+
+---
+class: inverse, middle, center
+
+# RGB
+
+
 
 ---
 
@@ -242,6 +314,24 @@ ggplot() +
 
 
 ---
+class: inverse, middle, center
+
+
+# Hexidecimal system
+
+--
+
+## Four bits is a "hex"
+
+binary code...
+
+1111 = F
+0000 = 0
+
+
+
+
+---
 
 
 `r chunk_reveal("hex", break_type = "rotate")`
@@ -333,6 +423,12 @@ rgb(red = 0, green = 1, blue =  1, alpha = 1) #ROTATE
 
 
 ---
+class: inverse, middle, center
+
+
+# RGB Zero to 255
+
+---
 
 `r chunk_reveal("hex_to_rgb", break_type = "rotate")`
 
@@ -392,6 +488,86 @@ col2rgb("#FFFF30") #ROTATE
 col2rgb("#FFFF31") #ROTATE
 ```
 
+---
+
+## How many options within RGB?
+
+--
+
+```{r}
+16 * 16
+```
+
+--
+
+
+## How many possible combinations?  How many unique colors?
+
+--
+
+```{r}
+256 * 256 * 256
+```
+
+
+
+---
+class: center, middle, inverse
+
+# [DU visual signature](https://www.du.edu/marcomm/assets/documents/du_visid_guidelines.pdf)
+
+--
+
+### How DU stays on brand
+
+--
+
+### What is a Hexidecimal color of DU? Same color in RGB?  Name the color in your own words?
+
+--
+
+### https://www.du.edu/marcomm/assets/documents/du_visid_guidelines.pdf
+
+
+
+---
+class: inverse
+
+What's black in:
+
+- hexidecimal "speak"?
+- RGB 0 to 1
+- RGB 0 to 255
+
+--
+
+What's white:
+
+- hexidecimal "speak"?
+- RGB 0 to 1
+- RGB 0 to 255
+
+--
+
+What's green:
+
+- hexidecimal "speak"?
+- RGB 0 to 1
+- RGB 0 to 255
+
+
+---
+class: center, middle, inverse
+
+
+What's the rationale for a style guide at Neue Zürcher Zeitung according to Anna Wiederkehr?
+
+https://medium.com/nzz-open/how-we-went-from-individual-styles-to-a-consistent-look-and-feel-in-the-nzz-graphics-team-89fd560d6632
+
+--
+
+What are some of the elements of NZZ's style guide?
+
 
 
 ---
@@ -401,12 +577,40 @@ col2rgb("#FFFF31") #ROTATE
 ```{r viridis, include = F}
 viridis::viridis.map %>% 
   count(opt)
-
-
 ```
 
 
 ---
+
+# Printed color encoding
+
+```{r}
+# assumes integer input for CMYK - Bob Rudis, author of "Data, Driven Security: Analysis, Visualization and Dashboards"
+cmyk <- function(C,M,Y,K) {
+
+  C <- C / 100.0
+  M <- M / 100.0
+  Y <- Y / 100.0
+  K <- K / 100.0
+
+  n.c <- (C * (1-K) + K)
+  n.m <- (M * (1-K) + K)  
+  n.y <- (Y * (1-K) + K)
+
+  r.col <- ceiling(255 * (1-n.c))
+  g.col <- ceiling(255 * (1-n.m))
+  b.col <- ceiling(255 * (1-n.y))
+
+  return(col2rgb(sprintf("#%02s%02s%02s",
+                     as.hexmode(r.col), 
+                     as.hexmode(g.col), 
+                     as.hexmode(b.col))))
+
+}
+```
+
+
+
 
 
 

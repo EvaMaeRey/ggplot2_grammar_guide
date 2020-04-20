@@ -3,7 +3,7 @@
   <head>
     <title>Color</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Gina Reynolds, December 2019" />
+    <meta name="author" content="Gina Reynolds, April 2020" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
@@ -14,7 +14,7 @@ class: center, middle, inverse, title-slide
 
 # Color
 ## With flipbookr and xaringan
-### Gina Reynolds, December 2019
+### Gina Reynolds, April 2020
 
 ---
 
@@ -25,12 +25,135 @@ class: center, middle, inverse, title-slide
 
 ---
 
+&gt; *We need color maps/scale [as well as other aesthetic maps - x position, y position, size, shape] because they're an interface between your data and your brain* - Nathaniel Smith "A Better Default Colormap for Matplotlib"
+
+---
+
+
+## What do we want in a default colormap/colorscale?
+
+Colorful
+
+--
+
+Beautiful
+
+--
+
+Sequential
+
+--
+
+Accuritely represents the data (change in values)
+
+--
+
+Works in black and white
+
+--
+
+Accessible to colorblind viewers
 
 
 ---
 
+## Which is the good colormap from Matlab?
+
+--
+
+Parula
+
+--
+
+What's the old, problematic one?
+
+--
+
+Jet (rainbow-y)
+
+
+---
+
+# viridis &gt; parula
+
+- More brightness variation 
+- Less hue variation  
+- public use 
+- greens!
+
+---
+
+![Isaac Newton's Color Wheel - creative commons, via Wikipedia](https://upload.wikimedia.org/wikipedia/commons/0/0a/Newton%27s_colour_circle.png)
+
+
+---
+
+
+```r
+c("red", "orange", "yellow", 
+  "green", "blue", "purple") %&gt;% 
+  fct_inorder() %&gt;% 
+  tibble(roygbv = .) %&gt;% 
+  mutate(rank = rep(1:2, 3)) -&gt;
+color_wheel_data
+
+ggplot(data = color_wheel_data) +
+  aes(x = roygbv) +
+  aes(y = 1) +
+  geom_col(width = 1,
+           alpha = .7) +
+  aes(fill = roygbv) +
+  scale_fill_identity() +
+  coord_polar() +
+  aes(y = 1/rank) +
+  theme_classic() +
+  scale_y_sqrt() -&gt;
+g
+```
+
+---
+
+
+![Author/Copyright holder: Unknown. Copyright terms and licence: Unknown via https://www.interaction-design.org/](https://public-media.interaction-design.org/images/uploads/ecd8ffd0de8cb38865b4bfc247419e08.jpg)
+
+
+
+---
+
+# Duke Ellington:  "If it sounds good it is good."
+
+
+
+---
+class: inverse, middle, center
+
+# Getting colors
+
+--
+
+## Named colors
+
+--
+
+## RGB 0 to 1
+
+--
+
+## Hexidecimal RGB
+
+--
+
+## RGB 0 to 255 
+
+
+---
+class: inverse, middle, center
 
 # Named Colors
+
+--
+
+http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
 
 ---
 
@@ -288,7 +411,12 @@ colors() %&gt;%
 [1] 657
 ```
 ]]
+
+
+
+
 ---
+
 class: split-40
 count: false
  
@@ -297,387 +425,13 @@ count: false
 .column[.content[
 
 ```r
-colors() %&gt;%  
-  length()  
-
-*tibble(rows = rep(1:26, 26),
-*      cols = sort(rep(1:26, 26)))
-```
-]]
-.column[.content[
-
-```
-[1] 657
-```
-
-```
-# A tibble: 676 x 2
-    rows  cols
-   &lt;int&gt; &lt;int&gt;
- 1     1     1
- 2     2     1
- 3     3     1
- 4     4     1
- 5     5     1
- 6     6     1
- 7     7     1
- 8     8     1
- 9     9     1
-10    10     1
-# … with 666 more rows
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-colors() %&gt;%  
-  length()  
-
-tibble(rows = rep(1:26, 26),  
-       cols = sort(rep(1:26, 26))) -&gt;  
-*dat
-```
-]]
-.column[.content[
-
-```
-[1] 657
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-colors() %&gt;%  
-  length()  
-
 tibble(rows = rep(1:26, 26),  
        cols = sort(rep(1:26, 26))) -&gt;  
 dat  
 
-*dat$r_color &lt;- NA; dat
-```
-]]
-.column[.content[
+dat$r_color &lt;- NA  
+dat$r_color[1:length(colors())] &lt;- colors()  
 
-```
-[1] 657
-```
-
-```
-# A tibble: 676 x 3
-    rows  cols r_color
-   &lt;int&gt; &lt;int&gt; &lt;lgl&gt;  
- 1     1     1 NA     
- 2     2     1 NA     
- 3     3     1 NA     
- 4     4     1 NA     
- 5     5     1 NA     
- 6     6     1 NA     
- 7     7     1 NA     
- 8     8     1 NA     
- 9     9     1 NA     
-10    10     1 NA     
-# … with 666 more rows
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-colors() %&gt;%  
-  length()  
-
-tibble(rows = rep(1:26, 26),  
-       cols = sort(rep(1:26, 26))) -&gt;  
-dat  
-
-dat$r_color &lt;- NA; dat  
-*dat$r_color[1:length(colors())] &lt;- colors(); dat
-```
-]]
-.column[.content[
-
-```
-[1] 657
-```
-
-```
-# A tibble: 676 x 3
-    rows  cols r_color
-   &lt;int&gt; &lt;int&gt; &lt;lgl&gt;  
- 1     1     1 NA     
- 2     2     1 NA     
- 3     3     1 NA     
- 4     4     1 NA     
- 5     5     1 NA     
- 6     6     1 NA     
- 7     7     1 NA     
- 8     8     1 NA     
- 9     9     1 NA     
-10    10     1 NA     
-# … with 666 more rows
-```
-
-```
-# A tibble: 676 x 3
-    rows  cols r_color      
-   &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
- 1     1     1 white        
- 2     2     1 aliceblue    
- 3     3     1 antiquewhite 
- 4     4     1 antiquewhite1
- 5     5     1 antiquewhite2
- 6     6     1 antiquewhite3
- 7     7     1 antiquewhite4
- 8     8     1 aquamarine   
- 9     9     1 aquamarine1  
-10    10     1 aquamarine2  
-# … with 666 more rows
-```
-]]
-
-
-
-
----
-
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-*dat
-```
-]]
-.column[.content[
-
-```
-# A tibble: 676 x 3
-    rows  cols r_color      
-   &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
- 1     1     1 white        
- 2     2     1 aliceblue    
- 3     3     1 antiquewhite 
- 4     4     1 antiquewhite1
- 5     5     1 antiquewhite2
- 6     6     1 antiquewhite3
- 7     7     1 antiquewhite4
- 8     8     1 aquamarine   
- 9     9     1 aquamarine1  
-10    10     1 aquamarine2  
-# … with 666 more rows
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-dat %&gt;%  
-* ggplot()
-```
-]]
-.column[.content[
-&lt;img src="color_files/figure-html/named_plot_auto_2_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-dat %&gt;%  
-  ggplot() +  
-* aes(x = rows)
-```
-]]
-.column[.content[
-&lt;img src="color_files/figure-html/named_plot_auto_3_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-dat %&gt;%  
-  ggplot() +  
-  aes(x = rows) +  
-* aes(y = cols)
-```
-]]
-.column[.content[
-&lt;img src="color_files/figure-html/named_plot_auto_4_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-dat %&gt;%  
-  ggplot() +  
-  aes(x = rows) +  
-  aes(y = cols) +  
-* geom_tile(color = "white")
-```
-]]
-.column[.content[
-&lt;img src="color_files/figure-html/named_plot_auto_5_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-dat %&gt;%  
-  ggplot() +  
-  aes(x = rows) +  
-  aes(y = cols) +  
-  geom_tile(color = "white") +  
-* aes(fill = r_color)
-```
-]]
-.column[.content[
-&lt;img src="color_files/figure-html/named_plot_auto_6_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-dat %&gt;%  
-  ggplot() +  
-  aes(x = rows) +  
-  aes(y = cols) +  
-  geom_tile(color = "white") +  
-  aes(fill = r_color) +  
-* scale_fill_identity()
-```
-]]
-.column[.content[
-&lt;img src="color_files/figure-html/named_plot_auto_7_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-dat %&gt;%  
-  ggplot() +  
-  aes(x = rows) +  
-  aes(y = cols) +  
-  geom_tile(color = "white") +  
-  aes(fill = r_color) +  
-  scale_fill_identity() +  
-* scale_y_reverse()
-```
-]]
-.column[.content[
-&lt;img src="color_files/figure-html/named_plot_auto_8_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-dat %&gt;%  
-  ggplot() +  
-  aes(x = rows) +  
-  aes(y = cols) +  
-  geom_tile(color = "white") +  
-  aes(fill = r_color) +  
-  scale_fill_identity() +  
-  scale_y_reverse() +  
-* theme_void()
-```
-]]
-.column[.content[
-&lt;img src="color_files/figure-html/named_plot_auto_9_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-dat %&gt;%  
-  ggplot() +  
-  aes(x = rows) +  
-  aes(y = cols) +  
-  geom_tile(color = "white") +  
-  aes(fill = r_color) +  
-  scale_fill_identity() +  
-  scale_y_reverse() +  
-  theme_void() +  
-* theme(plot.background =
-*         element_rect(fill = "oldlace"))
-```
-]]
-.column[.content[
-&lt;img src="color_files/figure-html/named_plot_auto_10_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
 dat %&gt;%  
   ggplot() +  
   aes(x = rows) +  
@@ -688,999 +442,31 @@ dat %&gt;%
   scale_y_reverse() +  
   theme_void() +  
   theme(plot.background =  
-          element_rect(fill = "oldlace")) -&gt;  
-*g 
+          element_rect(fill = "oldlace"))  
 ```
 ]]
 .column[.content[
-
+&lt;img src="color_files/figure-html/named_plot_1_1_output-1.png" width="432" /&gt;
 ]]
 
 
 
----
 
 
-&lt;img src="color_files/figure-html/unnamed-chunk-1-1.png" width="100%" height="100%" /&gt;
 
----
 
 
-&lt;img src="color_files/figure-html/unnamed-chunk-2-1.png" width="100%" height="100%" /&gt;
-
----
-
-
-&lt;img src="color_files/figure-html/unnamed-chunk-3-1.png" width="100%" height="100%" /&gt;
-
-
----
-
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-*colors()[1:18]
-```
-]]
-.column[.content[
-
-```
- [1] "white"         "aliceblue"     "antiquewhite"  "antiquewhite1"
- [5] "antiquewhite2" "antiquewhite3" "antiquewhite4" "aquamarine"   
- [9] "aquamarine1"   "aquamarine2"   "aquamarine3"   "aquamarine4"  
-[13] "azure"         "azure1"        "azure2"        "azure3"       
-[17] "azure4"        "beige"        
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-colors()[1:18] %&gt;%  
-* matrix(ncol = 1, byrow = T)
-```
-]]
-.column[.content[
-
-```
-      [,1]           
- [1,] "white"        
- [2,] "aliceblue"    
- [3,] "antiquewhite" 
- [4,] "antiquewhite1"
- [5,] "antiquewhite2"
- [6,] "antiquewhite3"
- [7,] "antiquewhite4"
- [8,] "aquamarine"   
- [9,] "aquamarine1"  
-[10,] "aquamarine2"  
-[11,] "aquamarine3"  
-[12,] "aquamarine4"  
-[13,] "azure"        
-[14,] "azure1"       
-[15,] "azure2"       
-[16,] "azure3"       
-[17,] "azure4"       
-[18,] "beige"        
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-colors()[1:18] %&gt;%  
-  matrix(ncol = 1, byrow = T) %&gt;%  
-* as_tibble()
-```
-]]
-.column[.content[
-
-```
-# A tibble: 18 x 1
-   V1           
-   &lt;chr&gt;        
- 1 white        
- 2 aliceblue    
- 3 antiquewhite 
- 4 antiquewhite1
- 5 antiquewhite2
- 6 antiquewhite3
- 7 antiquewhite4
- 8 aquamarine   
- 9 aquamarine1  
-10 aquamarine2  
-11 aquamarine3  
-12 aquamarine4  
-13 azure        
-14 azure1       
-15 azure2       
-16 azure3       
-17 azure4       
-18 beige        
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-colors()[1:18] %&gt;%  
-  matrix(ncol = 1, byrow = T) %&gt;%  
-  as_tibble() %&gt;%  
-* gt::gt()
-```
-]]
-.column[.content[
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-#pqvledqwbd .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#pqvledqwbd .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#pqvledqwbd .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#pqvledqwbd .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#pqvledqwbd .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#pqvledqwbd .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#pqvledqwbd .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#pqvledqwbd .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#pqvledqwbd .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#pqvledqwbd .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#pqvledqwbd .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#pqvledqwbd .gt_group_heading {
-  padding: 8px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#pqvledqwbd .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#pqvledqwbd .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#pqvledqwbd .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#pqvledqwbd .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#pqvledqwbd .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#pqvledqwbd .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 12px;
-}
-
-#pqvledqwbd .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#pqvledqwbd .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-}
-
-#pqvledqwbd .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#pqvledqwbd .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#pqvledqwbd .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#pqvledqwbd .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#pqvledqwbd .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding: 4px;
-}
-
-#pqvledqwbd .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#pqvledqwbd .gt_sourcenote {
-  font-size: 90%;
-  padding: 4px;
-}
-
-#pqvledqwbd .gt_left {
-  text-align: left;
-}
-
-#pqvledqwbd .gt_center {
-  text-align: center;
-}
-
-#pqvledqwbd .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#pqvledqwbd .gt_font_normal {
-  font-weight: normal;
-}
-
-#pqvledqwbd .gt_font_bold {
-  font-weight: bold;
-}
-
-#pqvledqwbd .gt_font_italic {
-  font-style: italic;
-}
-
-#pqvledqwbd .gt_super {
-  font-size: 65%;
-}
-
-#pqvledqwbd .gt_footnote_marks {
-  font-style: italic;
-  font-size: 65%;
-}
-</style>
-<div id="pqvledqwbd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">V1</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_left">white</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">aliceblue</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">antiquewhite</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">antiquewhite1</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">antiquewhite2</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">antiquewhite3</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">antiquewhite4</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">aquamarine</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">aquamarine1</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">aquamarine2</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">aquamarine3</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">aquamarine4</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">azure</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">azure1</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">azure2</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">azure3</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">azure4</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">beige</td>
-    </tr>
-  </tbody>
-  
-  
-</table></div>
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-colors()[1:18] %&gt;%  
-  matrix(ncol = 1, byrow = T) %&gt;%  
-  as_tibble() %&gt;%  
-  gt::gt() %&gt;%  
-* gt::data_color(columns = vars(V1),
-*                colors = scales::col_factor(palette = sort(colors()[1:18]),
-*                                            domain = NULL )
-*                )
-```
-]]
-.column[.content[
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-#glgppkhnrv .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#glgppkhnrv .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#glgppkhnrv .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#glgppkhnrv .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#glgppkhnrv .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#glgppkhnrv .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#glgppkhnrv .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#glgppkhnrv .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#glgppkhnrv .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#glgppkhnrv .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#glgppkhnrv .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#glgppkhnrv .gt_group_heading {
-  padding: 8px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#glgppkhnrv .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#glgppkhnrv .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#glgppkhnrv .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#glgppkhnrv .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#glgppkhnrv .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#glgppkhnrv .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 12px;
-}
-
-#glgppkhnrv .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#glgppkhnrv .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-}
-
-#glgppkhnrv .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#glgppkhnrv .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#glgppkhnrv .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#glgppkhnrv .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#glgppkhnrv .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding: 4px;
-}
-
-#glgppkhnrv .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#glgppkhnrv .gt_sourcenote {
-  font-size: 90%;
-  padding: 4px;
-}
-
-#glgppkhnrv .gt_left {
-  text-align: left;
-}
-
-#glgppkhnrv .gt_center {
-  text-align: center;
-}
-
-#glgppkhnrv .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#glgppkhnrv .gt_font_normal {
-  font-weight: normal;
-}
-
-#glgppkhnrv .gt_font_bold {
-  font-weight: bold;
-}
-
-#glgppkhnrv .gt_font_italic {
-  font-style: italic;
-}
-
-#glgppkhnrv .gt_super {
-  font-size: 65%;
-}
-
-#glgppkhnrv .gt_footnote_marks {
-  font-style: italic;
-  font-size: 65%;
-}
-</style>
-<div id="glgppkhnrv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">V1</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #FFFFFF; color: #000000;">white</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #F0F8FF; color: #000000;">aliceblue</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #FAEBD7; color: #000000;">antiquewhite</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #FFEFDB; color: #000000;">antiquewhite1</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #EEDFCC; color: #000000;">antiquewhite2</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #CDC0B0; color: #000000;">antiquewhite3</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #8B8378; color: #000000;">antiquewhite4</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #7FFFD4; color: #000000;">aquamarine</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #7FFFD4; color: #000000;">aquamarine1</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #76EEC6; color: #000000;">aquamarine2</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #66CDAA; color: #000000;">aquamarine3</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #458B74; color: #FFFFFF;">aquamarine4</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #F0FFFF; color: #000000;">azure</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #F0FFFF; color: #000000;">azure1</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #E0EEEE; color: #000000;">azure2</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #C1CDCD; color: #000000;">azure3</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #838B8B; color: #000000;">azure4</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="background-color: #F5F5DC; color: #000000;">beige</td>
-    </tr>
-  </tbody>
-  
-  
-</table></div>
-]]
 
 
 
 
 
 ---
+class: inverse, middle, center
+
+# RGB
 
 
-```r
-c("red", "orange", "yellow", 
-  "green", "blue", "purple") %&gt;% 
-  fct_inorder() %&gt;% 
-  tibble(roygbv = .) %&gt;% 
-  mutate(rank = rep(1:2, 3)) -&gt;
-color_wheel_data
-
-ggplot(data = color_wheel_data) +
-  aes(x = roygbv) +
-  aes(y = 1) +
-  geom_col(width = 1,
-           alpha = .7) +
-  aes(fill = roygbv) +
-  scale_fill_identity() +
-  coord_polar() +
-  aes(y = 1/rank) +
-  theme_classic() +
-  scale_y_sqrt() -&gt;
-g
-```
 
 ---
 
@@ -3412,6 +2198,24 @@ ggplot() +
 
 
 ---
+class: inverse, middle, center
+
+
+# Hexidecimal system
+
+--
+
+## Four bits is a "hex"
+
+binary code...
+
+1111 = F
+0000 = 0
+
+
+
+
+---
 
 
 class: split-40
@@ -4894,6 +3698,12 @@ count: false
 
 
 ---
+class: inverse, middle, center
+
+
+# RGB Zero to 255
+
+---
 
 class: split-40
 count: false
@@ -6009,6 +4819,96 @@ blue    49
 ]]
 
 
+
+---
+
+## How many options within RGB?
+
+--
+
+
+```r
+16 * 16
+```
+
+```
+[1] 256
+```
+
+--
+
+
+## How many possible combinations?  How many unique colors?
+
+--
+
+
+```r
+256 * 256 * 256
+```
+
+```
+[1] 16777216
+```
+
+
+
+---
+class: center, middle, inverse
+
+# [DU visual signature](https://www.du.edu/marcomm/assets/documents/du_visid_guidelines.pdf)
+
+--
+
+### How DU stays on brand
+
+--
+
+### What is a Hexidecimal color of DU? Same color in RGB?  Name the color in your own words?
+
+--
+
+### https://www.du.edu/marcomm/assets/documents/du_visid_guidelines.pdf
+
+
+
+---
+class: inverse
+
+What's black in:
+
+- hexidecimal "speak"?
+- RGB 0 to 1
+- RGB 0 to 255
+
+--
+
+What's white:
+
+- hexidecimal "speak"?
+- RGB 0 to 1
+- RGB 0 to 255
+
+--
+
+What's green:
+
+- hexidecimal "speak"?
+- RGB 0 to 1
+- RGB 0 to 255
+
+
+---
+class: center, middle, inverse
+
+
+What's the rationale for a style guide at Neue Zürcher Zeitung according to Anna Wiederkehr?
+
+https://medium.com/nzz-open/how-we-went-from-individual-styles-to-a-consistent-look-and-feel-in-the-nzz-graphics-team-89fd560d6632
+
+--
+
+What are some of the elements of NZZ's style guide?
 
 
 
@@ -7337,37 +6237,42 @@ viridis::viridis.map %&gt;%
 5 E       256
 ```
 ]]
----
-class: split-40
-count: false
- 
 
- 
-.column[.content[
+
+
+
+---
+
+# Printed color encoding
+
 
 ```r
-viridis::viridis.map %&gt;%  
-  count(opt)  
+# assumes integer input for CMYK - Bob Rudis, author of "Data, Driven Security: Analysis, Visualization and Dashboards"
+cmyk &lt;- function(C,M,Y,K) {
+
+  C &lt;- C / 100.0
+  M &lt;- M / 100.0
+  Y &lt;- Y / 100.0
+  K &lt;- K / 100.0
+
+  n.c &lt;- (C * (1-K) + K)
+  n.m &lt;- (M * (1-K) + K)  
+  n.y &lt;- (Y * (1-K) + K)
+
+  r.col &lt;- ceiling(255 * (1-n.c))
+  g.col &lt;- ceiling(255 * (1-n.m))
+  b.col &lt;- ceiling(255 * (1-n.y))
+
+  return(col2rgb(sprintf("#%02s%02s%02s",
+                     as.hexmode(r.col), 
+                     as.hexmode(g.col), 
+                     as.hexmode(b.col))))
+
+}
 ```
-]]
-.column[.content[
-
-```
-# A tibble: 5 x 2
-  opt       n
-  &lt;chr&gt; &lt;int&gt;
-1 A       256
-2 B       256
-3 C       256
-4 D       256
-5 E       256
-```
-]]
 
 
 
-
----
 
 
 

@@ -99,14 +99,16 @@ Above, the geom and theme topics are intentionally cursory.  There are tons of g
 
 # More data vis topics
 
+- [color theory](color.html){target="_blank"}
+- [paletteer](paletteer.html){target="_blank"}
 - spatial
 - base R
 
 
 # ggplot extensions
 
-    - [ggpattern]()
-
+- ggpattern
+- ggforce
 
 ```{css, echo = F}
 .button {

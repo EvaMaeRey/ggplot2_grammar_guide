@@ -4,6 +4,7 @@ subtitle: "With flipbookr and xaringan"
 author: "Gina Reynolds, December 2019"
 output:
   xaringan::moon_reader:
+    seal: false
     lib_dir: libs
     css: [default, hygge, ninjutsu]
     nature:
@@ -11,35 +12,445 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
 ---
 
 
+
+
+class: left, top, inverse
+background-image: url(https://images.unsplash.com/photo-1562447141-5ab151b2638f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80)
+background-size: cover
+
+# .large[{paletteer}]
+### An exploration <br>with {flipbookr}<br>and {xaringan}
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+#### .right[[github.com/EmilHvitfeldt/paletteer](https://github.com/EmilHvitfeldt/paletteer)<br>Edited: Gina Reynolds<br>Photo Credit: Hendrik Will in Dafen, Shenzhen, China]
 
 ```{r setup, include = F}
 # This is the recommended set up for flipbooks
 # you might think about setting cache to TRUE as you gain practice --- building flipbooks from scracth can be time consuming
-knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, comment = "", cache = FALSE, fig.retina = 3)
+knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, comment = "", cache = T, fig.retina = 3)
 library(flipbookr)
 library(tidyverse)
 library(paletteer)
-paletteer::palettes_c_names
 ```
 
 ---
 
-```{r palettes, include = T}
-ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
+{paletteer} is a "collection of most color palettes in a single R package."  In fact it offers access to palettes from 52 packages in R as well as base R.  
+
+--
+
+Many of the projects are found on Github.  Those repositories are as follows: 
+
+```{r, results='asis', echo = F}
+paletteer::paletteer_packages %>% drop_na(Github)  %>% pull(Github) %>% cat(sep = "  |  ")
+```
+
+
+
+---
+
+
+One of the goals of {paletteer} is providing an interface for consistent use of these palettes. For example, it provides a standard way to use the variety of color/fill scales to ggplot2 plots:
+
+- `scale_color_paletteer_d("nord::aurora")` for discrete (categorical) data
+- `scale_color_paletteer_c("nord::aurora")` for continuous data
+- `scale_color_paletteer_binned("nord::aurora")` for breaking up continous data
+
+--
+
+And fill colors syntax:
+
+- `scale_fill_paletteer_d("nord::aurora")`
+- `scale_fill_paletteer_c("nord::aurora")`
+- `scale_fill_paletteer_binned("nord::aurora")`
+
+
+In these examples the `aurora` palette is being used from the `nord` package. 
+
+---
+
+
+## Within each package, there may be several palettes.  
+
+--
+
+Overall, there are 1431 palettes for representing discrete data ...
+
+--
+
+... and 315 for representing continuous data.
+
+---
+
+
+`r chunk_reveal("names_d")`
+
+
+```{r names_d, eval = F, echo = F}
+paletteer::palettes_d_names %>%
+  group_by(package) %>% 
+  count() %>% 
+  pull() %>% 
+  sum()
+
+paletteer::palettes_c_names %>%
+  group_by(package) %>% 
+  count() %>% 
+  pull() %>% 
+  sum()
+```
+
+---
+class: inverse, center, middle
+
+
+## Usage w/ ggplot2: scale_color_paletteer_d
+
+--
+
+discrete (categorical) scales
+
+---
+
+`r chunk_reveal("palettes_d", break_type = "rotate")`
+
+
+```{r palettes_d, include = F}
+library(gapminder)
+library(paletteer)
+gapminder %>% 
+  filter(year == 2007) %>% 
+  ggplot(data = .) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  aes(color = continent) +
   geom_point() +
-  scale_color_paletteer_d("nord::aurora") +
-  scale_color_paletteer_d("basetheme::ink") +
-  scale_color_paletteer_d("basetheme::ink") +
-  scale_color_paletteer_d("LaCroixColoR::Orange")
+  scale_color_paletteer_d("nord::aurora") + #ROTATE
+  scale_color_paletteer_d("basetheme::ink") + #ROTATE
+  scale_color_paletteer_d("basetheme::ink") + #ROTATE
+  scale_color_paletteer_d("LaCroixColoR::Orange") #ROTATE
 ```
+
+
+
+
+---
+class: inverse, center, middle
+
+
+## Usage w/ ggplot2: scale_color_paletteer_c
+
+--
+
+continuous scales
+
+
 
 
 ---
 
-`r chunk_reveal("palettes")`
+
+`r chunk_reveal("palettes_c", break_type = "rotate")`
+
+```{r palettes_c, include = F}
+library(gapminder)
+library(paletteer)
+gapminder %>% 
+  filter(year == 2007) %>% 
+  ggplot(data = .) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  aes(color = lifeExp) +
+  geom_point(size = 3,
+             alpha = .7) +
+  scale_color_paletteer_c("grDevices::Purple-Blue") + #ROTATE
+  scale_color_paletteer_c("pals::kovesi.rainbow_bgyr_35_85_c73") + #ROTATE
+  scale_color_paletteer_c("ggthemes::Red-Gold") + #ROTATE
+  scale_color_paletteer_c("scico::devon") #ROTATE
+```
+
+
+
+---
+class: inverse, center, middle
+
+
+## Usage w/ ggplot2: scale_color_paletteer_binned
+
+-- 
+
+binned continuous scales
+
+
+---
+
+
+`r chunk_reveal("palettes_binned", break_type = "rotate")`
+
+```{r palettes_binned, include = F}
+library(gapminder)
+library(paletteer)
+gapminder %>% 
+  filter(year == 2007) %>% 
+  ggplot(data = .) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  aes(color = lifeExp) +
+  geom_point(size = 3,
+             alpha = .7) +
+  scale_color_paletteer_binned("grDevices::Purple-Blue") + #ROTATE
+  scale_color_paletteer_binned("pals::kovesi.rainbow_bgyr_35_85_c73") + #ROTATE
+  scale_color_paletteer_binned("ggthemes::Red-Gold") + #ROTATE
+  scale_color_paletteer_binned("scico::devon") #ROTATE
+```
+
+
+---
+class: inverse, center, middle
+
+
+## Just the scales: discrete
+
+--
+
+Displays the first three scales from every package in {paletteer}
+
+--
+
+This is ~ 150 out of ~ 1400
+
+---
+
+`r chunk_reveal("straight_up_d", break_type = "rotate")`
+
+
+
+```{r straight_up_d, include=F}
+pal <- paletteer_d("awtools::a_palette") #ROTATE
+pal <- paletteer_d("awtools::bpalette") #ROTATE
+pal <- paletteer_d("awtools::gpalette") #ROTATE
+pal <- paletteer_d("basetheme::brutal") #ROTATE
+pal <- paletteer_d("basetheme::clean") #ROTATE
+pal <- paletteer_d("basetheme::dark") #ROTATE
+pal <- paletteer_d("calecopal::sierra1") #ROTATE
+pal <- paletteer_d("calecopal::sierra2") #ROTATE
+pal <- paletteer_d("calecopal::chaparral1") #ROTATE
+pal <- paletteer_d("colorblindr::OkabeIto") #ROTATE
+pal <- paletteer_d("colorblindr::OkabeIto_black") #ROTATE
+pal <- paletteer_d("colRoz::grandis") #ROTATE
+pal <- paletteer_d("colRoz::flavolineata") #ROTATE
+pal <- paletteer_d("colRoz::whitei") #ROTATE
+pal <- paletteer_d("dichromat::BrowntoBlue.10") #ROTATE
+pal <- paletteer_d("dichromat::BrowntoBlue.12") #ROTATE
+pal <- paletteer_d("dichromat::BluetoDarkOrange.12") #ROTATE
+pal <- paletteer_d("DresdenColor::stormfront") #ROTATE
+pal <- paletteer_d("DresdenColor::foolmoon") #ROTATE
+pal <- paletteer_d("DresdenColor::graveperil") #ROTATE
+pal <- paletteer_d("dutchmasters::milkmaid") #ROTATE
+pal <- paletteer_d("dutchmasters::pearl_earring") #ROTATE
+pal <- paletteer_d("dutchmasters::view_of_Delft") #ROTATE
+pal <- paletteer_d("fishualize::Acanthurus_leucosternon") #ROTATE
+pal <- paletteer_d("fishualize::Acanthurus_olivaceus") #ROTATE
+pal <- paletteer_d("fishualize::Acanthurus_sohal") #ROTATE
+pal <- paletteer_d("ggpomological::pomological_base") #ROTATE
+pal <- paletteer_d("ggpomological::pomological_palette") #ROTATE
+pal <- paletteer_d("ggsci::nrc_npg") #ROTATE
+pal <- paletteer_d("ggsci::default_aaas") #ROTATE
+pal <- paletteer_d("ggsci::default_nejm") #ROTATE
+pal <- paletteer_d("ggthemes::calc") #ROTATE
+pal <- paletteer_d("ggthemes::manyeys") #ROTATE
+pal <- paletteer_d("ggthemes::gdoc") #ROTATE
+pal <- paletteer_d("ggthemr::flat") #ROTATE
+pal <- paletteer_d("ggthemr::flat dark") #ROTATE
+pal <- paletteer_d("ggthemr::dust") #ROTATE
+pal <- paletteer_d("ghibli::MarnieLight1") #ROTATE
+pal <- paletteer_d("ghibli::MarnieMedium1") #ROTATE
+pal <- paletteer_d("ghibli::MarnieDark1") #ROTATE
+pal <- paletteer_d("grDevices::blues9") #ROTATE
+pal <- paletteer_d("IslamicArt::shiraz") #ROTATE
+pal <- paletteer_d("IslamicArt::samarqand") #ROTATE
+pal <- paletteer_d("IslamicArt::samarqand2") #ROTATE
+pal <- paletteer_d("jcolors::default") #ROTATE
+pal <- paletteer_d("jcolors::pal2") #ROTATE
+pal <- paletteer_d("jcolors::pal3") #ROTATE
+pal <- paletteer_d("LaCroixColoR::PassionFruit") #ROTATE
+pal <- paletteer_d("LaCroixColoR::Mango") #ROTATE
+pal <- paletteer_d("LaCroixColoR::Pure") #ROTATE
+pal <- paletteer_d("lisa::JosefAlbers") #ROTATE
+pal <- paletteer_d("lisa::JosefAlbers_1") #ROTATE
+pal <- paletteer_d("lisa::GretchenAlbrecht") #ROTATE
+pal <- paletteer_d("MapPalettes::green_machine") #ROTATE
+pal <- paletteer_d("MapPalettes::bruiser") #ROTATE
+pal <- paletteer_d("MapPalettes::tealberry_pie") #ROTATE
+pal <- paletteer_d("miscpalettes::dreaming") #ROTATE
+pal <- paletteer_d("miscpalettes::jojo") #ROTATE
+pal <- paletteer_d("miscpalettes::beach") #ROTATE
+pal <- paletteer_d("nationalparkcolors::SmokyMountains") #ROTATE
+pal <- paletteer_d("nationalparkcolors::RockyMountains") #ROTATE
+pal <- paletteer_d("nationalparkcolors::Yellowstone") #ROTATE
+pal <- paletteer_d("NineteenEightyR::cobra") #ROTATE
+pal <- paletteer_d("NineteenEightyR::electronic_night") #ROTATE
+pal <- paletteer_d("NineteenEightyR::hotpink") #ROTATE
+pal <- paletteer_d("nord::polarnight") #ROTATE
+pal <- paletteer_d("nord::snowstorm") #ROTATE
+pal <- paletteer_d("nord::frost") #ROTATE
+pal <- paletteer_d("ochRe::namatjira_qual") #ROTATE
+pal <- paletteer_d("ochRe::namatjira_div") #ROTATE
+pal <- paletteer_d("ochRe::mccrea") #ROTATE
+pal <- paletteer_d("palettesForR::Android") #ROTATE
+pal <- paletteer_d("palettesForR::Bears") #ROTATE
+pal <- paletteer_d("palettesForR::Bgold") #ROTATE
+pal <- paletteer_d("palettetown::bulbasaur") #ROTATE
+pal <- paletteer_d("palettetown::ivysaur") #ROTATE
+pal <- paletteer_d("palettetown::venusaur") #ROTATE
+pal <- paletteer_d("pals::alphabet") #ROTATE
+pal <- paletteer_d("pals::alphabet2") #ROTATE
+pal <- paletteer_d("pals::glasbey") #ROTATE
+pal <- paletteer_d("PNWColors::Starfish") #ROTATE
+pal <- paletteer_d("PNWColors::Shuksan") #ROTATE
+pal <- paletteer_d("PNWColors::Bay") #ROTATE
+pal <- paletteer_d("Polychrome::alphabet") #ROTATE
+pal <- paletteer_d("Polychrome::dark") #ROTATE
+pal <- paletteer_d("Polychrome::glasbey") #ROTATE
+pal <- paletteer_d("rcartocolor::ag_Sunset") #ROTATE
+pal <- paletteer_d("rcartocolor::ag_GrnYl") #ROTATE
+pal <- paletteer_d("rcartocolor::Tropic") #ROTATE
+pal <- paletteer_d("RColorBrewer::BrBG") #ROTATE
+pal <- paletteer_d("RColorBrewer::PiYG") #ROTATE
+pal <- paletteer_d("RColorBrewer::PRGn") #ROTATE
+pal <- paletteer_d("Redmonder::dPBIYlBu") #ROTATE
+pal <- paletteer_d("Redmonder::dPBIYlPu") #ROTATE
+pal <- paletteer_d("Redmonder::dPBIPuGn") #ROTATE
+pal <- paletteer_d("RSkittleBrewer::original") #ROTATE
+pal <- paletteer_d("RSkittleBrewer::tropical") #ROTATE
+pal <- paletteer_d("RSkittleBrewer::wildberry") #ROTATE
+pal <- paletteer_d("tidyquant::tq_light") #ROTATE
+pal <- paletteer_d("tidyquant::tq_dark") #ROTATE
+pal <- paletteer_d("tidyquant::tq_green") #ROTATE
+pal <- paletteer_d("trekcolors::andorian") #ROTATE
+pal <- paletteer_d("trekcolors::bajoran") #ROTATE
+pal <- paletteer_d("trekcolors::borg") #ROTATE
+pal <- paletteer_d("tvthemes::attackOnTitan") #ROTATE
+pal <- paletteer_d("tvthemes::FireNation") #ROTATE
+pal <- paletteer_d("tvthemes::AirNomads") #ROTATE
+pal <- paletteer_d("unikn::pal_unikn") #ROTATE
+pal <- paletteer_d("unikn::pal_unikn_web") #ROTATE
+pal <- paletteer_d("unikn::pal_unikn_ppt") #ROTATE
+pal <- paletteer_d("vapeplot::vaporwave") #ROTATE
+pal <- paletteer_d("vapeplot::cool") #ROTATE
+pal <- paletteer_d("vapeplot::crystal_pepsi") #ROTATE
+pal <- paletteer_d("vapoRwave::avanti") #ROTATE
+pal <- paletteer_d("vapoRwave::cool") #ROTATE
+pal <- paletteer_d("vapoRwave::crystalPepsi") #ROTATE
+pal <- paletteer_d("werpals::cinderella") #ROTATE
+pal <- paletteer_d("werpals::monet") #ROTATE
+pal <- paletteer_d("werpals::small_world") #ROTATE
+pal <- paletteer_d("wesanderson::BottleRocket1") #ROTATE
+pal <- paletteer_d("wesanderson::BottleRocket2") #ROTATE
+pal <- paletteer_d("wesanderson::Rushmore1") #ROTATE
+pal <- paletteer_d("yarrr::basel") #ROTATE
+pal <- paletteer_d("yarrr::pony") #ROTATE
+pal <- paletteer_d("yarrr::xmen") #ROTATE
+pal %>% 
+  fct_inorder() %>% 
+  tibble(pal = .) %>%
+  gt::gt() %>% 
+  gt::data_color(columns = vars(pal),
+                 colors = as.character(pal))
+```
+
+---
+class: inverse, center, middle
+
+
+## Just the scales: continuous
+
+--
+
+Displays the first five scales from every package in {paletteer}
+
+--
+
+This is ~ 40 out of ~ 300 total scales.
+
+---
+
+`r chunk_reveal("straight_up_c", break_type = "rotate")`
+
+```{r straight_up_c, include=F}
+pal <- paletteer_c("gameofthrones::baratheon", 9) #ROTATE
+pal <- paletteer_c("gameofthrones::greyjoy", 9) #ROTATE
+pal <- paletteer_c("gameofthrones::jon_snow", 9) #ROTATE
+pal <- paletteer_c("gameofthrones::lannister", 9) #ROTATE
+pal <- paletteer_c("gameofthrones::martell", 9) #ROTATE
+pal <- paletteer_c("ggthemes::Blue-Green Sequential", 9) #ROTATE
+pal <- paletteer_c("ggthemes::Blue Light", 9) #ROTATE
+pal <- paletteer_c("ggthemes::Orange Light", 9) #ROTATE
+pal <- paletteer_c("ggthemes::Blue", 9) #ROTATE
+pal <- paletteer_c("ggthemes::Orange", 9) #ROTATE
+pal <- paletteer_c("grDevices::rainbow", 9) #ROTATE
+pal <- paletteer_c("grDevices::heat.colors", 9) #ROTATE
+pal <- paletteer_c("grDevices::terrain.colors", 9) #ROTATE
+pal <- paletteer_c("grDevices::topo.colors", 9) #ROTATE
+pal <- paletteer_c("grDevices::cm.colors", 9) #ROTATE
+pal <- paletteer_c("harrypotter::slytherin", 9) #ROTATE
+pal <- paletteer_c("harrypotter::gryffindor", 9) #ROTATE
+pal <- paletteer_c("harrypotter::hufflepuff", 9) #ROTATE
+pal <- paletteer_c("harrypotter::ravenclaw", 9) #ROTATE
+pal <- paletteer_c("harrypotter::ravenclaw2", 9) #ROTATE
+pal <- paletteer_c("oompaBase::redscale", 9) #ROTATE
+pal <- paletteer_c("oompaBase::greenscale", 9) #ROTATE
+pal <- paletteer_c("oompaBase::bluescale", 9) #ROTATE
+pal <- paletteer_c("oompaBase::blueyellow", 9) #ROTATE
+pal <- paletteer_c("oompaBase::cyanyellow", 9) #ROTATE
+pal <- paletteer_c("pals::coolwarm", 9) #ROTATE
+pal <- paletteer_c("pals::warmcool", 9) #ROTATE
+pal <- paletteer_c("pals::jet", 9) #ROTATE
+pal <- paletteer_c("pals::parula", 9) #ROTATE
+pal <- paletteer_c("pals::cubicyf", 9) #ROTATE
+pal <- paletteer_c("scico::acton", 9) #ROTATE
+pal <- paletteer_c("scico::bamako", 9) #ROTATE
+pal <- paletteer_c("scico::batlow", 9) #ROTATE
+pal <- paletteer_c("scico::berlin", 9) #ROTATE
+pal <- paletteer_c("scico::bilbao", 9) #ROTATE
+pal <- paletteer_c("viridis::viridis", 9) #ROTATE
+pal <- paletteer_c("viridis::inferno", 9) #ROTATE
+pal <- paletteer_c("viridis::magma", 9) #ROTATE
+pal <- paletteer_c("viridis::plasma", 9) #ROTATE
+pal <- paletteer_c("viridis::cividis", 9) #ROTATE
+pal %>% 
+  fct_inorder() %>% 
+  tibble(pal = .) %>%
+  gt::gt() %>% 
+  gt::data_color(columns = vars(pal),
+                 colors = as.character(pal))
+```
+
+
+<!-- palettes_c_names %>% -->
+<!--   group_by(package) %>% -->
+<!--   slice(1:5) -> -->
+<!-- my_slice -->
+
+<!-- paste0('pal <- paletteer_c("', my_slice$package, "::", my_slice$palette, '", 9) #ROTATE') %>% cat(sep = "\n") -->
+
+
 
 
 ```{css, eval = TRUE, echo = FALSE}
