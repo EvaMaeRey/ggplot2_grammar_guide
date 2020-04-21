@@ -19,10 +19,10 @@ output:
 
 
 class: left, top, inverse
-background-image: url(https://images.unsplash.com/photo-1569001804799-1ff94b1a1a68?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80)
+background-image: url(https://images.unsplash.com/photo-1516741539888-96b4c96adf0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80)
 background-size: cover
 
-# .large[Building a viz about the fish market]
+# .large[A viz about the fish market]
 ### Context for understanding a resource conflict
 
 <br>
@@ -38,7 +38,8 @@ background-size: cover
 
 
 
-#### .right[[https://en.wikipedia.org/wiki/Fishing_industry_by_country](https://en.wikipedia.org/wiki/Fishing_industry_by_country)<br>Edited: Gina Reynolds<br>Photo Credit: Hendrik Will in Dafen, Shenzhen, China]
+#### .right[[https://en.wikipedia.org/wiki/Fishing_industry_by_country](https://en.wikipedia.org/wiki/Fishing_industry_by_country)<br>Edited: Gina Reynolds<br>Photo Credit: 
+jean wimmerlin]
 
 ```{r setup, include = F}
 # This is the recommended set up for flipbooks
@@ -125,7 +126,9 @@ Describe three or four data cleaning "moves" that you see done in this pipeline:
 
 ---
 
-```{r data cleaning}
+`r chunk_reveal("getting")`
+
+```{r getting, include=F}
 # using the htmltab package to scan html file
 htmltab::htmltab(doc = "https://en.wikipedia.org/wiki/Fishing_industry_by_country",  
                  which = 2) ->  
@@ -135,7 +138,9 @@ fisheries_2015_raw
 
 ---
 
-```{r}
+`r chunk_reveal("prep")`
+
+```{r prep, include=F}
 # code to read in the data and clean it is done for you here
 fisheries_2015_raw %>%  
   as_tibble() %>%  # show data in "tidyverse" way, as_tibble
@@ -169,16 +174,24 @@ fisheries
 ---
 
 
-```{r}
-# starting with fisheries, wrangle to only the peru and chile cases, and create the object...
+`r chunk_reveal("making_subset")`
+
+```{r making_subset, include=F}
+# Making a subset of the data
 fisheries %>% 
   filter(country %in% c("Chile", "Peru")) ->
 fisheries_peru_chile
 
-save(fisheries, fisheries_peru_chile, file = "fisheries.Rdata")
+readr::write_csv(fisheries, "fisheries.csv")
+readr::write_csv(fisheries_peru_chile, "fisheries_peru_chile.csv")
 ```
 
+---
 
+
+
+
+---
 
 
 ### Data wrangling: creating a subset of fisheries
@@ -186,7 +199,8 @@ save(fisheries, fisheries_peru_chile, file = "fisheries.Rdata")
 Now, in the next code chunk, create a subset of your data, containing only the Chile and Peru cases.  User `filter` on fisheries and create a new object called fisheries_peru_chile
 
 ```{r}
-load("fisheries.Rdata")
+fisheries <- readr::read_csv("fisheries.csv")
+fisheries_peru_chile <- readr::read_csv("fisheries_peru_chile.csv")
 ```
 
 
@@ -271,7 +285,7 @@ ggplot(data = fisheries) +
 
 ---
 
-# An ugly plot to help you
+# An ugly plot for reference
 
 ---
 
@@ -312,6 +326,36 @@ ggplot(gm_2002) +
            color = "oldlace") # optional aesthetics
 ```
 
+---
 
 
+
+![](new_york_times_emulate.png)
+
+---
+
+`r chunk_reveal("toy_data")`
+
+```{r toy_data, include = F}
+runif(30) %>% 
+  cumsum() %>% 
+  sqrt() %>% 
+  tibble(outcome = .) %>% 
+  mutate(time_period = row_number()) ->
+growth_data
+
+ggplot(data = growth_data) +
+  aes(x = time_period) +
+  aes(y = outcome) +
+  geom_line() +
+  coord_cartesian(xlim = c(0, 60),
+                  ylim = c(0, 14))
+```
+
+
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 60%}
+```
 
