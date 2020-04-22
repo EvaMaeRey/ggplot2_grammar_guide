@@ -20,6 +20,7 @@ In the following lab, you will:
 2. *create an annotated plot* with some world wide fish market data
 3. create an annotated plot with some "toy" data 
 4. Reflect on some annotation and geom questions
+5. Learn about key text on design thinking 
 
 Create an .Rmd file to work in and copy this text there.  Submit an html in Canvas. 
 
@@ -175,6 +176,27 @@ https://evamaerey.github.io/ggplot2_grammar_guide/labeling_time_series#1
 Note:  I wouldn't recommend using gghighlight at this point.  I think the package maybe isn't as mature as it needs to be.
 
 > Your reflection
+
+
+
+---
+
+# Task 4: "The Design of Everyday Things"
+
+Read the wikipedia entry about the book  https://en.wikipedia.org/wiki/The_Design_of_Everyday_Things
+
+What are the areas of expertise of the author Don Norman? Fill in the blanks:
+
+> ------ scientist and ------ engineer.
+
+---
+
+Affordances refer to features that are helpful to users' use or consumption of an item (or data visualization!).  What are examples of "affordances" in design thinking used in the wikipedia page...
+
+> "Examples of affordances are flat plates ...
+
+ 
+
 
 
 ```{css, eval = TRUE, echo = FALSE}
