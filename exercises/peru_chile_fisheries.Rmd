@@ -38,8 +38,7 @@ background-size: cover
 
 
 
-#### .right[[https://en.wikipedia.org/wiki/Fishing_industry_by_country](https://en.wikipedia.org/wiki/Fishing_industry_by_country)<br>Edited: Gina Reynolds<br>Photo Credit: 
-jean wimmerlin]
+#### .right[[https://en.wikipedia.org/wiki/Fishing_industry_by_country](https://en.wikipedia.org/wiki/Fishing_industry_by_country)<br>Edited: Gina Reynolds<br>Photo Credit: jean wimmerlin]
 
 ```{r setup, include = F}
 # This is the recommended set up for flipbooks
@@ -57,20 +56,18 @@ knitr::opts_chunk$set(message = F, warning = F)
 
 # Overview
 
-In the following lab, you will answer some questions and create an annotated plot. 
+In the following lab, you will *answer some questions* and *create an annotated plot*. Create an .Rmd file and work within it. Submit an html in Canvas. 
 
 
-
-
-# Background
+---
 
 In 1879–1883, Chile and Peru fought a war over resources.  What is the name of that war and what resource(s) were involved?  What other counrtry was involved? Not sure? You can search the web for this answer. 
 
-> Answers the question in your lab
+> Answers the question in your .Rmd
 
 More recently a case was brought to the ICJ again over resources. *In a few sentences summarize the dispute.* Reference: https://www.icj-cij.org/en/case/137
 
-> Answers the question in your lab
+> Answers the question in your .Rmd
 
 
 ---
@@ -78,148 +75,55 @@ More recently a case was brought to the ICJ again over resources. *In a few sent
 Now, check out the maps in the judgement:  https://www.icj-cij.org/files/case-related/137/137-20140127-JUD-01-00-EN.pdf
 In these maps, the water is colored blue. *Now, what color is the land?*  
 
-> Answers the question in your lab
+> Answers the question in your .Rmd
 
 *How are the maps used to illuminate the dispute and ICJ's resolution of the dispute?  Which pages of the document contain these two maps?*
 
-> Answers the question in your lab
+> Answers the question in your .Rmd
 
 *Beyond fishing, name a one commodity for Chile's and one of Peru's of great importance for each state's economy.* You may search the web!
 
 ---
 
-### The data and existing plots 
+### The data
 
 Fisheries and Aquaculture Department of the Food and Agriculture Organization of the United Nations collects data on fisheries production of countries. [This Wikipedia page](https://en.wikipedia.org/wiki/Fishing_industry_by_country) 
 lists fishery production of countries for 2005. For each country tonnage from 
 capture and aquaculture are listed. Note that countries which harvested less 
 than 100,000 tons are not included in the data. 
 
----
+--
 
-Given below are existing data visualizations that violate many data visualization best practices. *Describe some what you think some problems w/ these might be here.*
+Data cleaning steps are here: https://evamaerey.github.io/data_manipulation/data_cleaning/data_cleaning#16
 
-> Answers the question in your lab
+What are two or three of the steps in the data cleaning pipeline?
 
-![fisheries-plot](https://raw.githubusercontent.com/rstudio-education/datascience-box/master/assignments/hw-01/img/fisheries.png)
-
-### Reading in the data
-
-Your visualization will give important context to the ICJ case.  You will use the same data as used in the visualizations above, but will create better visualizations!  
-
-### Install packages
-
-What are the packages you need to install (in the console - not in the .Rmd!) to do this lab?  *Install them (in the console!).*
-
-```{r load libraries}
-library(tidyverse)
-options(scipen = 10)  # scientific notation turns on later
-```
-
-### Importing data
-
-The data cleaning has been done for you in the code below.  Check out the walk through here: https://evamaerey.github.io/little_flipbooks_library/data_cleaning/data_cleaning#26
-Describe three or four data cleaning "moves" that you see done in this pipeline:
-
-> your answer 
+> answer in the .Rmd
 
 
 ---
 
-`r chunk_reveal("getting")`
+### Use the prepped data in the assignment.  Include the code below, by pasting it into a code chunk in your .Rmd. and executing.
 
-```{r getting, include=F}
-# using the htmltab package to scan html file
-htmltab::htmltab(doc = "https://en.wikipedia.org/wiki/Fishing_industry_by_country",  
-                 which = 2) ->  
-fisheries_2015_raw
-```
-
-
----
-
-`r chunk_reveal("prep")`
-
-```{r prep, include=F}
-# code to read in the data and clean it is done for you here
-fisheries_2015_raw %>%  
-  as_tibble() %>%  # show data in "tidyverse" way, as_tibble
-  janitor::clean_names(case = "snake") %>%  # snake is the default too
-  mutate(capture =  
-           readr::parse_number(x = capture)) %>%  
-  mutate(aquaculture =  
-           readr::parse_number(x = aquaculture)) %>%  
-  mutate(total =  
-           readr::parse_number(x = total)) %>%  
-  mutate(country = str_trim(string = country)) %>%  
-  mutate(region =  
-           countrycode::countrycode(  
-             sourcevar = country,  
-             origin = "country.name",  
-             dest = "region")) %>%  
-  # country codes are useful for merging data
-  mutate(iso3c =  
-           countrycode::countrycode(  
-             sourcevar = country,  
-             origin = "country.name",  
-             dest = "iso3c")) %>%  
-  # one row is an aggregation - deleting this
-  filter(country != "Total (2015)") %>% 
-  mutate(country = str_replace(country, "Â", "")) %>%  # on PCs this step seems to be required because of how the data is read in. # won't cause problems for mac. 
-  mutate(country = str_trim(country)) %>%  # this is another cleaning step that is needed for PCs, and won't cause problems for mac.
-  mutate(peru_or_chile = country == "Chile" | country == "Peru") ->   
-fisheries
-```
-
----
-
-
-`r chunk_reveal("making_subset")`
-
-```{r making_subset, include=F}
-# Making a subset of the data
-fisheries %>% 
-  filter(country %in% c("Chile", "Peru")) ->
-fisheries_peru_chile
-
-readr::write_csv(fisheries, "fisheries.csv")
-readr::write_csv(fisheries_peru_chile, "fisheries_peru_chile.csv")
-```
-
----
-
-
-
-
----
-
-
-### Data wrangling: creating a subset of fisheries
-
-Now, in the next code chunk, create a subset of your data, containing only the Chile and Peru cases.  User `filter` on fisheries and create a new object called fisheries_peru_chile
 
 ```{r}
-fisheries <- readr::read_csv("fisheries.csv")
-fisheries_peru_chile <- readr::read_csv("fisheries_peru_chile.csv")
+fisheries <- readr::read_csv("https://raw.githubusercontent.com/EvaMaeRey/ggplot2_grammar_guide/master/exercises/fisheries.csv")
+fisheries_peru_chile <- readr::read_csv("https://raw.githubusercontent.com/EvaMaeRey/ggplot2_grammar_guide/master/exercises/fisheries_peru_chile.csv")
 ```
 
+---
+class: center, inverse, middle
 
-### Create a scatter plot
+# Task 1: Highlighting and storytelling
 
-- Create a scatter plot (geom_point) of capture v. aquaculture across all countries
-- use color to represent the variable peru_or_chile
-- Use the log10 scales for the x and y (scale_y_... )
-
-- add a `geom_label()` layer and let the data for this layer be only `fisheries_peru_chile`.  You will need to add an `aes(label = ?)` statement to your ggplot.
-
-- adjust labels for your *plot* as needed (title, subtitle, caption, x, y, color)
 
 ---
 
-`r chunk_reveal("var1", display_type = "both")`
+In addition to answering the questions above, using the `fisheries` and `fisheries_peru_chile` data frames, and create the following plot.   
 
-```{r var1, include = F}
-# so scientific notation doesn't turn on too quick
+
+```{r var1, echo = F, eval = T}
+# so scientific notation doesnt turn on too quick
 options(scipen = 10) 
 ggplot(data = fisheries) +
   aes(x = capture) +
@@ -239,7 +143,7 @@ ggplot(data = fisheries) +
   theme_minimal() +
   theme(legend.position = "none") + 
   annotate(geom = "text",
-           x = 300, 
+           x = 200, 
            y = 3000000,
            label = "Chile and Peru's fish production\nis some of the highest\nin the world",
            color = "steelblue",
@@ -248,10 +152,9 @@ ggplot(data = fisheries) +
            )
 ```
 
----
 
 
-# Now you and your group
+What follows are some hints about how to get it done --- what you might see as yo u build up your plot with the fisheries data. 
 
 ---
 
@@ -286,6 +189,10 @@ ggplot(data = fisheries) +
 ---
 
 # An ugly plot for reference
+
+--
+
+You also might have a look at the code that follows for reference for your peru-chile assignment.
 
 ---
 
@@ -327,32 +234,78 @@ ggplot(gm_2002) +
 ```
 
 ---
+class: inverse, middle, center
 
+# Task 2: Emulate
 
+---
+
+## Look at the New York Times figure.  
 
 ![](new_york_times_emulate.png)
+
+--
+
+### Part of the plot is *data* based, but part is annotation.  
+
+---
+
+### Task 2, assignment details.
+
+In the next slides, I show you how to create some toy data, tracking price over some days, and created the *data* based part of this graph.  Use this as your code as the basis for your work. 
+
+Add layers (geom or annotation) so that you have a similar plot to the New York times plot. In other words, add a point at the end of the data series.  Add a segment that connects that point to 3X the value of the variable `price` and is +30 time units from the last observed `time_period` unit. Add a point at the end of the segment.  Add text that comments on these points.  
+
+Hint: You'll probably want to use "segment" in an annotation layer.  To see the required aesthetics, search geom_segment in the help panel.  
+
+*Bonus*: Create the gray background that indicates the portion of the plot in the future - the portion with the desirable trajectory. 
+
+*Not* required: Adjusting x and y axis labels and breaks and break labels.  
+
 
 ---
 
 `r chunk_reveal("toy_data")`
 
 ```{r toy_data, include = F}
+set.seed(14392) # everyone's randomly created data is same 
 runif(30) %>% 
   cumsum() %>% 
   sqrt() %>% 
-  tibble(outcome = .) %>% 
+  tibble(price = .) %>% 
   mutate(time_period = row_number()) ->
 growth_data
 
 ggplot(data = growth_data) +
   aes(x = time_period) +
-  aes(y = outcome) +
+  aes(y = price) +
   geom_line() +
-  coord_cartesian(xlim = c(0, 60),
+  coord_cartesian(xlim = c(0, 80),
                   ylim = c(0, 14))
 ```
 
 
+
+---
+class: inverse, middle, center
+
+# Task 3:  Reflect
+
+
+---
+
+
+### 3a. Also in your .Rmd, describe how the two approaches differ to creating visualizations of NHL goals over time in the walk-through on slide "20/21".
+
+https://evamaerey.github.io/ggplot2_grammar_guide/geoms.html#130
+
+
+
+### 3b. Describe some of the different annotation strategies: 
+
+https://evamaerey.github.io/ggplot2_grammar_guide/labeling_time_series#1
+
+Note:  I wouldn't recommend using gghighlight at this point.  I think the package maybe isn't as mature as it needs to be.
 
 
 ```{css, eval = TRUE, echo = FALSE}

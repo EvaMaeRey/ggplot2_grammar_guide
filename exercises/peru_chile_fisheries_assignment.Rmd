@@ -1,0 +1,183 @@
+---
+title: "Fisheries"
+author: "April 2020"
+output: html_document
+---
+
+
+```{r setup, include = F}
+library(tidyverse)
+```
+
+---
+
+
+# Overview
+
+In the following lab, you will:
+
+1. *answer some questions* about resource conflict between geographic neighbors.
+2. *create an annotated plot* with some world wide fish market data
+3. create an annotated plot with some "toy" data 
+4. Reflect on some annotation and geom questions
+
+Create an .Rmd file to work in and copy this text there.  Submit an html in Canvas. 
+
+
+---
+
+In 1879–1883, Chile and Peru fought a war over resources.  What is the name of that war and what resource(s) were involved?  What other counrtry was involved? Not sure? You can search the web for this answer. 
+
+> your answer
+
+More recently a case was brought to the ICJ again over resources. *In a few sentences summarize the dispute.* Reference: https://www.icj-cij.org/en/case/137
+
+> your answer
+
+
+---
+
+Now, check out the maps in the judgement:  https://www.icj-cij.org/files/case-related/137/137-20140127-JUD-01-00-EN.pdf
+In these maps, the water is colored blue. *Now, what color is the land?*  
+
+> your answer
+
+*How are the maps used to illuminate the dispute and ICJ's resolution of the dispute?  Which pages of the document contain these two maps?*
+
+> your answer
+
+*Beyond fishing, name a one commodity for Chile's and one of Peru's of great importance for each state's economy.* You may search the web!
+
+---
+
+### The data
+
+Fisheries and Aquaculture Department of the Food and Agriculture Organization of the United Nations collects data on fisheries production of countries. [This Wikipedia page](https://en.wikipedia.org/wiki/Fishing_industry_by_country) 
+lists fishery production of countries for 2005. For each country tonnage from 
+capture and aquaculture are listed. Note that countries which harvested less 
+than 100,000 tons are not included in the data. 
+
+---
+
+Data cleaning steps are here: https://evamaerey.github.io/data_manipulation/data_cleaning/data_cleaning#16
+
+What are two or three of the steps in the data cleaning pipeline?
+
+> your answer
+
+
+---
+
+Use the prepped data in the assignment.  fisheries and fisheries_peru_chile will appear in your global envirnoment upon executing the code.  Inspect these two objects.  
+
+
+```{r, message = F}
+fisheries <- readr::read_csv("https://raw.githubusercontent.com/EvaMaeRey/ggplot2_grammar_guide/master/exercises/fisheries.csv")
+fisheries_peru_chile <- readr::read_csv("https://raw.githubusercontent.com/EvaMaeRey/ggplot2_grammar_guide/master/exercises/fisheries_peru_chile.csv")
+```
+
+---
+
+
+# Task 1: Highlighting and storytelling
+
+
+---
+
+In addition to answering the questions above, using the `fisheries` and `fisheries_peru_chile` data frames, and create the fisheries plot where chile and peru are highlighted.  Use can use the named colors "grey" and "steelblue" if you like or choose your own.
+
+Your plot build should looks something like the one in the plot building walk-through [here](https://evamaerey.github.io/ggplot2_grammar_guide/exercises/peru_chile_fisheries#1).  You'll only see the output of the code build, not the code itself, but the in-between outputs should give you some hints on how to go about the build. Also, check your work as you go. 
+
+Getting stuck?  Get in touch with your colleagues, and also consult the Ugly plot build in the 
+
+
+```{r}
+# your plot aquaculture v capture plot w chile and peru call outs here
+```
+
+
+
+---
+
+
+# Task 2: Emulate
+
+---
+
+### Look at the New York Times figure in Task 2 within the flipbook [here](https://evamaerey.github.io/ggplot2_grammar_guide/exercises/peru_chile_fisheries#1)
+
+
+--
+
+### Part of the plot is *data* based, but part is annotation.  
+
+---
+
+### Task 2, assignment details.
+
+Below, I show you how to create some toy data, tracking price over some time unit -- # of days, and created the *data* based part of this graph.  Use this as your code as the basis for your work. 
+
+Add layers (geom or annotation) so that you have a similar plot to the New York times plot. In other words
+
+- add a point at the end of the data series.  
+- add a segment that connects that point to 3X the value of the variable `price` and is +30 time units from the last observed `time_period` unit
+- add a point at the end of the segment.  
+- add text that comments on these points.  
+
+Hint: You'll probably want to use "segment" in an annotation layer.  To see the required aesthetics, search geom_segment in the help panel.  
+
+*Bonus*: Create the gray background that indicates the portion of the plot in the future - the portion with the desirable trajectory. 
+
+*Not required*: Adjusting x and y axis labels and breaks and break labels.  
+
+
+---
+
+
+```{r toy_data}
+set.seed(14392) # everyone's randomly created data is same 
+runif(30) %>% 
+  cumsum() %>% 
+  sqrt() %>% 
+  tibble(price = .) %>% 
+  mutate(time_period = row_number()) ->
+growth_data
+
+ggplot(data = growth_data) +
+  aes(x = time_period) +
+  aes(y = price) +
+  geom_line() +
+  coord_cartesian(xlim = c(0, 80),
+                  ylim = c(0, 14))
+```
+
+
+
+---
+
+
+# Task 3:  Reflect
+
+
+---
+
+
+### 3a. Also in your .Rmd, describe how the two approaches differ to creating visualizations of NHL goals over time in the walk-through on slide "20/21".
+
+https://evamaerey.github.io/ggplot2_grammar_guide/geoms.html#130
+
+> Your reflection
+
+### 3b. Describe some of the different annotation strategies: 
+
+https://evamaerey.github.io/ggplot2_grammar_guide/labeling_time_series#1
+
+Note:  I wouldn't recommend using gghighlight at this point.  I think the package maybe isn't as mature as it needs to be.
+
+> Your reflection
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 60%}
+```
+

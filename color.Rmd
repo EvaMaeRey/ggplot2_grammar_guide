@@ -21,8 +21,11 @@ background-image: url(https://images.unsplash.com/photo-1500964757637-c85e8a1626
 background-size: cover
 
 # .right.Large[Color]
-### Context for understanding a resource conflict
+### Theory and Practice
 
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -332,6 +335,27 @@ ggplot() +
       rgb(red = 0, green = 1, blue = .8, alpha = .8) #ROTATE
       rgb(red = 0, green = 1, blue = .9, alpha = .8) #ROTATE
       rgb(red = 0, green = 1, blue =  1, alpha = .8) #ROTATE
+      rgb(red = 0, green = .9, blue = 1, alpha = 1) #ROTATE
+      rgb(red = 0, green = .8, blue = 1, alpha = 1) #ROTATE
+      rgb(red = 0, green = .7, blue = 1, alpha = 1) #ROTATE
+      rgb(red = 0, green = .6, blue = 1, alpha = 1) #ROTATE
+      rgb(red = 0, green = .5, blue = 1, alpha = 1) #ROTATE
+      rgb(red = 0, green = .4, blue = 1, alpha = 1) #ROTATE
+      rgb(red = 0, green = .3, blue = 1, alpha = 1) #ROTATE
+      rgb(red = 0, green = .2, blue = 1, alpha = 1) #ROTATE
+      rgb(red = 0, green = .1, blue = 1, alpha = 1) #ROTATE
+      rgb(red = 0, green =  0, blue = 1, alpha = 1) #ROTATE
+      rgb(red = .1, green = 0, blue = 1, alpha = 1) #ROTATE
+      rgb(red = .2, green = 0, blue = 1, alpha = 1) #ROTATE
+      rgb(red = .3, green = 0, blue = 1, alpha = 1) #ROTATE
+      rgb(red = .4, green = 0, blue = 1, alpha = 1) #ROTATE
+      rgb(red = .5, green = 0, blue = 1, alpha = 1) #ROTATE
+      rgb(red = .6, green = 0, blue = 1, alpha = 1) #ROTATE
+      rgb(red = .7, green = 0, blue = 1, alpha = 1) #ROTATE
+      rgb(red = .8, green = 0, blue = 1, alpha = 1) #ROTATE
+      rgb(red = .9, green = 0, blue = 1, alpha = 1) #ROTATE
+      rgb(red =  1, green = 0, blue = 1, alpha = 1) #ROTATE
+      
               )
 ```
 
@@ -442,6 +466,26 @@ rgb(red = 0, green = 1, blue = .7, alpha = 1) #ROTATE
 rgb(red = 0, green = 1, blue = .8, alpha = 1) #ROTATE
 rgb(red = 0, green = 1, blue = .9, alpha = 1) #ROTATE
 rgb(red = 0, green = 1, blue =  1, alpha = 1) #ROTATE
+rgb(red = 0, green = .9, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .8, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .7, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .6, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .5, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .4, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .3, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .2, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green = .1, blue = 1, alpha = 1) #ROTATE
+rgb(red = 0, green =  0, blue = 1, alpha = 1) #ROTATE
+rgb(red = .1, green = 0, blue = 1, alpha = 1) #ROTATE
+rgb(red = .2, green = 0, blue = 1, alpha = 1) #ROTATE
+rgb(red = .3, green = 0, blue = 1, alpha = 1) #ROTATE
+rgb(red = .4, green = 0, blue = 1, alpha = 1) #ROTATE
+rgb(red = .5, green = 0, blue = 1, alpha = 1) #ROTATE
+rgb(red = .6, green = 0, blue = 1, alpha = 1) #ROTATE
+rgb(red = .7, green = 0, blue = 1, alpha = 1) #ROTATE
+rgb(red = .8, green = 0, blue = 1, alpha = 1) #ROTATE
+rgb(red = .9, green = 0, blue = 1, alpha = 1) #ROTATE
+rgb(red =  1, green = 0, blue = 1, alpha = 1) #ROTATE
 ```
 
 
