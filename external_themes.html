@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>external themes</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Gina Reynolds, April 2020" />
+    <link href="libs/remark-css-0.0.1/kunoichi.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# external themes
+## a flipbook | made with Xaringan
+### <br><br>Gina Reynolds, April 2020
+### <br>
+
+---
+
+
+
+
+
+---
+
+# Base Plot
+
+We'll work with the plot below to apply all the theme adjustments.  In the next slide, we'll build this plot and save it as the plot object `g`. 
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*library(tidyverse)
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+*library(gapminder)
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+*gapminder
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+* filter(year == 1992)
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1992    41.7  16317921      649.
+   2 Albania     Europe     1992    71.6   3326498     2497.
+   3 Algeria     Africa     1992    67.7  26298373     5023.
+   4 Angola      Africa     1992    40.6   8735988     2628.
+   5 Argentina   Americas   1992    71.9  33958947     9308.
+   6 Australia   Oceania    1992    77.6  17481977    23425.
+   7 Austria     Europe     1992    76.0   7914969    27042.
+   8 Bahrain     Asia       1992    72.6    529491    19036.
+   9 Bangladesh  Asia       1992    56.0 113704579      838.
+  10 Belgium     Europe     1992    76.5  10045622    25576.
+  # … with 132 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+* aes(x = gdpPercap, y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+* geom_point(alpha = .8, shape = 21,
+*            fill = "white")
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+* aes(col = continent, fill = continent)
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+* geom_point(alpha = .3, shape = 21)
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+* aes(size = pop)
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+* scale_size(guide = F)
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+* labs(title = "Wealth and expected longevity\n in 1992")
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_12_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+* labs(subtitle = "Data from gapminder package in R")
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_13_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+* labs(x = "GDP per Capita")
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_14_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+* labs(y = "Life Expectency")
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_15_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+* labs(tag = "Plot 1")
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_16_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+* labs(col = "Continent", fill = "Continent")
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_17_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+* labs(caption = "Vis: @EvaMaeRey with ggplot")
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/the_plot_auto_18_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") -&gt;  
+*g 
+```
+]]
+.column[.content[
+
+]]
+
+
+
+
+
+---
+
+Now let's look at available themes from a couple external packages, {ggthemes} and {ggdark}. 
+
+You will need to install these packages first in order to use them.  
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+  ggthemes::theme_base()   
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_calc()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_economist()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_economist_white()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_excel()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_excel_new()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_few()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_fivethirtyeight()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_gdocs()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_hc()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_igray()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_map()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_12_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_solarized()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_13_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_solarized_2()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_14_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_solid()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_15_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_stata()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_16_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_tufte()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_17_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggthemes::theme_wsj()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_18_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggdark::dark_theme_bw()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_19_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggdark::dark_theme_classic()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_20_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggdark::dark_theme_dark()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_21_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggdark::dark_theme_gray()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_22_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggdark::dark_theme_light()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_23_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggdark::dark_theme_linedraw()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_24_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggdark::dark_theme_minimal()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_25_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") +  
+* ggdark::dark_theme_test()
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemes_rotate_26_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+---
+
+A different approach is that of {ggthemr}.  The idea is to set the theme and forget it.   It is not added to the ggplot, but set before plotting begins. 
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggthemr::ggthemr('copper')  
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('dust')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('chalk')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('flat')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('flat dark')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('camoflauge')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('copper')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('earth')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('fresh')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('grape')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('grass')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('greyscale')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_12_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('light')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_13_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('lilac')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_14_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('pale')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_15_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('sea')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_16_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('sky')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_17_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr('solarized')
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_18_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggthemr::ggthemr_reset()
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  
+  labs(tag = "Plot 1") +  
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot")  
+```
+]]
+.column[.content[
+&lt;img src="external_themes_files/figure-html/ggthemr_rotate_19_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 70%}
+
+.column-left {
+  float: left;
+  width: 33.333%;
+}
+
+.column-right {
+  float: right;
+  width: 33.333%;
+}
+
+.column-center {
+  display: inline-block;
+  width: 33.333%;
+}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  /* Replace <script> tags in slides area to make them executable
+   *
+   * Runs after post-processing of markdown source into slides and replaces only
+   * <script>s on the last slide of continued slides using the .has-continuation
+   * class added by xaringan. Finally, any <script>s in the slides area that
+   * aren't executed are commented out.
+   */
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+  var scriptsNotExecuted = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container.has-continuation script'
+  );
+  if (!scriptsNotExecuted.length) return;
+  for (var i = 0; i < scriptsNotExecuted.length; i++) {
+    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
+    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

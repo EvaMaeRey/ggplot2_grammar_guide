@@ -1,0 +1,345 @@
+---
+title: "The art of flipbooking"
+subtitle: "With flipbookr and xaringan"
+author: "Gina Reynolds, December 2019"
+output: html_document
+---
+
+
+
+```{r setup, include = F}
+# This is the recommended set up for flipbooks
+# you might think about setting cache to TRUE as you gain practice --- building flipbooks from scracth can be time consuming
+knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, comment = "", cache = FALSE, fig.retina = 3)
+library(flipbookr)
+library(tidyverse)
+```
+
+
+```{r}
+cars %>% 
+  ggplot() +
+  aes(x = speed) +
+  aes(y = dist) +
+  geom_point(alpha = .6,
+             color = "navy",
+             size = 5) +
+  annotate(geom = "text",
+           x = 3,
+           y = 110, 
+           label = "Data from Ezekiel's classic\n'Methods of Correlation Analysis.'", 
+           color = "navy",
+           family = "Times", 
+           hjust = 0,
+           lineheight = .8) +
+  labs(y = "Stopping distance (ft)") +
+  labs(x = "Speed (mph)") +
+  ggthemes::theme_solarized(base_family = "Times")
+```
+
+
+```{r}
+iris %>% 
+  ggplot() +
+  aes(x = Sepal.Length) +
+  aes(y = Sepal.Width) +
+  geom_point(shape = 21,
+             color = "white") +
+  aes(fill = Species) +
+  facet_wrap(~Species) +
+  labs(color = NULL) +
+  labs(x = "Sepal length") +
+  labs(y = "Sepal width") +
+  labs(title = "Sepal Width v. Sepal Length for \ndifferent Secies of Irises") +
+  labs(tag = "Plot 1") +
+  theme_minimal() +
+  ggeasy::easy_remove_legend()
+```
+
+
+
+
+```{r}
+gapminder::gapminder %>% 
+  filter(continent == "Oceania") %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = lifeExp) +
+  geom_line() +
+  aes(linetype = country) +
+  labs(y = "Life Expectancy") +
+  labs(linetype = NULL) +
+  labs(x = NULL) +
+  ggthemes::theme_fivethirtyeight()
+```
+
+
+---
+
+
+```{r}
+gapminder::gapminder %>% 
+  filter(year == 2002) %>% 
+  ggplot() +
+  aes(x = lifeExp) +
+  geom_histogram(alpha = .7) +
+  geom_rug() +
+  aes(fill = continent) +
+  aes(color = continent) +
+  scale_color_viridis_d() +
+  scale_fill_viridis_d() +
+  facet_wrap(~continent) +
+  ggthemes::theme_tufte() +
+  ggeasy::easy_remove_legend() +
+  labs(x = "Life Expectancy") +
+  labs(title = "Distribution of life expectancies by continent")
+```
+
+
+
+```{r}
+gapminder::gapminder %>% 
+  filter(year == 2002) %>% 
+  ggplot() +
+  aes(x = lifeExp) +
+  aes(y = continent) +
+  geom_boxplot(alpha = .7) +
+  geom_jitter(height = .2) +
+  aes(fill = continent) +
+  aes(color = continent) +
+  labs(title = "Distribution of life expectancies by continent") +  
+  ggthemes::theme_pander() +
+  ggeasy::easy_remove_legend()
+```
+
+
+
+---
+
+
+```{r}
+ggthemr::ggthemr('dust') 
+gapminder::gapminder %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = lifeExp) +
+  geom_line(color = "grey") +
+  aes(group = country) +
+  facet_wrap(~continent) +
+  scale_x_continuous(breaks = c(1960, 1980, 2000)) +
+  scale_y_continuous(breaks = c(35, 70)) +
+  labs(x = NULL) +
+  labs(y = "Life Expectancy") +
+  geom_smooth(aes(group = NULL)) 
+```
+
+
+
+---
+
+```{r}
+ggthemr::ggthemr('dust') 
+gapminder::gapminder %>% 
+  
+  ggplot() +
+  aes(x = year) +
+  aes(y = lifeExp) +
+  geom_line(color = "grey") +
+  aes(group = country) +
+  scale_x_continuous(breaks = c(1960, 1980, 2000)) +
+  scale_y_continuous(breaks = c(35, 70)) +
+  labs(x = NULL) +
+  labs(y = "Life Expectancy") +
+  geom_smooth(aes(group = NULL)) 
+```
+
+
+
+---
+
+
+
+
+```{r}
+gapminder::gapminder %>% 
+  filter(year == 2002) %>% 
+  arrange(-gdpPercap) %>% 
+  slice(1:10) %>% 
+  ggplot() +
+  aes(y = country) +
+  aes(x = gdpPercap) +
+  geom_col(alpha = .8) + 
+  aes(y = reorder(country, gdpPercap)) +
+  aes(fill = country == "United States") +
+  scale_fill_manual(values = c("darkgrey", "steelblue")) +
+  labs(x = "GDP per Capita ($US)") +
+  labs(y = NULL) +
+  labs(title = "Top 10 Countries in GDP per Capita in 2002") +
+  ggthemes::theme_few() +
+  ggeasy::easy_remove_legend() +
+  annotate(geom = "text",
+           x = 40000, 
+           y = 5,
+           label = "The US has one of\nthe highest per capita\nGDPs in the world",
+           color = "steelblue") +
+  annotate(geom = "curve",
+           x = 40000,
+           y = 6.5,
+           xend = 40000,
+           yend = 9, 
+           curvature = .25)
+```
+
+
+
+```{r}
+gapminder::gapminder %>% 
+  filter(year == 2002) %>% 
+  mutate(gdp = gdpPercap * pop) %>% 
+  arrange(-gdp) %>% 
+  slice(1:12) %>% 
+  ggplot() +
+  aes(ymax = gdpPercap) +
+  aes(xmax = pop) +
+  facet_wrap(~(country)) + 
+  aes(xmin = 0) +
+  aes(ymin = 0) +
+  geom_rect() +
+  aes(fill = country == "United States") +
+  scale_fill_manual(values = c("darkgrey", "steelblue")) +
+  labs(x = "GDP ($US)") +
+  labs(y = NULL) +
+  labs(title = "Top 10 Countries in GDP in 2002") +
+  ggeasy::easy_remove_legend() 
+```
+
+
+
+
+```{r}
+gapminder::gapminder %>% 
+  filter(continent == "Asia") %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = forcats::fct_rev(country)) +
+  geom_tile(color = "oldlace") +
+  aes(fill = lifeExp) +
+  labs(fill = "Life\nExpectancy") + 
+  labs(x = NULL) + 
+  labs(y = NULL) +
+  theme(axis.line.y = element_blank()) +
+  theme(axis.ticks.y = element_blank())
+```
+
+
+
+
+
+
+```{r}
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') ->
+game_goals
+library(paletteer)
+```
+
+
+```{r}
+game_goals %>% 
+  group_by(season) %>% 
+  count() %>% 
+  rename(number_of_goals = n) %>% 
+  ggplot() +
+  aes(x = season) +
+  aes(y = number_of_goals) +
+  geom_col() +
+  aes(fill = season) +
+  scale_fill_paletteer_c("gameofthrones::jon_snow") + 
+  geom_point() + 
+  geom_line() +
+  geom_area(alpha = .2,
+            fill = "magenta") +
+  geom_segment(aes(xend = season,
+                   yend = number_of_goals)) +
+  ggthemes::theme_foundation() +
+  ggeasy::easy_remove_legend()
+```
+
+
+```{r}
+game_goals %>% 
+  filter(team == "MIN") %>% 
+  group_by(season, team) %>% 
+  count() %>% 
+  rename(number_of_goals = n) %>% 
+  ggplot() +
+  aes(x = season) +
+  aes(y = number_of_goals) +
+  geom_col() +
+  aes(fill = team) +
+  scale_fill_paletteer_d("awtools::a_palette") + 
+  geom_point() + 
+  geom_line() +
+  geom_area(alpha = .2,
+            fill = "magenta") +
+  geom_segment(aes(xend = season,
+                   yend = number_of_goals)) +
+  ggthemes::theme_foundation() +
+  ggeasy::easy_remove_legend()
+```
+
+
+
+
+```{r}
+game_goals %>% 
+  group_by(season) %>% 
+  mutate(num_goals = n()) %>% 
+  ggplot() +
+  # facet_wrap(~team) +
+  aes(x = season) +
+  geom_density(fill = "dodgerblue",
+               alpha = .5)
+  
+```
+
+
+
+
+
+```{r}
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-17/office_ratings.csv') ->
+  office_ratings
+```
+
+
+```{r}
+office_ratings %>% 
+  ggplot() +
+  aes(y = as_factor(season)) +
+  aes(y = fct_rev(as_factor(season))) +
+  aes(x = imdb_rating) +
+  geom_boxplot() +
+  geom_jitter(height = .1)
+```
+
+
+```{r}
+office_ratings %>% 
+  ggplot() +
+  aes(x = air_date) +
+  aes(y = imdb_rating) +
+  geom_point() + 
+  aes(color = episode) +
+  scale_color_viridis_c() +
+  geom_smooth() + 
+  annotate(geom = "text",
+           x = as.Date("2007-01-01"),
+           y = 7,
+           label = "'The Office' has\nseen highs and lows\n in ratings")
+```
+
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 80%}
+```

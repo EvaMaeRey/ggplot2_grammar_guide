@@ -489,20 +489,30 @@ summary {
 </table>
 <hr />
 <!-- - *Modifiers IV* | guides() + | [to be added?] -->
-<div id="a-closer-look-topics-geoms-themes" class="section level3">
-<h3>A closer look topics: geoms, themes</h3>
+<div id="a-closer-look-topics-geoms-themes-stats-annotation-scales" class="section level3">
+<h3>A closer look topics: geoms, themes, stats, annotation, scales</h3>
 <p>Above, the geom and theme topics are intentionally cursory. There are tons of geoms, and they can get distracting. Also themes doesn’t directly relate to the data, though it is important. Theme design almost has its own grammar, it can also be put off until fundamentals are taken on.</p>
 <ol style="list-style-type: decimal">
-<li><a href="geoms.html" target="_blank">A closer look at geoms</a>
+<li><a href="scales.html" target="_blank">A closer look at <strong>scales</strong></a></li>
+<li><a href="geoms.html" target="_blank">A closer look at <strong>geoms</strong></a>
 <ul>
 <li><a href="geoms.html#cc" target="_blank">continuous - continuous</a></li>
+<li><a href="geoms.html#cc" target="_blank">time series</a></li>
 <li><a href="geoms.html#c" target="_blank">1 continuous</a></li>
 <li><a href="geoms.html#d" target="_blank">1 discrete</a></li>
 <li><a href="geoms.html#cd" target="_blank">continuous - discrete</a></li>
 <li><a href="geoms.html#dd" target="_blank">discrete - discrete</a></li>
 </ul></li>
-<li>[stats? (to be added)]</li>
-<li><a href="taming_ggplot_themes.html" target="_blank">A closer look at themes</a>
+<li><a href="stats.html" target="_blank"><strong>stats</strong></a></li>
+<li><a href="annotation.html" target="_blank">A closer look at <strong>annotation</strong></a>
+<ul>
+<li><a href target="_blank">Annotating Points</a></li>
+<li><a href target="_blank">Annotation Lines and Windows</a></li>
+<li><a href="labeling_time_series.html" target="_blank">Annotating time series</a></li>
+</ul></li>
+<li><a href="taming_ggplot_themes.html" target="_blank">A closer look at <strong>themes</strong></a>
+<ul>
+<li><a href="https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html" target="_blank">The theme() function</a>
 <ul>
 <li><a href="taming_ggplot_themes.html#textelements" target="_blank">Text Elements</a></li>
 <li><a href="taming_ggplot_themes.html#rectangularelements" target="_blank">Rectangular Elements</a></li>
@@ -511,33 +521,32 @@ summary {
 <li><a href="taming_ggplot_themes.html#sundry" target="_blank">Sundry</a></li>
 <li><a href="taming_ggplot_themes.html#facet" target="_blank">Facets</a></li>
 </ul></li>
-<li><a href>A closer look at annotation</a>
-<ul>
-<li><a href="labeling_time_series.html" target="_blank">Annotating time series</a></li>
+<li><a href="themes_ggeasy.html" target="_blank">ggeasy package - quick fixes to common theme modifications</a></li>
+<li><a href="external_themes.html" target="_blank">External Themes</a></li>
 </ul></li>
-<li><a href="scales.html" target="_blank">A closer look at scales</a></li>
 </ol>
-<hr />
-</div>
-<div id="navigating-the-grammar-guide" class="section level1">
-<h1>Navigating the grammar guide</h1>
-<p><a href="navigate.html" class="button">Suggested Navigation</a></p>
 <hr />
 </div>
 <div id="more-data-vis-topics" class="section level1">
 <h1>More data vis topics</h1>
+<ol style="list-style-type: decimal">
+<li>Color
 <ul>
 <li><a href="color.html" target="_blank">color theory</a></li>
+<li><a href="named_colors.html" target="_blank">named colors in R</a></li>
 <li><a href="paletteer.html" target="_blank">paletteer</a></li>
+</ul></li>
 <li>spatial</li>
 <li>base R</li>
-</ul>
+</ol>
 </div>
 <div id="ggplot-extensions" class="section level1">
 <h1>ggplot extensions</h1>
 <ul>
-<li>ggpattern</li>
 <li>ggforce</li>
+<li>ggpattern</li>
+<li>ggridges</li>
+<li>ggtext</li>
 </ul>
 <style type="text/css">
 .button {
@@ -555,6 +564,12 @@ summary {
 <div id="other-guides-to-ggplot2" class="section level1">
 <h1>Other guides to ggplot2</h1>
 <p>ggplot2 is very flexible, so there often there are more than one way of getting things done — which also means there is more than one way to introduce ggplot2. If you aren’t on board with this guide (and even if you are) you may want check out other resouces. The more definitive and comprehensive guide to ggplot2 is, the 3rd edition of <a href="ggplot2-book.org" target="_blank"><em>ggplot2: elegant graphics for data analysis</em></a>. Some other workshop materials are Garrick Aden-Buie’s <a href="https://pkg.garrickadenbuie.com/gentle-ggplot2/#1" target="_blank"><em>A Gentle Guide to the Grammar of Graphics with ggplot2</em></a>, Will Chase’s <a href="https://www.williamrchase.com/slides/ggplot_intro.html#1" target="_blank"><em>R you ready to make charts?</em></a>, Malcom Barrett’s <a href="https://designing-ggplots.netlify.com/#1" target="_blank"><em>Designing ggplots making clear figures that communicate</em></a>, and Thomas Lin Pederson’s <a href="https://github.com/thomasp85/ggplot2_workshop/blob/master/presentation.pdf" target="_blank"><em>Drawing anything with ggplot2</em></a>. <a href="https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf" target="_blank">The ggplot2 cheatsheet</a> is also excellent.</p>
+<hr />
+</div>
+<div id="navigating-the-grammar-guide" class="section level1">
+<h1>Navigating the grammar guide</h1>
+<p><a href="navigate.html" class="button">Suggested Navigation</a></p>
+<hr />
 </div>
 <div id="flipbook-on-other-topics" class="section level1">
 <h1>Flipbook on other topics</h1>

@@ -84,9 +84,6 @@ mtcars %>%
   stat_summary(fun.data = "mean_cl_boot", 
                colour = "red", 
                size = 1) +
-  stat_summary(fun.data = "mean_cl_boot", 
-               colour = "red", 
-               size = 1) +
   stat_summary(fun.y = "mean",
                geom = "col",
                alpha = .3,
@@ -105,7 +102,7 @@ mtcars %>%
 
 ---
 
-# Use coord_cartesian to specify ylim - so you don't throw away data.
+# Use coord_cartesian to specify ylim - so you don't ignor data.
 
 ```{r, eval = F, echo = F}
 ggplot(mtcars) +

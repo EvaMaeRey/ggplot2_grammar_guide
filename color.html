@@ -19,8 +19,11 @@ background-image: url(https://images.unsplash.com/photo-1500964757637-c85e8a1626
 background-size: cover
 
 # .right.Large[Color]
-### Context for understanding a resource conflict
+### Theory and Practice
 
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
@@ -432,47 +435,596 @@ colors() %&gt;%
 
 ---
 
-class: split-40
-count: false
- 
 
- 
-.column[.content[
+&lt;img src="color_files/figure-html/named_plot-1.png" width="432" /&gt;
 
-```r
-tibble(rows = rep(1:26, 26),  
-       cols = sort(rep(1:26, 26))) -&gt;  
-dat  
+---
 
-dat$r_color &lt;- NA  
-dat$r_color[1:length(colors())] &lt;- colors()  
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
 
-dat %&gt;%  
-  ggplot() +  
-  aes(x = rows) +  
-  aes(y = cols) +  
-  geom_tile(color = "white") +  
-  aes(fill = r_color) +  
-  scale_fill_identity() +  
-  scale_y_reverse() +  
-  theme_void() +  
-  theme(plot.background =  
-          element_rect(fill = "oldlace"))  
-```
-]]
-.column[.content[
-&lt;img src="color_files/figure-html/named_plot_1_1_output-1.png" width="432" /&gt;
-]]
+#pqvledqwbd .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
 
+#pqvledqwbd .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
 
+#pqvledqwbd .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
 
+#pqvledqwbd .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
 
+#pqvledqwbd .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
 
+#pqvledqwbd .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
 
+#pqvledqwbd .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
 
+#pqvledqwbd .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
 
+#pqvledqwbd .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
 
+#pqvledqwbd .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
 
+#pqvledqwbd .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pqvledqwbd .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pqvledqwbd .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pqvledqwbd .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pqvledqwbd .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pqvledqwbd .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pqvledqwbd .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pqvledqwbd .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#pqvledqwbd .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pqvledqwbd .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#pqvledqwbd .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pqvledqwbd .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pqvledqwbd .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pqvledqwbd .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pqvledqwbd .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#pqvledqwbd .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pqvledqwbd .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#pqvledqwbd .gt_left {
+  text-align: left;
+}
+
+#pqvledqwbd .gt_center {
+  text-align: center;
+}
+
+#pqvledqwbd .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pqvledqwbd .gt_font_normal {
+  font-weight: normal;
+}
+
+#pqvledqwbd .gt_font_bold {
+  font-weight: bold;
+}
+
+#pqvledqwbd .gt_font_italic {
+  font-style: italic;
+}
+
+#pqvledqwbd .gt_super {
+  font-size: 65%;
+}
+
+#pqvledqwbd .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="pqvledqwbd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V4</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V6</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V7</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V8</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V9</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V10</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V11</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V12</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V13</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V14</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V15</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V16</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V17</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V18</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V19</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">V20</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #FFFFFF; color: #000000;">white</td>
+      <td class="gt_row gt_center" style="background-color: #F0F8FF; color: #000000;">aliceblue</td>
+      <td class="gt_row gt_center" style="background-color: #FAEBD7; color: #000000;">antiquewhite</td>
+      <td class="gt_row gt_center" style="background-color: #FFEFDB; color: #000000;">antiquewhite1</td>
+      <td class="gt_row gt_center" style="background-color: #EEDFCC; color: #000000;">antiquewhite2</td>
+      <td class="gt_row gt_center" style="background-color: #CDC0B0; color: #000000;">antiquewhite3</td>
+      <td class="gt_row gt_center" style="background-color: #8B8378; color: #000000;">antiquewhite4</td>
+      <td class="gt_row gt_center" style="background-color: #7FFFD4; color: #000000;">aquamarine</td>
+      <td class="gt_row gt_center" style="background-color: #7FFFD4; color: #000000;">aquamarine1</td>
+      <td class="gt_row gt_center" style="background-color: #76EEC6; color: #000000;">aquamarine2</td>
+      <td class="gt_row gt_center" style="background-color: #66CDAA; color: #000000;">aquamarine3</td>
+      <td class="gt_row gt_center" style="background-color: #458B74; color: #FFFFFF;">aquamarine4</td>
+      <td class="gt_row gt_center" style="background-color: #F0FFFF; color: #000000;">azure</td>
+      <td class="gt_row gt_center" style="background-color: #F0FFFF; color: #000000;">azure1</td>
+      <td class="gt_row gt_center" style="background-color: #E0EEEE; color: #000000;">azure2</td>
+      <td class="gt_row gt_center" style="background-color: #C1CDCD; color: #000000;">azure3</td>
+      <td class="gt_row gt_center" style="background-color: #838B8B; color: #000000;">azure4</td>
+      <td class="gt_row gt_center" style="background-color: #F5F5DC; color: #000000;">beige</td>
+      <td class="gt_row gt_center" style="background-color: #FFE4C4; color: #000000;">bisque</td>
+      <td class="gt_row gt_center" style="background-color: #FFE4C4; color: #000000;">bisque1</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #EED5B7; color: #000000;">bisque2</td>
+      <td class="gt_row gt_center" style="background-color: #CDB79E; color: #000000;">bisque3</td>
+      <td class="gt_row gt_center" style="background-color: #8B7D6B; color: #000000;">bisque4</td>
+      <td class="gt_row gt_center" style="background-color: #000000; color: #FFFFFF;">black</td>
+      <td class="gt_row gt_center" style="background-color: #FFEBCD; color: #000000;">blanchedalmond</td>
+      <td class="gt_row gt_center" style="background-color: #0000FF; color: #FFFFFF;">blue</td>
+      <td class="gt_row gt_center" style="background-color: #0000FF; color: #FFFFFF;">blue1</td>
+      <td class="gt_row gt_center" style="background-color: #0000EE; color: #FFFFFF;">blue2</td>
+      <td class="gt_row gt_center" style="background-color: #0000CD; color: #FFFFFF;">blue3</td>
+      <td class="gt_row gt_center" style="background-color: #00008B; color: #FFFFFF;">blue4</td>
+      <td class="gt_row gt_center" style="background-color: #8A2BE2; color: #FFFFFF;">blueviolet</td>
+      <td class="gt_row gt_center" style="background-color: #A52A2A; color: #FFFFFF;">brown</td>
+      <td class="gt_row gt_center" style="background-color: #FF4040; color: #FFFFFF;">brown1</td>
+      <td class="gt_row gt_center" style="background-color: #EE3B3B; color: #FFFFFF;">brown2</td>
+      <td class="gt_row gt_center" style="background-color: #CD3333; color: #FFFFFF;">brown3</td>
+      <td class="gt_row gt_center" style="background-color: #8B2323; color: #FFFFFF;">brown4</td>
+      <td class="gt_row gt_center" style="background-color: #DEB887; color: #000000;">burlywood</td>
+      <td class="gt_row gt_center" style="background-color: #FFD39B; color: #000000;">burlywood1</td>
+      <td class="gt_row gt_center" style="background-color: #EEC591; color: #000000;">burlywood2</td>
+      <td class="gt_row gt_center" style="background-color: #CDAA7D; color: #000000;">burlywood3</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #8B7355; color: #FFFFFF;">burlywood4</td>
+      <td class="gt_row gt_center" style="background-color: #5F9EA0; color: #000000;">cadetblue</td>
+      <td class="gt_row gt_center" style="background-color: #98F5FF; color: #000000;">cadetblue1</td>
+      <td class="gt_row gt_center" style="background-color: #8EE5EE; color: #000000;">cadetblue2</td>
+      <td class="gt_row gt_center" style="background-color: #7AC5CD; color: #000000;">cadetblue3</td>
+      <td class="gt_row gt_center" style="background-color: #53868B; color: #FFFFFF;">cadetblue4</td>
+      <td class="gt_row gt_center" style="background-color: #7FFF00; color: #000000;">chartreuse</td>
+      <td class="gt_row gt_center" style="background-color: #7FFF00; color: #000000;">chartreuse1</td>
+      <td class="gt_row gt_center" style="background-color: #76EE00; color: #000000;">chartreuse2</td>
+      <td class="gt_row gt_center" style="background-color: #66CD00; color: #000000;">chartreuse3</td>
+      <td class="gt_row gt_center" style="background-color: #458B00; color: #FFFFFF;">chartreuse4</td>
+      <td class="gt_row gt_center" style="background-color: #D2691E; color: #000000;">chocolate</td>
+      <td class="gt_row gt_center" style="background-color: #FF7F24; color: #000000;">chocolate1</td>
+      <td class="gt_row gt_center" style="background-color: #EE7621; color: #000000;">chocolate2</td>
+      <td class="gt_row gt_center" style="background-color: #CD661D; color: #FFFFFF;">chocolate3</td>
+      <td class="gt_row gt_center" style="background-color: #8B4513; color: #FFFFFF;">chocolate4</td>
+      <td class="gt_row gt_center" style="background-color: #FF7F50; color: #000000;">coral</td>
+      <td class="gt_row gt_center" style="background-color: #FF7256; color: #000000;">coral1</td>
+      <td class="gt_row gt_center" style="background-color: #EE6A50; color: #000000;">coral2</td>
+      <td class="gt_row gt_center" style="background-color: #CD5B45; color: #FFFFFF;">coral3</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #8B3E2F; color: #FFFFFF;">coral4</td>
+      <td class="gt_row gt_center" style="background-color: #6495ED; color: #000000;">cornflowerblue</td>
+      <td class="gt_row gt_center" style="background-color: #FFF8DC; color: #000000;">cornsilk</td>
+      <td class="gt_row gt_center" style="background-color: #FFF8DC; color: #000000;">cornsilk1</td>
+      <td class="gt_row gt_center" style="background-color: #EEE8CD; color: #000000;">cornsilk2</td>
+      <td class="gt_row gt_center" style="background-color: #CDC8B1; color: #000000;">cornsilk3</td>
+      <td class="gt_row gt_center" style="background-color: #8B8878; color: #000000;">cornsilk4</td>
+      <td class="gt_row gt_center" style="background-color: #00FFFF; color: #000000;">cyan</td>
+      <td class="gt_row gt_center" style="background-color: #00FFFF; color: #000000;">cyan1</td>
+      <td class="gt_row gt_center" style="background-color: #00EEEE; color: #000000;">cyan2</td>
+      <td class="gt_row gt_center" style="background-color: #00CDCD; color: #000000;">cyan3</td>
+      <td class="gt_row gt_center" style="background-color: #008B8B; color: #FFFFFF;">cyan4</td>
+      <td class="gt_row gt_center" style="background-color: #00008B; color: #FFFFFF;">darkblue</td>
+      <td class="gt_row gt_center" style="background-color: #008B8B; color: #FFFFFF;">darkcyan</td>
+      <td class="gt_row gt_center" style="background-color: #B8860B; color: #000000;">darkgoldenrod</td>
+      <td class="gt_row gt_center" style="background-color: #FFB90F; color: #000000;">darkgoldenrod1</td>
+      <td class="gt_row gt_center" style="background-color: #EEAD0E; color: #000000;">darkgoldenrod2</td>
+      <td class="gt_row gt_center" style="background-color: #CD950C; color: #000000;">darkgoldenrod3</td>
+      <td class="gt_row gt_center" style="background-color: #8B6508; color: #FFFFFF;">darkgoldenrod4</td>
+      <td class="gt_row gt_center" style="background-color: #A9A9A9; color: #000000;">darkgray</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #006400; color: #FFFFFF;">darkgreen</td>
+      <td class="gt_row gt_center" style="background-color: #A9A9A9; color: #000000;">darkgrey</td>
+      <td class="gt_row gt_center" style="background-color: #BDB76B; color: #000000;">darkkhaki</td>
+      <td class="gt_row gt_center" style="background-color: #8B008B; color: #FFFFFF;">darkmagenta</td>
+      <td class="gt_row gt_center" style="background-color: #556B2F; color: #FFFFFF;">darkolivegreen</td>
+      <td class="gt_row gt_center" style="background-color: #CAFF70; color: #000000;">darkolivegreen1</td>
+      <td class="gt_row gt_center" style="background-color: #BCEE68; color: #000000;">darkolivegreen2</td>
+      <td class="gt_row gt_center" style="background-color: #A2CD5A; color: #000000;">darkolivegreen3</td>
+      <td class="gt_row gt_center" style="background-color: #6E8B3D; color: #FFFFFF;">darkolivegreen4</td>
+      <td class="gt_row gt_center" style="background-color: #FF8C00; color: #000000;">darkorange</td>
+      <td class="gt_row gt_center" style="background-color: #FF7F00; color: #000000;">darkorange1</td>
+      <td class="gt_row gt_center" style="background-color: #EE7600; color: #000000;">darkorange2</td>
+      <td class="gt_row gt_center" style="background-color: #CD6600; color: #FFFFFF;">darkorange3</td>
+      <td class="gt_row gt_center" style="background-color: #8B4500; color: #FFFFFF;">darkorange4</td>
+      <td class="gt_row gt_center" style="background-color: #9932CC; color: #FFFFFF;">darkorchid</td>
+      <td class="gt_row gt_center" style="background-color: #BF3EFF; color: #000000;">darkorchid1</td>
+      <td class="gt_row gt_center" style="background-color: #B23AEE; color: #FFFFFF;">darkorchid2</td>
+      <td class="gt_row gt_center" style="background-color: #9A32CD; color: #FFFFFF;">darkorchid3</td>
+      <td class="gt_row gt_center" style="background-color: #68228B; color: #FFFFFF;">darkorchid4</td>
+      <td class="gt_row gt_center" style="background-color: #8B0000; color: #FFFFFF;">darkred</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #E9967A; color: #000000;">darksalmon</td>
+      <td class="gt_row gt_center" style="background-color: #8FBC8F; color: #000000;">darkseagreen</td>
+      <td class="gt_row gt_center" style="background-color: #C1FFC1; color: #000000;">darkseagreen1</td>
+      <td class="gt_row gt_center" style="background-color: #B4EEB4; color: #000000;">darkseagreen2</td>
+      <td class="gt_row gt_center" style="background-color: #9BCD9B; color: #000000;">darkseagreen3</td>
+      <td class="gt_row gt_center" style="background-color: #698B69; color: #000000;">darkseagreen4</td>
+      <td class="gt_row gt_center" style="background-color: #483D8B; color: #FFFFFF;">darkslateblue</td>
+      <td class="gt_row gt_center" style="background-color: #2F4F4F; color: #FFFFFF;">darkslategray</td>
+      <td class="gt_row gt_center" style="background-color: #97FFFF; color: #000000;">darkslategray1</td>
+      <td class="gt_row gt_center" style="background-color: #8DEEEE; color: #000000;">darkslategray2</td>
+      <td class="gt_row gt_center" style="background-color: #79CDCD; color: #000000;">darkslategray3</td>
+      <td class="gt_row gt_center" style="background-color: #528B8B; color: #FFFFFF;">darkslategray4</td>
+      <td class="gt_row gt_center" style="background-color: #2F4F4F; color: #FFFFFF;">darkslategrey</td>
+      <td class="gt_row gt_center" style="background-color: #00CED1; color: #000000;">darkturquoise</td>
+      <td class="gt_row gt_center" style="background-color: #9400D3; color: #FFFFFF;">darkviolet</td>
+      <td class="gt_row gt_center" style="background-color: #FF1493; color: #FFFFFF;">deeppink</td>
+      <td class="gt_row gt_center" style="background-color: #FF1493; color: #FFFFFF;">deeppink1</td>
+      <td class="gt_row gt_center" style="background-color: #EE1289; color: #FFFFFF;">deeppink2</td>
+      <td class="gt_row gt_center" style="background-color: #CD1076; color: #FFFFFF;">deeppink3</td>
+      <td class="gt_row gt_center" style="background-color: #8B0A50; color: #FFFFFF;">deeppink4</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #00BFFF; color: #000000;">deepskyblue</td>
+      <td class="gt_row gt_center" style="background-color: #00BFFF; color: #000000;">deepskyblue1</td>
+      <td class="gt_row gt_center" style="background-color: #00B2EE; color: #000000;">deepskyblue2</td>
+      <td class="gt_row gt_center" style="background-color: #009ACD; color: #FFFFFF;">deepskyblue3</td>
+      <td class="gt_row gt_center" style="background-color: #00688B; color: #FFFFFF;">deepskyblue4</td>
+      <td class="gt_row gt_center" style="background-color: #696969; color: #FFFFFF;">dimgray</td>
+      <td class="gt_row gt_center" style="background-color: #696969; color: #FFFFFF;">dimgrey</td>
+      <td class="gt_row gt_center" style="background-color: #1E90FF; color: #000000;">dodgerblue</td>
+      <td class="gt_row gt_center" style="background-color: #1E90FF; color: #000000;">dodgerblue1</td>
+      <td class="gt_row gt_center" style="background-color: #1C86EE; color: #FFFFFF;">dodgerblue2</td>
+      <td class="gt_row gt_center" style="background-color: #1874CD; color: #FFFFFF;">dodgerblue3</td>
+      <td class="gt_row gt_center" style="background-color: #104E8B; color: #FFFFFF;">dodgerblue4</td>
+      <td class="gt_row gt_center" style="background-color: #B22222; color: #FFFFFF;">firebrick</td>
+      <td class="gt_row gt_center" style="background-color: #FF3030; color: #FFFFFF;">firebrick1</td>
+      <td class="gt_row gt_center" style="background-color: #EE2C2C; color: #FFFFFF;">firebrick2</td>
+      <td class="gt_row gt_center" style="background-color: #CD2626; color: #FFFFFF;">firebrick3</td>
+      <td class="gt_row gt_center" style="background-color: #8B1A1A; color: #FFFFFF;">firebrick4</td>
+      <td class="gt_row gt_center" style="background-color: #FFFAF0; color: #000000;">floralwhite</td>
+      <td class="gt_row gt_center" style="background-color: #228B22; color: #FFFFFF;">forestgreen</td>
+      <td class="gt_row gt_center" style="background-color: #DCDCDC; color: #000000;">gainsboro</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F8F8FF; color: #000000;">ghostwhite</td>
+      <td class="gt_row gt_center" style="background-color: #FFD700; color: #000000;">gold</td>
+      <td class="gt_row gt_center" style="background-color: #FFD700; color: #000000;">gold1</td>
+      <td class="gt_row gt_center" style="background-color: #EEC900; color: #000000;">gold2</td>
+      <td class="gt_row gt_center" style="background-color: #CDAD00; color: #000000;">gold3</td>
+      <td class="gt_row gt_center" style="background-color: #8B7500; color: #FFFFFF;">gold4</td>
+      <td class="gt_row gt_center" style="background-color: #DAA520; color: #000000;">goldenrod</td>
+      <td class="gt_row gt_center" style="background-color: #FFC125; color: #000000;">goldenrod1</td>
+      <td class="gt_row gt_center" style="background-color: #EEB422; color: #000000;">goldenrod2</td>
+      <td class="gt_row gt_center" style="background-color: #CD9B1D; color: #000000;">goldenrod3</td>
+      <td class="gt_row gt_center" style="background-color: #8B6914; color: #FFFFFF;">goldenrod4</td>
+      <td class="gt_row gt_center" style="background-color: #BEBEBE; color: #000000;">gray</td>
+      <td class="gt_row gt_center" style="background-color: #000000; color: #FFFFFF;">gray0</td>
+      <td class="gt_row gt_center" style="background-color: #030303; color: #FFFFFF;">gray1</td>
+      <td class="gt_row gt_center" style="background-color: #050505; color: #FFFFFF;">gray2</td>
+      <td class="gt_row gt_center" style="background-color: #080808; color: #FFFFFF;">gray3</td>
+      <td class="gt_row gt_center" style="background-color: #0A0A0A; color: #FFFFFF;">gray4</td>
+      <td class="gt_row gt_center" style="background-color: #0D0D0D; color: #FFFFFF;">gray5</td>
+      <td class="gt_row gt_center" style="background-color: #0F0F0F; color: #FFFFFF;">gray6</td>
+      <td class="gt_row gt_center" style="background-color: #121212; color: #FFFFFF;">gray7</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #141414; color: #FFFFFF;">gray8</td>
+      <td class="gt_row gt_center" style="background-color: #171717; color: #FFFFFF;">gray9</td>
+      <td class="gt_row gt_center" style="background-color: #1A1A1A; color: #FFFFFF;">gray10</td>
+      <td class="gt_row gt_center" style="background-color: #1C1C1C; color: #FFFFFF;">gray11</td>
+      <td class="gt_row gt_center" style="background-color: #1F1F1F; color: #FFFFFF;">gray12</td>
+      <td class="gt_row gt_center" style="background-color: #212121; color: #FFFFFF;">gray13</td>
+      <td class="gt_row gt_center" style="background-color: #242424; color: #FFFFFF;">gray14</td>
+      <td class="gt_row gt_center" style="background-color: #262626; color: #FFFFFF;">gray15</td>
+      <td class="gt_row gt_center" style="background-color: #292929; color: #FFFFFF;">gray16</td>
+      <td class="gt_row gt_center" style="background-color: #2B2B2B; color: #FFFFFF;">gray17</td>
+      <td class="gt_row gt_center" style="background-color: #2E2E2E; color: #FFFFFF;">gray18</td>
+      <td class="gt_row gt_center" style="background-color: #303030; color: #FFFFFF;">gray19</td>
+      <td class="gt_row gt_center" style="background-color: #333333; color: #FFFFFF;">gray20</td>
+      <td class="gt_row gt_center" style="background-color: #363636; color: #FFFFFF;">gray21</td>
+      <td class="gt_row gt_center" style="background-color: #383838; color: #FFFFFF;">gray22</td>
+      <td class="gt_row gt_center" style="background-color: #3B3B3B; color: #FFFFFF;">gray23</td>
+      <td class="gt_row gt_center" style="background-color: #3D3D3D; color: #FFFFFF;">gray24</td>
+      <td class="gt_row gt_center" style="background-color: #404040; color: #FFFFFF;">gray25</td>
+      <td class="gt_row gt_center" style="background-color: #424242; color: #FFFFFF;">gray26</td>
+      <td class="gt_row gt_center" style="background-color: #454545; color: #FFFFFF;">gray27</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #474747; color: #FFFFFF;">gray28</td>
+      <td class="gt_row gt_center" style="background-color: #4A4A4A; color: #FFFFFF;">gray29</td>
+      <td class="gt_row gt_center" style="background-color: #4D4D4D; color: #FFFFFF;">gray30</td>
+      <td class="gt_row gt_center" style="background-color: #4F4F4F; color: #FFFFFF;">gray31</td>
+      <td class="gt_row gt_center" style="background-color: #525252; color: #FFFFFF;">gray32</td>
+      <td class="gt_row gt_center" style="background-color: #545454; color: #FFFFFF;">gray33</td>
+      <td class="gt_row gt_center" style="background-color: #575757; color: #FFFFFF;">gray34</td>
+      <td class="gt_row gt_center" style="background-color: #595959; color: #FFFFFF;">gray35</td>
+      <td class="gt_row gt_center" style="background-color: #5C5C5C; color: #FFFFFF;">gray36</td>
+      <td class="gt_row gt_center" style="background-color: #5E5E5E; color: #FFFFFF;">gray37</td>
+      <td class="gt_row gt_center" style="background-color: #616161; color: #FFFFFF;">gray38</td>
+      <td class="gt_row gt_center" style="background-color: #636363; color: #FFFFFF;">gray39</td>
+      <td class="gt_row gt_center" style="background-color: #666666; color: #FFFFFF;">gray40</td>
+      <td class="gt_row gt_center" style="background-color: #696969; color: #FFFFFF;">gray41</td>
+      <td class="gt_row gt_center" style="background-color: #6B6B6B; color: #FFFFFF;">gray42</td>
+      <td class="gt_row gt_center" style="background-color: #6E6E6E; color: #FFFFFF;">gray43</td>
+      <td class="gt_row gt_center" style="background-color: #707070; color: #FFFFFF;">gray44</td>
+      <td class="gt_row gt_center" style="background-color: #737373; color: #FFFFFF;">gray45</td>
+      <td class="gt_row gt_center" style="background-color: #757575; color: #FFFFFF;">gray46</td>
+      <td class="gt_row gt_center" style="background-color: #787878; color: #FFFFFF;">gray47</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
 
 
 

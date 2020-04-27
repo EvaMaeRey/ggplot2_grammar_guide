@@ -17,7 +17,6 @@ output:
 
 ```{r, message = F, warning= F}
 
-source("../xaringan_reveal_parenthetical.R")
 knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
 knitr::opts_chunk$set(fig.height = 6,  comment = " ", cache = T)
 
@@ -25,15 +24,16 @@ knitr::opts_chunk$set(fig.height = 6,  comment = " ", cache = T)
 
 
 ```{r, warning = F, message = F}
-library(ggplot2)
 library(countrycode)
 library(tidyverse)
 library(ggridges)
 
 df <-  foreign::read.dta("raw_data/IdealpointsPublished.dta") %>% 
   mutate(`Percent agreement with US` = as.numeric(PctAgreeUS))
-countries = df %>% group_by(CountryName, ccode, CountryAbb, unsc_region) %>% 
-  summarise() %>% mutate(eu28 = countrycode(ccode, "cown", "eu28")) %>% 
+countries <-  df %>% 
+  group_by(CountryName, ccode, CountryAbb, unsc_region) %>% 
+  summarise() %>% 
+  mutate(eu28 = countrycode(ccode, "cown", "eu28")) %>% 
   mutate(continent = countrycode(ccode, "cown", "continent"))
 ```
 
@@ -113,6 +113,79 @@ ggplot(df_for_graph) +
   labs(subtitle = "US vs EU (includes UK) vs other UN member") +
   labs(caption = "Visualization: Gina Reynolds (@evamaerey)\nEstimation: Voeten, Strezhnev, and Bailey, 2009") 
 ```
+
+
+---
+
+```{r}
+df_for_graph %>% 
+  filter(continent == "Americas") %>% 
+  mutate(CountryName = str_replace(CountryName, "of America", "")) %>% 
+  mutate(CountryName = str_replace(CountryName, " and ", " & ")) %>% 
+  mutate(CountryName = str_replace(CountryName, "the Grenadines", "\n the Grenadines")) %>% 
+  group_by(CountryAbb) %>% 
+  mutate(mean_ideal = mean(Idealpoint, na.rm = T)) %>% 
+  ungroup() %>% 
+  arrange(-mean_ideal) %>% 
+  mutate(CountryAbb = fct_inorder(CountryAbb)) %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y =  Idealpoint) +
+  geom_line() +
+  aes(group = CountryAbb) +
+  facet_wrap(~ CountryAbb, scales = "free_x") +
+  geom_line(data = . %>% 
+              mutate(grayed = CountryAbb) %>% 
+              select(-CountryAbb),
+            aes(group = grayed),
+            alpha = .4,
+            color = "grey") +
+  geom_line(color = "steelblue") +
+  geom_point(data = . %>% 
+               group_by(CountryAbb) %>%
+               filter(year == max(year)),
+            color = "steelblue",
+            alpha = .7,
+            size = 1) +
+  geom_point(data = . %>% 
+               group_by(CountryAbb) %>%
+               filter(year == min(year)),
+            color = "steelblue",
+            alpha = .7,
+            size = 3,
+            shape = "|") +
+  labs(x = NULL) +
+  theme(strip.text =
+          element_blank()) +
+  geom_text(data = . %>% 
+               group_by(CountryAbb) %>%
+               filter(year == max(year)),
+            aes(label = CountryName),
+            x = 1950,
+            y = 4,
+            size = 2,
+            hjust = 0,
+            vjust = 1,
+            lineheight = .8,
+            color = "steelblue",
+            fontface = "bold") +
+  scale_x_continuous(breaks = c(1950, 1970, 1990, 2010), labels = c("'50", "'70", "'90", "2010")) +
+  scale_y_continuous(limits = c(-3, 4), breaks = c(-3, 0, 3)) +
+  labs(title = "Ideal point estimation based on votes at the UN General Assembly") +
+  labs(y = NULL) +
+  theme(plot.title.position = "plot") +
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.y = element_text(size = 7, margin = margin(0,-2,0,0))) +
+  theme(axis.text.x = element_text(size = 7, margin = margin(-2,0,0,0))) +
+  labs(subtitle = "Estimation: Michael A. Bailey, Anton Strezhnev, Erik Voeten 2015") +
+  labs(caption = "Data Viz: Gina Reynolds w/ ggplot2") +
+  theme(axis.line = element_blank()) +
+  theme(panel.background = element_rect(fill = "#EFEDF5")) +
+  theme(plot.background = element_rect(fill = "#EFEDF5")) +
+  theme(text = element_text(family = "Times", color = "#090909"))
+
+```
+
 
 
 

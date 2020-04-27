@@ -192,9 +192,8 @@ colors() %>%
 
 ---
 
-`r chunk_reveal("named_plot", break_type = 1)`
 
-```{r named_plot, include=F}
+```{r named_plot, echo = F}
 tibble(rows = rep(1:26, 26),
        cols = sort(rep(1:26, 26))) ->
 dat
@@ -215,22 +214,28 @@ dat %>%
           element_rect(fill = "oldlace")) 
 ```
 
+---
+
+```{r gt, echo = F}
+num_columns <- 20
+num_colors <- 200
+start_color <- 1
+end_color <- start_color + num_colors - 1
+the_colors <- colors()[start_color:end_color]
 
 
-```{r gt, include= F}
-colors()[1:18] %>% 
-  matrix(ncol = 1, byrow = T) %>% 
-  as_tibble() %>%
+the_colors %>% 
+  matrix(ncol = num_columns, byrow = T, ) %>% 
+  as_tibble() %>% 
+  mutate_at(.vars = 1:num_columns, funs(factor(., levels = rev(the_colors), ordered = T))) %>% 
   gt::gt() %>% 
-  gt::data_color(columns = vars(V1),
-                 colors = scales::col_factor(palette = sort(colors()[1:18]),
-                                             domain = NULL )
+  gt::data_color(columns = 1:num_columns,
+                 colors = scales::col_factor(
+                   palette = the_colors,
+                   domain = NULL,
+                   reverse = TRUE)
                  )
 ```
-
-
-
-
 
 
 

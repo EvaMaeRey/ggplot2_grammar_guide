@@ -263,17 +263,6 @@ These will apply generally where no more specific adjustment has been made.
 > title
 
 
----
-
-
-
-
-
-
-
-
-
-
 
 ---
 
@@ -569,185 +558,59 @@ ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 
 `r apply_reveal("theme_presets")`
 
----
-
-# Outside themes package 
-
-Other packages are designed to complement ggplot in providing more these
-
-Featured here are `ggthemes`, `ggpomological`, and `ggdark`.
-
-```{r}
-# If you don't have devtools installed
-# install.packages("devtools")
-# devtools::install_github("gadenbuie/ggpomological")
-```
-
-```{r }
-library(ggthemes)
-library(ggpomological)
-library(ggdark)
-library(hrbrthemes) # you may need extrafont::font_import()
-```
-
-Let's check some of these out!
-
----
-
-# ggthemes
-
----
-
-```{r ggthemes, eval = F, echo = F, out.width="60%"}
-g + 
-  ggthemes::theme_base() +
-  ggthemes::theme_calc() + 
-  ggthemes::theme_economist() +
-  ggthemes::theme_economist_white() +
-  ggthemes::theme_excel() +
-  ggthemes::theme_excel_new() +
-  ggthemes::theme_few() +
-  ggthemes::theme_fivethirtyeight() +
-  ggthemes::theme_gdocs() +
-  ggthemes::theme_hc() +
-  ggthemes::theme_igray() +
-  ggthemes::theme_map() +
-  ggthemes::theme_solarized() +
-  ggthemes::theme_solarized_2() + 
-  ggthemes::theme_solid() +
-  ggthemes::theme_stata() +
-  ggthemes::theme_wsj() 
-```
-
----
-
-
-```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
-get_what_save_what <- "ggthemes"
-knitr:::knit_code$get(get_what_save_what)
-ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
-```
-
-
-`r apply_reveal("ggthemes")`
-
----
-
-
-
----
-
-# ggpomological
-
----
-
-```{r ggpomological, echo = F, eval = F}
-g +
-  ggpomological::theme_pomological() +
-  ggpomological::theme_pomological_nobg() +
-  ggpomological::theme_pomological_plain() 
-```
-
-`r apply_reveal("ggpomological")`
-
----
-
-# ggdark
-
-
----
-
-```{r ggdark, echo = F, eval = F}
-g +
-  ggdark::dark_theme_bw() +
-  ggdark::dark_theme_classic() +
-  ggdark::dark_theme_dark() +
-  ggdark::dark_theme_gray() +
-  ggdark::dark_theme_light() +
-  ggdark::dark_theme_linedraw() +
-  ggdark::dark_theme_minimal() +
-  ggdark::dark_theme_test()
-```
-
-`r apply_reveal("ggdark")`
-
-
-
-
--------
-
-
-
-
-
-
-
-
-
-# hrbrthemes
-
----
-
-<!-- ```{r} -->
-<!-- g + -->
-<!--   hrbrthemes::theme_ft_rc() + -->
-<!--   hrbrthemes::theme_ipsum() + -->
-<!--   hrbrthemes::theme_ipsum_ps() + -->
-<!--   hrbrthemes::theme_ipsum_rc() + -->
-<!--   hrbrthemes::theme_ipsum_tw() + -->
-<!--   hrbrthemes::theme_modern_rc() -->
-<!-- ``` -->
 
 ---
 
 # ggeasy
 
+The theme() function might strike you as not easy to use, especially as you might not use it too frequently.  {ggeasy} contains a set of functions that let you do common tasks you could do with theme(), but may find tricky. 
+
+---
+
+`r flipbookr::chunk_reveal(easy, break_type = "rotate")`
 
 ```{r}
 library(ggeasy)
 g +
-  easy_all_text_color(color = "green") +
-  easy_all_text_size(size = 14) +
-  easy_x_axis_labels_size(size = 20) +
-  easy_legend_at(to = "bottom") +
-  easy_adjust_legend(to = "right") +
-  easy_plot_caption_size(size = 15) +
-  easy_remove_y_axis()
-
-
-
-easy_add_legend_title()
-easy_adjust_legend()
-easy_all_text_color()
-easy_all_text_colour()
-easy_all_text_size()
-easy_change_legend()
-easy_change_text()
-easy_labs()
-easy_legend_at()
-easy_move_legend()
-easy_plot_caption_size()
-easy_plot_legend_size()
-easy_plot_legend_title_size()
-easy_plot_subtitle_size()
-easy_plot_title_size()
-easy_remove_axes() 
-easy_remove_legend()
-easy_remove_legend_title()
-easy_remove_x_axis()
-easy_remove_y_axis()
-easy_rotate_labels()
-easy_rotate_legend()
-easy_rotate_legend()
-easy_rotate_x_labels()
-easy_rotate_y_labels()
-easy_text_color()
-easy_text_colour()
-easy_text_size()
-easy_x_axis_labels_size()
-easy_x_axis_title_size()
-easy_y_axis_labels_size()
-easy_y_axis_title_size()
+  easy_all_text_color(color = "green") + #ROTATE
+  easy_all_text_size(size = 14) + #ROTATE
+  easy_x_axis_labels_size(size = 20) + #ROTATE
+  easy_legend_at(to = "bottom") + #ROTATE
+  easy_adjust_legend(to = "right") + #ROTATE
+  easy_plot_caption_size(size = 15) + #ROTATE
+  easy_remove_y_axis() + #ROTATE
+  easy_add_legend_title() + #ROTATE
+  easy_adjust_legend() + #ROTATE
+  easy_all_text_color() + #ROTATE
+  easy_all_text_colour() + #ROTATE
+  easy_all_text_size() + #ROTATE
+  easy_change_legend() + #ROTATE
+  easy_change_text() + #ROTATE
+  easy_labs() + #ROTATE
+  easy_legend_at() + #ROTATE
+  easy_move_legend() + #ROTATE
+  easy_plot_caption_size() + #ROTATE
+  easy_plot_legend_size() + #ROTATE
+  easy_plot_legend_title_size() + #ROTATE
+  easy_plot_subtitle_size() + #ROTATE
+  easy_plot_title_size() + #ROTATE
+  easy_remove_axes()  + #ROTATE
+  easy_remove_legend() + #ROTATE
+  easy_remove_legend_title() + #ROTATE
+  easy_remove_x_axis() + #ROTATE
+  easy_remove_y_axis() + #ROTATE
+  easy_rotate_labels() + #ROTATE
+  easy_rotate_legend() + #ROTATE
+  easy_rotate_legend() + #ROTATE
+  easy_rotate_x_labels() + #ROTATE
+  easy_rotate_y_labels() + #ROTATE
+  easy_text_color() + #ROTATE
+  easy_text_colour() + #ROTATE
+  easy_text_size() + #ROTATE
+  easy_x_axis_labels_size() + #ROTATE
+  easy_x_axis_title_size() + #ROTATE
+  easy_y_axis_labels_size() + #ROTATE
+  easy_y_axis_title_size() #ROTATE
 ```
 
 

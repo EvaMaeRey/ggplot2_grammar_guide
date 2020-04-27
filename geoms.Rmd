@@ -1,5 +1,5 @@
 ---
-title: "geom pile on"
+title: "geoms"
 author: "Gina Reynolds, July 2019"
 output:
   xaringan::moon_reader:
@@ -20,6 +20,7 @@ library(flipbookr)
 ```{r, include = F}
 library(tidyverse)
 library(gapminder)
+options(scipen = 10)
 ```
 
 ```{r prep_data, eval = T, echo = F}
@@ -59,6 +60,15 @@ In the first example many "variables" are "computed on the fly", like the 0 repr
 > In ggplot2, geoms can be roughly divided into individual and collective geoms. An individual geom has a distinctive graphical object for each row in the data frame. For example, the point geom has a single point for each observation. On the other hand, collective geoms represent multiple observations. This may be a result of a statistical summary, or may be fundamental to the display of the geom, as with polygons. Lines and paths fall somewhere in between: each overall line is composed of a set of straight segments, but each segment represents two points. --- Hadley Wickham *ggplot2: Elegant graphics for data analysis*
 
 
+---
+
+## continous x and y (x is time)
+
+
+
+
+
+
 
 ---
 class: inverse, center, middle
@@ -69,32 +79,27 @@ name: cc
 
 ---
 
-`r chunk_reveal("geom_2_continuous")`
+`r chunk_reveal("geom_2_continuous", break_type= "rotate")`
 
 
 ```{r geom_2_continuous, eval = F, echo = F}
 ggplot(gapminder_2002) +
   aes(x = gdpPercap) +
-  aes(y = pop / 1000000) +
+  aes(y = lifeExp) +
+  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +
   geom_point() +
-  geom_tile(width = 2500,
-            height = 100,
-            fill = "green",
-            alpha = .25) +
-  aes(xend = 0) +
-  aes(yend = 0) +
-  geom_segment(alpha = .2) +
-  geom_curve(linetype = "dotted") +
-  aes(xmin = 0) +
-  aes(xmax = gdpPercap) +
-  aes(ymin = 0) + 
-  aes(ymax = pop / 1000000) +
-  geom_rect(alpha = .3,
-            fill = "magenta") +
-  geom_line(linetype = "dashed") +
-  aes(label = country) +
-  geom_text() +
-  geom_label() 
+  geom_rug() + #ROTATE
+  geom_tile(width = 2500, height = 3, fill = "green", alpha = .25) + #ROTATE
+  geom_segment(aes(xend = 0, yend = 0), alpha = .2) + #ROTATE
+  geom_curve(aes(xend = 0, yend = 0), linetype = "dotted") + #ROTATE
+  geom_rect(aes(xmin = 0, xmax = gdpPercap, ymin = 0, ymax = lifeExp), alpha = .02, fill = "magenta", color = "grey") + #ROTATE
+  geom_text(aes(label = country)) + #ROTATE
+  geom_label(aes(label = country)) + #ROTATE
+  stat_density_2d(aes(fill = ..density..), geom = "raster",  contour = FALSE, alpha = .5) +  #ROTATE
+  geom_density2d() +  #ROTATE
+  geom_smooth() +  # #ROTATE
+  geom_smooth(method = lm) + #ROTATE
+  geom_hex(alpha = .5,color = "white") #ROTATE
 ```
 
 
@@ -122,221 +127,24 @@ There are a lot of geometric objects that can be used to represent *two continuo
 [Or I'm on the overview track, take me to the next session](#local)
 
 ---
-class: inverse, center, middle
 
-## Two continuous, continued
+`r chunk_reveal("time_series", break_type = "rotate")`
 
----
-
-`r chunk_reveal("geom_2_continuous_2")`
-
-
-```{r geom_2_continuous_2, eval = F, echo = F}
-ggplot(data = gapminder_2002 ) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  geom_rug(color = "plum4") +
-  geom_point(col = "goldenrod2") +
-  stat_density_2d(aes(fill = ..density..), 
-                  geom = "raster", 
-                  contour = FALSE,
-                  alpha = .5) +
-  geom_area(alpha = .4, 
-            fill = "plum1",
-            color = "plum1") +
-  geom_density2d() +
-  geom_smooth() + # LOESS smoothing
-  geom_smooth(method = lm) + # OLS fit 
-  facet_wrap(~continent)
-```
-
-
-
----
-
-## Questions
-
-geom_area() is a special case of what other geom_*()?  Use the help to answer this question. 
-
----
-
-Geoms is a long section consider because there are many geoms. Consider taking the [overview track](#local).
-
----
-class: inverse, center, middle
-name: dc
-
-## Discrete v. Continuous
-
----
-
-
-`r chunk_reveal("geom_discrete_continuous")`
-
-
-```{r geom_discrete_continuous, eval = F, echo = F}
-ggplot(gapminder) +
-  aes(x = continent) +
-  aes(y = lifeExp) +
-  geom_point(size = .2) +
-  geom_boxplot(alpha = .1) +
-  geom_jitter(width = .2, 
-              alpha = .5,
-              color = "green") +
-  geom_violin(alpha = .1) +
-  ggforce::geom_sina(col = "magenta",
-                     alpha = .5) +
-  stat_summary(fun.y = mean,
-               geom = "point",
-               col = "goldenrod2",
-               size = 8) +
-  aes(x = "All Data") +
-  coord_flip()
-```
-
-
-
-
-
-
----
-name: c
-
-## Continuous Univariate
-
----
-
-`r chunk_reveal("univariate_continuous")`
-
-
-```{r, univariate_continuous, eval = F, echo = F}
-ggplot(gapminder_2002) +
-  aes(x = lifeExp) +
-  theme_minimal() +
-  geom_rug(col = "green",
-           alpha = .4) +
-  geom_histogram(alpha = .5,
-                 fill = "red") +
-  geom_dotplot(fill = "blue",
-               alpha = .5) +
-  geom_freqpoly(linetype = "dashed") +
-  facet_grid(continent ~ .) 
-```
-
-
----
-
-`r chunk_reveal("univariate_density")`
-
-
-```{r univariate_density, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
-  aes(x = lifeExp) +
-  geom_rug(col = "green",
-           alpha = .6) +
-  geom_histogram(col = "black", 
-                 fill = "pink",
-                 alpha = .4,
-                 aes(y = ..density..)) +
-  geom_density(linetype = "dotted",
-               adjust = 1/4) +
-  geom_density(linetype = "dashed",
-               adjust = 1/2)
-```
-
-
-
----
-class: inverse, center, middle
-name: dd
-
-## Discrete v. Discrete
-
----
-
-`r chunk_reveal("discrete2x")`
-
-
-```{r discrete2x, eval = F, echo = F}
-gapminder_2002 %>% 
-  mutate(seventy_plus = lifeExp >= 75) %>% 
-  mutate(age_category = 
-           case_when(seventy_plus == T ~ 
-                       "Seventy +",
-                     seventy_plus == F ~ 
-                       "< Seventy")) %>% 
+```{r time_series, include=F}
+gapminder %>% 
+  filter(country == "New Zealand") %>% 
   ggplot() +
-  aes(x = continent) +
-  aes(y = age_category) +
-  geom_count(col = "magenta",
-             alpha = .6) +
-  labs(size = "Number of \ncountries") +
-  geom_jitter(col = "blue",
-              alpha = .3,
-              width = .25,
-              height = .25) +
-  labs(y = NULL) +
-  labs(x = NULL) +
-  labs(title = "") +
-  theme_minimal() 
+  aes(x = year) +
+  aes(y = pop * gdpPercap) +
+  aes(group = country) +
+  geom_point() +
+  geom_col() + #ROTATE
+  geom_segment(aes(xend = year, yend = 0)) + #ROTATE
+  geom_line() + #ROTATE
+  geom_area(alpha = .4, fill = "plum1", color = "plum1") #ROTATE
 ```
-
 
 ---
-
-
-```{r discrete2x2, eval = F, echo = F}
-gapminder_2002 %>% 
-  mutate(seventyfive_plus = lifeExp >= 75) %>% 
-  mutate(age_category = 
-           case_when(seventyfive_plus == T ~ 
-                       "75+",
-                     seventyfive_plus == F ~ 
-                       "<75")) %>% 
-  ggplot() +
-  aes(x = age_category) +
-  aes(fill = continent) +
-  geom_bar(alpha = .4) +
-  geom_bar(position = 
-             position_dodge(preserve = 
-                              'single')) 
-```
-
-```{r, include=FALSE}
-# gapminder_2002 %>% 
-#   mutate(seventy_plus = lifeExp >= 75) %>% 
-#   mutate(age_category = case_when(seventy_plus == T ~ "Seventy +",
-#                                   seventy_plus == F ~ "< Seventy")) %>% 
-#   ggplot() +
-#   aes(x = age_category) +
-#   aes(group = continent) +
-#     geom_bar(aes(y = ..prop.., fill = factor(..x..)), stat="count") +
-#     geom_text(aes( label = scales::percent(..prop..),
-#                    y = ..prop.. ), stat = "count", vjust = -.5) +
-#     labs(y = "Percent", fill = "day") +
-#     scale_y_continuous(labels = scales::percent) +
-#     geom_text(aes(label = scales::percent(..prop..),
-#                    y= ..prop.. ), stat = "count", vjust = -.5) 
-```
-
-
-`r chunk_reveal("discrete2x2")`
-
----
-
-```{r, eval = F, echo = F}
-require(stats)
-mosaicplot(Titanic, main = "Survival on the Titanic", color = TRUE)
-
-data(Titanic)
-titanic <- as.data.frame(Titanic)
-titanic$Survived <- factor(titanic$Survived, levels=c("Yes", "No"))
-
-library(ggmosaic)
-ggplot(data = titanic) +
-  ggmosaic::geom_mosaic(aes(weight = Freq, x = product(Class), y = Sex, fill = Survived))
-
-```
 
 
 ---
@@ -393,10 +201,186 @@ Another thing we observe in the last addition to the last plot is adding an addi
 
 
 
+---
 
-<!-- But beyond understanding the philosophy, practice (including when things fail, and figuring out why they fail) is really important. Why initiatives like #tidytuesday are so valuable. -->
+## continous x and y (x is time)
 
-<!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! -->
+
+---
+
+`r chunk_reveal("time_series_multi", break_type = "rotate")`
+
+```{r time_series_multi, include=F}
+gapminder %>% 
+  filter(continent == "Oceania") %>% 
+  mutate(gdp = pop * gdpPercap) %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = gdp) +
+  geom_point() +
+  geom_line(aes(linetype = country, color = country)) + #ROTATE
+  geom_col(aes(fill = country), position = "dodge", alpha = .4) + #ROTATE
+  geom_col(aes(fill = country), alpha = .4) + #ROTATE
+  geom_area(aes(fill = country), alpha = .4) #ROTATE
+```
+
+
+---
+
+## Questions
+
+geom_area() is a special case of what other geom_*()?  Use the help to answer this question. 
+
+---
+
+Geoms is a long section consider because there are many geoms. Consider taking the [overview track](#local).
+
+---
+class: inverse, center, middle
+name: dc
+
+## Discrete v. Continuous
+
+---
+
+
+`r chunk_reveal("geom_discrete_continuous", break_type = "rotate")`
+
+
+```{r geom_discrete_continuous, eval = F, echo = F}
+gapminder %>% 
+  filter(year == 2002) %>% 
+  ggplot() +
+  aes(x = continent) +
+  aes(y = lifeExp) +
+  geom_point(size = .2) + 
+  geom_boxplot(alpha = .1) + #ROTATE
+  geom_jitter(width = .2, alpha = .5, color = "green") + #ROTATE
+  geom_violin(alpha = .1) + #ROTATE
+  ggforce::geom_sina(col = "magenta", alpha = .5) + #ROTATE
+  stat_summary(fun.y = mean, geom = "point", col = "goldenrod2", size = 8)  #ROTATE
+```
+
+
+---
+
+
+1 value per category
+
+
+---
+
+`r chunk_reveal("single_value", break_type = "rotate")`
+
+```{r single_value, include=F}
+gapminder %>% 
+  filter(year == 2002) %>% 
+  filter(continent == "Europe") %>% 
+  ggplot() +
+  aes(x = lifeExp) +
+  aes(y = country) +
+  geom_point() +
+  geom_col() + #ROTATE
+  geom_segment(aes(xend = 0, yend = country)) + #ROTATE
+  geom_hline(aes(yintercept = country), linetype = "dotted") #ROTATE
+```
+
+
+
+---
+name: c
+
+## Continuous Univariate
+
+---
+
+`r chunk_reveal("univariate_continuous", break_type = "rotate")`
+
+
+```{r, univariate_continuous, eval = F, echo = F}
+ggplot(gapminder_2002) +
+  aes(x = lifeExp) +
+  theme_minimal() +
+  geom_rug(col = "darkgrey", alpha = .7) +
+  geom_histogram(alpha = .5, fill = "cadetblue") + #ROTATE
+  geom_freqpoly(linetype = "dashed") + #ROTATE
+  geom_dotplot(fill = "blue", alpha = .5) + #ROTATE
+  geom_dotplot(binwidth = "dotdensity", alpha = .5) + #ROTATE
+  geom_histogram(col = "black", fill = "maroon4", alpha = .4, aes(y = ..density..)) + #ROTATE
+  geom_density(linetype = "dotted", adjust = 1/4) + #ROTATE
+  geom_density(linetype = "dashed", adjust = 1/2) #ROTATE
+```
+
+
+
+---
+class: inverse, center, middle
+name: dd
+
+## Discrete v. Discrete
+
+---
+
+`r chunk_reveal("discrete2x", break_type = "rotate")`
+
+
+```{r discrete2x, eval = F, echo = F}
+gapminder_2002 %>% 
+  mutate(seventy_plus = lifeExp >= 75) %>% 
+  mutate(age_category = 
+           case_when(seventy_plus == T ~ 
+                       "Seventy +",
+                     seventy_plus == F ~ 
+                       "< Seventy")) %>% 
+  ggplot() +
+  aes(x = continent) +
+  aes(y = age_category) +
+  geom_jitter(col = "blue", alpha = .3, width = .25, height = .25) + 
+  geom_count(col = "magenta", alpha = .6) + #ROTATE
+  geom_text(data = . %>% group_by(age_category, continent) %>% count, aes(label = n)) + #ROTATE
+  geom_label(data = . %>% group_by(age_category, continent) %>% count, aes(label = n)) #ROTATE
+```
+
+
+---
+
+`r chunk_reveal("discrete2x2", break_type = "rotate")`
+
+```{r discrete2x2, eval = F, echo = F}
+gapminder_2002 %>% 
+  mutate(seventyfive_plus = lifeExp >= 75) %>% 
+  mutate(age_category = 
+           case_when(seventyfive_plus == T ~ 
+                       "75+",
+                     seventyfive_plus == F ~ 
+                       "<75")) %>% 
+  ggplot() +
+  aes(x = age_category) +
+  aes(fill = continent) +
+  geom_point(stat = "count") +
+  geom_bar(position = "dodge", alpha = .6) + #ROTATE
+  geom_bar(alpha = .6) #ROTATE
+```
+
+
+
+---
+
+```{r, eval = F, echo = F}
+require(stats)
+mosaicplot(Titanic, main = "Survival on the Titanic", color = TRUE)
+
+data(Titanic)
+titanic <- as.data.frame(Titanic)
+titanic$Survived <- factor(titanic$Survived, levels=c("Yes", "No"))
+
+library(ggmosaic)
+ggplot(data = titanic) +
+  ggmosaic::geom_mosaic(aes(weight = Freq, x = product(Class), y = Sex, fill = Survived))
+
+```
+
+
 
 ---
 class: middle, center, inverse

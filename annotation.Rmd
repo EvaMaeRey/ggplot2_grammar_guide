@@ -1,0 +1,112 @@
+---
+title: "annotate"
+author: "Gina Reynolds, April 26, 2020"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "ninjutsu"]
+    nature:
+      highlightLines: yes
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
+library(flipbookr)
+```
+
+
+```{r, include = F}
+library(tidyverse)
+library(gapminder)
+options(scipen = 10)
+```
+
+---
+
+`r chunk_reveal("labeling_points", break_type = "rotate")`
+
+```{r labeling_points, include = F}
+library(ggrepel)  # for the very last option 
+gapminder %>% 
+  filter(continent == "Asia") %>% 
+  filter(year == 2002) %>% 
+  ggplot() +
+  aes(x = gdpPercap) +
+  scale_x_log10() +
+  aes(y = lifeExp) +
+  coord_cartesian(xlim = c(500, 40000), ylim = c(40,85)) +
+  geom_point() +
+  aes(label = country) +
+  geom_text() + #ROTATE
+  geom_text(nudge_y = 1.25) + #ROTATE
+  geom_label(nudge_y = 1.25) + #ROTATE
+  geom_text(check_overlap = T, nudge_y = 1.25) + #ROTATE
+  ggrepel::geom_text_repel() + #ROTATE
+  shadowtext::geom_shadowtext(aes(color = lifeExp > 70)) + #ROTATE
+  geom_text(data = . %>% filter(lifeExp < 60)) + #ROTATE
+  geom_point(data = . %>% filter(lifeExp < 60), color = "salmon") + #ROTATE
+  geom_text(data = . %>% filter(country %in% c("Vietnam", "Thailand")), color = "seagreen") + #ROTATE
+  annotate(geom = "text", x = 5000, y = 58, label = "Iraq") + #ROTATE
+  ggpmisc::stat_dens2d_filter(geom = "text_repel", keep.fraction = 0.5) #ROTATE 
+```
+
+
+
+
+---
+
+`r chunk_reveal("ref_lines", break_type = "rotate")`
+
+```{r ref_lines, eval = F, echo = F}
+gapminder %>% 
+  filter(continent == "Oceania") %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = pop/1000000) +
+  aes(linetype = country) +
+  coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +
+  geom_line(color = "steelblue") +
+  geom_hline(yintercept = 10, linetype = "dotted") + #ROTATE
+  geom_vline(xintercept = 1980, linetype = "dotted") + #ROTATE
+  geom_abline(slope = 1, intercept = -1950, linetype = "dashed") + #ROTATE
+  geom_vline(xintercept = 1980, linetype = "dotted") + #ROTATE
+  annotate(geom = "ribbon", x = c(1940, 2010), ymin = 10, ymax = 15, alpha = .2) + #ROTATE
+  annotate(geom = "ribbon", xmin = 1980, xmax = 1970, y = c(0, 20), alpha = .2) + #ROTATE
+  geom_point(data = . %>% group_by(country) %>% slice(n()), aes(label = country)) + #ROTATE
+  geom_text(data = . %>% group_by(country) %>% slice(n()), aes(label = country), nudge_x = -3, nudge_y = 1) + #ROTATE
+  annotate(geom = "text",
+           x = 1970, y = 22,
+           label = "Most often\nthese annotations\nalso accompanied\n by text annotation",
+           hjust = 1, size = 5,
+           angle = 20,
+           lineheight = .8,
+           fontface = "italic",
+           color = "plum4") 
+```
+
+---
+
+```{r, eval = F, echo = F}
+  annotate(geom = "text",
+           x = 2006, y = 10,
+           label = "and a nice curve",
+           hjust = 1, size = 5,
+           lineheight = .8,
+           fontface = "italic",
+           color = "plum4") +
+    annotate(geom = "curve",
+           x = 2006, xend = 1960,
+           y = 10, yend = 20)
+```
+
+
+
+---
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 40%}
+```
+

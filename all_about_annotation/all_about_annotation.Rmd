@@ -16,7 +16,6 @@ output:
 
 
 ```{r set_up, message = F, warning= F}
-
 source("../xaringan_reveal_parenthetical.R")
 knitr::opts_chunk$set(fig.height = 6,  comment = " ", cache = T,  echo = TRUE, warning = F, message = F)
 

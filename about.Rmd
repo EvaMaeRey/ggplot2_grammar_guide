@@ -64,51 +64,60 @@ Grammar Analogy | How?  | What?
 
 <!-- - *Modifiers IV* | guides() + | [to be added?] -->
 
-### A closer look topics: geoms, themes
+### A closer look topics: geoms, themes, stats, annotation, scales
 
 Above, the geom and theme topics are intentionally cursory.  There are tons of geoms, and they can get distracting.  Also themes doesn't directly relate to the data, though it is important.  Theme design almost has its own grammar, it can also be put off until fundamentals are taken on. 
 
-1. [A closer look at geoms](geoms.html){target="_blank"}
+
+1. [A closer look at **scales**](scales.html){target="_blank"}
+1. [A closer look at **geoms**](geoms.html){target="_blank"}
     - [continuous - continuous](geoms.html#cc){target="_blank"}
+    - [time series](geoms.html#cc){target="_blank"}
     - [1 continuous](geoms.html#c){target="_blank"}
     - [1 discrete](geoms.html#d){target="_blank"}
     - [continuous - discrete](geoms.html#cd){target="_blank"}
     - [discrete - discrete](geoms.html#dd){target="_blank"}
-2. [stats? (to be added)]
-2. [A closer look at themes](taming_ggplot_themes.html){target="_blank"}
-    - [Text Elements](taming_ggplot_themes.html#textelements){target="_blank"}
-    - [Rectangular Elements](taming_ggplot_themes.html#rectangularelements){target="_blank"}
-    - [Line Elements](taming_ggplot_themes.html#lineelements){target="_blank"}
-    - [Legends](taming_ggplot_themes.html#legend){target="_blank"}
-    - [Sundry](taming_ggplot_themes.html#sundry){target="_blank"}
-    - [Facets](taming_ggplot_themes.html#facet){target="_blank"}
-3. [A closer look at annotation]()
+2. [**stats**](stats.html){target="_blank"}
+3. [A closer look at **annotation**](annotation.html){target="_blank"}
+    - [Annotating Points](){target="_blank"}
+    - [Annotation Lines and Windows](){target="_blank"}
     - [Annotating time series](labeling_time_series.html){target="_blank"}
-4. [A closer look at scales](scales.html){target="_blank"}
+2. [A closer look at **themes**](taming_ggplot_themes.html){target="_blank"}
+    - [The theme() function](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html){target="_blank"}
+      - [Text Elements](taming_ggplot_themes.html#textelements){target="_blank"}
+      - [Rectangular Elements](taming_ggplot_themes.html#rectangularelements){target="_blank"}
+      - [Line Elements](taming_ggplot_themes.html#lineelements){target="_blank"}
+      - [Legends](taming_ggplot_themes.html#legend){target="_blank"}
+      - [Sundry](taming_ggplot_themes.html#sundry){target="_blank"}
+      - [Facets](taming_ggplot_themes.html#facet){target="_blank"}
+    - [ggeasy package - quick fixes to common theme modifications](themes_ggeasy.html){target="_blank"}
+    - [External Themes](external_themes.html){target="_blank"}
+
     
 
 
----
-
-# Navigating the grammar guide
-
-<a href="navigate.html" class="button">Suggested Navigation</a>
 
 ---
 
 
 # More data vis topics
 
-- [color theory](color.html){target="_blank"}
-- [paletteer](paletteer.html){target="_blank"}
-- spatial
-- base R
+1. Color
+    - [color theory](color.html){target="_blank"}
+    - [named colors in R](named_colors.html){target="_blank"}
+    - [paletteer](paletteer.html){target="_blank"}
+
+
+2. spatial
+3. base R
 
 
 # ggplot extensions
 
-- ggpattern
 - ggforce
+- ggpattern
+- ggridges
+- ggtext
 
 ```{css, echo = F}
 .button {
@@ -130,6 +139,15 @@ Above, the geom and theme topics are intentionally cursory.  There are tons of g
 
 ggplot2 is very flexible, so there often there are more than one way of getting things done --- which also means there is more than one way to introduce ggplot2.
 If you aren't on board with this guide (and even if you are)   you may want check out other resouces.  The more definitive and comprehensive guide to ggplot2 is, the 3rd edition of [*ggplot2: elegant graphics for data analysis*](ggplot2-book.org){target="_blank"}.  Some other workshop materials are Garrick Aden-Buie's [*A Gentle Guide to the Grammar of Graphics with ggplot2*](https://pkg.garrickadenbuie.com/gentle-ggplot2/#1){target="_blank"}, Will Chase's [*R you ready to make charts?*](https://www.williamrchase.com/slides/ggplot_intro.html#1){target="_blank"}, Malcom Barrett's [*Designing ggplots making clear figures that communicate*](https://designing-ggplots.netlify.com/#1){target="_blank"}, and Thomas Lin Pederson's [*Drawing anything with ggplot2*](https://github.com/thomasp85/ggplot2_workshop/blob/master/presentation.pdf){target="_blank"}.  [The ggplot2 cheatsheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf){target="_blank"} is also excellent. 
+
+
+---
+
+# Navigating the grammar guide
+
+<a href="navigate.html" class="button">Suggested Navigation</a>
+
+---
 
 
 # Flipbook on other topics
