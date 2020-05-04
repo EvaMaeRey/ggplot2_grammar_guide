@@ -75,11 +75,12 @@ ggplot(gapminder_2002) +
   aes(y = lifeExp) +  
   coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
   geom_point() +  
-  geom_rug()   
+  geom_rug() +  
+  theme_minimal()  
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/geom_2_continuous_rotate_1_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_1_output-1.png" width="100%" /&gt;
 ]]
 ---
 class: split-40
@@ -95,11 +96,12 @@ ggplot(gapminder_2002) +
   aes(y = lifeExp) +  
   coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
   geom_point() +  
-* geom_tile(width = 2500, height = 3, fill = "green", alpha = .25)
+* geom_tile(width = 2500, height = 3, fill = "green", alpha = .25) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/geom_2_continuous_rotate_2_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_2_output-1.png" width="100%" /&gt;
 ]]
 ---
 class: split-40
@@ -115,11 +117,12 @@ ggplot(gapminder_2002) +
   aes(y = lifeExp) +  
   coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
   geom_point() +  
-* geom_segment(aes(xend = 0, yend = 0), alpha = .2)
+* geom_segment(aes(xend = 0, yend = 0), alpha = .2) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/geom_2_continuous_rotate_3_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_3_output-1.png" width="100%" /&gt;
 ]]
 ---
 class: split-40
@@ -135,11 +138,12 @@ ggplot(gapminder_2002) +
   aes(y = lifeExp) +  
   coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
   geom_point() +  
-* geom_curve(aes(xend = 0, yend = 0), linetype = "dotted")
+* geom_curve(aes(xend = 0, yend = 0), linetype = "dotted") +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/geom_2_continuous_rotate_4_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_4_output-1.png" width="100%" /&gt;
 ]]
 ---
 class: split-40
@@ -155,11 +159,12 @@ ggplot(gapminder_2002) +
   aes(y = lifeExp) +  
   coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
   geom_point() +  
-* geom_rect(aes(xmin = 0, xmax = gdpPercap, ymin = 0, ymax = lifeExp), alpha = .02, fill = "magenta", color = "grey")
+* geom_rect(aes(xmin = 0, xmax = gdpPercap, ymin = 0, ymax = lifeExp), alpha = .02, fill = "magenta", color = "grey") +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/geom_2_continuous_rotate_5_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_5_output-1.png" width="100%" /&gt;
 ]]
 ---
 class: split-40
@@ -175,11 +180,12 @@ ggplot(gapminder_2002) +
   aes(y = lifeExp) +  
   coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
   geom_point() +  
-* geom_text(aes(label = country))
+* geom_text(aes(label = country)) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/geom_2_continuous_rotate_6_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_6_output-1.png" width="100%" /&gt;
 ]]
 ---
 class: split-40
@@ -195,11 +201,12 @@ ggplot(gapminder_2002) +
   aes(y = lifeExp) +  
   coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
   geom_point() +  
-* geom_label(aes(label = country))
+* geom_label(aes(label = country)) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/geom_2_continuous_rotate_7_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_7_output-1.png" width="100%" /&gt;
 ]]
 ---
 class: split-40
@@ -215,11 +222,12 @@ ggplot(gapminder_2002) +
   aes(y = lifeExp) +  
   coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
   geom_point() +  
-* stat_density_2d(aes(fill = ..density..), geom = "raster",  contour = FALSE, alpha = .5)
+* stat_density_2d(aes(fill = ..density..), geom = "raster",  contour = FALSE, alpha = .5) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/geom_2_continuous_rotate_8_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_8_output-1.png" width="100%" /&gt;
 ]]
 ---
 class: split-40
@@ -235,11 +243,12 @@ ggplot(gapminder_2002) +
   aes(y = lifeExp) +  
   coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
   geom_point() +  
-* geom_density2d()
+* geom_density2d() +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/geom_2_continuous_rotate_9_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_9_output-1.png" width="100%" /&gt;
 ]]
 ---
 class: split-40
@@ -255,11 +264,12 @@ ggplot(gapminder_2002) +
   aes(y = lifeExp) +  
   coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
   geom_point() +  
-* geom_smooth()   #
+* geom_smooth() +  #
+  theme_minimal()  
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/geom_2_continuous_rotate_10_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_10_output-1.png" width="100%" /&gt;
 ]]
 ---
 class: split-40
@@ -275,11 +285,12 @@ ggplot(gapminder_2002) +
   aes(y = lifeExp) +  
   coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
   geom_point() +  
-* geom_smooth(method = lm)
+* geom_smooth(method = lm) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/geom_2_continuous_rotate_11_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_11_output-1.png" width="100%" /&gt;
 ]]
 ---
 class: split-40
@@ -295,11 +306,12 @@ ggplot(gapminder_2002) +
   aes(y = lifeExp) +  
   coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
   geom_point() +  
-* geom_hex(alpha = .5,color = "white")
+* geom_hex(alpha = .5,color = "white") +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/geom_2_continuous_rotate_12_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_12_output-1.png" width="100%" /&gt;
 ]]
 
 
@@ -346,7 +358,8 @@ gapminder %&gt;%
   aes(y = pop * gdpPercap) +  
   aes(group = country) +  
   geom_point() +  
-  geom_col()   
+  geom_col() +  
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -368,7 +381,8 @@ gapminder %&gt;%
   aes(y = pop * gdpPercap) +  
   aes(group = country) +  
   geom_point() +  
-* geom_segment(aes(xend = year, yend = 0))
+* geom_segment(aes(xend = year, yend = 0)) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -390,7 +404,8 @@ gapminder %&gt;%
   aes(y = pop * gdpPercap) +  
   aes(group = country) +  
   geom_point() +  
-* geom_line()
+* geom_line() +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -412,7 +427,8 @@ gapminder %&gt;%
   aes(y = pop * gdpPercap) +  
   aes(group = country) +  
   geom_point() +  
-* geom_area(alpha = .4, fill = "plum1", color = "plum1")
+* geom_area(alpha = .4, fill = "plum1", color = "plum1") +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -702,7 +718,8 @@ gapminder %&gt;%
   aes(x = year) +  
   aes(y = gdp) +  
   geom_point() +  
-  geom_line(aes(linetype = country, color = country))   
+  geom_line(aes(linetype = country, color = country)) +  
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -724,7 +741,8 @@ gapminder %&gt;%
   aes(x = year) +  
   aes(y = gdp) +  
   geom_point() +  
-* geom_col(aes(fill = country), position = "dodge", alpha = .4)
+* geom_col(aes(fill = country), position = "dodge", alpha = .4) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -746,7 +764,8 @@ gapminder %&gt;%
   aes(x = year) +  
   aes(y = gdp) +  
   geom_point() +  
-* geom_col(aes(fill = country), alpha = .4)
+* geom_col(aes(fill = country), alpha = .4) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -768,7 +787,8 @@ gapminder %&gt;%
   aes(x = year) +  
   aes(y = gdp) +  
   geom_point() +  
-* geom_area(aes(fill = country), alpha = .4)
+* geom_area(aes(fill = country), alpha = .4) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -811,7 +831,8 @@ gapminder %&gt;%
   aes(x = continent) +  
   aes(y = lifeExp) +  
   geom_point(size = .2) +  
-  geom_boxplot(alpha = .1)   
+  geom_boxplot(alpha = .1) +  
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -832,7 +853,8 @@ gapminder %&gt;%
   aes(x = continent) +  
   aes(y = lifeExp) +  
   geom_point(size = .2) +  
-* geom_jitter(width = .2, alpha = .5, color = "green")
+* geom_jitter(width = .2, alpha = .5, color = "green") +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -853,7 +875,8 @@ gapminder %&gt;%
   aes(x = continent) +  
   aes(y = lifeExp) +  
   geom_point(size = .2) +  
-* geom_violin(alpha = .1)
+* geom_violin(alpha = .1) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -874,7 +897,8 @@ gapminder %&gt;%
   aes(x = continent) +  
   aes(y = lifeExp) +  
   geom_point(size = .2) +  
-* ggforce::geom_sina(col = "magenta", alpha = .5)
+* ggforce::geom_sina(col = "magenta", alpha = .5) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -895,7 +919,8 @@ gapminder %&gt;%
   aes(x = continent) +  
   aes(y = lifeExp) +  
   geom_point(size = .2) +  
-* stat_summary(fun.y = mean, geom = "point", col = "goldenrod2", size = 8)
+* stat_summary(fun.y = mean, geom = "point", col = "goldenrod2", size = 8) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -929,7 +954,8 @@ gapminder %&gt;%
   aes(x = lifeExp) +  
   aes(y = country) +  
   geom_point() +  
-  geom_col()   
+  geom_col() +  
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -951,7 +977,8 @@ gapminder %&gt;%
   aes(x = lifeExp) +  
   aes(y = country) +  
   geom_point() +  
-* geom_segment(aes(xend = 0, yend = country))
+* geom_segment(aes(xend = 0, yend = country)) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -973,7 +1000,8 @@ gapminder %&gt;%
   aes(x = lifeExp) +  
   aes(y = country) +  
   geom_point() +  
-* geom_hline(aes(yintercept = country), linetype = "dotted")
+* geom_hline(aes(yintercept = country), linetype = "dotted") +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -1156,7 +1184,8 @@ gapminder_2002 %&gt;%
   aes(x = continent) +  
   aes(y = age_category) +  
   geom_jitter(col = "blue", alpha = .3, width = .25, height = .25) +  
-  geom_count(col = "magenta", alpha = .6)   
+  geom_count(col = "magenta", alpha = .6) +  
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -1182,7 +1211,8 @@ gapminder_2002 %&gt;%
   aes(x = continent) +  
   aes(y = age_category) +  
   geom_jitter(col = "blue", alpha = .3, width = .25, height = .25) +  
-* geom_text(data = . %&gt;% group_by(age_category, continent) %&gt;% count, aes(label = n))
+* geom_text(data = . %&gt;% group_by(age_category, continent) %&gt;% count, aes(label = n)) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -1208,7 +1238,8 @@ gapminder_2002 %&gt;%
   aes(x = continent) +  
   aes(y = age_category) +  
   geom_jitter(col = "blue", alpha = .3, width = .25, height = .25) +  
-* geom_label(data = . %&gt;% group_by(age_category, continent) %&gt;% count, aes(label = n))
+* geom_label(data = . %&gt;% group_by(age_category, continent) %&gt;% count, aes(label = n)) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -1240,7 +1271,8 @@ gapminder_2002 %&gt;%
   aes(x = age_category) +  
   aes(fill = continent) +  
   geom_point(stat = "count") +  
-  geom_bar(position = "dodge", alpha = .6)   
+  geom_bar(position = "dodge", alpha = .6) +  
+  theme_minimal()  
 ```
 ]]
 .column[.content[
@@ -1266,7 +1298,8 @@ gapminder_2002 %&gt;%
   aes(x = age_category) +  
   aes(fill = continent) +  
   geom_point(stat = "count") +  
-* geom_bar(alpha = .6)
+* geom_bar(alpha = .6) +
+  theme_minimal()  
 ```
 ]]
 .column[.content[

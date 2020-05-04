@@ -1,0 +1,713 @@
+---
+title: "fine tuning ggplot themes"
+subtitle: "a flipbook | made with Xaringan"
+author: "<br><br>Gina Reynolds, May 2019"
+date: "<br>"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["kunoichi", "ninjutsu"]
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+---
+
+```{r setup, echo = F, eval = T, message = F, warning = F }
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, message = F, warning = F, dpi = 300)
+
+source("https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/master/xaringan_reveal_parentheses_balanced.R")
+```
+
+
+---
+
+Some ideas from ["The Glamour of Graphics"](https://resources.rstudio.com/rstudio-conf-2020/the-glamour-of-graphics-william-chase)
+
+--
+- engage a wider audience
+
+--
+- aesthetic-usability effect
+
+--
+- respect for your audience
+
+--
+
+## Glamour and Grammar etymological connection!
+
+---
+
+# Layout
+
+--
+- Mostly left alignment of text
+
+--
+- titles - *plot* left alignment
+
+--
+- no head tilting
+
+--
+- get rid of labels if possible
+
+--
+- rethink legend position, or alternatives: labeling data, or color mapping
+
+--
+- be borders skeptical
+
+--
+- be gridline skeptical
+
+--
+- try to avoid legends
+
+--
+- white space - use it!
+
+
+---
+
+# Typography
+
+
+--
+- effects tone
+
+--
+- https://practicaltypography.com/
+
+--
+- https://fonts.google.com/ (source family)
+
+--
+- typographic hiararchy - size, weight, spacing
+
+--
+- don't use "oldstyle" numbers, do use *tabular* numbers
+
+--
+- https://cran.r-project.org/web/packages/svglite/vignettes/fonts.html
+
+  
+To be continued...  [](https://cran.r-project.org/web/packages/svglite/vignettes/fonts.html)
+  
+
+---
+
+# Color
+
+Check out the [color](color.html) slides. 
+
+--
+- also eyedropper tool
+
+--
+- use hue saturation value selection
+
+--
+- non-white backgrounds
+
+
+---
+
+# Table of Contents
+
+- [Ugly Theme Choices](#uglyplot)
+
+- Elements
+  - [Text Elements](#textelements)
+  - [Rectangular Elements](#rectangularelements)
+  - [Line Elements](#lineelements)
+
+- More
+  - [Legends](#legend)
+  - [Sundry](#sundry)
+  - [Facets](#facet)
+
+- [Preset Themes](#presetthemes)
+
+---
+
+# Visual Table of Contents
+
+```{r, results='asis', echo=FALSE}
+make_html_picture_link("figures/custom_theme.png", "#uglyplot")
+make_html_picture_link("figures/text_components.png", "#textelements")
+make_html_picture_link("figures/rect_components.png", "#rectangularelements")
+make_html_picture_link("figures/line_components.png", "#lineelements")
+
+```
+
+
+```{r, results='asis', echo=FALSE}
+make_html_picture_link("figures/legend.png", "#legend")
+make_html_picture_link("figures/sundries.png", "#sundry")
+make_html_picture_link("figures/small_multiples.png", "#facet")
+make_html_picture_link("figures/theme_presets.png", "#presetthemes")
+```
+
+
+
+---
+
+# Introduction
+
+This is a focused extension of [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html).The aim is to illuminate theme statements. 
+
+
+
+
+```{r, message = F, warning=F, eval = T}
+options(scipen = 10) # adjust when scientific notation turns on
+library(tidyverse)
+library(gapminder)
+```
+
+
+---
+
+# Before we begin
+
+This resource is focused on fine tuning and communicating what code gives what output.  However after you are done fine-tuning you might be interested in saving your thematic choices.  Theme choices can be bundled in a theme set statement and then subsequent plots will hold onto those choices and apply them in subsequent plot.  
+
+https://ggplot2.tidyverse.org/reference/theme_get.html
+
+
+---
+
+`r flipbookr::chunk_reveal("bundle")`
+
+```{r bundle, include = F}
+theme(rect = element_rect(fill = "snow3")) +
+  theme(text = element_text(family = "Times New Roman")) +
+  theme(axis.title = element_text(color = "slateblue4")) +
+  theme(title = element_text(color = "seagreen")) +
+  theme(axis.line = element_line(color = "orange")) ->
+my_theme
+
+cars %>% 
+  ggplot() +
+  aes(x = speed) +
+  aes(y = dist) +
+  geom_point() +
+  my_theme
+```
+
+
+
+
+---
+
+# Base Plot
+
+We'll work with the plot below to apply all the theme adjustments.  In the next slide, we'll build this plot and save it as the plot object `g`.  To this plot object we'll add the theme statements.  You might check out [The Tidyverse in Action](https://evamaerey.github.io/tidyverse_in_action/tidyverse_in_action.html) if you are puzzled about how to build `g`. The [ggplot2 Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) is also an excellent resource. 
+
+```{r the_plot, eval = T, echo = F}
+gapminder %>%
+  filter(year == 1992) %>%
+  ggplot() +
+  aes(x = gdpPercap, y = lifeExp) +
+  geom_point(alpha = .8, shape = 21, 
+             fill = "white") +
+  aes(col = continent, fill = continent) +
+  geom_point(alpha = .3, shape = 21) +
+  aes(size = pop) +
+  scale_size(guide = F) +
+  labs(title = "Wealth and expected longevity\n in 1992") +
+  labs(subtitle = "Data from gapminder package in R") +
+  labs(x = "GDP per Capita") +
+  labs(y = "Life Expectency") + # a tag is also an option
+  labs(col = "Continent", fill = "Continent") +
+  labs(caption = "Vis: @EvaMaeRey with ggplot") ->
+g
+```
+
+
+
+---
+
+`r apply_reveal("the_plot")`
+
+
+
+
+
+---
+
+# Thematic adjustment overview
+
+--
+
+## Components
+
+The components in a ggplot graph are usually things you can point to on a plot.  
+
+For example the *legend box*, or the *y axis title*, or the *plot title*.   
+
+
+--
+
+## Elements
+
+These components have a variety of elements.  For example the legend box has the perimeter of the box (the line) and it has the area of the box associated with it.  To "point" to specify the element parts of the components, functions like element_line(), element_rect(), and element_text() are used.  To delete an entire component, element_blank() can be used.
+
+--
+
+## Aesthetics
+
+Aesthetics assignment for theme elements are similar to those available for geometric shapes in the plot. Aesthetics include color, size, line_type, and so on. 
+
+
+---
+
+# Graph Components
+
+So, what components can be adjusted? (there are lots!)
+
+> aspect.ratio
+
+> axis.title, axis.title.x,
+  axis.title.x.top, axis.title.x.bottom, axis.title.y, axis.title.y.left,
+  axis.title.y.right, axis.text, axis.text.x, axis.text.x.top,
+  axis.text.x.bottom, axis.text.y, axis.text.y.left, axis.text.y.right,
+  axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom,
+  axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right, axis.ticks.length,
+  axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y,
+  axis.line.y.left, axis.line.y.right
+  
+> legend.background, legend.margin,
+  legend.spacing, legend.spacing.x, legend.spacing.y, legend.key,
+  legend.key.size, legend.key.height, legend.key.width, legend.text,
+  legend.text.align, legend.title, legend.title.align, legend.position,
+  legend.direction, legend.justification, legend.box, legend.box.just,
+  legend.box.margin, legend.box.background, legend.box.spacing
+  
+> panel.background, panel.border, panel.spacing, panel.spacing.x,
+  panel.spacing.y, panel.grid, panel.grid.major, panel.grid.minor,
+  panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
+  panel.grid.minor.y, panel.ontop 
+  
+> plot.background, plot.title,
+  plot.subtitle, plot.caption, plot.tag, plot.tag.position, plot.margin
+  
+> strip.background, strip.background.x, strip.background.y,
+  strip.placement, strip.text, strip.text.x, strip.text.y,
+  strip.switch.pad.grid, strip.switch.pad.wrap
+
+
+
+---
+name: uglyplot
+
+# An ugly plot, for locating components!
+
+Now we'll create this plot to get a sense of how thematic modifications can be made, by 1) specifying the component to be adjusted 
+2) the element of the component to be adjusted and 3) indicating the aesthetic adjustment.  
+
+The adjustments made should make clear what components of the plot are called in ggplot. 
+
+Later we'll walk through a more focused adjustments.  We'll go through time elements one at at time: text, rectangular, line, etc.  
+
+```{r custom_theme, echo = F, eval = T, out.width="50%"}
+g + 
+  theme(rect = element_rect(fill = "snow3")) +
+  theme(text = element_text(family = "Times New Roman")) +
+  theme(axis.title = element_text(color = "slateblue4")) +
+  theme(title = element_text(color = "seagreen")) +
+  theme(axis.line = element_line(color = "orange")) +
+  theme(legend.key = element_rect(fill = "violet")) +
+  theme(axis.ticks = element_line(color = "blue")) +
+  theme(axis.ticks.x = element_blank()) +
+  theme(panel.background = element_rect(fill = "steelblue")) +
+  theme(panel.grid = 
+          element_line(size = 3, color = "thistle1")) +
+  theme(legend.background = element_rect(fill = "goldenrod1")) +
+  theme(legend.text = element_text(size = 7)) +
+  theme(legend.position = "bottom") +
+  theme(legend.margin = margin(t = 0, r = 20, 
+                               b = 0, l = 40, unit = "pt")) +
+  theme(aspect.ratio = .5) 
+```
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "custom_theme"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
+
+
+
+---
+
+
+`r apply_reveal("custom_theme")`
+
+
+
+
+
+---
+
+# What are the elements of these components?
+
+Now we'll focus on different elements of the components: 
+
+- element_line()
+- element_rect()
+- element_text()
+
+Additionally, element_blank(), allows you to indicate that you don't want the component included in the plot at all. 
+
+
+---
+
+
+# Across-the-board adjustment
+
+Across-the-board adjustment to all components with given elements can also be done using the *line*, *rect*, *text*, and *title* adjustments.
+These will apply generally where no more specific adjustment has been made.  
+
+> line
+
+> rect
+
+> text 
+
+> title
+
+
+
+---
+name: textelements
+
+# Focus on text elements!
+
+
+
+```{r text_components, eval = T, echo = F, out.width="60%"}
+g + 
+  theme(plot.title.position = "plot") +
+  theme(plot.tag = 
+          element_text(color = "plum4", size = 25)) +
+  theme(plot.title = 
+          element_text(color = "plum4", 
+                       size = 20,
+                       lineheight = 2.5)) +
+  theme(plot.subtitle = element_text(color = "plum4")) +
+  theme(axis.title.y = 
+          element_text(color = "plum4", 
+                       size = rel(3))) +
+  theme(axis.text.y = element_text(color = "plum4")) +
+  theme(legend.title = 
+          element_text(color = "plum4", size = 22)) +
+  theme(legend.text = element_text(color = "plum4")) +
+  theme(axis.title.x = element_text(color = "plum4")) +
+  theme(axis.text.x = element_text(color = "plum4")) +
+  theme(plot.caption = 
+          element_text(color = "plum4", size = 20)) +
+  theme(text = element_text(family = "Times")) + 
+  theme(text = element_text(face = "bold.italic")) +
+  theme(text = element_text(
+    margin = margin(t = 3, r = 3, b = 3, l = 3, 
+                    unit = "pt"))) +
+  theme(text = element_text(angle = 2)) +
+  theme(plot.title = element_text(hjust = .5)) +
+  theme(axis.title.x = element_text(hjust = 1)) 
+```
+
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "text_components"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
+
+
+---
+
+`r apply_reveal("text_components")`
+
+
+---
+
+name: rectangularelements
+
+# Focus on rectangular elements!
+
+
+```{r rect_components, eval = T, echo = F, out.width="60%"}
+g +
+  theme(plot.background = 
+          element_rect(fill = "purple", 
+                       color = "darkolivegreen", 
+                       size = 3)) +
+  theme(panel.background = 
+          element_rect(fill = "purple", 
+                       color = "darkolivegreen",
+                       size = 3)) +
+  theme(legend.background = 
+          element_rect(fill = "purple", 
+                       color = "darkolivegreen", 
+                       size = 3)) +
+  theme(legend.key = 
+          element_rect(fill = "purple", 
+                       color = "darkolivegreen", 
+                       size = 3)) +
+  theme(panel.border = 
+          element_rect(color = "magenta", 
+                       fill = NA, size = 4))
+```
+
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "rect_components"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
+
+---
+
+`r apply_reveal("rect_components")`
+
+---
+
+name: lineelements
+
+# Focus on line elements!
+
+
+```{r line_components, eval = T, echo = F, out.width="60%"}
+g +
+  theme(axis.ticks.y = 
+          element_line(size = 10, 
+                       color = "blue")) +
+  theme(axis.ticks.x = 
+          element_line(size = 10, 
+                       color = "blue")) +
+  theme(panel.grid.major.y = 
+          element_line(size = 2,
+                       linetype = "dashed",
+                       color = "blue",
+                       lineend = "round")) +
+  theme(panel.grid.major.x = 
+          element_line(size = 2, 
+                       arrow = arrow(),
+                       color = "blue",
+                       lineend = "round")) +
+  theme(panel.grid.minor.y = 
+          element_line(size = 1, 
+                       linetype = "dotted",
+                       color = "blue",
+                       lineend = "butt")) +
+  theme(panel.grid = 
+          element_line(color = "blue")) +
+  theme(axis.line.x.top = 
+          element_line(size = 2,
+                       color = "blue")) +
+  theme(panel.ontop = TRUE,   
+        panel.background = element_blank()) # in front of the data
+```
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "line_components"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
+
+---
+
+`r apply_reveal("line_components")`
+
+
+
+---
+
+# What aesthetics of these elements can be adjusted?
+
+| aesthetic | adjustable for element of type: |
+|-----|----|
+| fill | *rect*  |
+| color | *rect, line, text* |
+| size |  *rect, line, text* |
+| linetype | *rect, line* |
+| lineend | *line* |
+| arrow | *line* |
+| family (font) | *text* |
+| face | *text* |
+| hjust | *text* |
+| vjust | *text* |
+| angle  | *text* |
+| lineheight |  *text* |
+| margin | *text* |
+| debug | *text* |
+| inherit.blank | *rect, line, text* |
+
+
+
+---
+
+name: legends
+
+# More legend options!
+
+
+
+```{r legend, eval = T, echo = F, out.width="60%"}
+g +
+  theme(legend.position = "bottom") +
+  theme(legend.position = "none") +
+  theme(legend.position = c(.8, .25)) +
+  theme(legend.direction = "horizontal") +
+  theme(legend.key = element_rect()) +
+  guides(fill = guide_legend(size = 35))
+```
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "legend"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
+---
+
+`r apply_reveal("legend")`
+
+---
+
+name: sundries
+
+# More modifications! (Sundries)
+
+
+```{r sundries, eval = T, echo = F, out.width="60%"}
+g +
+  theme(plot.tag.position = "topright") + 
+  scale_color_discrete(guide = FALSE) +
+  scale_fill_discrete(guide = FALSE) +
+  scale_x_continuous(position = "top") +
+  scale_y_continuous(position = "right") +
+  theme(aspect.ratio = .5) 
+```
+
+---
+
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "sundries"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
+
+`r apply_reveal("sundries")`
+
+
+---
+
+name: facet
+
+# Focus on facet elements!
+
+
+```{r small_multiples, eval = T, echo = F, out.width="60%"}
+g + 
+  facet_wrap(~ continent, 
+             strip.position = "right") +
+  theme(strip.background = 
+          element_rect(fill = "pink")) +
+  theme(strip.text.y = 
+          element_text(color = "snow", size = 12)) +
+  theme(strip.text.y = 
+          element_text(angle = -80)) +
+  theme(panel.spacing.x = 
+          unit(1.5, "lines")) +
+  theme(panel.spacing.y = 
+          unit(2, "lines")) +
+  theme(strip.switch.pad.grid = 
+          unit(0, "cm"))
+```
+
+```{r getwhat, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "small_multiples"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
+
+
+---
+
+`r apply_reveal("small_multiples")`
+
+---
+name: presetthemes
+
+# preset themes
+
+Next we'll have at different preset themes available in ggplot that can be applied in one line of code. 
+
+
+```{r theme_presets, eval = T, echo = F, out.width="60%"}
+g + 
+  theme_bw() +
+  theme_classic() +
+  theme_gray() + 
+  theme_light() +
+  theme_linedraw() +
+  theme_minimal() +
+  theme_void() +
+  theme_dark()
+```
+
+
+---
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "theme_presets"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300) 
+```
+
+---
+
+`r apply_reveal("theme_presets")`
+
+
+
+
+
+
+---
+
+# More
+
+- [external themes](external_themes.html)
+- [theme modification with {ggeasy}](themes_ggeasy.Rmd)
+
+
+
+
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 70%}
+
+.column-left {
+  float: left;
+  width: 33.333%;
+}
+
+.column-right {
+  float: right;
+  width: 33.333%;
+}
+
+.column-center {
+  display: inline-block;
+  width: 33.333%;
+}
+```
+
+

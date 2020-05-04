@@ -24,520 +24,6 @@ class: center, middle, inverse, title-slide
 
 ---
 
-# Base Plot
-
-We'll work with the plot below to apply all the theme adjustments.  In the next slide, we'll build this plot and save it as the plot object `g`. 
-
-
----
-
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-*library(tidyverse)
-```
-]]
-.column[.content[
-
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-*library(gapminder)
-```
-]]
-.column[.content[
-
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-*gapminder
-```
-]]
-.column[.content[
-
-```
-  # A tibble: 1,704 x 6
-     country     continent  year lifeExp      pop gdpPercap
-     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-   1 Afghanistan Asia       1952    28.8  8425333      779.
-   2 Afghanistan Asia       1957    30.3  9240934      821.
-   3 Afghanistan Asia       1962    32.0 10267083      853.
-   4 Afghanistan Asia       1967    34.0 11537966      836.
-   5 Afghanistan Asia       1972    36.1 13079460      740.
-   6 Afghanistan Asia       1977    38.4 14880372      786.
-   7 Afghanistan Asia       1982    39.9 12881816      978.
-   8 Afghanistan Asia       1987    40.8 13867957      852.
-   9 Afghanistan Asia       1992    41.7 16317921      649.
-  10 Afghanistan Asia       1997    41.8 22227415      635.
-  # … with 1,694 more rows
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-* filter(year == 1992)
-```
-]]
-.column[.content[
-
-```
-  # A tibble: 142 x 6
-     country     continent  year lifeExp       pop gdpPercap
-     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
-   1 Afghanistan Asia       1992    41.7  16317921      649.
-   2 Albania     Europe     1992    71.6   3326498     2497.
-   3 Algeria     Africa     1992    67.7  26298373     5023.
-   4 Angola      Africa     1992    40.6   8735988     2628.
-   5 Argentina   Americas   1992    71.9  33958947     9308.
-   6 Australia   Oceania    1992    77.6  17481977    23425.
-   7 Austria     Europe     1992    76.0   7914969    27042.
-   8 Bahrain     Asia       1992    72.6    529491    19036.
-   9 Bangladesh  Asia       1992    56.0 113704579      838.
-  10 Belgium     Europe     1992    76.5  10045622    25576.
-  # … with 132 more rows
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-* ggplot()
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_5_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-* aes(x = gdpPercap, y = lifeExp)
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_6_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-* geom_point(alpha = .8, shape = 21,
-*            fill = "white")
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_7_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-  geom_point(alpha = .8, shape = 21,  
-             fill = "white") +  
-* aes(col = continent, fill = continent)
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_8_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-  geom_point(alpha = .8, shape = 21,  
-             fill = "white") +  
-  aes(col = continent, fill = continent) +  
-* geom_point(alpha = .3, shape = 21)
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_9_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-  geom_point(alpha = .8, shape = 21,  
-             fill = "white") +  
-  aes(col = continent, fill = continent) +  
-  geom_point(alpha = .3, shape = 21) +  
-* aes(size = pop)
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_10_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-  geom_point(alpha = .8, shape = 21,  
-             fill = "white") +  
-  aes(col = continent, fill = continent) +  
-  geom_point(alpha = .3, shape = 21) +  
-  aes(size = pop) +  
-* scale_size(guide = F)
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_11_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-  geom_point(alpha = .8, shape = 21,  
-             fill = "white") +  
-  aes(col = continent, fill = continent) +  
-  geom_point(alpha = .3, shape = 21) +  
-  aes(size = pop) +  
-  scale_size(guide = F) +  
-* labs(title = "Wealth and expected longevity\n in 1992")
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_12_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-  geom_point(alpha = .8, shape = 21,  
-             fill = "white") +  
-  aes(col = continent, fill = continent) +  
-  geom_point(alpha = .3, shape = 21) +  
-  aes(size = pop) +  
-  scale_size(guide = F) +  
-  labs(title = "Wealth and expected longevity\n in 1992") +  
-* labs(subtitle = "Data from gapminder package in R")
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_13_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-  geom_point(alpha = .8, shape = 21,  
-             fill = "white") +  
-  aes(col = continent, fill = continent) +  
-  geom_point(alpha = .3, shape = 21) +  
-  aes(size = pop) +  
-  scale_size(guide = F) +  
-  labs(title = "Wealth and expected longevity\n in 1992") +  
-  labs(subtitle = "Data from gapminder package in R") +  
-* labs(x = "GDP per Capita")
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_14_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-  geom_point(alpha = .8, shape = 21,  
-             fill = "white") +  
-  aes(col = continent, fill = continent) +  
-  geom_point(alpha = .3, shape = 21) +  
-  aes(size = pop) +  
-  scale_size(guide = F) +  
-  labs(title = "Wealth and expected longevity\n in 1992") +  
-  labs(subtitle = "Data from gapminder package in R") +  
-  labs(x = "GDP per Capita") +  
-* labs(y = "Life Expectency")
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_15_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-  geom_point(alpha = .8, shape = 21,  
-             fill = "white") +  
-  aes(col = continent, fill = continent) +  
-  geom_point(alpha = .3, shape = 21) +  
-  aes(size = pop) +  
-  scale_size(guide = F) +  
-  labs(title = "Wealth and expected longevity\n in 1992") +  
-  labs(subtitle = "Data from gapminder package in R") +  
-  labs(x = "GDP per Capita") +  
-  labs(y = "Life Expectency") +  
-* labs(tag = "Plot 1")
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_16_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-  geom_point(alpha = .8, shape = 21,  
-             fill = "white") +  
-  aes(col = continent, fill = continent) +  
-  geom_point(alpha = .3, shape = 21) +  
-  aes(size = pop) +  
-  scale_size(guide = F) +  
-  labs(title = "Wealth and expected longevity\n in 1992") +  
-  labs(subtitle = "Data from gapminder package in R") +  
-  labs(x = "GDP per Capita") +  
-  labs(y = "Life Expectency") +  
-  labs(tag = "Plot 1") +  
-* labs(col = "Continent", fill = "Continent")
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_17_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-  geom_point(alpha = .8, shape = 21,  
-             fill = "white") +  
-  aes(col = continent, fill = continent) +  
-  geom_point(alpha = .3, shape = 21) +  
-  aes(size = pop) +  
-  scale_size(guide = F) +  
-  labs(title = "Wealth and expected longevity\n in 1992") +  
-  labs(subtitle = "Data from gapminder package in R") +  
-  labs(x = "GDP per Capita") +  
-  labs(y = "Life Expectency") +  
-  labs(tag = "Plot 1") +  
-  labs(col = "Continent", fill = "Continent") +  
-* labs(caption = "Vis: @EvaMaeRey with ggplot")
-```
-]]
-.column[.content[
-&lt;img src="external_themes_files/figure-html/the_plot_auto_18_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(tidyverse)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year == 1992) %&gt;%  
-  ggplot() +  
-  aes(x = gdpPercap, y = lifeExp) +  
-  geom_point(alpha = .8, shape = 21,  
-             fill = "white") +  
-  aes(col = continent, fill = continent) +  
-  geom_point(alpha = .3, shape = 21) +  
-  aes(size = pop) +  
-  scale_size(guide = F) +  
-  labs(title = "Wealth and expected longevity\n in 1992") +  
-  labs(subtitle = "Data from gapminder package in R") +  
-  labs(x = "GDP per Capita") +  
-  labs(y = "Life Expectency") +  
-  labs(tag = "Plot 1") +  
-  labs(col = "Continent", fill = "Continent") +  
-  labs(caption = "Vis: @EvaMaeRey with ggplot") -&gt;  
-*g 
-```
-]]
-.column[.content[
-
-]]
-
-
-
-
-
----
-
 Now let's look at available themes from a couple external packages, {ggthemes} and {ggdark}. 
 
 You will need to install these packages first in order to use them.  
@@ -553,6 +39,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -585,6 +73,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -617,6 +107,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -649,6 +141,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -681,6 +175,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -713,6 +209,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -745,6 +243,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -777,6 +277,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -809,6 +311,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -841,6 +345,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -873,6 +379,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -905,6 +413,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -937,6 +447,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -969,6 +481,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -1001,6 +515,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -1033,6 +549,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -1065,6 +583,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -1097,6 +617,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -1129,6 +651,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -1161,6 +685,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -1193,6 +719,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -1225,6 +753,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -1257,6 +787,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -1289,6 +821,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -1321,6 +855,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  
@@ -1353,6 +889,8 @@ count: false
 .column[.content[
 
 ```r
+library(tidyverse)  
+library(gapminder)  
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
   ggplot() +  

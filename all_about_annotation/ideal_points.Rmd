@@ -18,7 +18,7 @@ output:
 ```{r, message = F, warning= F}
 
 knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
-knitr::opts_chunk$set(fig.height = 6,  comment = " ", cache = T)
+knitr::opts_chunk$set(fig.height = 8, fig.width = 14,  comment = " ", cache = T)
 
 ```
 
@@ -66,7 +66,7 @@ df_for_us %>%
 
 ---
 
-```{r unga_ridges, echo = F, eval = F, fig.height = 6}
+```{r unga_ridges, echo = F, eval = F, fig.height = 6, dpi = 300}
 ggplot(df_for_graph) +
   aes(y = YearFct) +
   aes(x = Idealpoint) +
@@ -117,73 +117,82 @@ ggplot(df_for_graph) +
 
 ---
 
-```{r}
-df_for_graph %>% 
+`r flipbookr::chunk_reveal("hello", display_type = "output")`
+
+```{r hello, include = T, fig.height=8, fig.width=14, dpi = 300}
+library(tidyverse)
+dat <- read_csv("https://raw.githubusercontent.com/evoeten/United-Nations-General-Assembly-Votes-and-Ideal-Points/master/Output/IdealpointestimatesAll_Apr2020.csv") 
+
+dat %>% 
+  mutate(continent = countrycode::countrycode(ccode, 
+                                              origin = "cown", 
+                                              destination = "continent")) %>%  
   filter(continent == "Americas") %>% 
-  mutate(CountryName = str_replace(CountryName, "of America", "")) %>% 
-  mutate(CountryName = str_replace(CountryName, " and ", " & ")) %>% 
-  mutate(CountryName = str_replace(CountryName, "the Grenadines", "\n the Grenadines")) %>% 
-  group_by(CountryAbb) %>% 
-  mutate(mean_ideal = mean(Idealpoint, na.rm = T)) %>% 
+  mutate(Countryname = str_replace(Countryname, "of America", "")) %>% 
+  mutate(Countryname = str_replace(Countryname, " and ", " & ")) %>% 
+  mutate(Countryname = str_replace(Countryname, "the Grenadines", "\n the Grenadines")) %>% 
+  group_by(Countryname) %>% 
+  mutate(mean_ideal = mean(IdealPoint, na.rm = T)) %>% 
   ungroup() %>% 
   arrange(-mean_ideal) %>% 
-  mutate(CountryAbb = fct_inorder(CountryAbb)) %>% 
+  mutate(Countryname = fct_inorder(Countryname)) %>% 
+  mutate(year = session + 1945) %>% 
   ggplot() +
   aes(x = year) +
-  aes(y =  Idealpoint) +
+  aes(y =  IdealPoint) +
   geom_line() +
-  aes(group = CountryAbb) +
-  facet_wrap(~ CountryAbb, scales = "free_x") +
+  aes(group = Countryname) +
+  facet_wrap(~ Countryname, scales = "free_x") +
   geom_line(data = . %>% 
-              mutate(grayed = CountryAbb) %>% 
-              select(-CountryAbb),
+              mutate(grayed = Countryname) %>% 
+              select(-Countryname),
             aes(group = grayed),
             alpha = .4,
             color = "grey") +
   geom_line(color = "steelblue") +
   geom_point(data = . %>% 
-               group_by(CountryAbb) %>%
+               group_by(Countryname) %>%
                filter(year == max(year)),
             color = "steelblue",
             alpha = .7,
-            size = 1) +
+            size = 3) +
   geom_point(data = . %>% 
-               group_by(CountryAbb) %>%
+               group_by(Countryname) %>%
                filter(year == min(year)),
             color = "steelblue",
             alpha = .7,
-            size = 3,
-            shape = "|") +
+            size = 4,
+            shape = "|",
+            fontface = "bold") +
   labs(x = NULL) +
   theme(strip.text =
           element_blank()) +
+  scale_y_continuous(limits = c(-3, 4), breaks = c(-3, 0, 3)) +
   geom_text(data = . %>% 
-               group_by(CountryAbb) %>%
+               group_by(Countryname) %>%
                filter(year == max(year)),
-            aes(label = CountryName),
+            aes(label = Countryname),
             x = 1950,
             y = 4,
-            size = 2,
+            size = 4,
             hjust = 0,
             vjust = 1,
             lineheight = .8,
             color = "steelblue",
             fontface = "bold") +
   scale_x_continuous(breaks = c(1950, 1970, 1990, 2010), labels = c("'50", "'70", "'90", "2010")) +
-  scale_y_continuous(limits = c(-3, 4), breaks = c(-3, 0, 3)) +
   labs(title = "Ideal point estimation based on votes at the UN General Assembly") +
   labs(y = NULL) +
   theme(plot.title.position = "plot") +
   theme(axis.ticks = element_blank()) +
-  theme(axis.text.y = element_text(size = 7, margin = margin(0,-2,0,0))) +
-  theme(axis.text.x = element_text(size = 7, margin = margin(-2,0,0,0))) +
+  theme(axis.text.y = element_text(size = 12, margin = margin(0,-2,0,0))) +
+  theme(axis.text.x = element_text(size = 12, margin = margin(-2,0,0,0))) +
   labs(subtitle = "Estimation: Michael A. Bailey, Anton Strezhnev, Erik Voeten 2015") +
   labs(caption = "Data Viz: Gina Reynolds w/ ggplot2") +
   theme(axis.line = element_blank()) +
   theme(panel.background = element_rect(fill = "#EFEDF5")) +
   theme(plot.background = element_rect(fill = "#EFEDF5")) +
-  theme(text = element_text(family = "Times", color = "#090909"))
-
+  theme(text = element_text(family = "Times", color = "#090909", size = 20))
 ```
 
 
@@ -191,7 +200,7 @@ df_for_graph %>%
 
 ---
 
-`r apply_reveal("unga_ridges")`
+r apply_reveal("unga_ridges")`
 
 ---
 

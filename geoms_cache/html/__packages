@@ -1,4 +1,5 @@
 base
+flipbookr
 tidyverse
 ggplot2
 tibble
@@ -9,4 +10,3 @@ dplyr
 stringr
 forcats
 gapminder
-flipbookr

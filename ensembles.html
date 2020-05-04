@@ -1,0 +1,2414 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Plot Ensembles</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds, December 2019" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Plot Ensembles
+## With flipbookr and xaringan
+### Gina Reynolds, December 2019
+
+---
+
+
+
+
+
+
+---
+
+
+&lt;img src="../../teaching/lecture_topics/images_for_lecture/malaria_cases.png" width="489" height="80%" /&gt;
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggplot(diamonds)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_1_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+* aes(x = cut, fill = cut)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_2_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+* geom_bar()
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_3_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+* labs(x = 'Price (USD)')
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_4_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+* labs(y = 'Count')
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_5_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+*p1
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+*ggplot(diamonds)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_7_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+* aes(x = price, fill = cut)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_8_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+* geom_histogram(binwidth = 850)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_9_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+* labs(x = 'Price (USD)')
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_10_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+* labs(y = 'Count')
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_11_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+*p2
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p2  
+
+*ggplot(diamonds)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_13_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p2  
+
+ggplot(diamonds) +  
+* aes(x = carat, fill = cut)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_14_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p2  
+
+ggplot(diamonds) +  
+  aes(x = carat, fill = cut) +  
+* geom_density(binwidth = 850)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_15_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p2  
+
+ggplot(diamonds) +  
+  aes(x = carat, fill = cut) +  
+  geom_density(binwidth = 850) +  
+* labs(x = 'Price (USD)')
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_16_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p2  
+
+ggplot(diamonds) +  
+  aes(x = carat, fill = cut) +  
+  geom_density(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+* labs(y = 'Count')
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_17_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p2  
+
+ggplot(diamonds) +  
+  aes(x = carat, fill = cut) +  
+  geom_density(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+*p3
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p2  
+
+ggplot(diamonds) +  
+  aes(x = carat, fill = cut) +  
+  geom_density(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p3  
+
+
+*ggplot(diamonds)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_19_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p2  
+
+ggplot(diamonds) +  
+  aes(x = carat, fill = cut) +  
+  geom_density(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p3  
+
+
+ggplot(diamonds) +  
+* aes(x = carat, y = price, color = cut)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_20_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p2  
+
+ggplot(diamonds) +  
+  aes(x = carat, fill = cut) +  
+  geom_density(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p3  
+
+
+ggplot(diamonds) +  
+  aes(x = carat, y = price, color = cut) +  
+* geom_point(alpha = .05)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_21_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p2  
+
+ggplot(diamonds) +  
+  aes(x = carat, fill = cut) +  
+  geom_density(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p3  
+
+
+ggplot(diamonds) +  
+  aes(x = carat, y = price, color = cut) +  
+  geom_point(alpha = .05) +  
+* facet_wrap(~ cut)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_22_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p2  
+
+ggplot(diamonds) +  
+  aes(x = carat, fill = cut) +  
+  geom_density(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p3  
+
+
+ggplot(diamonds) +  
+  aes(x = carat, y = price, color = cut) +  
+  geom_point(alpha = .05) +  
+  facet_wrap(~ cut) +  
+* theme(legend.position = "none")
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_23_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(diamonds) +  
+  aes(x = cut, fill = cut) +  
+  geom_bar() +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p1  
+
+ggplot(diamonds) +  
+  aes(x = price, fill = cut) +  
+  geom_histogram(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p2  
+
+ggplot(diamonds) +  
+  aes(x = carat, fill = cut) +  
+  geom_density(binwidth = 850) +  
+  labs(x = 'Price (USD)') +  
+  labs(y = 'Count')  -&gt;  
+p3  
+
+
+ggplot(diamonds) +  
+  aes(x = carat, y = price, color = cut) +  
+  geom_point(alpha = .05) +  
+  facet_wrap(~ cut) +  
+  theme(legend.position = "none") -&gt;  
+*p4
+```
+]]
+.column[.content[
+
+]]
+
+
+
+
+
+---
+class: inverse, center, middle
+
+
+
+# {patchwork}
+## "The composer of plots"
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(patchwork)  
+p1 + p2 / p3  
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/patch_rotate_1_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(patchwork)  
+*p1 | p2
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/patch_rotate_2_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(patchwork)  
+*p1 + p2
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/patch_rotate_3_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(patchwork)  
+*p1 / p2
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/patch_rotate_4_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(patchwork)  
+*(p1 + p2) / p3 + p4
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/patch_rotate_5_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(patchwork)  
+*(p1 + p2 + p3) / p4
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/patch_rotate_6_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(patchwork)  
+*(p1 + plot_spacer()) / (p1 + p2)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/patch_rotate_7_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(patchwork)  
+*p1 + p2 + p3 + p4 + plot_layout(widths = c(2, 1))
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/patch_rotate_8_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(patchwork)  
+*p1 + p2 + p3 + p4 + plot_layout(widths = c(2, 1), heights = unit(c(5, 1), c('cm', 'null')))
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/patch_rotate_9_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(patchwork)  
+*p1 + p2 + p3 + p4 + plot_layout(guides = 'collect')
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/patch_rotate_10_output-1.png" width="432" /&gt;
+]]
+
+
+
+---
+class: inverse, center, middle
+
+
+# {cowplot}
+# plot composition and more from *C*laus *O*. *W*ilke
+
+---
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+plot_grid(p1, p2, labels = c('A', 'B'), label_size = 12)  
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/cow_rotate_1_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+*plot_grid(p1, p3, labels = c('A', 'B'), label_size = 15)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/cow_rotate_2_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+*plot_grid(p1, p2, labels = "AUTO")
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/cow_rotate_3_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+*plot_grid(p1, p2, labels = "auto")
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/cow_rotate_4_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+*plot_grid(p3, p2, labels = "AUTO", align = "h")
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/cow_rotate_5_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+*plot_grid(p1, p2, label_fontfamily = "serif", label_colour = "blue")
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/cow_rotate_6_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+*plot_grid(p1, p2, labels = "AUTO", ncol = 1)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/cow_rotate_7_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+*plot_grid(p1, NULL, NULL, p2, labels = "AUTO", ncol = 2)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/cow_rotate_8_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+*plot_grid(p1, p2, labels = "AUTO", rel_widths = c(1, 2))
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/cow_rotate_9_output-1.png" width="432" /&gt;
+]]
+
+
+
+---
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*library(cowplot)
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+*system.file("extdata", "logo.png", package = "cowplot")
+```
+]]
+.column[.content[
+
+```
+[1] "/Library/Frameworks/R.framework/Versions/3.6/Resources/library/cowplot/extdata/logo.png"
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+* logo_file
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+  logo_file  
+
+*ggplot(mpg, aes(displ, cty))
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/draw_auto_4_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+  logo_file  
+
+ggplot(mpg, aes(displ, cty)) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/draw_auto_5_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+  logo_file  
+
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+* theme_minimal_grid(12)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/draw_auto_6_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+  logo_file  
+
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+*p 
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+  logo_file  
+
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+*ggdraw()
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/draw_auto_8_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+  logo_file  
+
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw() +  
+* draw_plot(p)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/draw_auto_9_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+  logo_file  
+
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw() +  
+  draw_plot(p) +  
+* draw_image(logo_file, x = 1, hjust = 1, width = 0.13, height = 0.2)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/draw_auto_10_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+  logo_file  
+
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw() +  
+  draw_plot(p) +  
+  draw_image(logo_file, x = 1, hjust = 1, width = 0.13, height = 0.2) -&gt;  
+*logo_plot1
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+  logo_file  
+
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw() +  
+  draw_plot(p) +  
+  draw_image(logo_file, x = 1, hjust = 1, width = 0.13, height = 0.2) -&gt;  
+logo_plot1  
+
+*ggdraw()
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/draw_auto_12_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+  logo_file  
+
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw() +  
+  draw_plot(p) +  
+  draw_image(logo_file, x = 1, hjust = 1, width = 0.13, height = 0.2) -&gt;  
+logo_plot1  
+
+ggdraw() +  
+* draw_image(logo_file, scale = 0.5)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/draw_auto_13_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+  logo_file  
+
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw() +  
+  draw_plot(p) +  
+  draw_image(logo_file, x = 1, hjust = 1, width = 0.13, height = 0.2) -&gt;  
+logo_plot1  
+
+ggdraw() +  
+  draw_image(logo_file, scale = 0.5) +  
+* draw_plot(p)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/draw_auto_14_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+
+system.file("extdata", "logo.png", package = "cowplot") -&gt;  
+  logo_file  
+
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw() +  
+  draw_plot(p) +  
+  draw_image(logo_file, x = 1, hjust = 1, width = 0.13, height = 0.2) -&gt;  
+logo_plot1  
+
+ggdraw() +  
+  draw_image(logo_file, scale = 0.5) +  
+  draw_plot(p) -&gt;  
+*logo_plot
+```
+]]
+.column[.content[
+
+]]
+
+
+
+
+---
+
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*library(cowplot)
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+*plot_grid(p1, p2,
+*         labels = c('B', 'C'),
+*         label_size = 12)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/bottom_auto_2_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+plot_grid(p1, p2,  
+          labels = c('B', 'C'),  
+          label_size = 12) -&gt;  
+* bottom_row
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+plot_grid(p1, p2,  
+          labels = c('B', 'C'),  
+          label_size = 12) -&gt;  
+  bottom_row  
+
+*mtcars
+```
+]]
+.column[.content[
+
+```
+                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+plot_grid(p1, p2,  
+          labels = c('B', 'C'),  
+          label_size = 12) -&gt;  
+  bottom_row  
+
+mtcars %&gt;%  
+*ggplot()
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/bottom_auto_5_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+plot_grid(p1, p2,  
+          labels = c('B', 'C'),  
+          label_size = 12) -&gt;  
+  bottom_row  
+
+mtcars %&gt;%  
+ggplot() +  
+* aes(x = qsec, y = disp)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/bottom_auto_6_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+plot_grid(p1, p2,  
+          labels = c('B', 'C'),  
+          label_size = 12) -&gt;  
+  bottom_row  
+
+mtcars %&gt;%  
+ggplot() +  
+  aes(x = qsec, y = disp) +  
+* geom_point() + facet_wrap(~gear)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/bottom_auto_7_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+plot_grid(p1, p2,  
+          labels = c('B', 'C'),  
+          label_size = 12) -&gt;  
+  bottom_row  
+
+mtcars %&gt;%  
+ggplot() +  
+  aes(x = qsec, y = disp) +  
+  geom_point() + facet_wrap(~gear) -&gt;  
+*p3
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+plot_grid(p1, p2,  
+          labels = c('B', 'C'),  
+          label_size = 12) -&gt;  
+  bottom_row  
+
+mtcars %&gt;%  
+ggplot() +  
+  aes(x = qsec, y = disp) +  
+  geom_point() + facet_wrap(~gear) -&gt;  
+p3  
+
+*plot_grid(p3, bottom_row,
+*         labels = c('A', ''),
+*         label_size = 12, ncol = 1)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/bottom_auto_9_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+plot_grid(p1, p2,  
+          labels = c('B', 'C'),  
+          label_size = 12) -&gt;  
+  bottom_row  
+
+mtcars %&gt;%  
+ggplot() +  
+  aes(x = qsec, y = disp) +  
+  geom_point() + facet_wrap(~gear) -&gt;  
+p3  
+
+plot_grid(p3, bottom_row,  
+          labels = c('A', ''),  
+          label_size = 12, ncol = 1) -&gt;  
+*my_plot4
+```
+]]
+.column[.content[
+
+]]
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggplot(mpg, aes(displ, cty))
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/lover_auto_1_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/lover_auto_2_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+* theme_minimal_grid(12)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/lover_auto_3_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+*p 
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+*ggdraw(p)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/lover_auto_5_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw(p) +  
+* draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/lover_auto_6_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw(p) +  
+  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+*my_plot
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw(p) +  
+  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+my_plot  
+
+*ggplot(mpg, aes(drv))
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/lover_auto_8_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw(p) +  
+  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+my_plot  
+
+ggplot(mpg, aes(drv)) +  
+* geom_bar(fill = "skyblue2", alpha = 0.7)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/lover_auto_9_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw(p) +  
+  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+my_plot  
+
+ggplot(mpg, aes(drv)) +  
+  geom_bar(fill = "skyblue2", alpha = 0.7) +  
+* scale_y_continuous(expand = expand_scale(mult = c(0, 0.05)))
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/lover_auto_10_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw(p) +  
+  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+my_plot  
+
+ggplot(mpg, aes(drv)) +  
+  geom_bar(fill = "skyblue2", alpha = 0.7) +  
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +  
+* theme_minimal_hgrid(11)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/lover_auto_11_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw(p) +  
+  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+my_plot  
+
+ggplot(mpg, aes(drv)) +  
+  geom_bar(fill = "skyblue2", alpha = 0.7) +  
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +  
+  theme_minimal_hgrid(11) -&gt;  
+*inset
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw(p) +  
+  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+my_plot  
+
+ggplot(mpg, aes(drv)) +  
+  geom_bar(fill = "skyblue2", alpha = 0.7) +  
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +  
+  theme_minimal_hgrid(11) -&gt;  
+inset  
+
+*ggdraw(p + theme_half_open(12))
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/lover_auto_13_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw(p) +  
+  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+my_plot  
+
+ggplot(mpg, aes(drv)) +  
+  geom_bar(fill = "skyblue2", alpha = 0.7) +  
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +  
+  theme_minimal_hgrid(11) -&gt;  
+inset  
+
+ggdraw(p + theme_half_open(12)) +  
+* draw_plot(inset, .45, .45, .5, .5)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/lover_auto_14_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(mpg, aes(displ, cty)) +  
+  geom_point() +  
+  theme_minimal_grid(12) -&gt;  
+p  
+
+ggdraw(p) +  
+  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+my_plot  
+
+ggplot(mpg, aes(drv)) +  
+  geom_bar(fill = "skyblue2", alpha = 0.7) +  
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +  
+  theme_minimal_hgrid(11) -&gt;  
+inset  
+
+ggdraw(p + theme_half_open(12)) +  
+  draw_plot(inset, .45, .45, .5, .5) +  
+* draw_plot_label(
+*   c("A", "B"),
+*   c(0, 0.45),
+*   c(1, 0.95),
+*   size = 12
+* )
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/lover_auto_15_output-1.png" width="432" /&gt;
+]]
+
+
+```r
+ggplot(mpg, aes(displ, cty)) +
+  geom_point() +
+  theme_minimal_grid(12) -&gt;
+p
+
+ggdraw(p) + 
+  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;
+my_plot
+
+ggplot(mpg, aes(drv)) + 
+  geom_bar(fill = "skyblue2", alpha = 0.7) + 
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +
+  theme_minimal_hgrid(11) -&gt;
+inset
+
+ggdraw(p + theme_half_open(12)) +
+  draw_plot(inset, .45, .45, .5, .5) +
+  draw_plot_label(
+    c("A", "B"),
+    c(0, 0.45),
+    c(1, 0.95),
+    size = 12
+  )
+```
+
+&lt;img src="ensembles_files/figure-html/lover-1.png" width="432" /&gt;
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*library(cowplot)
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+*library(magick)
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+library(magick)  
+*system.file("extdata", "cow.jpg", package = "cowplot")
+```
+]]
+.column[.content[
+
+```
+[1] "/Library/Frameworks/R.framework/Versions/3.6/Resources/library/cowplot/extdata/cow.jpg"
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+library(magick)  
+system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%  
+* magick::image_read()
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/image_auto_4_output-1.png" width="507" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+library(magick)  
+system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%  
+  magick::image_read() %&gt;%  
+* magick::image_resize("570x380")
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/image_auto_5_output-1.png" width="253" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+library(magick)  
+system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%  
+  magick::image_read() %&gt;%  
+  magick::image_resize("570x380") %&gt;%  
+* magick::image_colorize(35, "white")
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/image_auto_6_output-1.png" width="253" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+library(magick)  
+system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%  
+  magick::image_read() %&gt;%  
+  magick::image_resize("570x380") %&gt;%  
+  magick::image_colorize(35, "white") -&gt;  
+*img
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+library(magick)  
+system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%  
+  magick::image_read() %&gt;%  
+  magick::image_resize("570x380") %&gt;%  
+  magick::image_colorize(35, "white") -&gt;  
+img  
+
+*ggdraw()
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/image_auto_8_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+library(magick)  
+system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%  
+  magick::image_read() %&gt;%  
+  magick::image_resize("570x380") %&gt;%  
+  magick::image_colorize(35, "white") -&gt;  
+img  
+
+ggdraw() +  
+* draw_image(img)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/image_auto_9_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(cowplot)  
+library(magick)  
+system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%  
+  magick::image_read() %&gt;%  
+  magick::image_resize("570x380") %&gt;%  
+  magick::image_colorize(35, "white") -&gt;  
+img  
+
+ggdraw() +  
+  draw_image(img) +  
+* draw_plot(p)
+```
+]]
+.column[.content[
+&lt;img src="ensembles_files/figure-html/image_auto_10_output-1.png" width="432" /&gt;
+]]
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 80%}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:10",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

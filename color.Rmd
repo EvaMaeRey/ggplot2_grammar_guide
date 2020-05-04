@@ -39,7 +39,7 @@ background-size: cover
 
 
 
-#### .left[Edited: Gina Reynolds<br>Photo Credit: Simon Matzinger]
+#### .left[Gina Reynolds<br>Photo Credit: Simon Matzinger]
 
 ```{r setup, include = F}
 # This is the recommended set up for flipbooks
@@ -56,29 +56,31 @@ library(tidyverse)
 ---
 
 
-## What do we want in a default colormap/colorscale?
-
-Colorful
+## What do we want in a default colormap/colorscale? More from Nathaniel Smith
 
 --
 
-Beautiful
+> Colorful
 
 --
 
-Sequential
+> Beautiful
 
 --
 
-Accuritely represents the data (change in values)
+> Sequential
 
 --
 
-Works in black and white
+> Accurately represents the data (change in values)
 
 --
 
-Accessible to colorblind viewers
+> Works in black and white
+
+--
+
+> Accessible to colorblind viewers
 
 
 ---
@@ -87,25 +89,17 @@ Accessible to colorblind viewers
 
 --
 
-Parula
+> Parula
 
 --
 
-What's the old, problematic one?
+> What's the old, problematic one?
 
 --
 
-Jet (rainbow-y)
+> Jet (rainbow-y)
 
 
----
-
-# viridis > parula
-
-- More brightness variation 
-- Less hue variation  
-- public use 
-- greens!
 
 ---
 
@@ -114,9 +108,9 @@ Jet (rainbow-y)
 
 ---
 
-```{r}
+```{r, echo = F}
 c("red", "orange", "yellow", 
-  "green", "blue", "purple") %>% 
+  "green", "v", "purple") %>% 
   fct_inorder() %>% 
   tibble(roygbv = .) %>% 
   mutate(rank = rep(1:2, 3)) ->
@@ -136,18 +130,26 @@ ggplot(data = color_wheel_data) +
 g
 ```
 
+
+```{r, echo = F, fig.cap = "Author/Copyright holder: Unknown. Copyright terms and licence: Unknown via https://www.interaction-design.org/" , out.width="30%"}
+knitr::include_graphics("https://public-media.interaction-design.org/images/uploads/ecd8ffd0de8cb38865b4bfc247419e08.jpg")
+```
+
+
+
+
+
+
+
 ---
+class: inverse, middle, center
 
-
-![Author/Copyright holder: Unknown. Copyright terms and licence: Unknown via https://www.interaction-design.org/](https://public-media.interaction-design.org/images/uploads/ecd8ffd0de8cb38865b4bfc247419e08.jpg)
-
-
-
----
 
 # Duke Ellington:  "If it sounds good it is good."
 
+--
 
+### A matter of personal taste too
 
 ---
 class: inverse, middle, center
@@ -170,15 +172,16 @@ class: inverse, middle, center
 
 ## RGB 0 to 255 
 
+--
+
+## Hue Saturation Value
+
 
 ---
 class: inverse, middle, center
 
 # Named Colors
 
---
-
-http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
 
 ---
 
@@ -193,7 +196,7 @@ colors() %>%
 ---
 
 
-```{r named_plot, echo = F}
+```{r named_plot, echo = F, fig.width=12, fig.height=7}
 tibble(rows = rep(1:26, 26),
        cols = sort(rep(1:26, 26))) ->
 dat
@@ -214,30 +217,8 @@ dat %>%
           element_rect(fill = "oldlace")) 
 ```
 
----
 
-```{r gt, echo = F}
-num_columns <- 20
-num_colors <- 200
-start_color <- 1
-end_color <- start_color + num_colors - 1
-the_colors <- colors()[start_color:end_color]
-
-
-the_colors %>% 
-  matrix(ncol = num_columns, byrow = T, ) %>% 
-  as_tibble() %>% 
-  mutate_at(.vars = 1:num_columns, funs(factor(., levels = rev(the_colors), ordered = T))) %>% 
-  gt::gt() %>% 
-  gt::data_color(columns = 1:num_columns,
-                 colors = scales::col_factor(
-                   palette = the_colors,
-                   domain = NULL,
-                   reverse = TRUE)
-                 )
-```
-
-
+[See the colors and names](named_colors.html)
 
 ---
 class: inverse, middle, center
@@ -360,7 +341,6 @@ ggplot() +
       rgb(red = .8, green = 0, blue = 1, alpha = 1) #ROTATE
       rgb(red = .9, green = 0, blue = 1, alpha = 1) #ROTATE
       rgb(red =  1, green = 0, blue = 1, alpha = 1) #ROTATE
-      
               )
 ```
 
@@ -629,8 +609,78 @@ What's green:
 
 
 ---
+class:  center, middle, inverse
 
 
+# Hue, Saturation, Value
+
+
+---
+
+<!-- https://images.unsplash.com/photo-1504197885-609741792ce7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80 -->
+
+`r chunk_reveal("hsv", break_type = "rotate")`
+
+```{r hsv, eval = F, echo = F}
+ggplot() +
+  aes(x = 1) +
+  aes(y = 1) +
+  geom_tile(
+    fill = 
+      hsv(h =  0, s = 1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .1, s = 1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .2, s = 1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .3, s = 1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .4, s = 1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .5, s = 1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .6, s = 1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .7, s = 1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .8, s = 1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .9, s = 1, v = 1, alpha = .8) #ROTATE
+      hsv(h =  1, s = 1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s =  1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1,  v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .9, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .8, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .7, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .6, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .5, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .4, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .3, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .2, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .2, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .3, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .4, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .5, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .6, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .7, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .8, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = .9, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s =  1, v = 1, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .9, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .8, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .7, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .6, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .5, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .4, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .3, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .2, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .1, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v =  0, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .1, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .2, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .3, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .4, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .5, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .6, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .7, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .8, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v = .9, alpha = .8) #ROTATE
+      hsv(h = .33, s = 1, v =  1, alpha = .8) #ROTATE
+              )
+```
 
 
 

@@ -79,10 +79,10 @@ name: cc
 
 ---
 
-`r chunk_reveal("geom_2_continuous", break_type= "rotate")`
+`r chunk_reveal("continuous_continuous", break_type= "rotate")`
 
 
-```{r geom_2_continuous, eval = F, echo = F}
+```{r continuous_continuous, eval = F, echo = F}
 ggplot(gapminder_2002) +
   aes(x = gdpPercap) +
   aes(y = lifeExp) +
@@ -99,7 +99,8 @@ ggplot(gapminder_2002) +
   geom_density2d() +  #ROTATE
   geom_smooth() +  # #ROTATE
   geom_smooth(method = lm) + #ROTATE
-  geom_hex(alpha = .5,color = "white") #ROTATE
+  geom_hex(alpha = .5,color = "white") + #ROTATE
+  theme_minimal()
 ```
 
 
@@ -141,7 +142,8 @@ gapminder %>%
   geom_col() + #ROTATE
   geom_segment(aes(xend = year, yend = 0)) + #ROTATE
   geom_line() + #ROTATE
-  geom_area(alpha = .4, fill = "plum1", color = "plum1") #ROTATE
+  geom_area(alpha = .4, fill = "plum1", color = "plum1") + #ROTATE
+  theme_minimal()
 ```
 
 ---
@@ -221,7 +223,8 @@ gapminder %>%
   geom_line(aes(linetype = country, color = country)) + #ROTATE
   geom_col(aes(fill = country), position = "dodge", alpha = .4) + #ROTATE
   geom_col(aes(fill = country), alpha = .4) + #ROTATE
-  geom_area(aes(fill = country), alpha = .4) #ROTATE
+  geom_area(aes(fill = country), alpha = .4) + #ROTATE
+  theme_minimal()
 ```
 
 
@@ -249,7 +252,7 @@ name: dc
 
 ```{r geom_discrete_continuous, eval = F, echo = F}
 gapminder %>% 
-  filter(year == 2002) %>% 
+  filter(year == 2002) %>%
   ggplot() +
   aes(x = continent) +
   aes(y = lifeExp) +
@@ -258,7 +261,8 @@ gapminder %>%
   geom_jitter(width = .2, alpha = .5, color = "green") + #ROTATE
   geom_violin(alpha = .1) + #ROTATE
   ggforce::geom_sina(col = "magenta", alpha = .5) + #ROTATE
-  stat_summary(fun.y = mean, geom = "point", col = "goldenrod2", size = 8)  #ROTATE
+  stat_summary(fun.y = mean, geom = "point", col = "goldenrod2", size = 8) + #ROTATE
+  theme_minimal()
 ```
 
 
@@ -278,11 +282,12 @@ gapminder %>%
   filter(continent == "Europe") %>% 
   ggplot() +
   aes(x = lifeExp) +
-  aes(y = country) +
+  aes(y = reorder(country, lifeExp)) +
   geom_point() +
   geom_col() + #ROTATE
   geom_segment(aes(xend = 0, yend = country)) + #ROTATE
-  geom_hline(aes(yintercept = country), linetype = "dotted") #ROTATE
+  geom_hline(aes(yintercept = country), linetype = "dotted") + #ROTATE
+  theme_minimal()
 ```
 
 
@@ -338,7 +343,8 @@ gapminder_2002 %>%
   geom_jitter(col = "blue", alpha = .3, width = .25, height = .25) + 
   geom_count(col = "magenta", alpha = .6) + #ROTATE
   geom_text(data = . %>% group_by(age_category, continent) %>% count, aes(label = n)) + #ROTATE
-  geom_label(data = . %>% group_by(age_category, continent) %>% count, aes(label = n)) #ROTATE
+  geom_label(data = . %>% group_by(age_category, continent) %>% count, aes(label = n)) + #ROTATE
+  theme_minimal()
 ```
 
 
@@ -359,7 +365,8 @@ gapminder_2002 %>%
   aes(fill = continent) +
   geom_point(stat = "count") +
   geom_bar(position = "dodge", alpha = .6) + #ROTATE
-  geom_bar(alpha = .6) #ROTATE
+  geom_bar(alpha = .6) + #ROTATE
+  theme_minimal()
 ```
 
 

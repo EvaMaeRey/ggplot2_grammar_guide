@@ -93,6 +93,22 @@ ggplot(data = gapminder_2002) +
 
 
 
+```{r, eval = F, echo = F}
+(g <- ggplot(chic, aes(date, temp)) +
+  geom_point())
+old <- theme_set(theme_grey())
+g
+theme_update(
+  panel.background = element_rect(
+    fill = "tan",
+    color = "black"
+  )
+) 
+g
+```
+
+
+
 ---
 
 name: saving

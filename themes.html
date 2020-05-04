@@ -1,0 +1,3132 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>fine tuning ggplot themes</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Gina Reynolds, May 2019" />
+    <link href="libs/remark-css-0.0.1/kunoichi.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# fine tuning ggplot themes
+## a flipbook | made with Xaringan
+### <br><br>Gina Reynolds, May 2019
+### <br>
+
+---
+
+
+
+
+
+---
+
+Some ideas from ["The Glamour of Graphics"](https://resources.rstudio.com/rstudio-conf-2020/the-glamour-of-graphics-william-chase)
+
+--
+- engage a wider audience
+
+--
+- aesthetic-usability effect
+
+--
+- respect for your audience
+
+--
+
+## Glamour and Grammar etymological connection!
+
+---
+
+# Layout
+
+--
+- Mostly left alignment of text
+
+--
+- titles - *plot* left alignment
+
+--
+- no head tilting
+
+--
+- get rid of labels if possible
+
+--
+- rethink legend position, or alternatives: labeling data, or color mapping
+
+--
+- be borders skeptical
+
+--
+- be gridline skeptical
+
+--
+- try to avoid legends
+
+--
+- white space - use it!
+
+
+---
+
+# Typography
+
+
+--
+- effects tone
+
+--
+- https://practicaltypography.com/
+
+--
+- https://fonts.google.com/ (source family)
+
+--
+- typographic hiararchy - size, weight, spacing
+
+--
+- don't use "oldstyle" numbers, do use *tabular* numbers
+
+--
+- https://cran.r-project.org/web/packages/svglite/vignettes/fonts.html
+
+  
+To be continued...  [](https://cran.r-project.org/web/packages/svglite/vignettes/fonts.html)
+  
+
+---
+
+# Color
+
+Check out the [color](color.html) slides. 
+
+--
+- also eyedropper tool
+
+--
+- use hue saturation value selection
+
+--
+- non-white backgrounds
+
+
+---
+
+# Table of Contents
+
+- [Ugly Theme Choices](#uglyplot)
+
+- Elements
+  - [Text Elements](#textelements)
+  - [Rectangular Elements](#rectangularelements)
+  - [Line Elements](#lineelements)
+
+- More
+  - [Legends](#legend)
+  - [Sundry](#sundry)
+  - [Facets](#facet)
+
+- [Preset Themes](#presetthemes)
+
+---
+
+# Visual Table of Contents
+
+&lt;a href="#uglyplot"&gt;&lt;img src="figures/custom_theme.png"width="150" height="150" title=figures/custom_theme.png alt=figures/custom_theme.png&gt;&lt;/a&gt;&lt;a href="#textelements"&gt;&lt;img src="figures/text_components.png"width="150" height="150" title=figures/text_components.png alt=figures/text_components.png&gt;&lt;/a&gt;&lt;a href="#rectangularelements"&gt;&lt;img src="figures/rect_components.png"width="150" height="150" title=figures/rect_components.png alt=figures/rect_components.png&gt;&lt;/a&gt;&lt;a href="#lineelements"&gt;&lt;img src="figures/line_components.png"width="150" height="150" title=figures/line_components.png alt=figures/line_components.png&gt;&lt;/a&gt;
+
+
+&lt;a href="#legend"&gt;&lt;img src="figures/legend.png"width="150" height="150" title=figures/legend.png alt=figures/legend.png&gt;&lt;/a&gt;&lt;a href="#sundry"&gt;&lt;img src="figures/sundries.png"width="150" height="150" title=figures/sundries.png alt=figures/sundries.png&gt;&lt;/a&gt;&lt;a href="#facet"&gt;&lt;img src="figures/small_multiples.png"width="150" height="150" title=figures/small_multiples.png alt=figures/small_multiples.png&gt;&lt;/a&gt;&lt;a href="#presetthemes"&gt;&lt;img src="figures/theme_presets.png"width="150" height="150" title=figures/theme_presets.png alt=figures/theme_presets.png&gt;&lt;/a&gt;
+
+
+
+---
+
+# Introduction
+
+This is a focused extension of [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html).The aim is to illuminate theme statements. 
+
+
+
+
+
+```r
+options(scipen = 10) # adjust when scientific notation turns on
+library(tidyverse)
+library(gapminder)
+```
+
+
+---
+
+# Before we begin
+
+This resource is focused on fine tuning and communicating what code gives what output.  However after you are done fine-tuning you might be interested in saving your thematic choices.  Theme choices can be bundled in a theme set statement and then subsequent plots will hold onto those choices and apply them in subsequent plot.  
+
+https://ggplot2.tidyverse.org/reference/theme_get.html
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*theme(rect = element_rect(fill = "snow3"))
+```
+]]
+.column[.content[
+
+```
+  List of 1
+   $ rect:List of 5
+    ..$ fill         : chr "snow3"
+    ..$ colour       : NULL
+    ..$ size         : NULL
+    ..$ linetype     : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+   - attr(*, "class")= chr [1:2] "theme" "gg"
+   - attr(*, "complete")= logi FALSE
+   - attr(*, "validate")= logi TRUE
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+theme(rect = element_rect(fill = "snow3")) +  
+* theme(text = element_text(family = "Times New Roman"))
+```
+]]
+.column[.content[
+
+```
+  List of 2
+   $ rect:List of 5
+    ..$ fill         : chr "snow3"
+    ..$ colour       : NULL
+    ..$ size         : NULL
+    ..$ linetype     : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+   $ text:List of 11
+    ..$ family       : chr "Times New Roman"
+    ..$ face         : NULL
+    ..$ colour       : NULL
+    ..$ size         : NULL
+    ..$ hjust        : NULL
+    ..$ vjust        : NULL
+    ..$ angle        : NULL
+    ..$ lineheight   : NULL
+    ..$ margin       : NULL
+    ..$ debug        : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_text" "element"
+   - attr(*, "class")= chr [1:2] "theme" "gg"
+   - attr(*, "complete")= logi FALSE
+   - attr(*, "validate")= logi TRUE
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+* theme(axis.title = element_text(color = "slateblue4"))
+```
+]]
+.column[.content[
+
+```
+  List of 3
+   $ rect      :List of 5
+    ..$ fill         : chr "snow3"
+    ..$ colour       : NULL
+    ..$ size         : NULL
+    ..$ linetype     : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+   $ text      :List of 11
+    ..$ family       : chr "Times New Roman"
+    ..$ face         : NULL
+    ..$ colour       : NULL
+    ..$ size         : NULL
+    ..$ hjust        : NULL
+    ..$ vjust        : NULL
+    ..$ angle        : NULL
+    ..$ lineheight   : NULL
+    ..$ margin       : NULL
+    ..$ debug        : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_text" "element"
+   $ axis.title:List of 11
+    ..$ family       : NULL
+    ..$ face         : NULL
+    ..$ colour       : chr "slateblue4"
+    ..$ size         : NULL
+    ..$ hjust        : NULL
+    ..$ vjust        : NULL
+    ..$ angle        : NULL
+    ..$ lineheight   : NULL
+    ..$ margin       : NULL
+    ..$ debug        : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_text" "element"
+   - attr(*, "class")= chr [1:2] "theme" "gg"
+   - attr(*, "complete")= logi FALSE
+   - attr(*, "validate")= logi TRUE
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+* theme(title = element_text(color = "seagreen"))
+```
+]]
+.column[.content[
+
+```
+  List of 4
+   $ rect      :List of 5
+    ..$ fill         : chr "snow3"
+    ..$ colour       : NULL
+    ..$ size         : NULL
+    ..$ linetype     : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+   $ text      :List of 11
+    ..$ family       : chr "Times New Roman"
+    ..$ face         : NULL
+    ..$ colour       : NULL
+    ..$ size         : NULL
+    ..$ hjust        : NULL
+    ..$ vjust        : NULL
+    ..$ angle        : NULL
+    ..$ lineheight   : NULL
+    ..$ margin       : NULL
+    ..$ debug        : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_text" "element"
+   $ axis.title:List of 11
+    ..$ family       : NULL
+    ..$ face         : NULL
+    ..$ colour       : chr "slateblue4"
+    ..$ size         : NULL
+    ..$ hjust        : NULL
+    ..$ vjust        : NULL
+    ..$ angle        : NULL
+    ..$ lineheight   : NULL
+    ..$ margin       : NULL
+    ..$ debug        : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_text" "element"
+   $ title     :List of 11
+    ..$ family       : NULL
+    ..$ face         : NULL
+    ..$ colour       : chr "seagreen"
+    ..$ size         : NULL
+    ..$ hjust        : NULL
+    ..$ vjust        : NULL
+    ..$ angle        : NULL
+    ..$ lineheight   : NULL
+    ..$ margin       : NULL
+    ..$ debug        : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_text" "element"
+   - attr(*, "class")= chr [1:2] "theme" "gg"
+   - attr(*, "complete")= logi FALSE
+   - attr(*, "validate")= logi TRUE
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+* theme(axis.line = element_line(color = "orange"))
+```
+]]
+.column[.content[
+
+```
+  List of 5
+   $ rect      :List of 5
+    ..$ fill         : chr "snow3"
+    ..$ colour       : NULL
+    ..$ size         : NULL
+    ..$ linetype     : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+   $ text      :List of 11
+    ..$ family       : chr "Times New Roman"
+    ..$ face         : NULL
+    ..$ colour       : NULL
+    ..$ size         : NULL
+    ..$ hjust        : NULL
+    ..$ vjust        : NULL
+    ..$ angle        : NULL
+    ..$ lineheight   : NULL
+    ..$ margin       : NULL
+    ..$ debug        : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_text" "element"
+   $ axis.title:List of 11
+    ..$ family       : NULL
+    ..$ face         : NULL
+    ..$ colour       : chr "slateblue4"
+    ..$ size         : NULL
+    ..$ hjust        : NULL
+    ..$ vjust        : NULL
+    ..$ angle        : NULL
+    ..$ lineheight   : NULL
+    ..$ margin       : NULL
+    ..$ debug        : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_text" "element"
+   $ title     :List of 11
+    ..$ family       : NULL
+    ..$ face         : NULL
+    ..$ colour       : chr "seagreen"
+    ..$ size         : NULL
+    ..$ hjust        : NULL
+    ..$ vjust        : NULL
+    ..$ angle        : NULL
+    ..$ lineheight   : NULL
+    ..$ margin       : NULL
+    ..$ debug        : NULL
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_text" "element"
+   $ axis.line :List of 6
+    ..$ colour       : chr "orange"
+    ..$ size         : NULL
+    ..$ linetype     : NULL
+    ..$ lineend      : NULL
+    ..$ arrow        : logi FALSE
+    ..$ inherit.blank: logi FALSE
+    ..- attr(*, "class")= chr [1:2] "element_line" "element"
+   - attr(*, "class")= chr [1:2] "theme" "gg"
+   - attr(*, "complete")= logi FALSE
+   - attr(*, "validate")= logi TRUE
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) -&gt;  
+*my_theme
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) -&gt;  
+my_theme  
+
+*cars
+```
+]]
+.column[.content[
+
+```
+     speed dist
+  1      4    2
+  2      4   10
+  3      7    4
+  4      7   22
+  5      8   16
+  6      9   10
+  7     10   18
+  8     10   26
+  9     10   34
+  10    11   17
+  11    11   28
+  12    12   14
+  13    12   20
+  14    12   24
+  15    12   28
+  16    13   26
+  17    13   34
+  18    13   34
+  19    13   46
+  20    14   26
+  21    14   36
+  22    14   60
+  23    14   80
+  24    15   20
+  25    15   26
+  26    15   54
+  27    16   32
+  28    16   40
+  29    17   32
+  30    17   40
+  31    17   50
+  32    18   42
+  33    18   56
+  34    18   76
+  35    18   84
+  36    19   36
+  37    19   46
+  38    19   68
+  39    20   32
+  40    20   48
+  41    20   52
+  42    20   56
+  43    20   64
+  44    22   66
+  45    23   54
+  46    24   70
+  47    24   92
+  48    24   93
+  49    24  120
+  50    25   85
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) -&gt;  
+my_theme  
+
+cars %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/bundle_auto_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) -&gt;  
+my_theme  
+
+cars %&gt;%  
+  ggplot() +  
+* aes(x = speed)
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/bundle_auto_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) -&gt;  
+my_theme  
+
+cars %&gt;%  
+  ggplot() +  
+  aes(x = speed) +  
+* aes(y = dist)
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/bundle_auto_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) -&gt;  
+my_theme  
+
+cars %&gt;%  
+  ggplot() +  
+  aes(x = speed) +  
+  aes(y = dist) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/bundle_auto_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) -&gt;  
+my_theme  
+
+cars %&gt;%  
+  ggplot() +  
+  aes(x = speed) +  
+  aes(y = dist) +  
+  geom_point() +  
+* my_theme
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/bundle_auto_12_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+---
+
+# Base Plot
+
+We'll work with the plot below to apply all the theme adjustments.  In the next slide, we'll build this plot and save it as the plot object `g`.  To this plot object we'll add the theme statements.  You might check out [The Tidyverse in Action](https://evamaerey.github.io/tidyverse_in_action/tidyverse_in_action.html) if you are puzzled about how to build `g`. The [ggplot2 Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) is also an excellent resource. 
+
+
+
+
+
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*gapminder
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+* filter(year == 1992)
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1992    41.7  16317921      649.
+   2 Albania     Europe     1992    71.6   3326498     2497.
+   3 Algeria     Africa     1992    67.7  26298373     5023.
+   4 Angola      Africa     1992    40.6   8735988     2628.
+   5 Argentina   Americas   1992    71.9  33958947     9308.
+   6 Australia   Oceania    1992    77.6  17481977    23425.
+   7 Austria     Europe     1992    76.0   7914969    27042.
+   8 Bahrain     Asia       1992    72.6    529491    19036.
+   9 Bangladesh  Asia       1992    56.0 113704579      838.
+  10 Belgium     Europe     1992    76.5  10045622    25576.
+  # … with 132 more rows
+```
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_3-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+* aes(x = gdpPercap, y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_4-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+* geom_point(alpha = .8, shape = 21,
+*            fill = "white")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_6-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+* aes(col = continent, fill = continent)
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_7-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+* geom_point(alpha = .3, shape = 21)
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_8-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+* aes(size = pop)
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_9-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+* scale_size(guide = F)
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_10-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+* labs(title = "Wealth and expected longevity\n in 1992")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_11-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+* labs(subtitle = "Data from gapminder package in R")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_12-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+* labs(x = "GDP per Capita")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_13-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+* labs(y = "Life Expectency")   # a tag is also an option
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_14-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  # a tag is also an option
+* labs(col = "Continent", fill = "Continent")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_15-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  # a tag is also an option
+  labs(col = "Continent", fill = "Continent") +  
+* labs(caption = "Vis: @EvaMaeRey with ggplot")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_the_plot_16-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 1992) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(alpha = .8, shape = 21,  
+             fill = "white") +  
+  aes(col = continent, fill = continent) +  
+  geom_point(alpha = .3, shape = 21) +  
+  aes(size = pop) +  
+  scale_size(guide = F) +  
+  labs(title = "Wealth and expected longevity\n in 1992") +  
+  labs(subtitle = "Data from gapminder package in R") +  
+  labs(x = "GDP per Capita") +  
+  labs(y = "Life Expectency") +  # a tag is also an option
+  labs(col = "Continent", fill = "Continent") +  
+  labs(caption = "Vis: @EvaMaeRey with ggplot") -&gt;  
+*g 
+```
+]]
+.column[.content[
+
+]]
+
+
+
+
+
+---
+
+# Thematic adjustment overview
+
+--
+
+## Components
+
+The components in a ggplot graph are usually things you can point to on a plot.  
+
+For example the *legend box*, or the *y axis title*, or the *plot title*.   
+
+
+--
+
+## Elements
+
+These components have a variety of elements.  For example the legend box has the perimeter of the box (the line) and it has the area of the box associated with it.  To "point" to specify the element parts of the components, functions like element_line(), element_rect(), and element_text() are used.  To delete an entire component, element_blank() can be used.
+
+--
+
+## Aesthetics
+
+Aesthetics assignment for theme elements are similar to those available for geometric shapes in the plot. Aesthetics include color, size, line_type, and so on. 
+
+
+---
+
+# Graph Components
+
+So, what components can be adjusted? (there are lots!)
+
+&gt; aspect.ratio
+
+&gt; axis.title, axis.title.x,
+  axis.title.x.top, axis.title.x.bottom, axis.title.y, axis.title.y.left,
+  axis.title.y.right, axis.text, axis.text.x, axis.text.x.top,
+  axis.text.x.bottom, axis.text.y, axis.text.y.left, axis.text.y.right,
+  axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom,
+  axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right, axis.ticks.length,
+  axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y,
+  axis.line.y.left, axis.line.y.right
+  
+&gt; legend.background, legend.margin,
+  legend.spacing, legend.spacing.x, legend.spacing.y, legend.key,
+  legend.key.size, legend.key.height, legend.key.width, legend.text,
+  legend.text.align, legend.title, legend.title.align, legend.position,
+  legend.direction, legend.justification, legend.box, legend.box.just,
+  legend.box.margin, legend.box.background, legend.box.spacing
+  
+&gt; panel.background, panel.border, panel.spacing, panel.spacing.x,
+  panel.spacing.y, panel.grid, panel.grid.major, panel.grid.minor,
+  panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
+  panel.grid.minor.y, panel.ontop 
+  
+&gt; plot.background, plot.title,
+  plot.subtitle, plot.caption, plot.tag, plot.tag.position, plot.margin
+  
+&gt; strip.background, strip.background.x, strip.background.y,
+  strip.placement, strip.text, strip.text.x, strip.text.y,
+  strip.switch.pad.grid, strip.switch.pad.wrap
+
+
+
+---
+name: uglyplot
+
+# An ugly plot, for locating components!
+
+Now we'll create this plot to get a sense of how thematic modifications can be made, by 1) specifying the component to be adjusted 
+2) the element of the component to be adjusted and 3) indicating the aesthetic adjustment.  
+
+The adjustments made should make clear what components of the plot are called in ggplot. 
+
+Later we'll walk through a more focused adjustments.  We'll go through time elements one at at time: text, rectangular, line, etc.  
+
+&lt;img src="themes_files/figure-html/custom_theme-1.png" width="50%" /&gt;
+
+
+
+
+
+---
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*g 
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_1-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+* theme(rect = element_rect(fill = "snow3"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_2-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+* theme(text = element_text(family = "Times New Roman"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_3-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+* theme(axis.title = element_text(color = "slateblue4"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_4-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+* theme(title = element_text(color = "seagreen"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_5-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+* theme(axis.line = element_line(color = "orange"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_6-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) +  
+* theme(legend.key = element_rect(fill = "violet"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_7-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) +  
+  theme(legend.key = element_rect(fill = "violet")) +  
+* theme(axis.ticks = element_line(color = "blue"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_8-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) +  
+  theme(legend.key = element_rect(fill = "violet")) +  
+  theme(axis.ticks = element_line(color = "blue")) +  
+* theme(axis.ticks.x = element_blank())
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_9-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) +  
+  theme(legend.key = element_rect(fill = "violet")) +  
+  theme(axis.ticks = element_line(color = "blue")) +  
+  theme(axis.ticks.x = element_blank()) +  
+* theme(panel.background = element_rect(fill = "steelblue"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_10-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) +  
+  theme(legend.key = element_rect(fill = "violet")) +  
+  theme(axis.ticks = element_line(color = "blue")) +  
+  theme(axis.ticks.x = element_blank()) +  
+  theme(panel.background = element_rect(fill = "steelblue")) +  
+* theme(panel.grid =
+*         element_line(size = 3, color = "thistle1"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_12-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) +  
+  theme(legend.key = element_rect(fill = "violet")) +  
+  theme(axis.ticks = element_line(color = "blue")) +  
+  theme(axis.ticks.x = element_blank()) +  
+  theme(panel.background = element_rect(fill = "steelblue")) +  
+  theme(panel.grid =  
+          element_line(size = 3, color = "thistle1")) +  
+* theme(legend.background = element_rect(fill = "goldenrod1"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_13-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) +  
+  theme(legend.key = element_rect(fill = "violet")) +  
+  theme(axis.ticks = element_line(color = "blue")) +  
+  theme(axis.ticks.x = element_blank()) +  
+  theme(panel.background = element_rect(fill = "steelblue")) +  
+  theme(panel.grid =  
+          element_line(size = 3, color = "thistle1")) +  
+  theme(legend.background = element_rect(fill = "goldenrod1")) +  
+* theme(legend.text = element_text(size = 7))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_14-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) +  
+  theme(legend.key = element_rect(fill = "violet")) +  
+  theme(axis.ticks = element_line(color = "blue")) +  
+  theme(axis.ticks.x = element_blank()) +  
+  theme(panel.background = element_rect(fill = "steelblue")) +  
+  theme(panel.grid =  
+          element_line(size = 3, color = "thistle1")) +  
+  theme(legend.background = element_rect(fill = "goldenrod1")) +  
+  theme(legend.text = element_text(size = 7)) +  
+* theme(legend.position = "bottom")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_15-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) +  
+  theme(legend.key = element_rect(fill = "violet")) +  
+  theme(axis.ticks = element_line(color = "blue")) +  
+  theme(axis.ticks.x = element_blank()) +  
+  theme(panel.background = element_rect(fill = "steelblue")) +  
+  theme(panel.grid =  
+          element_line(size = 3, color = "thistle1")) +  
+  theme(legend.background = element_rect(fill = "goldenrod1")) +  
+  theme(legend.text = element_text(size = 7)) +  
+  theme(legend.position = "bottom") +  
+* theme(legend.margin = margin(t = 0, r = 20,
+*                              b = 0, l = 40, unit = "pt"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_17-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange")) +  
+  theme(legend.key = element_rect(fill = "violet")) +  
+  theme(axis.ticks = element_line(color = "blue")) +  
+  theme(axis.ticks.x = element_blank()) +  
+  theme(panel.background = element_rect(fill = "steelblue")) +  
+  theme(panel.grid =  
+          element_line(size = 3, color = "thistle1")) +  
+  theme(legend.background = element_rect(fill = "goldenrod1")) +  
+  theme(legend.text = element_text(size = 7)) +  
+  theme(legend.position = "bottom") +  
+  theme(legend.margin = margin(t = 0, r = 20,  
+                               b = 0, l = 40, unit = "pt")) +  
+* theme(aspect.ratio = .5)
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_custom_theme_18-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+---
+
+# What are the elements of these components?
+
+Now we'll focus on different elements of the components: 
+
+- element_line()
+- element_rect()
+- element_text()
+
+Additionally, element_blank(), allows you to indicate that you don't want the component included in the plot at all. 
+
+
+---
+
+
+# Across-the-board adjustment
+
+Across-the-board adjustment to all components with given elements can also be done using the *line*, *rect*, *text*, and *title* adjustments.
+These will apply generally where no more specific adjustment has been made.  
+
+&gt; line
+
+&gt; rect
+
+&gt; text 
+
+&gt; title
+
+
+
+---
+name: textelements
+
+# Focus on text elements!
+
+
+
+&lt;img src="themes_files/figure-html/text_components-1.png" width="60%" /&gt;
+
+
+
+
+
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*g 
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_1-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+* theme(plot.title.position = "plot")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_2-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+* theme(plot.tag =
+*         element_text(color = "plum4", size = 25))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_4-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+* theme(plot.title =
+*         element_text(color = "plum4",
+*                      size = 20,
+*                      lineheight = 2.5))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_8-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+* theme(plot.subtitle = element_text(color = "plum4"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_9-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+* theme(axis.title.y =
+*         element_text(color = "plum4",
+*                      size = rel(3)))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_12-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+  theme(axis.title.y =  
+          element_text(color = "plum4",  
+                       size = rel(3))) +  
+* theme(axis.text.y = element_text(color = "plum4"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_13-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+  theme(axis.title.y =  
+          element_text(color = "plum4",  
+                       size = rel(3))) +  
+  theme(axis.text.y = element_text(color = "plum4")) +  
+* theme(legend.title =
+*         element_text(color = "plum4", size = 22))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_15-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+  theme(axis.title.y =  
+          element_text(color = "plum4",  
+                       size = rel(3))) +  
+  theme(axis.text.y = element_text(color = "plum4")) +  
+  theme(legend.title =  
+          element_text(color = "plum4", size = 22)) +  
+* theme(legend.text = element_text(color = "plum4"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_16-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+  theme(axis.title.y =  
+          element_text(color = "plum4",  
+                       size = rel(3))) +  
+  theme(axis.text.y = element_text(color = "plum4")) +  
+  theme(legend.title =  
+          element_text(color = "plum4", size = 22)) +  
+  theme(legend.text = element_text(color = "plum4")) +  
+* theme(axis.title.x = element_text(color = "plum4"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_17-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+  theme(axis.title.y =  
+          element_text(color = "plum4",  
+                       size = rel(3))) +  
+  theme(axis.text.y = element_text(color = "plum4")) +  
+  theme(legend.title =  
+          element_text(color = "plum4", size = 22)) +  
+  theme(legend.text = element_text(color = "plum4")) +  
+  theme(axis.title.x = element_text(color = "plum4")) +  
+* theme(axis.text.x = element_text(color = "plum4"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_18-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+  theme(axis.title.y =  
+          element_text(color = "plum4",  
+                       size = rel(3))) +  
+  theme(axis.text.y = element_text(color = "plum4")) +  
+  theme(legend.title =  
+          element_text(color = "plum4", size = 22)) +  
+  theme(legend.text = element_text(color = "plum4")) +  
+  theme(axis.title.x = element_text(color = "plum4")) +  
+  theme(axis.text.x = element_text(color = "plum4")) +  
+* theme(plot.caption =
+*         element_text(color = "plum4", size = 20))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_20-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+  theme(axis.title.y =  
+          element_text(color = "plum4",  
+                       size = rel(3))) +  
+  theme(axis.text.y = element_text(color = "plum4")) +  
+  theme(legend.title =  
+          element_text(color = "plum4", size = 22)) +  
+  theme(legend.text = element_text(color = "plum4")) +  
+  theme(axis.title.x = element_text(color = "plum4")) +  
+  theme(axis.text.x = element_text(color = "plum4")) +  
+  theme(plot.caption =  
+          element_text(color = "plum4", size = 20)) +  
+* theme(text = element_text(family = "Times"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_21-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+  theme(axis.title.y =  
+          element_text(color = "plum4",  
+                       size = rel(3))) +  
+  theme(axis.text.y = element_text(color = "plum4")) +  
+  theme(legend.title =  
+          element_text(color = "plum4", size = 22)) +  
+  theme(legend.text = element_text(color = "plum4")) +  
+  theme(axis.title.x = element_text(color = "plum4")) +  
+  theme(axis.text.x = element_text(color = "plum4")) +  
+  theme(plot.caption =  
+          element_text(color = "plum4", size = 20)) +  
+  theme(text = element_text(family = "Times")) +  
+* theme(text = element_text(face = "bold.italic"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_22-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+  theme(axis.title.y =  
+          element_text(color = "plum4",  
+                       size = rel(3))) +  
+  theme(axis.text.y = element_text(color = "plum4")) +  
+  theme(legend.title =  
+          element_text(color = "plum4", size = 22)) +  
+  theme(legend.text = element_text(color = "plum4")) +  
+  theme(axis.title.x = element_text(color = "plum4")) +  
+  theme(axis.text.x = element_text(color = "plum4")) +  
+  theme(plot.caption =  
+          element_text(color = "plum4", size = 20)) +  
+  theme(text = element_text(family = "Times")) +  
+  theme(text = element_text(face = "bold.italic")) +  
+* theme(text = element_text(
+*   margin = margin(t = 3, r = 3, b = 3, l = 3,
+*                   unit = "pt")))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_25-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+  theme(axis.title.y =  
+          element_text(color = "plum4",  
+                       size = rel(3))) +  
+  theme(axis.text.y = element_text(color = "plum4")) +  
+  theme(legend.title =  
+          element_text(color = "plum4", size = 22)) +  
+  theme(legend.text = element_text(color = "plum4")) +  
+  theme(axis.title.x = element_text(color = "plum4")) +  
+  theme(axis.text.x = element_text(color = "plum4")) +  
+  theme(plot.caption =  
+          element_text(color = "plum4", size = 20)) +  
+  theme(text = element_text(family = "Times")) +  
+  theme(text = element_text(face = "bold.italic")) +  
+  theme(text = element_text(  
+    margin = margin(t = 3, r = 3, b = 3, l = 3,  
+                    unit = "pt"))) +  
+* theme(text = element_text(angle = 2))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_26-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+  theme(axis.title.y =  
+          element_text(color = "plum4",  
+                       size = rel(3))) +  
+  theme(axis.text.y = element_text(color = "plum4")) +  
+  theme(legend.title =  
+          element_text(color = "plum4", size = 22)) +  
+  theme(legend.text = element_text(color = "plum4")) +  
+  theme(axis.title.x = element_text(color = "plum4")) +  
+  theme(axis.text.x = element_text(color = "plum4")) +  
+  theme(plot.caption =  
+          element_text(color = "plum4", size = 20)) +  
+  theme(text = element_text(family = "Times")) +  
+  theme(text = element_text(face = "bold.italic")) +  
+  theme(text = element_text(  
+    margin = margin(t = 3, r = 3, b = 3, l = 3,  
+                    unit = "pt"))) +  
+  theme(text = element_text(angle = 2)) +  
+* theme(plot.title = element_text(hjust = .5))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_27-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.title.position = "plot") +  
+  theme(plot.tag =  
+          element_text(color = "plum4", size = 25)) +  
+  theme(plot.title =  
+          element_text(color = "plum4",  
+                       size = 20,  
+                       lineheight = 2.5)) +  
+  theme(plot.subtitle = element_text(color = "plum4")) +  
+  theme(axis.title.y =  
+          element_text(color = "plum4",  
+                       size = rel(3))) +  
+  theme(axis.text.y = element_text(color = "plum4")) +  
+  theme(legend.title =  
+          element_text(color = "plum4", size = 22)) +  
+  theme(legend.text = element_text(color = "plum4")) +  
+  theme(axis.title.x = element_text(color = "plum4")) +  
+  theme(axis.text.x = element_text(color = "plum4")) +  
+  theme(plot.caption =  
+          element_text(color = "plum4", size = 20)) +  
+  theme(text = element_text(family = "Times")) +  
+  theme(text = element_text(face = "bold.italic")) +  
+  theme(text = element_text(  
+    margin = margin(t = 3, r = 3, b = 3, l = 3,  
+                    unit = "pt"))) +  
+  theme(text = element_text(angle = 2)) +  
+  theme(plot.title = element_text(hjust = .5)) +  
+* theme(axis.title.x = element_text(hjust = 1))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_text_components_28-1.png" width="100%" /&gt;
+]]
+
+
+---
+
+name: rectangularelements
+
+# Focus on rectangular elements!
+
+
+&lt;img src="themes_files/figure-html/rect_components-1.png" width="60%" /&gt;
+
+
+
+
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*g 
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_rect_components_1-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+* theme(plot.background =
+*         element_rect(fill = "purple",
+*                      color = "darkolivegreen",
+*                      size = 3))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_rect_components_5-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.background =  
+          element_rect(fill = "purple",  
+                       color = "darkolivegreen",  
+                       size = 3)) +  
+* theme(panel.background =
+*         element_rect(fill = "purple",
+*                      color = "darkolivegreen",
+*                      size = 3))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_rect_components_9-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.background =  
+          element_rect(fill = "purple",  
+                       color = "darkolivegreen",  
+                       size = 3)) +  
+  theme(panel.background =  
+          element_rect(fill = "purple",  
+                       color = "darkolivegreen",  
+                       size = 3)) +  
+* theme(legend.background =
+*         element_rect(fill = "purple",
+*                      color = "darkolivegreen",
+*                      size = 3))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_rect_components_13-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.background =  
+          element_rect(fill = "purple",  
+                       color = "darkolivegreen",  
+                       size = 3)) +  
+  theme(panel.background =  
+          element_rect(fill = "purple",  
+                       color = "darkolivegreen",  
+                       size = 3)) +  
+  theme(legend.background =  
+          element_rect(fill = "purple",  
+                       color = "darkolivegreen",  
+                       size = 3)) +  
+* theme(legend.key =
+*         element_rect(fill = "purple",
+*                      color = "darkolivegreen",
+*                      size = 3))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_rect_components_17-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.background =  
+          element_rect(fill = "purple",  
+                       color = "darkolivegreen",  
+                       size = 3)) +  
+  theme(panel.background =  
+          element_rect(fill = "purple",  
+                       color = "darkolivegreen",  
+                       size = 3)) +  
+  theme(legend.background =  
+          element_rect(fill = "purple",  
+                       color = "darkolivegreen",  
+                       size = 3)) +  
+  theme(legend.key =  
+          element_rect(fill = "purple",  
+                       color = "darkolivegreen",  
+                       size = 3)) +  
+* theme(panel.border =
+*         element_rect(color = "magenta",
+*                      fill = NA, size = 4))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_rect_components_20-1.png" width="100%" /&gt;
+]]
+
+---
+
+name: lineelements
+
+# Focus on line elements!
+
+
+&lt;img src="themes_files/figure-html/line_components-1.png" width="60%" /&gt;
+
+
+
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*g 
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_line_components_1-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+* theme(axis.ticks.y =
+*         element_line(size = 10,
+*                      color = "blue"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_line_components_4-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(axis.ticks.y =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+* theme(axis.ticks.x =
+*         element_line(size = 10,
+*                      color = "blue"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_line_components_7-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(axis.ticks.y =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+  theme(axis.ticks.x =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+* theme(panel.grid.major.y =
+*         element_line(size = 2,
+*                      linetype = "dashed",
+*                      color = "blue",
+*                      lineend = "round"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_line_components_12-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(axis.ticks.y =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+  theme(axis.ticks.x =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+  theme(panel.grid.major.y =  
+          element_line(size = 2,  
+                       linetype = "dashed",  
+                       color = "blue",  
+                       lineend = "round")) +  
+* theme(panel.grid.major.x =
+*         element_line(size = 2,
+*                      arrow = arrow(),
+*                      color = "blue",
+*                      lineend = "round"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_line_components_17-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(axis.ticks.y =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+  theme(axis.ticks.x =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+  theme(panel.grid.major.y =  
+          element_line(size = 2,  
+                       linetype = "dashed",  
+                       color = "blue",  
+                       lineend = "round")) +  
+  theme(panel.grid.major.x =  
+          element_line(size = 2,  
+                       arrow = arrow(),  
+                       color = "blue",  
+                       lineend = "round")) +  
+* theme(panel.grid.minor.y =
+*         element_line(size = 1,
+*                      linetype = "dotted",
+*                      color = "blue",
+*                      lineend = "butt"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_line_components_22-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(axis.ticks.y =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+  theme(axis.ticks.x =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+  theme(panel.grid.major.y =  
+          element_line(size = 2,  
+                       linetype = "dashed",  
+                       color = "blue",  
+                       lineend = "round")) +  
+  theme(panel.grid.major.x =  
+          element_line(size = 2,  
+                       arrow = arrow(),  
+                       color = "blue",  
+                       lineend = "round")) +  
+  theme(panel.grid.minor.y =  
+          element_line(size = 1,  
+                       linetype = "dotted",  
+                       color = "blue",  
+                       lineend = "butt")) +  
+* theme(panel.grid =
+*         element_line(color = "blue"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_line_components_24-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(axis.ticks.y =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+  theme(axis.ticks.x =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+  theme(panel.grid.major.y =  
+          element_line(size = 2,  
+                       linetype = "dashed",  
+                       color = "blue",  
+                       lineend = "round")) +  
+  theme(panel.grid.major.x =  
+          element_line(size = 2,  
+                       arrow = arrow(),  
+                       color = "blue",  
+                       lineend = "round")) +  
+  theme(panel.grid.minor.y =  
+          element_line(size = 1,  
+                       linetype = "dotted",  
+                       color = "blue",  
+                       lineend = "butt")) +  
+  theme(panel.grid =  
+          element_line(color = "blue")) +  
+* theme(axis.line.x.top =
+*         element_line(size = 2,
+*                      color = "blue"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_line_components_27-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(axis.ticks.y =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+  theme(axis.ticks.x =  
+          element_line(size = 10,  
+                       color = "blue")) +  
+  theme(panel.grid.major.y =  
+          element_line(size = 2,  
+                       linetype = "dashed",  
+                       color = "blue",  
+                       lineend = "round")) +  
+  theme(panel.grid.major.x =  
+          element_line(size = 2,  
+                       arrow = arrow(),  
+                       color = "blue",  
+                       lineend = "round")) +  
+  theme(panel.grid.minor.y =  
+          element_line(size = 1,  
+                       linetype = "dotted",  
+                       color = "blue",  
+                       lineend = "butt")) +  
+  theme(panel.grid =  
+          element_line(color = "blue")) +  
+  theme(axis.line.x.top =  
+          element_line(size = 2,  
+                       color = "blue")) +  
+* theme(panel.ontop = TRUE,
+*       panel.background = element_blank())  # in front of the data
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_line_components_29-1.png" width="100%" /&gt;
+]]
+
+
+
+---
+
+# What aesthetics of these elements can be adjusted?
+
+| aesthetic | adjustable for element of type: |
+|-----|----|
+| fill | *rect*  |
+| color | *rect, line, text* |
+| size |  *rect, line, text* |
+| linetype | *rect, line* |
+| lineend | *line* |
+| arrow | *line* |
+| family (font) | *text* |
+| face | *text* |
+| hjust | *text* |
+| vjust | *text* |
+| angle  | *text* |
+| lineheight |  *text* |
+| margin | *text* |
+| debug | *text* |
+| inherit.blank | *rect, line, text* |
+
+
+
+---
+
+name: legends
+
+# More legend options!
+
+
+
+&lt;img src="themes_files/figure-html/legend-1.png" width="60%" /&gt;
+
+
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*g 
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_legend_1-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+* theme(legend.position = "bottom")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_legend_2-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(legend.position = "bottom") +  
+* theme(legend.position = "none")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_legend_3-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(legend.position = "bottom") +  
+  theme(legend.position = "none") +  
+* theme(legend.position = c(.8, .25))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_legend_4-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(legend.position = "bottom") +  
+  theme(legend.position = "none") +  
+  theme(legend.position = c(.8, .25)) +  
+* theme(legend.direction = "horizontal")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_legend_5-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(legend.position = "bottom") +  
+  theme(legend.position = "none") +  
+  theme(legend.position = c(.8, .25)) +  
+  theme(legend.direction = "horizontal") +  
+* theme(legend.key = element_rect())
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_legend_6-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(legend.position = "bottom") +  
+  theme(legend.position = "none") +  
+  theme(legend.position = c(.8, .25)) +  
+  theme(legend.direction = "horizontal") +  
+  theme(legend.key = element_rect()) +  
+* guides(fill = guide_legend(size = 35))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_legend_7-1.png" width="100%" /&gt;
+]]
+
+---
+
+name: sundries
+
+# More modifications! (Sundries)
+
+
+&lt;img src="themes_files/figure-html/sundries-1.png" width="60%" /&gt;
+
+---
+
+
+
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*g 
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_sundries_1-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+* theme(plot.tag.position = "topright")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_sundries_2-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.tag.position = "topright") +  
+* scale_color_discrete(guide = FALSE)
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_sundries_3-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.tag.position = "topright") +  
+  scale_color_discrete(guide = FALSE) +  
+* scale_fill_discrete(guide = FALSE)
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_sundries_4-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.tag.position = "topright") +  
+  scale_color_discrete(guide = FALSE) +  
+  scale_fill_discrete(guide = FALSE) +  
+* scale_x_continuous(position = "top")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_sundries_5-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.tag.position = "topright") +  
+  scale_color_discrete(guide = FALSE) +  
+  scale_fill_discrete(guide = FALSE) +  
+  scale_x_continuous(position = "top") +  
+* scale_y_continuous(position = "right")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_sundries_6-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme(plot.tag.position = "topright") +  
+  scale_color_discrete(guide = FALSE) +  
+  scale_fill_discrete(guide = FALSE) +  
+  scale_x_continuous(position = "top") +  
+  scale_y_continuous(position = "right") +  
+* theme(aspect.ratio = .5)
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_sundries_7-1.png" width="100%" /&gt;
+]]
+
+
+---
+
+name: facet
+
+# Focus on facet elements!
+
+
+&lt;img src="themes_files/figure-html/small_multiples-1.png" width="60%" /&gt;
+
+
+
+
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*g 
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_small_multiples_1-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+* facet_wrap(~ continent,
+*            strip.position = "right")
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_small_multiples_3-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  facet_wrap(~ continent,  
+             strip.position = "right") +  
+* theme(strip.background =
+*         element_rect(fill = "pink"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_small_multiples_5-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  facet_wrap(~ continent,  
+             strip.position = "right") +  
+  theme(strip.background =  
+          element_rect(fill = "pink")) +  
+* theme(strip.text.y =
+*         element_text(color = "snow", size = 12))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_small_multiples_7-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  facet_wrap(~ continent,  
+             strip.position = "right") +  
+  theme(strip.background =  
+          element_rect(fill = "pink")) +  
+  theme(strip.text.y =  
+          element_text(color = "snow", size = 12)) +  
+* theme(strip.text.y =
+*         element_text(angle = -80))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_small_multiples_9-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  facet_wrap(~ continent,  
+             strip.position = "right") +  
+  theme(strip.background =  
+          element_rect(fill = "pink")) +  
+  theme(strip.text.y =  
+          element_text(color = "snow", size = 12)) +  
+  theme(strip.text.y =  
+          element_text(angle = -80)) +  
+* theme(panel.spacing.x =
+*         unit(1.5, "lines"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_small_multiples_11-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  facet_wrap(~ continent,  
+             strip.position = "right") +  
+  theme(strip.background =  
+          element_rect(fill = "pink")) +  
+  theme(strip.text.y =  
+          element_text(color = "snow", size = 12)) +  
+  theme(strip.text.y =  
+          element_text(angle = -80)) +  
+  theme(panel.spacing.x =  
+          unit(1.5, "lines")) +  
+* theme(panel.spacing.y =
+*         unit(2, "lines"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_small_multiples_13-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  facet_wrap(~ continent,  
+             strip.position = "right") +  
+  theme(strip.background =  
+          element_rect(fill = "pink")) +  
+  theme(strip.text.y =  
+          element_text(color = "snow", size = 12)) +  
+  theme(strip.text.y =  
+          element_text(angle = -80)) +  
+  theme(panel.spacing.x =  
+          unit(1.5, "lines")) +  
+  theme(panel.spacing.y =  
+          unit(2, "lines")) +  
+* theme(strip.switch.pad.grid =
+*         unit(0, "cm"))
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_small_multiples_15-1.png" width="100%" /&gt;
+]]
+
+---
+name: presetthemes
+
+# preset themes
+
+Next we'll have at different preset themes available in ggplot that can be applied in one line of code. 
+
+
+&lt;img src="themes_files/figure-html/theme_presets-1.png" width="60%" /&gt;
+
+
+---
+
+
+
+---
+
+class: split-40
+count: false
+.column[.content[
+
+```r
+*g 
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_theme_presets_1-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+* theme_bw()
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_theme_presets_2-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme_bw() +  
+* theme_classic()
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_theme_presets_3-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme_bw() +  
+  theme_classic() +  
+* theme_gray()
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_theme_presets_4-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme_bw() +  
+  theme_classic() +  
+  theme_gray() +  
+* theme_light()
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_theme_presets_5-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme_bw() +  
+  theme_classic() +  
+  theme_gray() +  
+  theme_light() +  
+* theme_linedraw()
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_theme_presets_6-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme_bw() +  
+  theme_classic() +  
+  theme_gray() +  
+  theme_light() +  
+  theme_linedraw() +  
+* theme_minimal()
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_theme_presets_7-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme_bw() +  
+  theme_classic() +  
+  theme_gray() +  
+  theme_light() +  
+  theme_linedraw() +  
+  theme_minimal() +  
+* theme_void()
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_theme_presets_8-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+.column[.content[
+
+```r
+g +  
+  theme_bw() +  
+  theme_classic() +  
+  theme_gray() +  
+  theme_light() +  
+  theme_linedraw() +  
+  theme_minimal() +  
+  theme_void() +  
+* theme_dark()
+```
+]]
+.column[.content[
+&lt;img src="themes_files/figure-html/output_theme_presets_9-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+---
+
+# More
+
+- [external themes](external_themes.html)
+- [theme modification with {ggeasy}](themes_ggeasy.Rmd)
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 70%}
+
+.column-left {
+  float: left;
+  width: 33.333%;
+}
+
+.column-right {
+  float: right;
+  width: 33.333%;
+}
+
+.column-center {
+  display: inline-block;
+  width: 33.333%;
+}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

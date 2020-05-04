@@ -1,0 +1,232 @@
+---
+title: "Plot Ensembles"
+subtitle: "With flipbookr and xaringan"
+author: "Gina Reynolds, December 2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, hygge, ninjutsu]
+    nature:
+      ratio: 16:10
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+
+```{r setup, include = F}
+# This is the recommended set up for flipbooks
+# you might think about setting cache to TRUE as you gain practice --- building flipbooks from scracth can be time consuming
+knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, comment = "", cache = T, fig.retina = 3)
+library(flipbookr)
+library(tidyverse)
+```
+
+---
+
+
+```{r, echo = F, out.height="80%"}
+knitr::include_graphics("../../teaching/lecture_topics/images_for_lecture/malaria_cases.png")
+```
+
+
+---
+
+`r chunk_reveal("build_plots")`
+
+
+```{r build_plots, include = F}
+ggplot(diamonds) + 
+  aes(x = cut, fill = cut) +
+  geom_bar() +
+  labs(x = 'Price (USD)') +
+  labs(y = 'Count')  ->
+p1
+
+ggplot(diamonds) + 
+  aes(x = price, fill = cut) +
+  geom_histogram(binwidth = 850) +
+  labs(x = 'Price (USD)') +
+  labs(y = 'Count')  ->
+p2
+
+ggplot(diamonds) + 
+  aes(x = carat, fill = cut) +
+  geom_density(binwidth = 850) +
+  labs(x = 'Price (USD)') +
+  labs(y = 'Count')  ->
+p3
+
+
+ggplot(diamonds) + 
+  aes(x = carat, y = price, color = cut) +
+  geom_point(alpha = .05) +
+  facet_wrap(~ cut) +
+  theme(legend.position = "none") ->
+p4
+```
+
+
+---
+class: inverse, center, middle
+
+
+
+# {patchwork}
+## "The composer of plots"
+
+
+---
+
+`r chunk_reveal("patch", break_type = "rotate")`
+
+```{r patch, include = F}
+library(patchwork)
+p1 + p2 / p3 #ROTATE
+p1 | p2 #ROTATE
+p1 + p2 #ROTATE
+p1 / p2 #ROTATE
+(p1 + p2) / p3 + p4 #ROTATE
+(p1 + p2 + p3) / p4 #ROTATE
+(p1 + plot_spacer()) / (p1 + p2) #ROTATE
+p1 + p2 + p3 + p4 + plot_layout(widths = c(2, 1)) #ROTATE
+p1 + p2 + p3 + p4 + plot_layout(widths = c(2, 1), heights = unit(c(5, 1), c('cm', 'null'))) #ROTATE
+p1 + p2 + p3 + p4 + plot_layout(guides = 'collect') #ROTATE
+```
+
+---
+class: inverse, center, middle
+
+
+# {cowplot}
+# plot composition and more from *C*laus *O*. *W*ilke
+
+---
+
+
+`r chunk_reveal("cow", break_type = "rotate")`
+
+```{r cow, include = F}
+library(cowplot)
+plot_grid(p1, p2, labels = c('A', 'B'), label_size = 12) #ROTATE
+plot_grid(p1, p3, labels = c('A', 'B'), label_size = 15) #ROTATE
+plot_grid(p1, p2, labels = "AUTO") #ROTATE
+plot_grid(p1, p2, labels = "auto") #ROTATE
+plot_grid(p3, p2, labels = "AUTO", align = "h") #ROTATE
+plot_grid(p1, p2, label_fontfamily = "serif", label_colour = "blue") #ROTATE
+plot_grid(p1, p2, labels = "AUTO", ncol = 1) #ROTATE
+plot_grid(p1, NULL, NULL, p2, labels = "AUTO", ncol = 2) #ROTATE
+plot_grid(p1, p2, labels = "AUTO", rel_widths = c(1, 2)) #ROTATE
+```
+
+---
+
+
+`r chunk_reveal("draw")`
+
+```{r draw, include = F}
+library(cowplot)
+
+system.file("extdata", "logo.png", package = "cowplot") ->
+  logo_file
+
+ggplot(mpg, aes(displ, cty)) +
+  geom_point() +
+  theme_minimal_grid(12) ->
+p
+
+ggdraw() + 
+  draw_plot(p) +
+  draw_image(logo_file, x = 1, hjust = 1, width = 0.13, height = 0.2) ->
+logo_plot1
+
+ggdraw() + 
+  draw_image(logo_file, scale = 0.5) +
+  draw_plot(p) ->
+logo_plot
+```
+
+
+---
+
+
+
+`r chunk_reveal("bottom")`
+
+```{r bottom, include=F}
+library(cowplot)
+plot_grid(p1, p2, 
+          labels = c('B', 'C'), 
+          label_size = 12) ->
+  bottom_row
+
+mtcars %>% 
+ggplot() + 
+  aes(x = qsec, y = disp) +
+  geom_point() + facet_wrap(~gear) ->
+p3
+
+plot_grid(p3, bottom_row, 
+          labels = c('A', ''), 
+          label_size = 12, ncol = 1) ->
+my_plot4
+```
+
+
+
+---
+
+`r chunk_reveal("lover")`
+
+```{r lover}
+ggplot(mpg, aes(displ, cty)) +
+  geom_point() +
+  theme_minimal_grid(12) ->
+p
+
+ggdraw(p) + 
+  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) ->
+my_plot
+
+ggplot(mpg, aes(drv)) + 
+  geom_bar(fill = "skyblue2", alpha = 0.7) + 
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +
+  theme_minimal_hgrid(11) ->
+inset
+
+ggdraw(p + theme_half_open(12)) +
+  draw_plot(inset, .45, .45, .5, .5) +
+  draw_plot_label(
+    c("A", "B"),
+    c(0, 0.45),
+    c(1, 0.95),
+    size = 12
+  )
+```
+
+
+---
+
+`r chunk_reveal("image")`
+
+```{r image, include = F}
+library(cowplot)
+library(magick)
+system.file("extdata", "cow.jpg", package = "cowplot") %>%
+  magick::image_read() %>%
+  magick::image_resize("570x380") %>%
+  magick::image_colorize(35, "white") ->
+img
+
+ggdraw() + 
+  draw_image(img) + 
+  draw_plot(p)
+```
+
+
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 80%}
+```

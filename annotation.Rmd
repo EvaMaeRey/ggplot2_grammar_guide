@@ -60,6 +60,7 @@ gapminder %>%
 `r chunk_reveal("ref_lines", break_type = "rotate")`
 
 ```{r ref_lines, eval = F, echo = F}
+library(gapminder)
 gapminder %>% 
   filter(continent == "Oceania") %>% 
   ggplot() +
@@ -72,18 +73,29 @@ gapminder %>%
   geom_vline(xintercept = 1980, linetype = "dotted") + #ROTATE
   geom_abline(slope = 1, intercept = -1950, linetype = "dashed") + #ROTATE
   geom_vline(xintercept = 1980, linetype = "dotted") + #ROTATE
-  annotate(geom = "ribbon", x = c(1940, 2010), ymin = 10, ymax = 15, alpha = .2) + #ROTATE
-  annotate(geom = "ribbon", xmin = 1980, xmax = 1970, y = c(0, 20), alpha = .2) + #ROTATE
+  annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 10, ymax = 15, alpha = .2) + #ROTATE
+  annotate(geom = "rect", xmin = 1980, xmax = 1970, ymin = -Inf, ymax = Inf, alpha = .2) + #ROTATE
   geom_point(data = . %>% group_by(country) %>% slice(n()), aes(label = country)) + #ROTATE
   geom_text(data = . %>% group_by(country) %>% slice(n()), aes(label = country), nudge_x = -3, nudge_y = 1) + #ROTATE
+  annotate(geom = "curve", curvature =   1, x = 1970, xend = 2000, y = 23, yend = 20) + #ROTATE
+  annotate(geom = "curve", curvature =  .9, x = 1970, xend = 2000, y = 23, yend = 20) + #ROTATE
+  annotate(geom = "curve", curvature =  .7, x = 1970, xend = 2000, y = 23, yend = 20) + #ROTATE
+  annotate(geom = "curve", curvature =  .5, x = 1970, xend = 2000, y = 23, yend = 20) + #ROTATE
+  annotate(geom = "curve", curvature =  .3, x = 1970, xend = 2000, y = 23, yend = 20) + #ROTATE
+  annotate(geom = "curve", curvature =  .1, x = 1970, xend = 2000, y = 23, yend = 20) + #ROTATE
+  annotate(geom = "curve", curvature =  .0, x = 1970, xend = 2000, y = 23, yend = 20) + #ROTATE
+  annotate(geom = "curve", curvature = -.1, x = 1970, xend = 2000, y = 23, yend = 20) + #ROTATE
+  annotate(geom = "curve", curvature = -.3, x = 1970, xend = 2000, y = 23, yend = 20) + #ROTATE
+  annotate(geom = "curve", curvature = -.7, x = 1970, xend = 2000, y = 23, yend = 20) + #ROTATE
+  annotate(geom = "curve", curvature =-1.5, x = 1970, xend = 2000, y = 23, yend = 20) + #ROTATE
   annotate(geom = "text",
            x = 1970, y = 22,
-           label = "Most often\nthese annotations\nalso accompanied\n by text annotation",
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",
            hjust = 1, size = 5,
            angle = 20,
            lineheight = .8,
            fontface = "italic",
-           color = "plum4") 
+           color = "plum4")
 ```
 
 ---

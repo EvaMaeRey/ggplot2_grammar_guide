@@ -325,6 +325,7 @@ count: false
 .column[.content[
 
 ```r
+library(gapminder)  
 gapminder %&gt;%  
   filter(continent == "Oceania") %&gt;%  
   ggplot() +  
@@ -336,7 +337,7 @@ gapminder %&gt;%
   geom_hline(yintercept = 10, linetype = "dotted") +  
   annotate(geom = "text",  
            x = 1970, y = 22,  
-           label = "Most often\nthese annotations\nalso accompanied\n by text annotation",  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
            hjust = 1, size = 5,  
            angle = 20,  
            lineheight = .8,  
@@ -356,6 +357,7 @@ count: false
 .column[.content[
 
 ```r
+library(gapminder)  
 gapminder %&gt;%  
   filter(continent == "Oceania") %&gt;%  
   ggplot() +  
@@ -367,7 +369,7 @@ gapminder %&gt;%
 * geom_vline(xintercept = 1980, linetype = "dotted") +
   annotate(geom = "text",  
            x = 1970, y = 22,  
-           label = "Most often\nthese annotations\nalso accompanied\n by text annotation",  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
            hjust = 1, size = 5,  
            angle = 20,  
            lineheight = .8,  
@@ -387,6 +389,7 @@ count: false
 .column[.content[
 
 ```r
+library(gapminder)  
 gapminder %&gt;%  
   filter(continent == "Oceania") %&gt;%  
   ggplot() +  
@@ -398,7 +401,7 @@ gapminder %&gt;%
 * geom_abline(slope = 1, intercept = -1950, linetype = "dashed") +
   annotate(geom = "text",  
            x = 1970, y = 22,  
-           label = "Most often\nthese annotations\nalso accompanied\n by text annotation",  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
            hjust = 1, size = 5,  
            angle = 20,  
            lineheight = .8,  
@@ -418,6 +421,7 @@ count: false
 .column[.content[
 
 ```r
+library(gapminder)  
 gapminder %&gt;%  
   filter(continent == "Oceania") %&gt;%  
   ggplot() +  
@@ -429,7 +433,7 @@ gapminder %&gt;%
 * geom_vline(xintercept = 1980, linetype = "dotted") +
   annotate(geom = "text",  
            x = 1970, y = 22,  
-           label = "Most often\nthese annotations\nalso accompanied\n by text annotation",  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
            hjust = 1, size = 5,  
            angle = 20,  
            lineheight = .8,  
@@ -449,6 +453,7 @@ count: false
 .column[.content[
 
 ```r
+library(gapminder)  
 gapminder %&gt;%  
   filter(continent == "Oceania") %&gt;%  
   ggplot() +  
@@ -457,10 +462,10 @@ gapminder %&gt;%
   aes(linetype = country) +  
   coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
   geom_line(color = "steelblue") +  
-* annotate(geom = "ribbon", x = c(1940, 2010), ymin = 10, ymax = 15, alpha = .2) +
+* annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 10, ymax = 15, alpha = .2) +
   annotate(geom = "text",  
            x = 1970, y = 22,  
-           label = "Most often\nthese annotations\nalso accompanied\n by text annotation",  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
            hjust = 1, size = 5,  
            angle = 20,  
            lineheight = .8,  
@@ -480,6 +485,7 @@ count: false
 .column[.content[
 
 ```r
+library(gapminder)  
 gapminder %&gt;%  
   filter(continent == "Oceania") %&gt;%  
   ggplot() +  
@@ -488,10 +494,10 @@ gapminder %&gt;%
   aes(linetype = country) +  
   coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
   geom_line(color = "steelblue") +  
-* annotate(geom = "ribbon", xmin = 1980, xmax = 1970, y = c(0, 20), alpha = .2) +
+* annotate(geom = "rect", xmin = 1980, xmax = 1970, ymin = -Inf, ymax = Inf, alpha = .2) +
   annotate(geom = "text",  
            x = 1970, y = 22,  
-           label = "Most often\nthese annotations\nalso accompanied\n by text annotation",  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
            hjust = 1, size = 5,  
            angle = 20,  
            lineheight = .8,  
@@ -511,6 +517,7 @@ count: false
 .column[.content[
 
 ```r
+library(gapminder)  
 gapminder %&gt;%  
   filter(continent == "Oceania") %&gt;%  
   ggplot() +  
@@ -522,7 +529,7 @@ gapminder %&gt;%
 * geom_point(data = . %&gt;% group_by(country) %&gt;% slice(n()), aes(label = country)) +
   annotate(geom = "text",  
            x = 1970, y = 22,  
-           label = "Most often\nthese annotations\nalso accompanied\n by text annotation",  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
            hjust = 1, size = 5,  
            angle = 20,  
            lineheight = .8,  
@@ -542,6 +549,7 @@ count: false
 .column[.content[
 
 ```r
+library(gapminder)  
 gapminder %&gt;%  
   filter(continent == "Oceania") %&gt;%  
   ggplot() +  
@@ -553,7 +561,7 @@ gapminder %&gt;%
 * geom_text(data = . %&gt;% group_by(country) %&gt;% slice(n()), aes(label = country), nudge_x = -3, nudge_y = 1) +
   annotate(geom = "text",  
            x = 1970, y = 22,  
-           label = "Most often\nthese annotations\nalso accompanied\n by text annotation",  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
            hjust = 1, size = 5,  
            angle = 20,  
            lineheight = .8,  
@@ -563,6 +571,358 @@ gapminder %&gt;%
 ]]
 .column[.content[
 &lt;img src="annotation_files/figure-html/ref_lines_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop/1000000) +  
+  aes(linetype = country) +  
+  coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
+  geom_line(color = "steelblue") +  
+* annotate(geom = "curve", curvature =   1, x = 1970, xend = 2000, y = 23, yend = 20) +
+  annotate(geom = "text",  
+           x = 1970, y = 22,  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
+           hjust = 1, size = 5,  
+           angle = 20,  
+           lineheight = .8,  
+           fontface = "italic",  
+           color = "plum4")  
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/ref_lines_rotate_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop/1000000) +  
+  aes(linetype = country) +  
+  coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
+  geom_line(color = "steelblue") +  
+* annotate(geom = "curve", curvature =  .9, x = 1970, xend = 2000, y = 23, yend = 20) +
+  annotate(geom = "text",  
+           x = 1970, y = 22,  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
+           hjust = 1, size = 5,  
+           angle = 20,  
+           lineheight = .8,  
+           fontface = "italic",  
+           color = "plum4")  
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/ref_lines_rotate_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop/1000000) +  
+  aes(linetype = country) +  
+  coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
+  geom_line(color = "steelblue") +  
+* annotate(geom = "curve", curvature =  .7, x = 1970, xend = 2000, y = 23, yend = 20) +
+  annotate(geom = "text",  
+           x = 1970, y = 22,  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
+           hjust = 1, size = 5,  
+           angle = 20,  
+           lineheight = .8,  
+           fontface = "italic",  
+           color = "plum4")  
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/ref_lines_rotate_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop/1000000) +  
+  aes(linetype = country) +  
+  coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
+  geom_line(color = "steelblue") +  
+* annotate(geom = "curve", curvature =  .5, x = 1970, xend = 2000, y = 23, yend = 20) +
+  annotate(geom = "text",  
+           x = 1970, y = 22,  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
+           hjust = 1, size = 5,  
+           angle = 20,  
+           lineheight = .8,  
+           fontface = "italic",  
+           color = "plum4")  
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/ref_lines_rotate_12_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop/1000000) +  
+  aes(linetype = country) +  
+  coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
+  geom_line(color = "steelblue") +  
+* annotate(geom = "curve", curvature =  .3, x = 1970, xend = 2000, y = 23, yend = 20) +
+  annotate(geom = "text",  
+           x = 1970, y = 22,  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
+           hjust = 1, size = 5,  
+           angle = 20,  
+           lineheight = .8,  
+           fontface = "italic",  
+           color = "plum4")  
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/ref_lines_rotate_13_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop/1000000) +  
+  aes(linetype = country) +  
+  coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
+  geom_line(color = "steelblue") +  
+* annotate(geom = "curve", curvature =  .1, x = 1970, xend = 2000, y = 23, yend = 20) +
+  annotate(geom = "text",  
+           x = 1970, y = 22,  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
+           hjust = 1, size = 5,  
+           angle = 20,  
+           lineheight = .8,  
+           fontface = "italic",  
+           color = "plum4")  
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/ref_lines_rotate_14_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop/1000000) +  
+  aes(linetype = country) +  
+  coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
+  geom_line(color = "steelblue") +  
+* annotate(geom = "curve", curvature =  .0, x = 1970, xend = 2000, y = 23, yend = 20) +
+  annotate(geom = "text",  
+           x = 1970, y = 22,  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
+           hjust = 1, size = 5,  
+           angle = 20,  
+           lineheight = .8,  
+           fontface = "italic",  
+           color = "plum4")  
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/ref_lines_rotate_15_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop/1000000) +  
+  aes(linetype = country) +  
+  coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
+  geom_line(color = "steelblue") +  
+* annotate(geom = "curve", curvature = -.1, x = 1970, xend = 2000, y = 23, yend = 20) +
+  annotate(geom = "text",  
+           x = 1970, y = 22,  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
+           hjust = 1, size = 5,  
+           angle = 20,  
+           lineheight = .8,  
+           fontface = "italic",  
+           color = "plum4")  
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/ref_lines_rotate_16_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop/1000000) +  
+  aes(linetype = country) +  
+  coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
+  geom_line(color = "steelblue") +  
+* annotate(geom = "curve", curvature = -.3, x = 1970, xend = 2000, y = 23, yend = 20) +
+  annotate(geom = "text",  
+           x = 1970, y = 22,  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
+           hjust = 1, size = 5,  
+           angle = 20,  
+           lineheight = .8,  
+           fontface = "italic",  
+           color = "plum4")  
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/ref_lines_rotate_17_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop/1000000) +  
+  aes(linetype = country) +  
+  coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
+  geom_line(color = "steelblue") +  
+* annotate(geom = "curve", curvature = -.7, x = 1970, xend = 2000, y = 23, yend = 20) +
+  annotate(geom = "text",  
+           x = 1970, y = 22,  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
+           hjust = 1, size = 5,  
+           angle = 20,  
+           lineheight = .8,  
+           fontface = "italic",  
+           color = "plum4")  
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/ref_lines_rotate_18_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop/1000000) +  
+  aes(linetype = country) +  
+  coord_cartesian(xlim = c(1952,2007), ylim = c(0, 25)) +  
+  geom_line(color = "steelblue") +  
+* annotate(geom = "curve", curvature =-1.5, x = 1970, xend = 2000, y = 23, yend = 20) +
+  annotate(geom = "text",  
+           x = 1970, y = 22,  
+           label = "Most often\nthese geometric annotations\nare also accompanied\n by text annotation",  
+           hjust = 1, size = 5,  
+           angle = 20,  
+           lineheight = .8,  
+           fontface = "italic",  
+           color = "plum4")  
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/ref_lines_rotate_19_output-1.png" width="100%" /&gt;
 ]]
 
 
@@ -627,30 +987,20 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
 })();
 (function() {
   "use strict"
-  /* Replace <script> tags in slides area to make them executable
-   *
-   * Runs after post-processing of markdown source into slides and replaces only
-   * <script>s on the last slide of continued slides using the .has-continuation
-   * class added by xaringan. Finally, any <script>s in the slides area that
-   * aren't executed are commented out.
-   */
+  // Replace <script> tags in slides area to make them executable
   var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+    '.remark-slides-area .remark-slide-container script'
   );
   if (!scripts.length) return;
   for (var i = 0; i < scripts.length; i++) {
     var s = document.createElement('script');
     var code = document.createTextNode(scripts[i].textContent);
     s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
     scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-  var scriptsNotExecuted = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container.has-continuation script'
-  );
-  if (!scriptsNotExecuted.length) return;
-  for (var i = 0; i < scriptsNotExecuted.length; i++) {
-    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
-    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
   }
 })();
 (function() {

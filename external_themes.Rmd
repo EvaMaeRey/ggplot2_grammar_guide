@@ -14,45 +14,9 @@ output:
 
 ```{r setup, echo = F, eval = T, message = F, warning = F }
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, message = F, warning = F, dpi = 300)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = F, message = F, warning = F, dpi = 300)
 
 library(flipbookr)
-```
-
-
----
-
-# Base Plot
-
-We'll work with the plot below to apply all the theme adjustments.  In the next slide, we'll build this plot and save it as the plot object `g`. 
-
-
----
-
-`r chunk_reveal("the_plot")`
-
-
-```{r the_plot, eval = T, echo = F}
-library(tidyverse)
-library(gapminder)
-gapminder %>%
-  filter(year == 1992) %>%
-  ggplot() +
-  aes(x = gdpPercap, y = lifeExp) +
-  geom_point(alpha = .8, shape = 21, 
-             fill = "white") +
-  aes(col = continent, fill = continent) +
-  geom_point(alpha = .3, shape = 21) +
-  aes(size = pop) +
-  scale_size(guide = F) +
-  labs(title = "Wealth and expected longevity\n in 1992") +
-  labs(subtitle = "Data from gapminder package in R") +
-  labs(x = "GDP per Capita") +
-  labs(y = "Life Expectency") +
-  labs(tag = "Plot 1") +
-  labs(col = "Continent", fill = "Continent") +
-  labs(caption = "Vis: @EvaMaeRey with ggplot") ->
-g
 ```
 
 
@@ -68,6 +32,8 @@ You will need to install these packages first in order to use them.
 `r chunk_reveal("ggthemes", break_type = "rotate")`
 
 ```{r ggthemes, eval = F, echo = F, out.width="60%"}
+library(tidyverse)
+library(gapminder)
 gapminder %>%
   filter(year == 1992) %>%
   ggplot() +
@@ -114,8 +80,63 @@ gapminder %>%
 ```
 
 
+---
+
+`r chunk_reveal("ggthemes", break_type = "rotate")`
+
+```{r ggthemes, eval = F, echo = F, out.width="60%"}
+library(tidyverse)
+library(gapminder)
+gapminder %>%
+  filter(year == 1992) %>%
+  ggplot() +
+  aes(x = gdpPercap, y = lifeExp) +
+  geom_point(alpha = .8, shape = 21, 
+             fill = "white") +
+  aes(col = continent, fill = continent) +
+  geom_point(alpha = .3, shape = 21) +
+  aes(size = pop) +
+  scale_size(guide = F) +
+  labs(title = "Wealth and expected longevity\n in 1992") +
+  labs(subtitle = "Data from gapminder package in R") +
+  labs(x = "GDP per Capita") +
+  labs(y = "Life Expectency") +
+  labs(tag = "Plot 1") +
+  labs(col = "Continent", fill = "Continent") +
+  labs(caption = "Vis: @EvaMaeRey with ggplot") + 
+  ggthemes::scale_color_calc() + #ROTATE
+  ggthemes::scale_color_canva() +  #ROTATE
+  ggthemes::scale_color_colorblind() + #ROTATE
+  ggthemes::scale_color_continuous_tableau() + #ROTATE
+  ggthemes::scale_color_continuous_tableau() + #ROTATE
+  ggthemes::scale_color_economist() + #ROTATE
+  ggthemes::scale_color_excel() + #ROTATE
+  ggthemes::scale_color_excel_new() + #ROTATE
+  ggthemes::scale_color_few() + #ROTATE
+  ggthemes::scale_color_hc() + #ROTATE
+  ggthemes::scale_color_igray() + #ROTATE
+  ggthemes::scale_color_map() + #ROTATE
+  ggthemes::scale_color_solarized() + #ROTATE
+  ggthemes::scale_color_solarized_2() +  #ROTATE
+  ggthemes::scale_color_solid() + #ROTATE
+  ggthemes::scale_color_stata() + #ROTATE
+  ggthemes::scale_color_tufte() + #ROTATE
+  ggthemes::scale_color_wsj() + #ROTATE
+  ggdark::dark_theme_bw() + #ROTATE
+  ggdark::dark_theme_classic() + #ROTATE
+  ggdark::dark_theme_dark() + #ROTATE
+  ggdark::dark_theme_gray() + #ROTATE
+  ggdark::dark_theme_light() + #ROTATE
+  ggdark::dark_theme_linedraw() + #ROTATE
+  ggdark::dark_theme_minimal() + #ROTATE
+  ggdark::dark_theme_test() #ROTATE
+```
+
+
 
 ---
+
+
 
 A different approach is that of {ggthemr}.  The idea is to set the theme and forget it.   It is not added to the ggplot, but set before plotting begins. 
 
