@@ -1,0 +1,457 @@
+---
+title: "Modifiers"
+author: "Gina Reynolds, July 2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "ninjutsu"]
+    nature:
+      highlightLines: yes
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
+library(flipbookr)
+
+```
+
+
+```{r xaringan-themer, include = FALSE, eval = F}
+# library(xaringanthemer)
+
+
+# xaringanthemer::write_xaringan_theme(text_font_size = ".75cm",
+#                                      text_color = "darkblue")
+
+xaringanthemer::mono_accent(
+  base_color = "#43418A",
+  header_font_google = google_font("Montserrat"),
+  text_font_google   = google_font("Montserrat", "200", "200i"),
+  code_font_google   = google_font("Droid Mono"),
+  text_font_size = ".7cm",
+  code_font_size = ".7cm")
+  
+
+# write_xaringan_theme(
+#   extra_css = list(
+#     ".box-right" = list(
+#       "height" = "300px",
+#       "width" = "300px",
+#       "position" = "absolute",
+#       "top" = "33%",
+#       "left" = "55%"
+#     )
+#   )
+# )
+
+```
+
+
+
+
+---
+
+
+<!-- # For teachers -->
+
+<!-- This is a collection of thoughts about how to teach ggplot2, and any other grammar of graphics type data visualization system.   -->
+
+<!-- It is tempting to rush to build a publication-ready plot right out of the gate.   -->
+
+<!-- But maybe we should resist this temptation. Maybe we should "hang out" in each of the component zones for a bit.  Explore. Get comfy in a zone.  Then move on. -->
+
+
+```{r, include=F}
+load("data_products/manipulations.Rdata")
+library(tidyverse)
+```
+
+
+
+---
+
+# Modifiers
+
+> *"The book is on the table"* 
+
+--
+
+or 
+
+> *"The huge, paperback book is on the purple table"?*
+
+
+---
+class: center, middle
+
+We are able to learn something about our data with very few inputs with ggplot2: 
+
+--
+
+declare data -- `ggplot(data = ?)`
+
+--
+
+declare aesthetic representation -- `aes(x = ?)`
+
+--
+
+declare geom  -- `geom_rug()`
+
+--
+
+... and we get a plot back.
+
+---
+class: center, middle
+
+Part of the reason we have such a concise "grammar of graphics sentence" is there are convenient and reasonable defaults related to the aesthetics.  
+
+--
+
+In the first human, "The book is on the table", we also might a picture of the book and table -- it is some reasonable "default image" of books -- a genaric book, a genaric table.  
+
+--
+
+But we might use modifiers to change the picture, to specify that the table is not *brown* as we might imagine by default, but *purple*!
+
+---
+class: center, middle
+
+The same is true in ggplot2, also, we can write short "sentences" and get a meaningful plot in return because of helpful defaults.  But we can use modifiers to change these defaults.  
+
+---
+
+# Modifiers
+
+
+Modifiers adjust the default associated with aesthetic representations for:
+
+--
+
+1. Easy: the scale *labels* (the scale labels are the variable names by default, but they could be something else).  *Mastry is fairly easy. *
+
+--
+
+2. Medium: the *coordinate system* (the default coordinate system is cartesian (x horizontal, y vertical), but it could be something else - like polar).  *There's a bit more to know here.*
+
+--
+
+3. Hard: the aesthetic scales *themselves* (we have seen a "blues" scale by default for the continuous color aesthetic, but it could be greens, or yellows). *There's a lot to learn here!* 
+
+
+
+
+
+---
+
+name: labs
+
+## Modifiers I: aesthetic scale labels
+
+Aesthetic scales also get default *labels* which are the variable names.  We can also modify these.  
+
+The syntax is labs(\* = "New label"), where the \* is the aesthetic name.  
+
+`labs()` can also be used to add plot labels, plot title, caption, subtitle and tag.
+
+Let's see how. 
+
+---
+
+```{r labs, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  aes(color = continent) +
+  aes(shape = continent) +
+  aes(size = gdpPercap) +
+  aes(alpha = gdpPercap) + # this much is familiar #BREAK
+  labs(x = "GDP per cap") + #BREAK
+  labs(y = "Life Expectency") + #BREAK
+  labs(color = "Continent") + #BREAK
+  labs(shape = "Continent") + #BREAK
+  labs(size = "GDP per cap") + #BREAK
+  labs(alpha = "GDP per cap") + #BREAK
+  # Note: labs is also used to adjust *plot* labels
+  labs(title = "GDP per Cap versus\nLife Expectancy in 2002") + #BREAK
+  labs(subtitle = "Data: Gapminder Data in R") + #BREAK
+  labs(caption = "Visualization: @EvaMaeRey") + #BREAK
+  labs(tag = "Plot 1") #BREAK
+```
+
+
+`r chunk_reveal("labs", break_type = "user")`
+
+---
+
+## Questions:
+
+- When might you use labs(tag = )?
+- What does the character string "\n" do in the place of a space in the plot title?
+- Color and shape variables represent the same variable, and labs(color = \*) labs(shape = \*) have the same input, "Continent".  What does this mean for the legend? Change the labels to be different and see.
+- Change the y label to an empty string, '""'.  What does this do?  
+
+
+
+---
+
+name: coords
+
+## Modifiers II: x and y position coordinate system
+
+A third default for how aesthetic mapping of *positions x and y* are manifest is the coordinate system.  The default is cartesian coordinates - where x lies on the horizontal and is pependicular to y.  
+
+But let's quickly check out some of the different options for coordinates systems.  When we use a coord_* statement in ggplot, we can overwrite the default.    
+
+---
+
+`r chunk_reveal("coords", break_type = "rotate")`
+
+```{r coords, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  coord_cartesian() + #ROTATE
+  coord_equal() + #ROTATE
+  coord_fixed(ratio = 400) + #ROTATE
+  coord_flip() + #ROTATE
+  coord_polar() + #ROTATE
+```
+
+
+
+
+---
+
+name: scales
+
+## Modifiers III: aesthetic mapping (representation) scales 
+
+With the aes() statement we have declared a variable mapped to an aesthetic, like x position, color, line width, etc.  To go back and ask for a modified scale, we use scales\_\* statements.  These statements provide a quick way to update our preferences for all the scales used for mapped aesthetics.   
+
+<!-- Start with a scales_x_* and look at the variety of scale options associated with the x position aesthetic.   -->
+
+Let's look at how we modify the default scale with a scales\_\* statement.
+
+
+---
+
+### Scales statements
+
+
+There are a variety of scaling alternatives for the x position aesthetic:  
+
+- scale_x_log10()
+- scale_x_reverse()
+- scale_x_sqrt()
+
+
+---
+
+
+```{r x_scales, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +  # this much is familiar #BREAK
+  scale_x_log10() + # overrides default  #BREAK
+  scale_x_reverse() + # overrides log10  #BREAK
+  scale_x_sqrt() # overrides reverse  #BREAK
+```
+
+`r chunk_reveal("x_scales", break_type = "user")`
+
+
+---
+
+### More aesthetic scale modifications
+
+*Note that using multiple scales associated with a single aesthetic is not typical.  We are just doing it here to expose you quickly to a variety of possibilities.  ggplot2 uses whatever scale specification last declared in our examples.*
+
+Analogously, we can use scale\_\*\_\* statements to modify other aesthetic scales.  Here are some examples
+
+<!-- I think people find it easy to think about x and y position and adjusting those scales, and related adjustment like labs() and scale_*, but we teachers need to help extend these logics to the other aesthetics.  -->
+
+
+- scale_x_log10() 
+- scale_y_reverse(limits = c(100, 0)) 
+- scale_color_viridis_d() 
+- scale_shape_discrete(solid = F) 
+- scale_size_continuous(breaks = c(100, 1000, 10000, 100000)) 
+- scale_alpha(range = c(.5, 1)) # full transparency is 0
+
+
+Let's tour several of those to get a taste.  
+
+---
+
+`r chunk_reveal("scales")`
+
+```{r scales, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  scale_x_continuous(trans = "log10") +  
+  aes(y = lifeExp) +
+  scale_y_continuous(breaks = c(50,70)) +  
+  geom_point() +
+  aes(color = continent) +
+  scale_color_viridis_d() +
+  aes(size = gdpPercap) +
+  scale_size_continuous(limits = c(0, 400000)) +
+  aes(shape = continent) +
+  scale_shape_discrete(solid = F) + 
+  aes(alpha = gdpPercap) +
+  scale_alpha(range = c(.4, .9))
+```
+
+
+
+---
+
+## Questions:
+
+<!-- to ponder -->
+
+- What does the parameter "breaks" seem to control?
+
+- What are some additional color scales that can be used?  Use auto complete in RStudio.  (i.e. type "scale_color" and then "tab" to see your options)
+
+- What does "d" stand for in the scale_color_viridis_d()? Use the help pane.
+
+- While you are in the help pane, see how would you set missing values (NA) to "black".
+
+---
+
+For a full tour of scale modifications check out the [scales second look](https://evamaerey.github.io/ggplot2_grammar_guide/scales). 
+
+
+
+
+
+
+---
+
+## Modifiers - Review
+
+We have seen that there are three modifiers to aesthetic mapping.
+
+- scale_*
+- labs(* = )
+- coords_? (applies x,y position aesthetics only)
+
+
+To review, let's just look at modifiers for the horizontal *x* position aesthetic.
+
+---
+
+```{r modifiers_review, include = FALSE}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  labs(x = "GDP per cap") + # modify x label #BREAK
+  coord_polar() + # modify x and y coordinate system 
+  scale_x_log10()  # modify x scale
+```
+
+
+`r chunk_reveal("modifiers_review")`
+
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 70%}
+```
+
+
+<!-- ```{r, dpi=400, eval = F} -->
+<!-- gapminder %>%  -->
+<!--   select(continent) %>%  -->
+<!--   ggplot() + -->
+<!--   aes(x = 1) + -->
+<!--   aes(fill = continent) + -->
+<!--   geom_bar(color = "white", size = .2) + -->
+<!--   coord_polar(theta = "y") + -->
+<!--   theme_void() + -->
+<!--   scale_fill_viridis_d() + -->
+<!--   theme(rect = element_rect(fill = "grey",  -->
+<!--                             color = "grey",  -->
+<!--                             linetype = "solid", -->
+<!--                             size = 0)) -->
+
+<!-- ggsave("pie.svg", dpi = 320,device = "svg") -->
+<!-- ``` -->
+
+<!-- --- -->
+
+<!-- Or at least an organized twitter thread!?  Another idea for you: pull aes() out of ggplot(). Do you do it? Lot's of reasons to do it! Downside is currently most examples make use of nested approach. @grrrck does this too, and esquisse -->
+
+<!-- ggplot(data = my_data) +  -->
+<!--    aes(x = my_var) -->
+
+<!-- Is it possible to do this with multiple geoms? I usually specify aes within the geom like  -->
+
+<!-- ggplot(data) + -->
+<!--   geom_point(aes(x, y)) + -->
+<!--   geom_line(aes(x, y, group = id))  -->
+
+<!-- I prefer this approach because it's explicit which aesthetics are bound to which geoms -->
+
+<!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! -->
+
+
+<!-- To change the data used for a plot, use the %+% operator! Oh!!!  -->
+
+
+<!-- # Stat_* -->
+
+<!-- ## Univariate discrete -->
+
+
+
+<!-- ```{r univariate_discrete, eval = F, echo = F} -->
+<!-- ggplot(gapminder_2002) + -->
+<!--   aes(x = continent) + -->
+<!--   stat_count() + -->
+<!--   geom_bar() # convenience geom -->
+<!--             # default counting -->
+<!-- ``` -->
+
+<!-- --- -->
+
+<!-- r chunk_reveal("univariate_discrete")` -->
+
+
+<!-- --- -->
+
+<!-- ```{r} -->
+<!-- ggplot(data = gapminder_2002) + -->
+<!--   aes(x = continent) + -->
+<!--   aes(y = lifeExp) + -->
+<!--   geom_point(alpha = .1) + -->
+<!--   stat_summary( -->
+<!--     fun.ymin = min, -->
+<!--     fun.ymax = max, -->
+<!--     fun.y = median -->
+<!--   ) -->
+<!-- ``` -->
+
+
+
+<!-- --- -->
+
+<!-- ```{r} -->
+<!-- gapminder_2002 %>%  -->
+<!--   mutate(seventy_plus = lifeExp > 60) %>%  -->
+<!-- ggplot() + -->
+<!--   aes(x = continent) + -->
+<!--   aes(fill = seventy_plus) + -->
+<!--   geom_bar(alpha = .2) -->
+<!-- ``` -->
+

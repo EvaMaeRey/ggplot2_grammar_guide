@@ -1,0 +1,2650 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>{tmap}</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds, July 2019" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# {tmap}
+### Gina Reynolds, July 2019
+
+---
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# A simple build w filled polygons
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*library(tidyverse)
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+*library(tmap)
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+*data("World")
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+*World
+```
+]]
+.column[.content[
+
+```
+  Simple feature collection with 177 features and 15 fields
+  geometry type:  MULTIPOLYGON
+  dimension:      XY
+  bbox:           xmin: -16656120 ymin: -8460601 xmax: 16656120 ymax: 8375779
+  CRS:            +proj=eck4 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs
+  First 10 features:
+     iso_a3                   name           sovereignt               continent
+  1     AFG            Afghanistan          Afghanistan                    Asia
+  2     AGO                 Angola               Angola                  Africa
+  3     ALB                Albania              Albania                  Europe
+  4     ARE   United Arab Emirates United Arab Emirates                    Asia
+  5     ARG              Argentina            Argentina           South America
+  6     ARM                Armenia              Armenia                    Asia
+  7     ATA             Antarctica           Antarctica              Antarctica
+  8     ATF Fr. S. Antarctic Lands               France Seven seas (open ocean)
+  9     AUS              Australia            Australia                 Oceania
+  10    AUT                Austria              Austria                  Europe
+                    area  pop_est pop_est_dens                    economy
+  1    652860.000 [km^2] 28400000 4.350090e+01  7. Least developed region
+  2   1246700.000 [km^2] 12799293 1.026654e+01  7. Least developed region
+  3     27400.000 [km^2]  3639453 1.328268e+02       6. Developing region
+  4     71252.172 [km^2]  4798491 6.734519e+01       6. Developing region
+  5   2736690.000 [km^2] 40913584 1.495003e+01    5. Emerging region: G20
+  6     28470.000 [km^2]  2967004 1.042151e+02       6. Developing region
+  7  12259213.973 [km^2]     3802 3.101341e-04       6. Developing region
+  8      7257.455 [km^2]      140 1.929051e-02       6. Developing region
+  9   7682300.000 [km^2] 21262641 2.767744e+00 2. Developed region: nonG7
+  10    82523.000 [km^2]  8210281 9.949082e+01 2. Developed region: nonG7
+                  income_grp gdp_cap_est life_exp well_being footprint inequality
+  1            5. Low income    784.1549   59.668        3.8      0.79 0.42655744
+  2   3. Upper middle income   8617.6635       NA         NA        NA         NA
+  3   4. Lower middle income   5992.6588   77.347        5.5      2.21 0.16513372
+  4  2. High income: nonOECD  38407.9078       NA         NA        NA         NA
+  5   3. Upper middle income  14027.1261   75.927        6.5      3.14 0.16423830
+  6   4. Lower middle income   6326.2469   74.446        4.3      2.23 0.21664810
+  7  2. High income: nonOECD 200000.0000       NA         NA        NA         NA
+  8  2. High income: nonOECD 114285.7143       NA         NA        NA         NA
+  9     1. High income: OECD  37634.0832   82.052        7.2      9.31 0.08067825
+  10    1. High income: OECD  40132.6093   81.004        7.4      6.06 0.07129351
+          HPI                       geometry
+  1  20.22535 MULTIPOLYGON (((5310471 451...
+  2        NA MULTIPOLYGON (((1531585 -77...
+  3  36.76687 MULTIPOLYGON (((1729835 521...
+  4        NA MULTIPOLYGON (((4675864 313...
+  5  35.19024 MULTIPOLYGON (((-5017766 -6...
+  6  25.66642 MULTIPOLYGON (((3677241 513...
+  7        NA MULTIPOLYGON (((-3403793 -8...
+  8        NA MULTIPOLYGON (((5550200 -59...
+  9  21.22897 MULTIPOLYGON (((12288137 -5...
+  10 30.47822 MULTIPOLYGON (((1371802 588...
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+* tm_shape(shp = .) +
+*   tm_polygons("HPI")
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/basic_user_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .) +  
+    tm_polygons("HPI") +  
+* tm_layout(bg.color = "skyblue",
+*           inner.margins = c(0.15, 0.10, 0.15, 0.08),
+*           title = "Happy Planet Index",
+*           title.size = 1.1,
+*           title.position = c("center", "top"))
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/basic_user_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .) +  
+    tm_polygons("HPI") +  
+  tm_layout(bg.color = "skyblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) +  
+* tm_scale_bar()
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/basic_user_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .) +  
+    tm_polygons("HPI") +  
+  tm_layout(bg.color = "skyblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) +  
+  tm_scale_bar() +  
+* tm_compass(position = c("right", "top"))
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/basic_user_8_output-1.png" width="100%" /&gt;
+]]
+
+
+
+---
+class: inverse, center, middle
+
+# projections
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .,  
+           projection = "+proj=eck4"  
+           ) +  
+    tm_polygons("HPI") + #BREAK  
+  tm_layout(bg.color = "skyblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) + #BREAK  
+  tm_scale_bar() + #BREAK  
+  tm_compass(position = c("right", "top")) #BREAK  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/proj_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .,  
+*          projection = 3857 #ROTATE
+           ) +  
+    tm_polygons("HPI") + #BREAK  
+  tm_layout(bg.color = "skyblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) + #BREAK  
+  tm_scale_bar() + #BREAK  
+  tm_compass(position = c("right", "top")) #BREAK  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/proj_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .,  
+*          projection = "+proj=merc" #ROTATE
+           ) +  
+    tm_polygons("HPI") + #BREAK  
+  tm_layout(bg.color = "skyblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) + #BREAK  
+  tm_scale_bar() + #BREAK  
+  tm_compass(position = c("right", "top")) #BREAK  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/proj_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .,  
+*          projection = "+proj=gall" #ROTATE
+           ) +  
+    tm_polygons("HPI") + #BREAK  
+  tm_layout(bg.color = "skyblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) + #BREAK  
+  tm_scale_bar() + #BREAK  
+  tm_compass(position = c("right", "top")) #BREAK  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/proj_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .,  
+*          projection = "+proj=robin" #ROTATE
+           ) +  
+    tm_polygons("HPI") + #BREAK  
+  tm_layout(bg.color = "skyblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) + #BREAK  
+  tm_scale_bar() + #BREAK  
+  tm_compass(position = c("right", "top")) #BREAK  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/proj_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .,  
+*          projection = "+proj=longlat" #ROTATE
+           ) +  
+    tm_polygons("HPI") + #BREAK  
+  tm_layout(bg.color = "skyblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) + #BREAK  
+  tm_scale_bar() + #BREAK  
+  tm_compass(position = c("right", "top")) #BREAK  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/proj_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .,  
+*          projection = "+proj=mill" #ROTATE
+           ) +  
+    tm_polygons("HPI") + #BREAK  
+  tm_layout(bg.color = "skyblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) + #BREAK  
+  tm_scale_bar() + #BREAK  
+  tm_compass(position = c("right", "top")) #BREAK  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/proj_rotate_7_output-1.png" width="100%" /&gt;
+]]
+
+
+
+---
+class: inverse, center, middle
+
+# layering raster, polygon borders, text, symbols
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*data(World, metro, rivers, land)
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+data(World, metro, rivers, land)  
+
+*tmap_mode("plot")
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+## tmap mode set to plotting
+*land
+```
+]]
+.column[.content[
+
+```
+  stars object with 2 dimensions and 4 attributes
+  attribute(s):
+                 cover                              cover_cls     
+   Water bodies     :393060   Water                      :393060  
+   Snow / Ice       : 61986   Snow/ice                   : 61986  
+   Herbaceous       : 21377   Forest                     : 48851  
+   Tree Open        : 16171   Other natural vegetation   : 32611  
+   Sparse vegetation: 12247   Bare area/Sparse vegetation: 26904  
+   Cropland         : 11658   Cropland                   : 17843  
+   (Other)          : 66701   (Other)                    :  1945  
+       trees          elevation     
+   Min.   :  0.0    Min.   :-412    
+   1st Qu.:  0.0    1st Qu.: 218    
+   Median :  0.0    Median : 608    
+   Mean   : 15.6    Mean   :1140    
+   3rd Qu.: 19.0    3rd Qu.:1941    
+   Max.   :100.0    Max.   :6410    
+   NA's   :393060   NA's   :389580  
+  dimension(s):
+    from   to offset     delta                       refsys point values    
+  x    1 1080   -180  0.333333 +proj=longlat +ellps=WGS8...  NULL   NULL [x]
+  y    1  540     90 -0.333333 +proj=longlat +ellps=WGS8...  NULL   NULL [y]
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+## tmap mode set to plotting
+land %&gt;%  
+* tm_shape() +
+*   tm_raster("elevation",
+*             palette = terrain.colors(10))
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/basic1_user_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+    tm_raster("elevation",  
+              palette = terrain.colors(10)) +  
+* tm_shape(World) +
+*   tm_borders("white", lwd = .5)
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/basic1_user_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+    tm_raster("elevation",  
+              palette = terrain.colors(10)) +  
+  tm_shape(World) +  
+    tm_borders("white", lwd = .5) +  
+*   tm_text("iso_a3", size = "AREA")
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/basic1_user_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+    tm_raster("elevation",  
+              palette = terrain.colors(10)) +  
+  tm_shape(World) +  
+    tm_borders("white", lwd = .5) +  
+    tm_text("iso_a3", size = "AREA") +  
+* tm_shape(metro) +
+*   tm_symbols(col = "red",
+*              size = "pop2020",
+*              scale = .5)
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/basic1_user_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+    tm_raster("elevation",  
+              palette = terrain.colors(10)) +  
+  tm_shape(World) +  
+    tm_borders("white", lwd = .5) +  
+    tm_text("iso_a3", size = "AREA") +  
+  tm_shape(metro) +  
+    tm_symbols(col = "red",  
+               size = "pop2020",  
+               scale = .5) +  
+* tm_legend(show = FALSE)
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/basic1_user_8_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+---
+class: inverse, center, middle
+
+# choropleth
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .) +  
+    tm_polygons("HPI", palette = "RdYlBu") +  
+  tm_layout(bg.color = "aliceblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) +  
+  tm_scale_bar() +  
+  tm_compass(position = c("right", "top"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/choropleth_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .) +  
+*   tm_polygons("HPI", palette = "Blues") +
+  tm_layout(bg.color = "aliceblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) +  
+  tm_scale_bar() +  
+  tm_compass(position = c("right", "top"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/choropleth_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .) +  
+*   tm_polygons("HPI", palette = paletteer_c("grDevices::Fall", 10)) +
+  tm_layout(bg.color = "aliceblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) +  
+  tm_scale_bar() +  
+  tm_compass(position = c("right", "top"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/choropleth_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .) +  
+*   tm_polygons("HPI", pal = paletteer_c("pals::jet", 10)) +
+  tm_layout(bg.color = "aliceblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) +  
+  tm_scale_bar() +  
+  tm_compass(position = c("right", "top"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/choropleth_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .) +  
+*   tm_polygons("HPI", pal = paletteer_c("gameofthrones::stark", 10)) +
+  tm_layout(bg.color = "aliceblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) +  
+  tm_scale_bar() +  
+  tm_compass(position = c("right", "top"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/choropleth_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(tidyverse)  
+library(tmap)  
+data("World")  
+
+World %&gt;%  
+  tm_shape(shp = .) +  
+*   tm_polygons("HPI", pal = viridisLite::plasma(10)) +
+  tm_layout(bg.color = "aliceblue",  
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),  
+            title = "Happy Planet Index",  
+            title.size = 1.1,  
+            title.position = c("center", "top")) +  
+  tm_scale_bar() +  
+  tm_compass(position = c("right", "top"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/choropleth_rotate_6_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# map ensembles
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*tmap_mode("plot")
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+*data("World")
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+*World
+```
+]]
+.column[.content[
+
+```
+  Simple feature collection with 177 features and 15 fields
+  geometry type:  MULTIPOLYGON
+  dimension:      XY
+  bbox:           xmin: -16656120 ymin: -8460601 xmax: 16656120 ymax: 8375779
+  CRS:            +proj=eck4 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs
+  First 10 features:
+     iso_a3                   name           sovereignt               continent
+  1     AFG            Afghanistan          Afghanistan                    Asia
+  2     AGO                 Angola               Angola                  Africa
+  3     ALB                Albania              Albania                  Europe
+  4     ARE   United Arab Emirates United Arab Emirates                    Asia
+  5     ARG              Argentina            Argentina           South America
+  6     ARM                Armenia              Armenia                    Asia
+  7     ATA             Antarctica           Antarctica              Antarctica
+  8     ATF Fr. S. Antarctic Lands               France Seven seas (open ocean)
+  9     AUS              Australia            Australia                 Oceania
+  10    AUT                Austria              Austria                  Europe
+                    area  pop_est pop_est_dens                    economy
+  1    652860.000 [km^2] 28400000 4.350090e+01  7. Least developed region
+  2   1246700.000 [km^2] 12799293 1.026654e+01  7. Least developed region
+  3     27400.000 [km^2]  3639453 1.328268e+02       6. Developing region
+  4     71252.172 [km^2]  4798491 6.734519e+01       6. Developing region
+  5   2736690.000 [km^2] 40913584 1.495003e+01    5. Emerging region: G20
+  6     28470.000 [km^2]  2967004 1.042151e+02       6. Developing region
+  7  12259213.973 [km^2]     3802 3.101341e-04       6. Developing region
+  8      7257.455 [km^2]      140 1.929051e-02       6. Developing region
+  9   7682300.000 [km^2] 21262641 2.767744e+00 2. Developed region: nonG7
+  10    82523.000 [km^2]  8210281 9.949082e+01 2. Developed region: nonG7
+                  income_grp gdp_cap_est life_exp well_being footprint inequality
+  1            5. Low income    784.1549   59.668        3.8      0.79 0.42655744
+  2   3. Upper middle income   8617.6635       NA         NA        NA         NA
+  3   4. Lower middle income   5992.6588   77.347        5.5      2.21 0.16513372
+  4  2. High income: nonOECD  38407.9078       NA         NA        NA         NA
+  5   3. Upper middle income  14027.1261   75.927        6.5      3.14 0.16423830
+  6   4. Lower middle income   6326.2469   74.446        4.3      2.23 0.21664810
+  7  2. High income: nonOECD 200000.0000       NA         NA        NA         NA
+  8  2. High income: nonOECD 114285.7143       NA         NA        NA         NA
+  9     1. High income: OECD  37634.0832   82.052        7.2      9.31 0.08067825
+  10    1. High income: OECD  40132.6093   81.004        7.4      6.06 0.07129351
+          HPI                       geometry
+  1  20.22535 MULTIPOLYGON (((5310471 451...
+  2        NA MULTIPOLYGON (((1531585 -77...
+  3  36.76687 MULTIPOLYGON (((1729835 521...
+  4        NA MULTIPOLYGON (((4675864 313...
+  5  35.19024 MULTIPOLYGON (((-5017766 -6...
+  6  25.66642 MULTIPOLYGON (((3677241 513...
+  7        NA MULTIPOLYGON (((-3403793 -8...
+  8        NA MULTIPOLYGON (((5550200 -59...
+  9  21.22897 MULTIPOLYGON (((12288137 -5...
+  10 30.47822 MULTIPOLYGON (((1371802 588...
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(name != "Antarctica")
+```
+]]
+.column[.content[
+
+```
+  Simple feature collection with 176 features and 15 fields
+  geometry type:  MULTIPOLYGON
+  dimension:      XY
+  bbox:           xmin: -16656120 ymin: -6609565 xmax: 16656120 ymax: 8375779
+  CRS:            +proj=eck4 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs
+  First 10 features:
+     iso_a3                   name           sovereignt               continent
+  1     AFG            Afghanistan          Afghanistan                    Asia
+  2     AGO                 Angola               Angola                  Africa
+  3     ALB                Albania              Albania                  Europe
+  4     ARE   United Arab Emirates United Arab Emirates                    Asia
+  5     ARG              Argentina            Argentina           South America
+  6     ARM                Armenia              Armenia                    Asia
+  7     ATF Fr. S. Antarctic Lands               France Seven seas (open ocean)
+  8     AUS              Australia            Australia                 Oceania
+  9     AUT                Austria              Austria                  Europe
+  10    AZE             Azerbaijan           Azerbaijan                    Asia
+                   area  pop_est pop_est_dens                    economy
+  1   652860.000 [km^2] 28400000  43.50090372  7. Least developed region
+  2  1246700.000 [km^2] 12799293  10.26653806  7. Least developed region
+  3    27400.000 [km^2]  3639453 132.82675182       6. Developing region
+  4    71252.172 [km^2]  4798491  67.34518909       6. Developing region
+  5  2736690.000 [km^2] 40913584  14.95002503    5. Emerging region: G20
+  6    28470.000 [km^2]  2967004 104.21510362       6. Developing region
+  7     7257.455 [km^2]      140   0.01929051       6. Developing region
+  8  7682300.000 [km^2] 21262641   2.76774417 2. Developed region: nonG7
+  9    82523.000 [km^2]  8210281  99.49082074 2. Developed region: nonG7
+  10   82663.000 [km^2]  8238672  99.66577550       6. Developing region
+                  income_grp gdp_cap_est life_exp well_being footprint inequality
+  1            5. Low income    784.1549   59.668        3.8      0.79 0.42655744
+  2   3. Upper middle income   8617.6635       NA         NA        NA         NA
+  3   4. Lower middle income   5992.6588   77.347        5.5      2.21 0.16513372
+  4  2. High income: nonOECD  38407.9078       NA         NA        NA         NA
+  5   3. Upper middle income  14027.1261   75.927        6.5      3.14 0.16423830
+  6   4. Lower middle income   6326.2469   74.446        4.3      2.23 0.21664810
+  7  2. High income: nonOECD 114285.7143       NA         NA        NA         NA
+  8     1. High income: OECD  37634.0832   82.052        7.2      9.31 0.08067825
+  9     1. High income: OECD  40132.6093   81.004        7.4      6.06 0.07129351
+  10  3. Upper middle income   9420.2075       NA         NA        NA         NA
+          HPI                       geometry
+  1  20.22535 MULTIPOLYGON (((5310471 451...
+  2        NA MULTIPOLYGON (((1531585 -77...
+  3  36.76687 MULTIPOLYGON (((1729835 521...
+  4        NA MULTIPOLYGON (((4675864 313...
+  5  35.19024 MULTIPOLYGON (((-5017766 -6...
+  6  25.66642 MULTIPOLYGON (((3677241 513...
+  7        NA MULTIPOLYGON (((5550200 -59...
+  8  21.22897 MULTIPOLYGON (((12288137 -5...
+  9  30.47822 MULTIPOLYGON (((1371802 588...
+  10       NA MULTIPOLYGON (((3825061 498...
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+  filter(name != "Antarctica") %&gt;%  
+* tm_shape() +
+*   tm_polygons(c("HPI", "economy"))
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/ensemble_user_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+  filter(name != "Antarctica") %&gt;%  
+  tm_shape() +  
+    tm_polygons(c("HPI", "economy")) +  
+*   tm_facets(sync = TRUE, ncol = 2)
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/ensemble_user_6_output-1.png" width="100%" /&gt;
+]]
+
+
+
+---
+class: inverse, center, middle
+
+# filtering sf objects using dplyr
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+  filter(continent == "Asia") %&gt;%  
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(continent == "Africa") %&gt;%
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(continent == "Europe") %&gt;%
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(continent == "South America") %&gt;%
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(continent == "Oceania") %&gt;%
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(name != "Antarctica") %&gt;%
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(name %in% c("Australia", "New Zealand")) %&gt;%
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(continent == "Europe") %&gt;%
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(continent == "Europe" &amp; name != "Russia") %&gt;%
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(continent == "North America") %&gt;%
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(continent == "North America" &amp; name != "Greenland") %&gt;%
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(!is.na("HPI")) %&gt;%
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_12_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+data("World")  
+
+World %&gt;%  
+* filter(economy == "5. Emerging region: G20") %&gt;%
+  tm_shape(shp = .) +  
+    tm_polygons(c("HPI"))  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/region_filter_rotate_13_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# raster data
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(paletteer)  
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+    tm_raster("elevation", palette = terrain.colors(10)) +  
+  tm_shape(World %&gt;% filter(name != "Antarctica")) +  
+    tm_borders("white", lwd = .5) +  
+    tm_text("iso_a3", size = "AREA") +  
+  tm_shape(metro) +  
+    tm_symbols(col = "red",  
+               size = "pop2020",  
+               scale = .5) +  
+  tm_legend(show = FALSE)  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/raster_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(paletteer)  
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+*   tm_raster("elevation", pal = paletteer_c("gameofthrones::lannister", n = 10)) +
+  tm_shape(World %&gt;% filter(name != "Antarctica")) +  
+    tm_borders("white", lwd = .5) +  
+    tm_text("iso_a3", size = "AREA") +  
+  tm_shape(metro) +  
+    tm_symbols(col = "red",  
+               size = "pop2020",  
+               scale = .5) +  
+  tm_legend(show = FALSE)  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/raster_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(paletteer)  
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+*   tm_raster("trees", palette = terrain.colors(10)) +
+  tm_shape(World %&gt;% filter(name != "Antarctica")) +  
+    tm_borders("white", lwd = .5) +  
+    tm_text("iso_a3", size = "AREA") +  
+  tm_shape(metro) +  
+    tm_symbols(col = "red",  
+               size = "pop2020",  
+               scale = .5) +  
+  tm_legend(show = FALSE)  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/raster_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(paletteer)  
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+*   tm_raster("trees", pal = paletteer_c("gameofthrones::jon_snow", n = 5)) +
+  tm_shape(World %&gt;% filter(name != "Antarctica")) +  
+    tm_borders("white", lwd = .5) +  
+    tm_text("iso_a3", size = "AREA") +  
+  tm_shape(metro) +  
+    tm_symbols(col = "red",  
+               size = "pop2020",  
+               scale = .5) +  
+  tm_legend(show = FALSE)  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/raster_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(paletteer)  
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+*   tm_raster("trees", pal = viridisLite::magma(7)) +
+  tm_shape(World %&gt;% filter(name != "Antarctica")) +  
+    tm_borders("white", lwd = .5) +  
+    tm_text("iso_a3", size = "AREA") +  
+  tm_shape(metro) +  
+    tm_symbols(col = "red",  
+               size = "pop2020",  
+               scale = .5) +  
+  tm_legend(show = FALSE)  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/raster_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(paletteer)  
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+*   tm_raster("trees", pal = viridisLite::viridis(7)) +
+  tm_shape(World %&gt;% filter(name != "Antarctica")) +  
+    tm_borders("white", lwd = .5) +  
+    tm_text("iso_a3", size = "AREA") +  
+  tm_shape(metro) +  
+    tm_symbols(col = "red",  
+               size = "pop2020",  
+               scale = .5) +  
+  tm_legend(show = FALSE)  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/raster_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(paletteer)  
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+*   tm_raster("trees", pal = viridisLite::cividis(7)) +
+  tm_shape(World %&gt;% filter(name != "Antarctica")) +  
+    tm_borders("white", lwd = .5) +  
+    tm_text("iso_a3", size = "AREA") +  
+  tm_shape(metro) +  
+    tm_symbols(col = "red",  
+               size = "pop2020",  
+               scale = .5) +  
+  tm_legend(show = FALSE)  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/raster_rotate_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(paletteer)  
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+*   tm_raster("trees", pal = viridisLite::inferno(7)) +
+  tm_shape(World %&gt;% filter(name != "Antarctica")) +  
+    tm_borders("white", lwd = .5) +  
+    tm_text("iso_a3", size = "AREA") +  
+  tm_shape(metro) +  
+    tm_symbols(col = "red",  
+               size = "pop2020",  
+               scale = .5) +  
+  tm_legend(show = FALSE)  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/raster_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(paletteer)  
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+*   tm_raster("cover_cls", palette = terrain.colors(10)) +
+  tm_shape(World %&gt;% filter(name != "Antarctica")) +  
+    tm_borders("white", lwd = .5) +  
+    tm_text("iso_a3", size = "AREA") +  
+  tm_shape(metro) +  
+    tm_symbols(col = "red",  
+               size = "pop2020",  
+               scale = .5) +  
+  tm_legend(show = FALSE)  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/raster_rotate_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+library(paletteer)  
+data(World, metro, rivers, land)  
+
+tmap_mode("plot")  
+
+
+## tmap mode set to plotting
+land %&gt;%  
+  tm_shape() +  
+*   tm_raster("cover", palette = terrain.colors(10)) +
+  tm_shape(World %&gt;% filter(name != "Antarctica")) +  
+    tm_borders("white", lwd = .5) +  
+    tm_text("iso_a3", size = "AREA") +  
+  tm_shape(metro) +  
+    tm_symbols(col = "red",  
+               size = "pop2020",  
+               scale = .5) +  
+  tm_legend(show = FALSE)  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/raster_rotate_10_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+---
+class: inverse, center, middle
+
+# facets
+
+---
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*tmap_mode("plot")
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+*data(NLD_muni)  # Netherlands
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+data(NLD_muni)  # Netherlands 
+
+*NLD_muni
+```
+]]
+.column[.content[
+
+```
+  Simple feature collection with 403 features and 14 fields
+  geometry type:  MULTIPOLYGON
+  dimension:      XY
+  bbox:           xmin: 13565.4 ymin: 306846.9 xmax: 277992.8 ymax: 619292
+  CRS:            EPSG:28992
+  First 10 features:
+    code                name  province population pop_men pop_women pop_0_14
+  0 0003          Appingedam Groningen      12065    5845      6215       15
+  1 0005               Bedum Groningen      10495    5245      5245       17
+  2 0007        Bellingwedde Groningen       8920    4450      4470       14
+  3 0009            Ten Boer Groningen       7480    3730      3750       20
+  4 0010            Delfzijl Groningen      25695   12860     12835       15
+  5 0014           Groningen Groningen     198315   98425     99890       12
+  6 0015          Grootegast Groningen      12165    6210      5950       19
+  7 0017               Haren Groningen      18780    8925      9855       17
+  8 0018 Hoogezand-Sappemeer Groningen      34305   16950     17350       16
+  9 0022                Leek Groningen      19595    9690      9905       18
+    pop_15_24 pop_25_44 pop_45_64 pop_65plus origin_native origin_west
+  0        11        22        30         22            87           8
+  1        12        21        31         19            94           4
+  2        10        19        34         24            90           8
+  3        11        22        29         18            93           4
+  4        11        21        30         23            83           8
+  5        24        30        21         12            78          11
+  6        12        24        28         16            96           3
+  7        10        18        30         26            88           8
+  8        11        24        29         21            82           7
+  9        11        22        30         20            91           6
+    origin_non_west                       geometry
+  0               5 MULTIPOLYGON (((251260.5 59...
+  1               2 MULTIPOLYGON (((235657.7 59...
+  2               2 MULTIPOLYGON (((269992.6 56...
+  3               3 MULTIPOLYGON (((245788.1 59...
+  4               9 MULTIPOLYGON (((262016.6 58...
+  5              11 MULTIPOLYGON (((239007.3 57...
+  6               1 MULTIPOLYGON (((217219.8 58...
+  7               4 MULTIPOLYGON (((241309.5 57...
+  8              11 MULTIPOLYGON (((238747.6 57...
+  9               3 MULTIPOLYGON (((226022.4 57...
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+data(NLD_muni)  # Netherlands 
+
+NLD_muni %&gt;%  
+* mutate(perc_men = pop_men / population * 100)
+```
+]]
+.column[.content[
+
+```
+  Simple feature collection with 403 features and 15 fields
+  geometry type:  MULTIPOLYGON
+  dimension:      XY
+  bbox:           xmin: 13565.4 ymin: 306846.9 xmax: 277992.8 ymax: 619292
+  CRS:            EPSG:28992
+  First 10 features:
+     code                name  province population pop_men pop_women pop_0_14
+  1  0003          Appingedam Groningen      12065    5845      6215       15
+  2  0005               Bedum Groningen      10495    5245      5245       17
+  3  0007        Bellingwedde Groningen       8920    4450      4470       14
+  4  0009            Ten Boer Groningen       7480    3730      3750       20
+  5  0010            Delfzijl Groningen      25695   12860     12835       15
+  6  0014           Groningen Groningen     198315   98425     99890       12
+  7  0015          Grootegast Groningen      12165    6210      5950       19
+  8  0017               Haren Groningen      18780    8925      9855       17
+  9  0018 Hoogezand-Sappemeer Groningen      34305   16950     17350       16
+  10 0022                Leek Groningen      19595    9690      9905       18
+     pop_15_24 pop_25_44 pop_45_64 pop_65plus origin_native origin_west
+  1         11        22        30         22            87           8
+  2         12        21        31         19            94           4
+  3         10        19        34         24            90           8
+  4         11        22        29         18            93           4
+  5         11        21        30         23            83           8
+  6         24        30        21         12            78          11
+  7         12        24        28         16            96           3
+  8         10        18        30         26            88           8
+  9         11        24        29         21            82           7
+  10        11        22        30         20            91           6
+     origin_non_west                       geometry perc_men
+  1                5 MULTIPOLYGON (((251260.5 59... 48.44592
+  2                2 MULTIPOLYGON (((235657.7 59... 49.97618
+  3                2 MULTIPOLYGON (((269992.6 56... 49.88789
+  4                3 MULTIPOLYGON (((245788.1 59... 49.86631
+  5                9 MULTIPOLYGON (((262016.6 58... 50.04865
+  6               11 MULTIPOLYGON (((239007.3 57... 49.63064
+  7                1 MULTIPOLYGON (((217219.8 58... 51.04809
+  8                4 MULTIPOLYGON (((241309.5 57... 47.52396
+  9               11 MULTIPOLYGON (((238747.6 57... 49.40971
+  10               3 MULTIPOLYGON (((226022.4 57... 49.45139
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+data(NLD_muni)  # Netherlands 
+
+NLD_muni %&gt;%  
+  mutate(perc_men = pop_men / population * 100)  %&gt;%  
+* tm_shape() +
+*   tm_polygons("perc_men",
+*               palette = "RdYlBu")
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/facets_user_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+data(NLD_muni)  # Netherlands 
+
+NLD_muni %&gt;%  
+  mutate(perc_men = pop_men / population * 100)  %&gt;%  
+  tm_shape() +  
+    tm_polygons("perc_men",  
+                palette = "RdYlBu") +  
+*   tm_facets(by = "province")
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/facets_user_6_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+---
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*tmap_mode("plot")
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+*data("World")  # Netherlands
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+data("World")  # Netherlands 
+
+*World
+```
+]]
+.column[.content[
+
+```
+  Simple feature collection with 177 features and 15 fields
+  geometry type:  MULTIPOLYGON
+  dimension:      XY
+  bbox:           xmin: -16656120 ymin: -8460601 xmax: 16656120 ymax: 8375779
+  CRS:            +proj=eck4 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs
+  First 10 features:
+     iso_a3                   name           sovereignt               continent
+  1     AFG            Afghanistan          Afghanistan                    Asia
+  2     AGO                 Angola               Angola                  Africa
+  3     ALB                Albania              Albania                  Europe
+  4     ARE   United Arab Emirates United Arab Emirates                    Asia
+  5     ARG              Argentina            Argentina           South America
+  6     ARM                Armenia              Armenia                    Asia
+  7     ATA             Antarctica           Antarctica              Antarctica
+  8     ATF Fr. S. Antarctic Lands               France Seven seas (open ocean)
+  9     AUS              Australia            Australia                 Oceania
+  10    AUT                Austria              Austria                  Europe
+                    area  pop_est pop_est_dens                    economy
+  1    652860.000 [km^2] 28400000 4.350090e+01  7. Least developed region
+  2   1246700.000 [km^2] 12799293 1.026654e+01  7. Least developed region
+  3     27400.000 [km^2]  3639453 1.328268e+02       6. Developing region
+  4     71252.172 [km^2]  4798491 6.734519e+01       6. Developing region
+  5   2736690.000 [km^2] 40913584 1.495003e+01    5. Emerging region: G20
+  6     28470.000 [km^2]  2967004 1.042151e+02       6. Developing region
+  7  12259213.973 [km^2]     3802 3.101341e-04       6. Developing region
+  8      7257.455 [km^2]      140 1.929051e-02       6. Developing region
+  9   7682300.000 [km^2] 21262641 2.767744e+00 2. Developed region: nonG7
+  10    82523.000 [km^2]  8210281 9.949082e+01 2. Developed region: nonG7
+                  income_grp gdp_cap_est life_exp well_being footprint inequality
+  1            5. Low income    784.1549   59.668        3.8      0.79 0.42655744
+  2   3. Upper middle income   8617.6635       NA         NA        NA         NA
+  3   4. Lower middle income   5992.6588   77.347        5.5      2.21 0.16513372
+  4  2. High income: nonOECD  38407.9078       NA         NA        NA         NA
+  5   3. Upper middle income  14027.1261   75.927        6.5      3.14 0.16423830
+  6   4. Lower middle income   6326.2469   74.446        4.3      2.23 0.21664810
+  7  2. High income: nonOECD 200000.0000       NA         NA        NA         NA
+  8  2. High income: nonOECD 114285.7143       NA         NA        NA         NA
+  9     1. High income: OECD  37634.0832   82.052        7.2      9.31 0.08067825
+  10    1. High income: OECD  40132.6093   81.004        7.4      6.06 0.07129351
+          HPI                       geometry
+  1  20.22535 MULTIPOLYGON (((5310471 451...
+  2        NA MULTIPOLYGON (((1531585 -77...
+  3  36.76687 MULTIPOLYGON (((1729835 521...
+  4        NA MULTIPOLYGON (((4675864 313...
+  5  35.19024 MULTIPOLYGON (((-5017766 -6...
+  6  25.66642 MULTIPOLYGON (((3677241 513...
+  7        NA MULTIPOLYGON (((-3403793 -8...
+  8        NA MULTIPOLYGON (((5550200 -59...
+  9  21.22897 MULTIPOLYGON (((12288137 -5...
+  10 30.47822 MULTIPOLYGON (((1371802 588...
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+data("World")  # Netherlands 
+
+World %&gt;%  
+* tm_shape() +
+*   tm_polygons("HPI",
+*               palette = "RdYlBu")
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/facets_world_user_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+data("World")  # Netherlands 
+
+World %&gt;%  
+  tm_shape() +  
+    tm_polygons("HPI",  
+                palette = "RdYlBu") +  
+*   tm_facets(by = "continent")
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/facets_world_user_5_output-1.png" width="100%" /&gt;
+]]
+
+
+
+---
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*tmap_mode("plot")
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+*data("World")  # Netherlands
+```
+]]
+.column[.content[
+
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+data("World")  # Netherlands 
+
+*World %&gt;%
+* filter(name != "Anarctica")
+```
+]]
+.column[.content[
+
+```
+  Simple feature collection with 177 features and 15 fields
+  geometry type:  MULTIPOLYGON
+  dimension:      XY
+  bbox:           xmin: -16656120 ymin: -8460601 xmax: 16656120 ymax: 8375779
+  CRS:            +proj=eck4 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs
+  First 10 features:
+     iso_a3                   name           sovereignt               continent
+  1     AFG            Afghanistan          Afghanistan                    Asia
+  2     AGO                 Angola               Angola                  Africa
+  3     ALB                Albania              Albania                  Europe
+  4     ARE   United Arab Emirates United Arab Emirates                    Asia
+  5     ARG              Argentina            Argentina           South America
+  6     ARM                Armenia              Armenia                    Asia
+  7     ATA             Antarctica           Antarctica              Antarctica
+  8     ATF Fr. S. Antarctic Lands               France Seven seas (open ocean)
+  9     AUS              Australia            Australia                 Oceania
+  10    AUT                Austria              Austria                  Europe
+                    area  pop_est pop_est_dens                    economy
+  1    652860.000 [km^2] 28400000 4.350090e+01  7. Least developed region
+  2   1246700.000 [km^2] 12799293 1.026654e+01  7. Least developed region
+  3     27400.000 [km^2]  3639453 1.328268e+02       6. Developing region
+  4     71252.172 [km^2]  4798491 6.734519e+01       6. Developing region
+  5   2736690.000 [km^2] 40913584 1.495003e+01    5. Emerging region: G20
+  6     28470.000 [km^2]  2967004 1.042151e+02       6. Developing region
+  7  12259213.973 [km^2]     3802 3.101341e-04       6. Developing region
+  8      7257.455 [km^2]      140 1.929051e-02       6. Developing region
+  9   7682300.000 [km^2] 21262641 2.767744e+00 2. Developed region: nonG7
+  10    82523.000 [km^2]  8210281 9.949082e+01 2. Developed region: nonG7
+                  income_grp gdp_cap_est life_exp well_being footprint inequality
+  1            5. Low income    784.1549   59.668        3.8      0.79 0.42655744
+  2   3. Upper middle income   8617.6635       NA         NA        NA         NA
+  3   4. Lower middle income   5992.6588   77.347        5.5      2.21 0.16513372
+  4  2. High income: nonOECD  38407.9078       NA         NA        NA         NA
+  5   3. Upper middle income  14027.1261   75.927        6.5      3.14 0.16423830
+  6   4. Lower middle income   6326.2469   74.446        4.3      2.23 0.21664810
+  7  2. High income: nonOECD 200000.0000       NA         NA        NA         NA
+  8  2. High income: nonOECD 114285.7143       NA         NA        NA         NA
+  9     1. High income: OECD  37634.0832   82.052        7.2      9.31 0.08067825
+  10    1. High income: OECD  40132.6093   81.004        7.4      6.06 0.07129351
+          HPI                       geometry
+  1  20.22535 MULTIPOLYGON (((5310471 451...
+  2        NA MULTIPOLYGON (((1531585 -77...
+  3  36.76687 MULTIPOLYGON (((1729835 521...
+  4        NA MULTIPOLYGON (((4675864 313...
+  5  35.19024 MULTIPOLYGON (((-5017766 -6...
+  6  25.66642 MULTIPOLYGON (((3677241 513...
+  7        NA MULTIPOLYGON (((-3403793 -8...
+  8        NA MULTIPOLYGON (((5550200 -59...
+  9  21.22897 MULTIPOLYGON (((12288137 -5...
+  10 30.47822 MULTIPOLYGON (((1371802 588...
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+data("World")  # Netherlands 
+
+World %&gt;%  
+  filter(name != "Anarctica") %&gt;%  
+* tm_shape() +
+*   tm_polygons()
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/facets_economy_user_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+## tmap mode set to plotting
+
+data("World")  # Netherlands 
+
+World %&gt;%  
+  filter(name != "Anarctica") %&gt;%  
+  tm_shape() +  
+    tm_polygons() +  
+*   tm_facets(by = "economy",
+*             free.coords = FALSE)
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/facets_economy_user_5_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# {tmap} styles
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+tmap_style("classic")  
+
+data("World")  
+
+tm_shape(shp = World) +  
+    tm_polygons("HPI",  
+                legend.title = "Happy Planet Index")  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/style_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+*tmap_style("white")
+
+data("World")  
+
+tm_shape(shp = World) +  
+    tm_polygons("HPI",  
+                legend.title = "Happy Planet Index")  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/style_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+*tmap_style("gray")
+
+data("World")  
+
+tm_shape(shp = World) +  
+    tm_polygons("HPI",  
+                legend.title = "Happy Planet Index")  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/style_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+*tmap_style("natural")
+
+data("World")  
+
+tm_shape(shp = World) +  
+    tm_polygons("HPI",  
+                legend.title = "Happy Planet Index")  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/style_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+*tmap_style("cobalt")
+
+data("World")  
+
+tm_shape(shp = World) +  
+    tm_polygons("HPI",  
+                legend.title = "Happy Planet Index")  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/style_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+*tmap_style("col_blind")
+
+data("World")  
+
+tm_shape(shp = World) +  
+    tm_polygons("HPI",  
+                legend.title = "Happy Planet Index")  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/style_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+*tmap_style("albatross")
+
+data("World")  
+
+tm_shape(shp = World) +  
+    tm_polygons("HPI",  
+                legend.title = "Happy Planet Index")  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/style_rotate_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+*tmap_style("beaver")
+
+data("World")  
+
+tm_shape(shp = World) +  
+    tm_polygons("HPI",  
+                legend.title = "Happy Planet Index")  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/style_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+*tmap_style("bw")
+
+data("World")  
+
+tm_shape(shp = World) +  
+    tm_polygons("HPI",  
+                legend.title = "Happy Planet Index")  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/style_rotate_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+tmap_mode("plot")  
+
+*tmap_style("watercolor")
+
+data("World")  
+
+tm_shape(shp = World) +  
+    tm_polygons("HPI",  
+                legend.title = "Happy Planet Index")  
+```
+]]
+.column[.content[
+&lt;img src="tmap_files/figure-html/style_rotate_10_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+---
+
+r chunk_reveal("watercolor", break_type = "user")`
+
+
+
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 65%}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

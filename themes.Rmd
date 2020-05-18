@@ -22,6 +22,56 @@ source("https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/mas
 
 ---
 
+name: themes
+
+# Greetings: Themes
+
+It may seem just cosmetic, but themes can have a big impact on the look and feel of you final plot.  The thematic elements are what first meet the eye.  For more information on fine adjustment of thematic elements, have a look at the [taming ggplot themes flipbook](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1).  For now, check out how to change the look and feel of your graph with some preset themes.  
+
+---
+
+`r chunk_reveal("themes", break_type = "rotate")`
+
+
+```{r themes, eval = F, echo= F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  aes(color = continent) +
+  theme_bw() + #ROTATE
+  theme_classic() + #ROTATE
+  theme_gray() + #ROTATE
+  theme_light() + #ROTATE
+  theme_minimal() + #ROTATE
+  theme_void() + #ROTATE
+  theme_light(base_size = 10, base_family = "Times") + #ROTATE
+  theme_classic(base_family = "Rockwell") + #ROTATE
+  theme_dark(base_line_size = 14) + #ROTATE
+  theme_minimal(base_rect_size = 10) + #ROTATE
+```
+
+
+
+```{r, eval = F, echo = F}
+(g <- ggplot(chic, aes(date, temp)) +
+  geom_point())
+old <- theme_set(theme_grey())
+g
+theme_update(
+  panel.background = element_rect(
+    fill = "tan",
+    color = "black"
+  )
+) 
+g
+```
+
+
+
+
+---
+
 Some ideas from ["The Glamour of Graphics"](https://resources.rstudio.com/rstudio-conf-2020/the-glamour-of-graphics-william-chase)
 
 --

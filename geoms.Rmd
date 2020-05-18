@@ -60,15 +60,6 @@ In the first example many "variables" are "computed on the fly", like the 0 repr
 > In ggplot2, geoms can be roughly divided into individual and collective geoms. An individual geom has a distinctive graphical object for each row in the data frame. For example, the point geom has a single point for each observation. On the other hand, collective geoms represent multiple observations. This may be a result of a statistical summary, or may be fundamental to the display of the geom, as with polygons. Lines and paths fall somewhere in between: each overall line is composed of a set of straight segments, but each segment represents two points. --- Hadley Wickham *ggplot2: Elegant graphics for data analysis*
 
 
----
-
-## continous x and y (x is time)
-
-
-
-
-
-
 
 ---
 class: inverse, center, middle
@@ -100,6 +91,7 @@ ggplot(gapminder_2002) +
   geom_smooth() +  # #ROTATE
   geom_smooth(method = lm) + #ROTATE
   geom_hex(alpha = .5,color = "white") + #ROTATE
+  geom_hex(bins = 12, alpha = .9, color = "white") + #ROTATE
   theme_minimal()
 ```
 
@@ -117,12 +109,10 @@ ggplot(gapminder_2002) +
 - Does order of the geom_*() statements matter to the end result?  How?
 
 
+
 ---
-name: cc
 
-## Two continuous variables
-
-There are a lot of geometric objects that can be used to represent *two continuous variables*.  To explore a few more we can start a new plot.
+## continous x and y (x is time)
 
 
 [Or I'm on the overview track, take me to the next session](#local)
@@ -189,8 +179,12 @@ gapminder_europe %>%
   # mapping discrete data to color
   # or linetype has similar effects
   aes(color = country) +
-  geom_point()
+  geom_point() ->
+plot
 ```
+
+
+
 
 
 ---
@@ -306,14 +300,14 @@ name: c
 ggplot(gapminder_2002) +
   aes(x = lifeExp) +
   theme_minimal() +
-  geom_rug(col = "darkgrey", alpha = .7) +
+  geom_rug(col = "darkgrey") +
   geom_histogram(alpha = .5, fill = "cadetblue") + #ROTATE
   geom_freqpoly(linetype = "dashed") + #ROTATE
   geom_dotplot(fill = "blue", alpha = .5) + #ROTATE
   geom_dotplot(binwidth = "dotdensity", alpha = .5) + #ROTATE
   geom_histogram(col = "black", fill = "maroon4", alpha = .4, aes(y = ..density..)) + #ROTATE
-  geom_density(linetype = "dotted", adjust = 1/4) + #ROTATE
-  geom_density(linetype = "dashed", adjust = 1/2) #ROTATE
+  geom_density(linetype = "dotted", adjust = 1/4, size = 1.25) + #ROTATE
+  geom_density(linetype = "dashed", adjust = 1/2, size = 1.25) #ROTATE
 ```
 
 

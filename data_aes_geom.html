@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>A ggplot2 grammar guide</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds, July 2019" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# A ggplot2 grammar guide
+### Gina Reynolds, July 2019
+
+---
+
+
+
+
+
+
+
+A data visualization:
+
+- is composed of geometric shapes
+
+--
+
+- that take on aesthetics
+
+--
+
+- that represent variables
+
+--
+
+- from a data set
+
+
+---
+
+We can say this another way -- a more classic definition too:
+
+A statistical graphic 
+-- 
+
+maps variables of a dataset
+
+--
+
+to aesthetic properties
+
+--
+
+of geometric objects
+
+
+---
+
+# The ggplot2 grammar follows this order second order... Let's see a simple example this. (First watch the Hans Rosling clip  - )
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+# specify the data for the plot
+*ggplot(data = gapminder_2002)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/overview_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+# specify the data for the plot
+ggplot(data = gapminder_2002) +  
+# the x position will represent
+# the gdp per capita variable
+* aes(x = gdpPercap)   # x position
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/overview_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+# specify the data for the plot
+ggplot(data = gapminder_2002) +  
+# the x position will represent
+# the gdp per capita variable
+  aes(x = gdpPercap) +  # x position
+# the y position will represent
+# the lifeExp variable
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/overview_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+# specify the data for the plot
+ggplot(data = gapminder_2002) +  
+# the x position will represent
+# the gdp per capita variable
+  aes(x = gdpPercap) +  # x position
+# the y position will represent
+# the lifeExp variable
+  aes(y = lifeExp) +  
+# the point geometric shape
+# take on the positions according
+# to the specified mapping
+# i.e. the representation
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/overview_auto_4_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+---
+
+Let's look at each of these steps one at a time.  
+
+---
+
+# The declarative mood: declaring data
+
+Data is a "first class citizen" in the 'Grammar of Graphics' and `tidyverse` framework.  Therefore, the first step to creating a plot, not surprisingly, is declaring data. 
+
+Let's do it.
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002)  # That's it
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/declare_data_1_1_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+---
+
+# Pipe data into ggplot()
+
+An alternative to the above syntax is to "pipe" the data into the ggplot function, as shown below.  The pipe operator, which is made available in R by loading the `tidyverse` package, pulls the object that preceeds it into the function.  This second option allows us to glimpse the raw data that we will use in our plot. 
+
+
+
+
+```r
+# Option 2 
+gapminder_2002 %&gt;% # data piped into 
+  ggplot() # ggplot function initiating plot
+```
+
+Let's see how this works. Then we'll move on to the second step in this grammar lesson --- the interogative mood --- aesthetic representation. 
+
+---
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+# Option 2
+*gapminder_2002   # data piped into
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+# Option 2
+gapminder_2002 %&gt;%  # data piped into
+* ggplot()  # ggplot function initiating plot
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/declare_data_option_2_auto_2_output-1.png" width="100%" /&gt;
+]]
+
+---
+
+name: aes
+
+
+# The interogative mood:  aesthetic mapping
+
+&lt;!-- &gt; aes(color = temperature) translates to "Please represent 'temperature' for me, color aesthetic!"  --&gt;
+
+
+Aesthetics --- like position, color, and size --- represent variables which do a lot of work for us in data visualization. 
+
+Distributions in values --- which can be painstaking to digest in their "raw" form in a table of numbers or categories --- are easy to communicate when represented by position, color, size and so on.  
+
+The term 'mapping' in 'aesthetic mapping' refers to the fact that variables are 'mapped' to aesthetics -- i.e. they are represented by aesthetics.  
+
+
+
+---
+
+# A main pool of aesthetics
+
+Let's think about the various aesthetics that can be used to communicate distributions.
+
+
+
+---
+
+# A main pool of aesthetics
+
+Here's a key set of aesthetics that can be used to communicate about distribution among categories or the spread in a variable. 
+
+&lt;img src="https://serialmentor.com/dataviz/aesthetic_mapping_files/figure-html/common-aesthetics-1.png" width="80%" /&gt;
+
+
+
+ Note: This figure is from Wilke's [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/aesthetic-mapping.html#aesthetics-and-types-of-data).  
+ 
+&lt;!-- Consumers of data visualization understand the importance of aesthetic mapping intuitively.  But some may feel overwhelmed by the terminology.  To overcome this in ggplot, we might personify things a bit and pronounce `aes()` --- the function used for specifying aesthetic mapping in ggplot2 --- as "ask".   --&gt;
+
+
+
+&lt;!-- "Mapping" in the phrase "aesthetic mapping" can be understood as representation, and aesthetics are that general category of things we visually differentiate: color, position, size, shape, etc. --&gt;
+
+
+&lt;!-- So the statement `aes(x = gdpPercap)`, can be translated to 'asking the x position to represent the variable gdpPercap.'  The statement `aes(color = continent)` can be understood as 'asking the color aesthetic to represent the variable continent.' --&gt;
+
+&lt;!-- --- --&gt;
+
+  
+
+&lt;!-- People don't always "get" ggplot2 right away.   --&gt;
+
+&lt;!-- One of the hurdles is aes() statements -- the aesthetic mapping statements.   --&gt;
+
+&lt;!-- I try to say "aesthetic mapping" when talking about aes() w/ newcomers, saying "'mapping' as in representation." Then translate into plainer language, "What variable are we asking the aesthetic (color, x-position, shape, etc.) to represent?"  aes() is "asking" -- *asking* very nicely for a specific aesthetic to do us a favor. So  --&gt;
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Whom to "ask"? --&gt;
+
+&lt;!-- It is probably a good idea to start by speaking in general terms about the variety of aesthetics that might represent values at once.  You can also talk about the appropriateness of the various aesthetics for representing different value types - like numerical, categorical or ordinal data.  --&gt;
+
+---
+
+# Think "ask" when you see aes()
+
+As discussed above aes() refers to "aesthetic mapping", where "mapping" is meant in terms of representation. 
+
+What's inside aes() addresses the question, "What variable are we asking the aesthetic (color, x-position, shape, etc.) to represent?"  aes() is "asking" politely for a specific aesthetic to do us the favor of representation.
+
+For example `aes(color = age)` can be translated to English as, "Please, color aesthetic, represent the variable `age` for me."
+
+It is aesthetic mapping too that helps us "interogate" our data; mapped aesthetics quickly communicate distributions within variables that we may be curious about. 
+
+So it might be helpful to think "ask" when you see aes(). 
+
+---
+
+# requesting aesthetic representation
+
+Let's see how we request an aesthetic to represent a variable from our dataset using ggplot.  We'll first look at the x position (horizontal) and y position (vertical). 
+
+---
+
+
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*gapminder_2002
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_2002 %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/x_and_y_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_2002 %&gt;%  
+  ggplot() +  
+# x position represents gdpPercap variable
+* aes(x = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/x_and_y_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_2002 %&gt;%  
+  ggplot() +  
+# x position represents gdpPercap variable
+  aes(x = gdpPercap) +  
+# y position represents life expectancy
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/x_and_y_auto_4_output-1.png" width="100%" /&gt;
+]]
+
+
+---
+
+# A complete sentance:  data + aes + geom
+
+
+The aes() statement says that we want the variable `gdpPercap` represented by the x position, and the variable `lifeExp` represented by the y position.  The x and y scales give us a clue that this info is registered.
+
+But, we don't really have any insight about our data yet.  Why?  Because aesthetics are taken on by geometric objects.  We still need to declare what geometric object will take on the aesthetics.  Let's see how, when we add a geometric object "point"; the x and y position for each row of data are taken on by that object.  
+
+
+---
+
+
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*gapminder_2002
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_2002 %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/geom_for_aes_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_2002 %&gt;%  
+  ggplot() +  
+* aes(x = gdpPercap)   # x position
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/geom_for_aes_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_2002 %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  # x position
+* aes(y = lifeExp)   # y position
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/geom_for_aes_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_2002 %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+# points take on x and y position
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/geom_for_aes_auto_5_output-1.png" width="100%" /&gt;
+]]
+
+---
+
+
+## Exploring more aesthetic mappings
+
+Let's not get distracted by geoms (we'll come back to these).  Aesthetic mapping does so much work for us in data viz.
+
+So, let's explore a bunch of the *aesthetic* that might represent *variables* in our data.  
+
+---
+
+So far, we have have stated the x and y positions - these are *required* aesthetics for the "point" geometric object. 
+
+But more are *optional.*  In the next example, we'll do all of the required aesthetic mapping (x and y position) and then also use other allowable aesthetics for `geom_point()` (color, shape, size, alpha).  We'll also see that double or tripple "mapping" is allowed -- multiple aesthetics may represent the same variable.  
+
+&lt;!-- Note to teachers: Depending on your data set you might run out of unique variables to map to aesthetics, but mapping variables to multiple aesthetics can expose students to more aesthetic mappings - even though this might not be desirable in actual work product.   And go ahead and do a lot of double mapping of the same variables in the learning phase.   --&gt;
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+* aes(x = gdpPercap)   # x position
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+* aes(y = lifeExp)   # y position
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+* geom_point()   # above aes are required for point
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+* aes(color = continent)   # color
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+  aes(color = continent) +  # color
+* aes(shape = continent)   # shape
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+  aes(color = continent) +  # color
+  aes(shape = continent) +  # shape
+* aes(size = pop)   # size
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+  aes(color = continent) +  # color
+  aes(shape = continent) +  # shape
+  aes(size = pop) +  # size
+* aes(alpha = lifeExp)   # transparency
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point_auto_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+  aes(color = continent) +  # color
+  aes(shape = continent) +  # shape
+  aes(size = pop) +  # size
+  aes(alpha = lifeExp) +  # transparency
+* aes(color = lifeExp)  # overwriting color's representation
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point_auto_9_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+---
+
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+  aes(color = continent)   
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point1_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+* aes(shape = continent)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point1_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+* aes(size = pop)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point1_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+* aes(alpha = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point1_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+* aes(color = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_point1_rotate_5_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+
+---
+
+# A few more aesthetics
+
+Other aesthetics can be explored by changing the geometric object to one that allows additional aesthetics, like *fill* and *line type*; one such "geom" is geom_col(), to create a column geometry. 
+
+Based on the plot that follows, how do the fill and color aesthetic differ?
+
+[Or I'm on the overview track, take me to the next session](#scales)
+
+
+---
+
+
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*continent_aggregate
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 5 x 2
+    continent country_count
+    &lt;fct&gt;             &lt;int&gt;
+  1 Africa               52
+  2 Americas             25
+  3 Asia                 33
+  4 Europe               30
+  5 Oceania               2
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_area_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+  ggplot() +  
+* aes(x = continent)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_area_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+* aes(y = country_count)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_area_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = country_count) +  
+* geom_col()
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_area_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = country_count) +  
+  geom_col() +  
+* aes(color = continent)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_area_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = country_count) +  
+  geom_col() +  
+  aes(color = continent) +  
+* aes(fill = continent)   # fill color for areas
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_area_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = country_count) +  
+  geom_col() +  
+  aes(color = continent) +  
+  aes(fill = continent) +  # fill color for areas
+* aes(alpha = country_count)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_area_auto_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+continent_aggregate %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = country_count) +  
+  geom_col() +  
+  aes(color = continent) +  
+  aes(fill = continent) +  # fill color for areas
+  aes(alpha = country_count) +  
+* aes(linetype = continent)
+```
+]]
+.column[.content[
+&lt;img src="data_aes_geom_files/figure-html/aesthetics_area_auto_9_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+---
+
+## Questions:
+
+- What are *required aesthetics* vs. optional? 
+
+- What are the names of seven different aesthetics that we used above?
+
+- What is the difference between the *fill* and *color* aesthetic? 
+
+- Look at the *help* for geom_text.  What are the *required* aesthetics?  
+
+---
+name: geoms
+
+# Nouns:  Geometric objects
+
+So far, we have seen a few geometric objects: geom_point(), geom_col(), geom_line().
+
+We won't cover many more here.  Why?   The celebrated language teacher, Michel Thomas, argued that building up vocabulary should not be a major focus in becoming fluent in a foreign language.  I'm of the same mind.  
+
+Geometric objects --- our "nouns" --- are abundant.  But we can use rather few of them and still work towards a profound working understanding of the ggplot2 grammar. With that work done, exchanging one geom for another, like a language learner exchanging "dog" for "canine", is a rather easy business. 
+
+But there are some grammatical things that we'll come back to, as well. 
+
+We'll see a few more geometric objects along the way as we move forward.  And, then come back to this topic squarely later on.  
+
+
+
+
+
+
+---
+
+Next up: 
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 70%}
+&lt;/style&gt;
+
+
+&lt;!-- ```{r, dpi=400, eval = F} --&gt;
+&lt;!-- gapminder %&gt;%  --&gt;
+&lt;!--   select(continent) %&gt;%  --&gt;
+&lt;!--   ggplot() + --&gt;
+&lt;!--   aes(x = 1) + --&gt;
+&lt;!--   aes(fill = continent) + --&gt;
+&lt;!--   geom_bar(color = "white", size = .2) + --&gt;
+&lt;!--   coord_polar(theta = "y") + --&gt;
+&lt;!--   theme_void() + --&gt;
+&lt;!--   scale_fill_viridis_d() + --&gt;
+&lt;!--   theme(rect = element_rect(fill = "grey",  --&gt;
+&lt;!--                             color = "grey",  --&gt;
+&lt;!--                             linetype = "solid", --&gt;
+&lt;!--                             size = 0)) --&gt;
+
+&lt;!-- ggsave("pie.svg", dpi = 320,device = "svg") --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- Or at least an organized twitter thread!?  Another idea for you: pull aes() out of ggplot(). Do you do it? Lot's of reasons to do it! Downside is currently most examples make use of nested approach. @grrrck does this too, and esquisse --&gt;
+
+&lt;!-- ggplot(data = my_data) +  --&gt;
+&lt;!--    aes(x = my_var) --&gt;
+
+&lt;!-- Is it possible to do this with multiple geoms? I usually specify aes within the geom like  --&gt;
+
+&lt;!-- ggplot(data) + --&gt;
+&lt;!--   geom_point(aes(x, y)) + --&gt;
+&lt;!--   geom_line(aes(x, y, group = id))  --&gt;
+
+&lt;!-- I prefer this approach because it's explicit which aesthetics are bound to which geoms --&gt;
+
+&lt;!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! --&gt;
+
+
+&lt;!-- To change the data used for a plot, use the %+% operator! Oh!!!  --&gt;
+
+
+&lt;!-- # Stat_* --&gt;
+
+&lt;!-- ## Univariate discrete --&gt;
+
+
+
+&lt;!-- ```{r univariate_discrete, eval = F, echo = F} --&gt;
+&lt;!-- ggplot(gapminder_2002) + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   stat_count() + --&gt;
+&lt;!--   geom_bar() # convenience geom --&gt;
+&lt;!--             # default counting --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- r chunk_reveal("univariate_discrete")` --&gt;
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- ggplot(data = gapminder_2002) + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   aes(y = lifeExp) + --&gt;
+&lt;!--   geom_point(alpha = .1) + --&gt;
+&lt;!--   stat_summary( --&gt;
+&lt;!--     fun.ymin = min, --&gt;
+&lt;!--     fun.ymax = max, --&gt;
+&lt;!--     fun.y = median --&gt;
+&lt;!--   ) --&gt;
+&lt;!-- ``` --&gt;
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- gapminder_2002 %&gt;%  --&gt;
+&lt;!--   mutate(seventy_plus = lifeExp &gt; 60) %&gt;%  --&gt;
+&lt;!-- ggplot() + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   aes(fill = seventy_plus) + --&gt;
+&lt;!--   geom_bar(alpha = .2) --&gt;
+&lt;!-- ``` --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

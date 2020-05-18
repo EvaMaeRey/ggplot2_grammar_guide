@@ -72,18 +72,16 @@ We can say this another way -- a more classic definition too:
 
 A statistical graphic 
 -- 
-(data visualization)
+
+maps variables of a dataset
 
 --
 
-....
-
-
+to aesthetic properties
 
 --
 
---
-
+of geometric objects
 
 
 ---
@@ -175,8 +173,6 @@ Distributions in values --- which can be painstaking to digest in their "raw" fo
 The term 'mapping' in 'aesthetic mapping' refers to the fact that variables are 'mapped' to aesthetics -- i.e. they are represented by aesthetics.  
 
 
-
-<!-- *Aesthetic mapping* is what makes data visualization so powerful and worthwhile.   -->
 
 ---
 
@@ -305,6 +301,8 @@ But more are *optional.*  In the next example, we'll do all of the required aest
 
 ---
 
+`r chunk_reveal("aesthetics_point")`
+
 
 ```{r aesthetics_point, eval = F, echo = F}
 ggplot(data = gapminder_2002) +
@@ -323,8 +321,21 @@ ggplot(data = gapminder_2002) +
 
 
 
+`r chunk_reveal("aesthetics_point1", break_type = "rotate")`
 
-`r chunk_reveal("aesthetics_point")`
+
+```{r aesthetics_point1, eval = F, echo = F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap) +    # x position
+  aes(y = lifeExp) +      # y position
+  geom_point() +  # above aes are required for point
+  aes(color = continent) + #ROTATE
+  aes(shape = continent) +  #ROTATE
+  aes(size = pop) +   #ROTATE
+  aes(alpha = lifeExp) +  #ROTATE
+  aes(color = lifeExp) #ROTATE
+```
+
 
 
 

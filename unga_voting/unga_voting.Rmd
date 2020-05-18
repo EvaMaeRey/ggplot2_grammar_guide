@@ -62,9 +62,9 @@ by_month
 ggplot(by_month) +
   aes(x = month) +
   aes(y = number_of_role_calls) +
-  aes(col = year) +
-  aes(group = year) +
   geom_line(alpha = .3) +
+  aes(group = year) +
+  aes(col = year) +
   scale_color_viridis_c() +
   scale_x_continuous(breaks = 1:12, 
                      expand = c(0.01,0.01),
@@ -73,15 +73,16 @@ ggplot(by_month) +
                                "july", "aug", "sept", 
                                "oct", "nov", "dec  ")) +
   scale_y_continuous(expand = c(.02, .03)) +
-  labs(y = "number of votes") +
+  labs(y = NULL) +
   labs(x = NULL) +
   labs(col = NULL) +
   labs(title = "Activity ramps up in the UN General Assembly ") +
-  labs(subtitle = "Role call votes by month, 1946-2015") +
-  labs(caption = "Data: Erik Voeten Data and Analyses of Voting in the UN General Assembly via un_votes package in R\nViz: @evamaerey w ggplot2") +
+  labs(subtitle = "Number of role call votes by month, 1946-2015") +
+  labs(caption = "Data: Erik Voeten Data and Analyses of Voting in the UN General Assembly\nvia unvotes package in R\nViz: @evamaerey w ggplot2") +
   ggdark::dark_theme_grey(base_family = "Times", 
-           base_size = 13 ) +
-  theme(legend.position = c(.9, .75)) +
+           base_size = 18 ) +
+  theme(legend.position = c(.1, .75)) +
+  theme(plot.title.position = "plot") +
   theme(legend.background = element_blank()) +
   theme(plot.margin = unit(c(.75,1,.75,.5), "cm")) ->
 g
@@ -101,12 +102,11 @@ g
 g +
   facet_wrap(~ decade) + 
   aes(col = NULL) +
-  scale_x_continuous(breaks = 1:12, 
+  scale_x_continuous(breaks = c(1,4,7,10,12), 
                      expand = c(0.01,0.01),
-                     label = c(" jan","", "", 
-                               "april", "", "", 
-                               "july", "", "", 
-                               "oct", "", "dec  ")) +
+                     label = c(" jan", "april",  
+                               "july", "oct", 
+                               "dec  ")) +
   labs(title = NULL) ->
 gg
 ```

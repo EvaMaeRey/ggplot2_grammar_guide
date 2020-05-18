@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>A ggplot2 grammar guide</title>
     <meta charset="utf-8" />
@@ -45,18 +45,16 @@ We can say this another way -- a more classic definition too:
 
 A statistical graphic 
 -- 
-(data visualization)
+
+maps variables of a dataset
 
 --
 
-....
-
-
+to aesthetic properties
 
 --
 
---
-
+of geometric objects
 
 
 ---
@@ -68,10 +66,13 @@ A statistical graphic
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
-* # specify the data for the plot
+# specify the data for the plot
 *ggplot(data = gapminder_2002)
 ```
 ]]
@@ -81,13 +82,16 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
-  # specify the data for the plot
+# specify the data for the plot
 ggplot(data = gapminder_2002) +  
-* # the x position will represent
-* # the gdp per capita variable
+# the x position will represent
+# the gdp per capita variable
 * aes(x = gdpPercap)   # x position
 ```
 ]]
@@ -97,16 +101,19 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
-  # specify the data for the plot
+# specify the data for the plot
 ggplot(data = gapminder_2002) +  
-  # the x position will represent
-  # the gdp per capita variable
+# the x position will represent
+# the gdp per capita variable
   aes(x = gdpPercap) +  # x position
-* # the y position will represent
-* # the lifeExp variable
+# the y position will represent
+# the lifeExp variable
 * aes(y = lifeExp)
 ```
 ]]
@@ -116,21 +123,24 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
-  # specify the data for the plot
+# specify the data for the plot
 ggplot(data = gapminder_2002) +  
-  # the x position will represent
-  # the gdp per capita variable
+# the x position will represent
+# the gdp per capita variable
   aes(x = gdpPercap) +  # x position
-  # the y position will represent
-  # the lifeExp variable
+# the y position will represent
+# the lifeExp variable
   aes(y = lifeExp) +  
-* # the point geometric shape
-* # take on the positions according
-* # to the specified mapping
-* # i.e. the representation
+# the point geometric shape
+# take on the positions according
+# to the specified mapping
+# i.e. the representation
 * geom_point()
 ```
 ]]
@@ -159,6 +169,9 @@ Let's do it.
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -196,10 +209,13 @@ Let's see how this works. Then we'll move on to the second step in this grammar 
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
-* # Option 2
+# Option 2
 *gapminder_2002   # data piped into
 ```
 ]]
@@ -225,10 +241,13 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
-  # Option 2
+# Option 2
 gapminder_2002 %&gt;%  # data piped into
 * ggplot()  # ggplot function initiating plot
 ```
@@ -254,8 +273,6 @@ Distributions in values --- which can be painstaking to digest in their "raw" fo
 The term 'mapping' in 'aesthetic mapping' refers to the fact that variables are 'mapped' to aesthetics -- i.e. they are represented by aesthetics.  
 
 
-
-&lt;!-- *Aesthetic mapping* is what makes data visualization so powerful and worthwhile.   --&gt;
 
 ---
 
@@ -331,6 +348,9 @@ Let's see how we request an aesthetic to represent a variable from our dataset u
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -359,6 +379,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -372,12 +395,15 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
 gapminder_2002 %&gt;%  
   ggplot() +  
-* # x position represents gdpPercap variable
+# x position represents gdpPercap variable
 * aes(x = gdpPercap)
 ```
 ]]
@@ -387,14 +413,17 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
 gapminder_2002 %&gt;%  
   ggplot() +  
-  # x position represents gdpPercap variable
+# x position represents gdpPercap variable
   aes(x = gdpPercap) +  
-* # y position represents life expectancy
+# y position represents life expectancy
 * aes(y = lifeExp)
 ```
 ]]
@@ -420,6 +449,9 @@ But, we don't really have any insight about our data yet.  Why?  Because aesthet
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -448,6 +480,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -461,6 +496,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -475,6 +513,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -490,6 +531,9 @@ gapminder_2002 %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -497,7 +541,7 @@ gapminder_2002 %&gt;%
   ggplot() +  
   aes(x = gdpPercap) +  # x position
   aes(y = lifeExp) +  # y position
-* # points take on x and y position
+# points take on x and y position
 * geom_point()
 ```
 ]]
@@ -524,17 +568,11 @@ But more are *optional.*  In the next example, we'll do all of the required aest
 
 ---
 
-
-
-
-
----
-
-
-
-
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -547,6 +585,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -560,6 +601,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -574,6 +618,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -589,6 +636,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -605,6 +655,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -622,6 +675,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -640,6 +696,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -659,6 +718,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -676,6 +738,113 @@ ggplot(data = gapminder_2002) +
 .column[.content[
 &lt;img src="ggplot2_grammar_guide_files/figure-html/aesthetics_point_auto_9_output-1.png" width="100%" /&gt;
 ]]
+
+
+
+
+
+---
+
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+  aes(color = continent)   
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/aesthetics_point1_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+* aes(shape = continent)
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/aesthetics_point1_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+* aes(size = pop)
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/aesthetics_point1_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+* aes(alpha = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/aesthetics_point1_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  # x position
+  aes(y = lifeExp) +  # y position
+  geom_point() +  # above aes are required for point
+* aes(color = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="ggplot2_grammar_guide_files/figure-html/aesthetics_point1_rotate_5_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
 
 
 
@@ -697,6 +866,9 @@ Based on the plot that follows, how do the fill and color aesthetic differ?
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -719,6 +891,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -732,6 +907,9 @@ continent_aggregate %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -746,6 +924,9 @@ continent_aggregate %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -761,6 +942,9 @@ continent_aggregate %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -777,6 +961,9 @@ continent_aggregate %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -794,6 +981,9 @@ continent_aggregate %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -812,6 +1002,9 @@ continent_aggregate %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -831,6 +1024,9 @@ continent_aggregate %&gt;%
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -904,6 +1100,9 @@ Let's look at tying some data to a specific geometric object in the next example
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -916,6 +1115,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -929,6 +1131,9 @@ ggplot(data = gapminder_2002) +  # global data
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -943,6 +1148,9 @@ ggplot(data = gapminder_2002) +  # global data
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -958,6 +1166,9 @@ ggplot(data = gapminder_2002) +  # global data
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -974,6 +1185,9 @@ ggplot(data = gapminder_2002) +  # global data
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -982,8 +1196,8 @@ ggplot(data = gapminder_2002) +  # global data
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* # xend and yend are required for geom_segment
-* # like creating a column with a single value, 0
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
 * aes(xend = 0)
 ```
 ]]
@@ -993,6 +1207,9 @@ ggplot(data = gapminder_2002) +  # global data
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1001,10 +1218,10 @@ ggplot(data = gapminder_2002) +  # global data
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-  # xend and yend are required for geom_segment
-  # like creating a column with a single value, 0
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
   aes(xend = 0) +  
-* # like creating a column with a single value, 0
+# like creating a column with a single value, 0
 * aes(yend = 0)
 ```
 ]]
@@ -1014,6 +1231,9 @@ ggplot(data = gapminder_2002) +  # global data
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1022,12 +1242,12 @@ ggplot(data = gapminder_2002) +  # global data
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-  # xend and yend are required for geom_segment
-  # like creating a column with a single value, 0
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
   aes(xend = 0) +  
-  # like creating a column with a single value, 0
+# like creating a column with a single value, 0
   aes(yend = 0) +  
-* # geom specific data
+# geom specific data
 * geom_segment(
 *   data = gapminder_2002_europe,
 *   aes(size = gdpPercap,
@@ -1054,6 +1274,9 @@ An example is shown below.
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1066,11 +1289,14 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
 ggplot(data = gapminder_2002_europe) +  
-* # global aesthetics
+# global aesthetics
 * aes(x = gdpPercap)
 ```
 ]]
@@ -1080,11 +1306,14 @@ ggplot(data = gapminder_2002_europe) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
 ggplot(data = gapminder_2002_europe) +  
-  # global aesthetics
+# global aesthetics
   aes(x = gdpPercap) +  
 * aes(y = lifeExp)
 ```
@@ -1095,11 +1324,14 @@ ggplot(data = gapminder_2002_europe) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
 ggplot(data = gapminder_2002_europe) +  
-  # global aesthetics
+# global aesthetics
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
 * aes(xend = 0)   # required aes for segment
@@ -1111,11 +1343,14 @@ ggplot(data = gapminder_2002_europe) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
 ggplot(data = gapminder_2002_europe) +  
-  # global aesthetics
+# global aesthetics
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
   aes(xend = 0) +  # required aes for segment
@@ -1128,11 +1363,14 @@ ggplot(data = gapminder_2002_europe) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
 ggplot(data = gapminder_2002_europe) +  
-  # global aesthetics
+# global aesthetics
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
   aes(xend = 0) +  # required aes for segment
@@ -1146,17 +1384,20 @@ ggplot(data = gapminder_2002_europe) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
 ggplot(data = gapminder_2002_europe) +  
-  # global aesthetics
+# global aesthetics
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
   aes(xend = 0) +  # required aes for segment
   aes(yend = 0) +  # required aes for segment
   geom_segment() +  
-* # geom specific aesthetics
+# geom specific aesthetics
 * geom_point(aes(color = gdpPercap,
 *                size = pop))
 ```
@@ -1189,6 +1430,9 @@ geom_point(color = "blue"), is an imperative -- not an ask.  A dictator move.  "
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1201,6 +1445,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1214,6 +1461,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1228,6 +1478,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1243,6 +1496,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1250,8 +1506,8 @@ ggplot(data = gapminder_2002) +
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
   geom_point() +  
-* # Another geometric layer with aesthetics
-* # that don't do representation:
+# Another geometric layer with aesthetics
+# that don't do representation:
 * geom_point(
 *   color = "plum4",
 *   size = 8,
@@ -1300,6 +1556,9 @@ ggplot(data = gapminder_2002) + # global data
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1312,6 +1571,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1325,6 +1587,9 @@ ggplot(data = gapminder_2002) +  # global data
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1339,6 +1604,9 @@ ggplot(data = gapminder_2002) +  # global data
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1355,6 +1623,9 @@ ggplot(data = gapminder_2002) +  # global data
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1372,6 +1643,9 @@ ggplot(data = gapminder_2002) +  # global data
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1381,8 +1655,8 @@ ggplot(data = gapminder_2002) +  # global data
   geom_point(size = 5,  
              alpha = .7) +  
   aes(color = continent) +  
-* # xend and yend are required for geom_segment
-* # like creating a column with a single value, 0
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
 * aes(xend = 0)
 ```
 ]]
@@ -1392,6 +1666,9 @@ ggplot(data = gapminder_2002) +  # global data
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1401,10 +1678,10 @@ ggplot(data = gapminder_2002) +  # global data
   geom_point(size = 5,  
              alpha = .7) +  
   aes(color = continent) +  
-  # xend and yend are required for geom_segment
-  # like creating a column with a single value, 0
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
   aes(xend = 0) +  
-* # like creating a column with a single value, 0
+# like creating a column with a single value, 0
 * aes(yend = 0)
 ```
 ]]
@@ -1414,6 +1691,9 @@ ggplot(data = gapminder_2002) +  # global data
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1423,12 +1703,12 @@ ggplot(data = gapminder_2002) +  # global data
   geom_point(size = 5,  
              alpha = .7) +  
   aes(color = continent) +  
-  # xend and yend are required for geom_segment
-  # like creating a column with a single value, 0
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
   aes(xend = 0) +  
-  # like creating a column with a single value, 0
+# like creating a column with a single value, 0
   aes(yend = 0) +  
-* # geom specific data
+# geom specific data
 * geom_segment(
 *   data = gapminder_2002_europe,
 *   aes(size = gdpPercap,
@@ -1454,6 +1734,9 @@ name: annotate
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1466,6 +1749,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1479,6 +1765,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1493,6 +1782,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1508,6 +1800,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1527,6 +1822,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1551,6 +1849,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1596,6 +1897,9 @@ Some convenience functions have also been written for annotation using the geom_
 
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1608,6 +1912,9 @@ count: false
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1621,6 +1928,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1635,6 +1945,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1650,6 +1963,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1666,6 +1982,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1684,6 +2003,9 @@ ggplot(data = gapminder_2002) +
 ---
 class: split-40
 count: false
+ 
+
+ 
 .column[.content[
 
 ```r
@@ -1703,7 +2025,9 @@ ggplot(data = gapminder_2002) +
 ]]
 
 
+---
 
+Next up: 
 
 
 
@@ -1841,9 +2165,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -1852,7 +2192,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
   }
 })();
-</script>
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 slideshow._releaseMath = function(el) {

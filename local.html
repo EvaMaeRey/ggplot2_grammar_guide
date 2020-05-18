@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Geom specific, data, aesthetic mapping, unmapped aesthetics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds, July 2019" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Geom specific, data, aesthetic mapping, unmapped aesthetics
+### Gina Reynolds, July 2019
+
+---
+
+
+
+
+
+
+---
+
+name: local
+
+# The conditional mood: geom specific data, aesthetic mapping, and unmapped aesthetics
+
+The conditional mood is about "if".  "If I see flowers, then I pick them."
+
+In ggplot, we also observe such conditionality.  Data and aesthetic mappings may be tied to *specific* geometric objects.  Also aesthetics that don't do any representation (unmapped aesthetics) may also be specified on a geom-by-geom basis. These specifications are "local" to a geom, rather than globally defined like the data declarations and aesthetic mapping statements we have seen before.
+
+---
+
+## Part i.  Going *local* with data
+
+Let's look at tying some data to a specific geometric object in the next example.  In this example you'll also see how a 'variable' can be created *on the fly*.  
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002)   # global data
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/local_data_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+* aes(x = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/local_data_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+  aes(x = gdpPercap) +  
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/local_data_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/local_data_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* aes(color = continent)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/local_data_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
+* aes(xend = 0)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/local_data_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
+  aes(xend = 0) +  
+# like creating a column with a single value, 0
+* aes(yend = 0)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/local_data_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
+  aes(xend = 0) +  
+# like creating a column with a single value, 0
+  aes(yend = 0) +  
+# geom specific data
+* geom_segment(
+*   data = gapminder_2002_europe,
+*   aes(size = gdpPercap,
+*       alpha = pop),
+*   color = "orange"
+*   )
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/local_data_auto_8_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+---
+
+## Part ii. geom specific aesthetic representation
+
+So far we have seen aesthetic "mapping" (representation) applied globally --- where aes() is an independent statement.  In this case aesthetic representation is applied to all geoms.  However, we can be specific about which geoms should take on the aesthetic representation, if we use aes() within the geom_*() statement.  This local aesthetic mapping declaration will overwrite  
+
+An example is shown below. 
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002_europe)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002_europe) +  
+# global aesthetics
+* aes(x = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002_europe) +  
+# global aesthetics
+  aes(x = gdpPercap) +  
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002_europe) +  
+# global aesthetics
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+* aes(xend = 0)   # required aes for segment
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002_europe) +  
+# global aesthetics
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(xend = 0) +  # required aes for segment
+* aes(yend = 0)   # required aes for segment
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002_europe) +  
+# global aesthetics
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(xend = 0) +  # required aes for segment
+  aes(yend = 0) +  # required aes for segment
+* geom_segment()
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002_europe) +  
+# global aesthetics
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(xend = 0) +  # required aes for segment
+  aes(yend = 0) +  # required aes for segment
+  geom_segment() +  
+# geom specific aesthetics
+* geom_point(aes(color = gdpPercap,
+*                size = pop))
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_7_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+
+---
+
+## Part iii. Being a dictator -- unmapped aesthetics (Imparative mode)
+
+*Mapped* aesthetics contrast with unmapped, across-the-board, aesthetics for a geometric object.  
+
+geom_point(color = "blue"), is an imperative -- not an ask.  A dictator move.  "Do this everywhere." It is good to show a plot with two of the same geom layer, one with mapped aesthetics and the other without.
+
+---
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/unmapped_aes_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+* aes(x = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/unmapped_aes_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/unmapped_aes_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/unmapped_aes_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+# Another geometric layer with aesthetics
+# that don't do representation:
+* geom_point(
+*   color = "plum4",
+*   size = 8,
+*   shape = 21
+*   )
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/unmapped_aes_auto_5_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+
+
+
+
+---
+
+# Combinations of local and global data, aesthetics
+
+
+Now you know about *global* and *local* data, aesthetic representing variables, and overwriting defaults for aesthetics doing no variable representation.  Let's think about combining these.  
+
+---
+
+Look at the code that follows.  What are your expectations for the result?  Move forward in the presentation to check if your expectations match the actual result. 
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002)   # global data
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/all_conditional_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+* aes(x = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/all_conditional_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+  aes(x = gdpPercap) +  
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/all_conditional_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+* geom_point(size = 5,
+*            alpha = .7)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/all_conditional_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 5,  
+             alpha = .7) +  
+* aes(color = continent)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/all_conditional_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 5,  
+             alpha = .7) +  
+  aes(color = continent) +  
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
+* aes(xend = 0)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/all_conditional_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 5,  
+             alpha = .7) +  
+  aes(color = continent) +  
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
+  aes(xend = 0) +  
+# like creating a column with a single value, 0
+* aes(yend = 0)
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/all_conditional_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 5,  
+             alpha = .7) +  
+  aes(color = continent) +  
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
+  aes(xend = 0) +  
+# like creating a column with a single value, 0
+  aes(yend = 0) +  
+# geom specific data
+* geom_segment(
+*   data = gapminder_2002_europe,
+*   aes(size = gdpPercap,
+*       alpha = pop),
+*   color = "orange"
+*   )
+```
+]]
+.column[.content[
+&lt;img src="local_files/figure-html/all_conditional_auto_8_output-1.png" width="100%" /&gt;
+]]
+
+
+```r
+ggplot(data = gapminder_2002) + # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +   
+  geom_point(size = 5,
+             alpha = .7) + 
+  aes(color = continent) +
+  # xend and yend are required for geom_segment
+  # like creating a column with a single value, 0
+  aes(xend = 0) + 
+  # like creating a column with a single value, 0
+  aes(yend = 0) +
+  # geom specific data
+  geom_segment(
+    data = gapminder_2002_europe, #BREAK2
+    aes(size = gdpPercap, #BREAK3
+        alpha = pop), #BREAK3
+    color = "orange" #BREAK4
+    )
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

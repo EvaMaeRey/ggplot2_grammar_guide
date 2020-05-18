@@ -22,6 +22,317 @@ class: center, middle, inverse, title-slide
 
 
 
+
+
+---
+
+name: annotate
+
+# Exclamations and Interjections: Annotate using "geoms" not tied to data
+
+---
+
+
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002)
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotate_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+* aes(x = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotate_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotate_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotate_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* annotate(geom = "point",
+*          x = 10000,
+*          y = 60,
+*          color = "red")
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotate_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  annotate(geom = "point",  
+           x = 10000,  
+           y = 60,  
+           color = "red") +  
+* annotate(geom = "text",
+*          x = c(3000, 10000, 40000),
+*          y = 80,
+*          label = "Hello",
+*          color = "blue")
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotate_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  annotate(geom = "point",  
+           x = 10000,  
+           y = 60,  
+           color = "red") +  
+  annotate(geom = "text",  
+           x = c(3000, 10000, 40000),  
+           y = 80,  
+           label = "Hello",  
+           color = "blue") +  
+* annotate(geom = "curve",
+*          x = 3000,
+*          y = 79,
+*          xend = 10000 - 500,
+*          yend = 60 + .3,
+*          color = "green",
+*          arrow = arrow(angle = 20))
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotate_auto_7_output-1.png" width="100%" /&gt;
+]]
+
+---
+
+## Convenience annotation geoms
+
+Some convenience functions have also been written for annotation using the geom_*() syntax. 
+
+- geom_abline()
+- geom_hline()
+- geom_vline()
+
+---
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggplot(data = gapminder_2002)
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotation_geoms_auto_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+* aes(x = gdpPercap)
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotation_geoms_auto_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+* aes(y = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotation_geoms_auto_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+* geom_point()
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotation_geoms_auto_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* geom_abline(slope = .01, intercept = 0)
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotation_geoms_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  geom_abline(slope = .01, intercept = 0) +  
+* geom_hline(yintercept = 70,
+*            linetype = "dotted")
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotation_geoms_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  geom_abline(slope = .01, intercept = 0) +  
+  geom_hline(yintercept = 70,  
+             linetype = "dotted") +  
+* geom_vline(xintercept = c(1000, 10000),
+*            linetype = "dashed")
+```
+]]
+.column[.content[
+&lt;img src="annotation_files/figure-html/annotation_geoms_auto_7_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+
+
+
+
 ---
 
 class: split-40

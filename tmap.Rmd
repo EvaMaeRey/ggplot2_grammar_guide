@@ -1,0 +1,397 @@
+---
+title: "{tmap}"
+author: "Gina Reynolds, July 2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "ninjutsu"]
+    nature:
+      highlightLines: yes
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
+library(flipbookr)
+
+```
+
+
+```{r xaringan-themer, include = FALSE, eval = F}
+# library(xaringanthemer)
+
+
+# xaringanthemer::write_xaringan_theme(text_font_size = ".75cm",
+#                                      text_color = "darkblue")
+
+xaringanthemer::mono_accent(
+  base_color = "#43418A",
+  header_font_google = google_font("Montserrat"),
+  text_font_google   = google_font("Montserrat", "200", "200i"),
+  code_font_google   = google_font("Droid Mono"),
+  text_font_size = ".7cm",
+  code_font_size = ".7cm")
+  
+
+# write_xaringan_theme(
+#   extra_css = list(
+#     ".box-right" = list(
+#       "height" = "300px",
+#       "width" = "300px",
+#       "position" = "absolute",
+#       "top" = "33%",
+#       "left" = "55%"
+#     )
+#   )
+# )
+
+```
+
+---
+class: inverse, center, middle
+
+# A simple build w filled polygons
+
+
+---
+
+`r chunk_reveal("basic", break_type = "user")`
+
+```{r basic, include=F}
+library(tidyverse) #BREAK
+library(tmap) #BREAK
+data("World") #BREAK
+
+World %>% #BREAK
+  tm_shape(shp = .) +
+    tm_polygons("HPI") + #BREAK
+  tm_layout(bg.color = "skyblue", 
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),
+            title = "Happy Planet Index",
+            title.size = 1.1,
+            title.position = c("center", "top")) + #BREAK
+  tm_scale_bar() + #BREAK
+  tm_compass(position = c("right", "top")) #BREAK
+```
+
+---
+class: inverse, center, middle
+
+# projections
+
+---
+
+`r chunk_reveal("proj", break_type = "rotate")`
+
+```{r proj, echo=F, eval = F}
+library(tidyverse) #BREAK
+library(tmap) #BREAK
+data("World") #BREAK
+
+World %>% #BREAK
+  tm_shape(shp = ., 
+           projection = "+proj=eck4" #ROTATE
+           projection = 3857 #ROTATE
+           projection = "+proj=merc" #ROTATE
+           projection = "+proj=gall" #ROTATE
+           projection = "+proj=robin" #ROTATE
+           projection = "+proj=longlat" #ROTATE
+           projection = "+proj=mill" #ROTATE
+           ) +
+    tm_polygons("HPI") + #BREAK
+  tm_layout(bg.color = "skyblue", 
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),
+            title = "Happy Planet Index",
+            title.size = 1.1,
+            title.position = c("center", "top")) + #BREAK
+  tm_scale_bar() + #BREAK
+  tm_compass(position = c("right", "top")) #BREAK
+```
+
+---
+class: inverse, center, middle
+
+# layering raster, polygon borders, text, symbols
+
+---
+
+`r chunk_reveal("basic1", break_type = "user")`
+
+```{r basic1, include=F}
+data(World, metro, rivers, land) #BREAK
+
+tmap_mode("plot") #BREAK
+
+## tmap mode set to plotting
+land %>% #BREAK
+  tm_shape() +
+    tm_raster("elevation", 
+              palette = terrain.colors(10)) + #BREAK
+  tm_shape(World) + 
+    tm_borders("white", lwd = .5) + #BREAK
+    tm_text("iso_a3", size = "AREA") + #BREAK
+  tm_shape(metro) + 
+    tm_symbols(col = "red", 
+               size = "pop2020", 
+               scale = .5) + #BREAK
+  tm_legend(show = FALSE) #BREAK
+```
+
+
+---
+class: inverse, center, middle
+
+# choropleth
+
+---
+
+`r chunk_reveal("choropleth", break_type = "rotate")`
+
+```{r choropleth, include=F}
+library(tidyverse) #BREAK
+library(tmap) #BREAK
+data("World") #BREAK
+
+World %>% #BREAK
+  tm_shape(shp = .) +
+    tm_polygons("HPI", palette = "RdYlBu") + #ROTATE
+    tm_polygons("HPI", palette = "Blues") + #ROTATE
+    tm_polygons("HPI", palette = paletteer_c("grDevices::Fall", 10)) + #ROTATE
+    tm_polygons("HPI", pal = paletteer_c("pals::jet", 10)) + #ROTATE
+    tm_polygons("HPI", pal = paletteer_c("gameofthrones::stark", 10)) + #ROTATE
+    tm_polygons("HPI", pal = viridisLite::plasma(10)) + #ROTATE
+  tm_layout(bg.color = "aliceblue", 
+            inner.margins = c(0.15, 0.10, 0.15, 0.08),
+            title = "Happy Planet Index",
+            title.size = 1.1,
+            title.position = c("center", "top")) + #BREAK
+  tm_scale_bar() + #BREAK
+  tm_compass(position = c("right", "top")) #BREAK
+```
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# map ensembles
+
+
+---
+
+`r chunk_reveal("ensemble", break_type = "user")`
+
+```{r ensemble, include=F}
+tmap_mode("plot") #BREAK
+
+data("World") #BREAK
+
+World %>% #BREAK
+  filter(name != "Antarctica") %>% #BREAK
+  tm_shape() + 
+    tm_polygons(c("HPI", "economy")) + #BREAK
+    tm_facets(sync = TRUE, ncol = 2) #BREAK
+```
+
+---
+class: inverse, center, middle
+
+# filtering sf objects using dplyr
+
+---
+
+`r chunk_reveal("region_filter", break_type = "rotate")`
+
+```{r region_filter, eval = F, echo=FALSE}
+tmap_mode("plot") #BREAK
+
+data("World") #BREAK
+
+World %>% #BREAK
+  filter(continent == "Asia") %>% #ROTATE
+  filter(continent == "Africa") %>% #ROTATE
+  filter(continent == "Europe") %>% #ROTATE
+  filter(continent == "South America") %>% #ROTATE
+  filter(continent == "Oceania") %>% #ROTATE
+  filter(name != "Antarctica") %>% #ROTATE
+  filter(name %in% c("Australia", "New Zealand")) %>% #ROTATE
+  filter(continent == "Europe") %>% #ROTATE
+  filter(continent == "Europe" & name != "Russia") %>% #ROTATE
+  filter(continent == "North America") %>% #ROTATE
+  filter(continent == "North America" & name != "Greenland") %>% #ROTATE
+  filter(!is.na("HPI")) %>% #ROTATE
+  filter(economy == "5. Emerging region: G20") %>% #ROTATE
+  tm_shape(shp = .) + 
+    tm_polygons(c("HPI"))
+```
+
+
+
+
+---
+class: inverse, center, middle
+
+# raster data
+
+
+
+---
+
+`r chunk_reveal("raster", break_type = "rotate")`
+
+```{r raster, echo = F, eval = F}
+library(paletteer)
+data(World, metro, rivers, land) #BREAK
+
+tmap_mode("plot") #BREAK
+
+
+## tmap mode set to plotting
+land %>% #BREAK
+  tm_shape() +
+    tm_raster("elevation", palette = terrain.colors(10)) + #ROTATE
+    tm_raster("elevation", pal = paletteer_c("gameofthrones::lannister", n = 10)) + #ROTATE
+    tm_raster("trees", palette = terrain.colors(10)) + #ROTATE
+    tm_raster("trees", pal = paletteer_c("gameofthrones::jon_snow", n = 5)) + #ROTATE
+    tm_raster("trees", pal = viridisLite::magma(7)) + #ROTATE
+    tm_raster("trees", pal = viridisLite::viridis(7)) + #ROTATE
+    tm_raster("trees", pal = viridisLite::cividis(7)) + #ROTATE
+    tm_raster("trees", pal = viridisLite::inferno(7)) + #ROTATE
+    tm_raster("cover_cls", palette = terrain.colors(10)) + #ROTATE
+    tm_raster("cover", palette = terrain.colors(10)) + #ROTATE
+  tm_shape(World %>% filter(name != "Antarctica")) + 
+    tm_borders("white", lwd = .5) + #BREAK
+    tm_text("iso_a3", size = "AREA") + #BREAK
+  tm_shape(metro) + 
+    tm_symbols(col = "red", 
+               size = "pop2020", 
+               scale = .5) + #BREAK
+  tm_legend(show = FALSE) #BREAK
+```
+
+
+---
+class: inverse, center, middle
+
+# facets
+
+---
+
+
+`r chunk_reveal("facets", break_type = "user")`
+
+```{r facets, include = F}
+tmap_mode("plot") #BREAK
+## tmap mode set to plotting
+
+data(NLD_muni) # Netherlands #BREAK
+
+NLD_muni %>% #BREAK
+  mutate(perc_men = pop_men / population * 100)  %>% #BREAK
+  tm_shape() +
+    tm_polygons("perc_men", 
+                palette = "RdYlBu") + #BREAK
+    tm_facets(by = "province") #BREAK
+```
+
+
+---
+
+
+`r chunk_reveal("facets_world", break_type = "user")`
+
+```{r facets_world, include = F}
+tmap_mode("plot") #BREAK
+## tmap mode set to plotting
+
+data("World") # Netherlands #BREAK
+
+World %>% #BREAK
+  tm_shape() +
+    tm_polygons("HPI", 
+                palette = "RdYlBu") + #BREAK
+    tm_facets(by = "continent") #BREAK
+```
+
+---
+
+
+`r chunk_reveal("facets_economy", break_type = "user")`
+
+```{r facets_economy, include = F}
+tmap_mode("plot") #BREAK
+## tmap mode set to plotting
+
+data("World") # Netherlands #BREAK
+
+World %>% 
+  filter(name != "Anarctica") %>% #BREAK
+  tm_shape() +
+    tm_polygons() + #BREAK
+    tm_facets(by = "economy", 
+              free.coords = FALSE) #BREAK
+```
+
+
+
+
+---
+class: inverse, center, middle
+
+# {tmap} styles
+
+---
+
+`r chunk_reveal("style", break_type = "rotate")`
+
+```{r style, include = F}
+tmap_mode("plot")
+
+tmap_style("classic") #ROTATE
+tmap_style("white") #ROTATE
+tmap_style("gray") #ROTATE
+tmap_style("natural") #ROTATE
+tmap_style("cobalt") #ROTATE
+tmap_style("col_blind") #ROTATE
+tmap_style("albatross") #ROTATE
+tmap_style("beaver") #ROTATE
+tmap_style("bw") #ROTATE
+tmap_style("watercolor") #ROTATE
+
+data("World")
+
+tm_shape(shp = World) +
+    tm_polygons("HPI", 
+                legend.title = "Happy Planet Index")
+```
+
+
+---
+
+r chunk_reveal("watercolor", break_type = "user")`
+
+
+```{r watercolor, eval = F, echo=F}
+tmap_mode("view") #BREAK
+
+data("metro")
+
+tm_basemap("Stamen.Watercolor") + #BREAK
+tm_shape(shp = metro) + 
+  tm_bubbles(size = "pop2020", col = "red") + #BREAK
+  tm_tiles("Stamen.TonerLabels") #BREAK
+```
+
+
+
+
+
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 65%}
+```

@@ -313,6 +313,27 @@ ggplot(gapminder_2002) +
 .column[.content[
 &lt;img src="geoms_files/figure-html/continuous_continuous_rotate_12_output-1.png" width="100%" /&gt;
 ]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  geom_point() +  
+* geom_hex(bins = 12, alpha = .9, color = "white") +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_13_output-1.png" width="100%" /&gt;
+]]
 
 
 
@@ -952,7 +973,7 @@ gapminder %&gt;%
   filter(continent == "Europe") %&gt;%  
   ggplot() +  
   aes(x = lifeExp) +  
-  aes(y = country) +  
+  aes(y = reorder(country, lifeExp)) +  
   geom_point() +  
   geom_col() +  
   theme_minimal()  
@@ -975,7 +996,7 @@ gapminder %&gt;%
   filter(continent == "Europe") %&gt;%  
   ggplot() +  
   aes(x = lifeExp) +  
-  aes(y = country) +  
+  aes(y = reorder(country, lifeExp)) +  
   geom_point() +  
 * geom_segment(aes(xend = 0, yend = country)) +
   theme_minimal()  
@@ -998,7 +1019,7 @@ gapminder %&gt;%
   filter(continent == "Europe") %&gt;%  
   ggplot() +  
   aes(x = lifeExp) +  
-  aes(y = country) +  
+  aes(y = reorder(country, lifeExp)) +  
   geom_point() +  
 * geom_hline(aes(yintercept = country), linetype = "dotted") +
   theme_minimal()  
@@ -1030,7 +1051,7 @@ count: false
 ggplot(gapminder_2002) +  
   aes(x = lifeExp) +  
   theme_minimal() +  
-  geom_rug(col = "darkgrey", alpha = .7) +  
+  geom_rug(col = "darkgrey") +  
   geom_histogram(alpha = .5, fill = "cadetblue")   
 ```
 ]]
@@ -1049,7 +1070,7 @@ count: false
 ggplot(gapminder_2002) +  
   aes(x = lifeExp) +  
   theme_minimal() +  
-  geom_rug(col = "darkgrey", alpha = .7) +  
+  geom_rug(col = "darkgrey") +  
 * geom_freqpoly(linetype = "dashed")
 ```
 ]]
@@ -1068,7 +1089,7 @@ count: false
 ggplot(gapminder_2002) +  
   aes(x = lifeExp) +  
   theme_minimal() +  
-  geom_rug(col = "darkgrey", alpha = .7) +  
+  geom_rug(col = "darkgrey") +  
 * geom_dotplot(fill = "blue", alpha = .5)
 ```
 ]]
@@ -1087,7 +1108,7 @@ count: false
 ggplot(gapminder_2002) +  
   aes(x = lifeExp) +  
   theme_minimal() +  
-  geom_rug(col = "darkgrey", alpha = .7) +  
+  geom_rug(col = "darkgrey") +  
 * geom_dotplot(binwidth = "dotdensity", alpha = .5)
 ```
 ]]
@@ -1106,7 +1127,7 @@ count: false
 ggplot(gapminder_2002) +  
   aes(x = lifeExp) +  
   theme_minimal() +  
-  geom_rug(col = "darkgrey", alpha = .7) +  
+  geom_rug(col = "darkgrey") +  
 * geom_histogram(col = "black", fill = "maroon4", alpha = .4, aes(y = ..density..))
 ```
 ]]
@@ -1125,8 +1146,8 @@ count: false
 ggplot(gapminder_2002) +  
   aes(x = lifeExp) +  
   theme_minimal() +  
-  geom_rug(col = "darkgrey", alpha = .7) +  
-* geom_density(linetype = "dotted", adjust = 1/4)
+  geom_rug(col = "darkgrey") +  
+* geom_density(linetype = "dotted", adjust = 1/4, size = 1.25)
 ```
 ]]
 .column[.content[
@@ -1144,8 +1165,8 @@ count: false
 ggplot(gapminder_2002) +  
   aes(x = lifeExp) +  
   theme_minimal() +  
-  geom_rug(col = "darkgrey", alpha = .7) +  
-* geom_density(linetype = "dashed", adjust = 1/2)
+  geom_rug(col = "darkgrey") +  
+* geom_density(linetype = "dashed", adjust = 1/2, size = 1.25)
 ```
 ]]
 .column[.content[
@@ -2393,30 +2414,20 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
 })();
 (function() {
   "use strict"
-  /* Replace <script> tags in slides area to make them executable
-   *
-   * Runs after post-processing of markdown source into slides and replaces only
-   * <script>s on the last slide of continued slides using the .has-continuation
-   * class added by xaringan. Finally, any <script>s in the slides area that
-   * aren't executed are commented out.
-   */
+  // Replace <script> tags in slides area to make them executable
   var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+    '.remark-slides-area .remark-slide-container script'
   );
   if (!scripts.length) return;
   for (var i = 0; i < scripts.length; i++) {
     var s = document.createElement('script');
     var code = document.createTextNode(scripts[i].textContent);
     s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
     scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-  var scriptsNotExecuted = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container.has-continuation script'
-  );
-  if (!scriptsNotExecuted.length) return;
-  for (var i = 0; i < scriptsNotExecuted.length; i++) {
-    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
-    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
   }
 })();
 (function() {
