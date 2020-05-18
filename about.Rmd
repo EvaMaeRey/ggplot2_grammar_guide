@@ -18,13 +18,13 @@ files <- list.files(path = path, pattern = pattern)
 file_path <- paste0(path,files)
 gifski::gifski(png_files = file_path, progress = F,
                gif_file = gif_file, 
-               width = 25, height = 25)
+               width = 100, height = 100)
 
 } 
 
 use_gif <- function(gif_file){
   
-  knitr::include_graphics(path = gif_file)
+  knitr::include_graphics(path = gif_file, )
   
 }
 
@@ -37,7 +37,7 @@ build_and_use_gif <- function(path,
   
 }
 
-knitr::opts_chunk$set(echo = F, eval = T, message = F, warning = F, cache = T)
+knitr::opts_chunk$set(echo = F, eval = T, message = F, warning = F, cache = F)
 ```
 
 
@@ -138,9 +138,16 @@ Color
 - [named colors in R](named_colors.html){target="_blank"}
 - [paletteer](paletteer.html){target="_blank"}
 
+
+More Annotation topics
+
 - [Annotating time series](labeling_time_series.html){target="_blank"}
-- [ggeasy package - quick fixes to common theme modifications](themes_ggeasy.html){target="_blank"}
-- [External Themes {ggthemes} {ggthemr}](external_themes.html){target="_blank"}
+- [{ggtext} allows variation in color, font type, etc within text](https://evamaerey.github.io/flipbooks/ggtext/ggtext){target="_blank"}
+
+External Theme Packages
+
+- [{ggeasy} - easy adjustment for common theme modifications](themes_ggeasy.html){target="_blank"}
+- [External Themes, {ggthemes} {ggthemr}](external_themes.html){target="_blank"}
 
 
 
@@ -154,9 +161,7 @@ Network
 
 - [An example](https://evamaerey.github.io/flipbooks/the_office/the_office.html#81)
 
----
 
-- [ggtext](https://evamaerey.github.io/flipbooks/ggtext/ggtext){target="_blank"}
 
 
 Extensions:
