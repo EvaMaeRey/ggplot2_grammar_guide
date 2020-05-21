@@ -14,14 +14,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
 knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
 library(flipbookr)
-```
-
-
-```{r, include = F}
 library(tidyverse)
 library(gapminder)
 options(scipen = 10)
 ```
+
 
 ```{r prep_data, eval = T, echo = F}
 gapminder %>% # data from package
@@ -73,17 +70,17 @@ name: cc
 `r chunk_reveal("continuous_continuous", break_type= "rotate")`
 
 
-```{r continuous_continuous, eval = F, echo = F}
-ggplot(gapminder_2002) +
-  aes(x = gdpPercap) +
+```{r continuous_continuous, eval = F, echo =F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap/1000) +
   aes(y = lifeExp) +
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +
   geom_point() +
   geom_rug() + #ROTATE
-  geom_tile(width = 2500, height = 3, fill = "green", alpha = .25) + #ROTATE
-  geom_segment(aes(xend = 0, yend = 0), alpha = .2) + #ROTATE
-  geom_curve(aes(xend = 0, yend = 0), linetype = "dotted") + #ROTATE
-  geom_rect(aes(xmin = 0, xmax = gdpPercap, ymin = 0, ymax = lifeExp), alpha = .02, fill = "magenta", color = "grey") + #ROTATE
+  geom_tile(width = 3, height = 3, fill = "green", alpha = .25) + #ROTATE
+  geom_segment(aes(xend = 0, yend = 40), alpha = .2) + #ROTATE
+  geom_curve(aes(xend = 0, yend = 40), linetype = "dotted") + #ROTATE
+  geom_rect(aes(xmin = 20, xmax = gdpPercap/1000, ymin = 40, ymax = lifeExp), alpha = .02, fill = "magenta", color = "grey") + #ROTATE
   geom_text(aes(label = country)) + #ROTATE
   geom_label(aes(label = country)) + #ROTATE
   stat_density_2d(aes(fill = ..density..), geom = "raster",  contour = FALSE, alpha = .5) +  #ROTATE
@@ -92,8 +89,27 @@ ggplot(gapminder_2002) +
   geom_smooth(method = lm) + #ROTATE
   geom_hex(alpha = .5,color = "white") + #ROTATE
   geom_hex(bins = 12, alpha = .9, color = "white") + #ROTATE
+  ggforce::geom_voronoi_segment() + #ROTATE
+  ggforce::geom_voronoi_tile(fill = "green", color = "white", alpha = .5) + #ROTATE
+  ggforce::geom_voronoi_tile(aes(fill = continent, group = -1L), color = "white", alpha = .5, normalize = TRUE) + #ROTATE
+  ggforce::geom_voronoi_tile(aes(fill = continent, group = -1L), colour = 'black', max.radius = 3, alpha = .5) + #ROTATE
+  ggforce::geom_delaunay_tile(fill = "magenta", alpha = 0.3, colour = 'black') + #ROTATE
+  ggforce::geom_delaunay_segment2(aes(color = continent, group = -1L), size = 3, lineend = 'round') + #ROTATE
+  ggforce::geom_bspline_closed(alpha = 0.5, fill = "cadetblue") + #ROTATE
+  ggforce::geom_bspline_closed(alpha = 0.5, fill = "cadetblue") + #ROTATE
+  ggforce::geom_diagonal(aes(xend = 20, yend = lifeExp - 3), color = "goldenrod4") + #ROTATE
+  ggbump::geom_sigmoid(aes(group = country, xend = 20, yend = lifeExp - 3), color = "firebrick") + #ROTATE
+  geom_path(color = "plum4") + #ROTATE
+  geom_polygon(alpha = 0.5, fill = "plum4") + #ROTATE
+  ggforce::geom_mark_hull(aes(fill = continent)) + #ROTATE
+  ggforce::geom_mark_hull(aes(fill = continent), concavity = 7) + #ROTATE
+  ggforce::geom_mark_hull(aes(fill = continent, filter = continent == "Europe")) + #ROTATE
+  ggforce::geom_mark_circle(aes(fill = continent)) + #ROTATE
+  ggforce::geom_mark_ellipse(aes(fill = continent, filter = continent == "Europe")) + #ROTATE
+  ggforce::geom_mark_rect(aes(fill = continent)) + #ROTATE
   theme_minimal()
 ```
+
 
 
 ---
@@ -112,7 +128,7 @@ ggplot(gapminder_2002) +
 
 ---
 
-## continous x and y (x is time)
+## Single series
 
 
 [Or I'm on the overview track, take me to the next session](#local)
@@ -131,12 +147,47 @@ gapminder %>%
   geom_point() +
   geom_col() + #ROTATE
   geom_segment(aes(xend = year, yend = 0)) + #ROTATE
+  geom_segment(aes(xend = year, yend = 0), arrow = arrow()) + #ROTATE
   geom_line() + #ROTATE
+  ggforce::geom_link2(aes(color = year, size = year, group = 1), lineend = 'round', alpha = .5) + #ROTATE
+  geom_line(aes(color = year, group = 1)) + #ROTATE
+  ggpattern::geom_col_pattern() + #ROTATE
+  ggpattern::geom_col_pattern(aes(pattern = factor(year))) + #ROTATE
+  ggpattern::geom_col_pattern(aes(pattern_fill = factor(year))) + #ROTATE
   geom_area(alpha = .4, fill = "plum1", color = "plum1") + #ROTATE
+  ggforce::geom_bspline() + #ROTATE
+  ggforce::geom_bezier(aes(group = 1)) + #ROTATE 
   theme_minimal()
 ```
 
+
 ---
+class: inverse, center, middle
+name: group
+
+
+## a few series
+
+
+---
+
+`r chunk_reveal("time_series_multi", break_type = "rotate")`
+
+```{r time_series_multi, include=F}
+gapminder %>% 
+  filter(continent == "Oceania") %>% 
+  mutate(gdp = pop * gdpPercap) %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = gdp) +
+  geom_point() +
+  geom_line(aes(linetype = country, color = country)) + #ROTATE
+  ggforce::geom_bspline(aes(linetype = country)) + #ROTATE
+  geom_col(aes(fill = country), position = "dodge", alpha = .4) + #ROTATE
+  geom_col(aes(fill = country), alpha = .4) + #ROTATE
+  geom_area(aes(fill = country), alpha = .4) + #ROTATE
+  theme_minimal()
+```
 
 
 ---
@@ -161,9 +212,7 @@ Let's see how this works with the following example.
 
 ---
 
-
 `r chunk_reveal("aes_group")`
-
 
 
 ```{r aes_group, eval = F, echo = F}
@@ -179,8 +228,7 @@ gapminder_europe %>%
   # mapping discrete data to color
   # or linetype has similar effects
   aes(color = country) +
-  geom_point() ->
-plot
+  geom_point() 
 ```
 
 
@@ -197,29 +245,62 @@ Another thing we observe in the last addition to the last plot is adding an addi
 
 
 
----
-
-## continous x and y (x is time)
 
 
 ---
 
-`r chunk_reveal("time_series_multi", break_type = "rotate")`
+`r chunk_reveal("time_series_heat", break_type = "auto")`
 
-```{r time_series_multi, include=F}
+```{r time_series_heat, include=F}
 gapminder %>% 
-  filter(continent == "Oceania") %>% 
-  mutate(gdp = pop * gdpPercap) %>% 
+  filter(continent == "Europe") %>% 
+  ggplot() +
+  aes(x = factor(year)) +
+  aes(y = country) +
+  geom_tile(color = "grey80") +
+  aes(fill = lifeExp) +
+  scale_fill_viridis_c(option = "magma")
+```
+
+
+---
+
+`r chunk_reveal("time_series_bump", break_type = "auto")`
+
+```{r time_series_bump, include=F}
+gapminder %>% 
+  filter(country %in% c("Austria", "Belgium", 
+                        "Norway", "Netherlands",
+                        "Spain", "Italy","France")) %>%
+  filter(year > 1980) %>% 
+  group_by(year) %>% 
+  arrange(gdpPercap) %>% 
+  mutate(rank = 1:n()) %>% 
+  ungroup() %>% 
   ggplot() +
   aes(x = year) +
-  aes(y = gdp) +
-  geom_point() +
-  geom_line(aes(linetype = country, color = country)) + #ROTATE
-  geom_col(aes(fill = country), position = "dodge", alpha = .4) + #ROTATE
-  geom_col(aes(fill = country), alpha = .4) + #ROTATE
-  geom_area(aes(fill = country), alpha = .4) + #ROTATE
-  theme_minimal()
+  aes(y = rank) +
+  geom_point(size = 6) +
+  aes(color = country) +
+  ggbump::geom_bump(size = 2, smooth = 8) +
+  scale_x_continuous(limits = c(1970, 2020),
+                     breaks = seq(1982, 2007, 
+                                  by = 5)) +
+  geom_text(data = . %>% 
+              filter(year == min(year)),
+            aes(x = year - 2.5, label = country), 
+            size = 5, hjust = 1) +
+  geom_text(data = . %>% 
+              filter(year == max(year)),
+            aes(x = year + 2.5, label = country), 
+            size = 5, hjust = 0) +
+  scale_color_manual(values = paletteer::paletteer_d("basetheme::brutal", 7)) +
+  theme_minimal() +
+  theme(legend.position = "none")
 ```
+
+
+
 
 
 ---
@@ -248,22 +329,30 @@ name: dc
 gapminder %>% 
   filter(year == 2002) %>%
   ggplot() +
-  aes(x = continent) +
-  aes(y = lifeExp) +
+  aes(y = continent) +
+  aes(x = lifeExp) +
   geom_point(size = .2) + 
   geom_boxplot(alpha = .1) + #ROTATE
   geom_jitter(width = .2, alpha = .5, color = "green") + #ROTATE
   geom_violin(alpha = .1) + #ROTATE
   ggforce::geom_sina(col = "magenta", alpha = .5) + #ROTATE
   stat_summary(fun.y = mean, geom = "point", col = "goldenrod2", size = 8) + #ROTATE
+  ggridges::geom_density_ridges(alpha = .2, fill = "blue") + #ROTATE
+  ggridges::geom_density_ridges(scale = .7, alpha = .2, fill = "blue") + #ROTATE
+  ggridges::geom_density_ridges(scale = 1.5, alpha = .2, fill = "blue") + #ROTATE
+  ggridges::geom_density_ridges_gradient(aes(fill = stat(x))) + #ROTATE
+  ggridges::stat_density_ridges(quantile_lines = TRUE, quantiles = c(0.025, 0.975), alpha = 0.5, fill = "plum4") + #ROTATE
+  ggridges::geom_density_ridges(jittered_points = TRUE, position = "raincloud", alpha = .5, scale = 0.9) + #ROTATE
+  ggridges::geom_density_ridges(stat = "binline", bins = 20, scale = 0.95, draw_baseline = FALSE) + #ROTATE
+  ggridges::geom_density_ridges(scale = 2, alpha = .5) + ggridges::scale_fill_cyclical(values = c("blue", "green")) + #ROTATE
   theme_minimal()
 ```
 
 
 ---
+class: middle, center, inverse
 
-
-1 value per category
+# Singe value per category
 
 
 ---
@@ -282,6 +371,15 @@ gapminder %>%
   geom_segment(aes(xend = 0, yend = country)) + #ROTATE
   geom_hline(aes(yintercept = country), linetype = "dotted") + #ROTATE
   theme_minimal()
+```
+
+
+```{r}
+# library(igraph)
+# graph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+# 
+# ggraph(graph, 'treemap', weight = 'size') + 
+#     geom_node_tile(aes(fill = depth), size = 0.25)
 ```
 
 
@@ -334,10 +432,12 @@ gapminder_2002 %>%
   ggplot() +
   aes(x = continent) +
   aes(y = age_category) +
-  geom_jitter(col = "blue", alpha = .3, width = .25, height = .25) + 
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) + 
   geom_count(col = "magenta", alpha = .6) + #ROTATE
   geom_text(data = . %>% group_by(age_category, continent) %>% count, aes(label = n)) + #ROTATE
   geom_label(data = . %>% group_by(age_category, continent) %>% count, aes(label = n)) + #ROTATE
+  geom_point(position = ggforce::position_jitternormal()) + #ROTATE
+  geom_point(position = ggforce::position_jitternormal(sd_x = 0.15, sd_y = 0.01)) + #ROTATE
   theme_minimal()
 ```
 
@@ -401,7 +501,6 @@ class: middle, center, inverse
 ---
 
 
-`r chunk_reveal("stat")`
 
 ```{r stat, include=F}
 readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') ->
@@ -440,7 +539,6 @@ ggplot_aggregates_for_you
 
 ---
 
-`r chunk_reveal("bar_discrete_continuous")`
 
 ```{r bar_discrete_continuous, include = F}
 tibble(my_var = c(1, 2.5, 2.5, 2.5,

@@ -1,0 +1,189 @@
+---
+title: "Nuclear Tests"
+subtitle: "Completed by: Put your name here"
+author: "Lab written by Evangeline Reynolds"
+date: "9/14/2019"
+output: html_document
+---
+
+
+# Preliminaries
+
+
+```{r, message = F}
+library(tidyverse)
+library(rnaturalearth)
+nuclear_explosions <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-08-20/nuclear_explosions.csv")
+nuclear_explosions
+```
+
+
+```{r}
+nuclear_explosions %>% 
+  group_by(country) %>% 
+  summarise(number_explosions = n()) %>% 
+  arrange(-number_explosions) %>% 
+  mutate(country = fct_inorder(country)) ->
+nuclear_explosions_country
+nuclear_explosions_country
+```
+
+# Getting simple feature data for the world
+
+![](https://user-images.githubusercontent.com/520851/50280460-e35c1880-044c-11e9-9ed7-cc46754e49db.jpg)
+
+
+Execute the code below. Then highlight only my_world_map and execute just that to inspect this object you've created.  
+
+In the simple feature data, which column contains the coordinates that define the outlines of the political geographic regions? The first column or the last?
+
+> 
+
+
+
+
+
+```{r}
+rnaturalearth::ne_countries(
+  scale = "medium", returnclass = "sf") ->
+my_world_map
+```
+
+
+
+
+# Explosion coordinates atop the worldmap
+
+```{r}
+ggplot(data = nuclear_explosions) +
+  aes(x = longitude) +
+  aes(y = latitude) +
+  geom_point() +
+  aes(color = country)
+
+ggplot() +
+  geom_sf(data = my_world_map) + 
+  geom_point(
+    data = nuclear_explosions,
+    aes(y = latitude,
+        x = longitude,
+        color = country,
+        size = yield_upper),
+    alpha = .3) 
+```
+
+Which geom layer is laid down first?  Why is this ordering appropriate?
+
+>
+
+Which data is used for the point layer?
+
+>
+
+Which aesthetic *mappings* (representations) are defined for just the point layer?
+
+>
+
+Which aesthetic is a across-the-board, *unmapped* (no representation of a variable) decision for the point layer.  
+
+>
+
+What is the default fill color for the sf geometries?
+
+>
+
+# Choropleth
+
+Now inspect the following choropleth. choro = areas, pleth = many
+
+```{r}
+ggplot() +
+  geom_sf(data = my_world_map,
+          aes(fill = gdp_md_est)) +
+  scale_fill_viridis_c()
+```
+
+What is the fill color aesthetic set to represent?
+
+> 
+
+Inspect `my_world_map` (highlight just my_world_map, and execute - command/control return).  What is a numeric variable that probably contains population information?  Change out fill representation with this variable.
+
+> 
+
+
+# Joining data
+
+We can use join statements to bring two data frames together.  
+
+- left_join()
+- right_join()
+- full_join()
+- inner_join()
+
+![](https://www.garrickadenbuie.com/project/tidyexplain/images/left-join.gif)
+
+What's the section called where you can see an example of joins: https://evamaerey.github.io/data_manipulation/about
+
+>
+
+A "natural join" happens if you have names of columns common to both the first data fram and second data frame, and you don't specify the argument "by". Below both data sets will contain the variable "name".  prepped_explosions and my_world_map join on this data. 
+
+
+```{r}
+nuclear_explosions_country %>% 
+  mutate(name = 
+           case_when(country == "USA" ~ "United States",
+                     country == "USSR" ~ "Russia",
+                     country == "FRANCE" ~ "France",
+                     country == "CHINA" ~ "China",
+                     country == "UK" ~ "United Kingdom",
+                     country == "INDIA" ~ "India",
+                     country == "PAKIST" ~ "Pakistan")
+         ) ->
+prepped_explosions
+
+# Brining together two data sources 
+my_world_map %>% # first my_world_data that has the geometries
+  full_join(prepped_explosions) ->   # and the explosions data
+my_world_map_w_nuclear
+```
+
+How is the data prepped for the join?
+
+>
+
+You will get a message upon joining the data with full_join.  What is the message?  What variable is in common in the two data sets being joined?
+
+>
+
+
+Use the data `my_world_map_w_nuclear` below and the variable `number_explosions` instead of the current inputs.
+
+Also, search `scale_fill_viridis_c` in the help.  Change to a different viridis scale. 
+
+
+```{r}
+ggplot() +
+  geom_sf(data = my_world_map,
+          aes(fill = gdp_md_est)) +
+  scale_fill_viridis_c(option = "magma")
+```
+
+Fill in the comments below where you see '...'
+
+
+```{r}
+my_world_map %>% # This is the world sf data
+  mutate(peru_or_chile =  # mutate creates a variable
+           name == "Peru" |
+           name == "Chile"
+           ) %>% 
+ggplot() +  # We pipe the data into ...
+  geom_sf(aes(fill = peru_or_chile)) +  # the fill color will represent ...
+  scale_fill_manual( # The scale colors can be manually defined
+    values = c("grey", "steelblue4"), # the colors I chose are ...
+    guide = F  # I don't want the legend for this aesthetic to appear.
+    )
+```
+

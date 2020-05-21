@@ -25,8 +25,6 @@ class: center, middle, inverse, title-slide
 
 
 
-
-
 ---
 
 # 'Nouns':  The geom_*() pile on
@@ -41,15 +39,6 @@ In the first example many "variables" are "computed on the fly", like the 0 repr
 
 
 &gt; In ggplot2, geoms can be roughly divided into individual and collective geoms. An individual geom has a distinctive graphical object for each row in the data frame. For example, the point geom has a single point for each observation. On the other hand, collective geoms represent multiple observations. This may be a result of a statistical summary, or may be fundamental to the display of the geom, as with polygons. Lines and paths fall somewhere in between: each overall line is composed of a set of straight segments, but each segment represents two points. --- Hadley Wickham *ggplot2: Elegant graphics for data analysis*
-
-
----
-
-## continous x and y (x is time)
-
-
-
-
 
 
 
@@ -70,10 +59,10 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
   geom_rug() +  
   theme_minimal()  
@@ -91,12 +80,12 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
-* geom_tile(width = 2500, height = 3, fill = "green", alpha = .25) +
+* geom_tile(width = 3, height = 3, fill = "green", alpha = .25) +
   theme_minimal()  
 ```
 ]]
@@ -112,12 +101,12 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
-* geom_segment(aes(xend = 0, yend = 0), alpha = .2) +
+* geom_segment(aes(xend = 0, yend = 40), alpha = .2) +
   theme_minimal()  
 ```
 ]]
@@ -133,12 +122,12 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
-* geom_curve(aes(xend = 0, yend = 0), linetype = "dotted") +
+* geom_curve(aes(xend = 0, yend = 40), linetype = "dotted") +
   theme_minimal()  
 ```
 ]]
@@ -154,12 +143,12 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
-* geom_rect(aes(xmin = 0, xmax = gdpPercap, ymin = 0, ymax = lifeExp), alpha = .02, fill = "magenta", color = "grey") +
+* geom_rect(aes(xmin = 20, xmax = gdpPercap/1000, ymin = 40, ymax = lifeExp), alpha = .02, fill = "magenta", color = "grey") +
   theme_minimal()  
 ```
 ]]
@@ -175,10 +164,10 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
 * geom_text(aes(label = country)) +
   theme_minimal()  
@@ -196,10 +185,10 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
 * geom_label(aes(label = country)) +
   theme_minimal()  
@@ -217,10 +206,10 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
 * stat_density_2d(aes(fill = ..density..), geom = "raster",  contour = FALSE, alpha = .5) +
   theme_minimal()  
@@ -238,10 +227,10 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
 * geom_density2d() +
   theme_minimal()  
@@ -259,10 +248,10 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
 * geom_smooth() +  #
   theme_minimal()  
@@ -280,10 +269,10 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
 * geom_smooth(method = lm) +
   theme_minimal()  
@@ -301,10 +290,10 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
 * geom_hex(alpha = .5,color = "white") +
   theme_minimal()  
@@ -322,10 +311,10 @@ count: false
 .column[.content[
 
 ```r
-ggplot(gapminder_2002) +  
-  aes(x = gdpPercap) +  
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
   aes(y = lifeExp) +  
-  coord_cartesian(xlim = c(0,45000), ylim = c(0,90)) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
   geom_point() +  
 * geom_hex(bins = 12, alpha = .9, color = "white") +
   theme_minimal()  
@@ -334,6 +323,385 @@ ggplot(gapminder_2002) +
 .column[.content[
 &lt;img src="geoms_files/figure-html/continuous_continuous_rotate_13_output-1.png" width="100%" /&gt;
 ]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_voronoi_segment() +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_14_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_voronoi_tile(fill = "green", color = "white", alpha = .5) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_15_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_voronoi_tile(aes(fill = continent, group = -1L), color = "white", alpha = .5, normalize = TRUE) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_16_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_voronoi_tile(aes(fill = continent, group = -1L), colour = 'black', max.radius = 3, alpha = .5) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_17_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_delaunay_tile(fill = "magenta", alpha = 0.3, colour = 'black') +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_18_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_delaunay_segment2(aes(color = continent, group = -1L), size = 3, lineend = 'round') +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_19_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_bspline_closed(alpha = 0.5, fill = "cadetblue") +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_20_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_bspline_closed(alpha = 0.5, fill = "cadetblue") +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_21_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_diagonal(aes(xend = 20, yend = lifeExp - 3), color = "goldenrod4") +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_22_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggbump::geom_sigmoid(aes(group = country, xend = 20, yend = lifeExp - 3), color = "firebrick") +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_23_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_path(color = "plum4") +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_24_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_polygon(alpha = 0.5, fill = "plum4") +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_25_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_hull(aes(fill = continent)) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_26_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_hull(aes(fill = continent), concavity = 7) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_27_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_hull(aes(fill = continent, filter = continent == "Europe")) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_28_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_circle(aes(fill = continent)) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_29_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_ellipse(aes(fill = continent, filter = continent == "Europe")) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_30_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_rect(aes(fill = continent)) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_31_output-1.png" width="100%" /&gt;
+]]
+
 
 
 
@@ -352,12 +720,10 @@ ggplot(gapminder_2002) +
 - Does order of the geom_*() statements matter to the end result?  How?
 
 
+
 ---
-name: cc
 
-## Two continuous variables
-
-There are a lot of geometric objects that can be used to represent *two continuous variables*.  To explore a few more we can start a new plot.
+## Single series
 
 
 [Or I'm on the overview track, take me to the next session](#local)
@@ -425,7 +791,7 @@ gapminder %&gt;%
   aes(y = pop * gdpPercap) +  
   aes(group = country) +  
   geom_point() +  
-* geom_line() +
+* geom_segment(aes(xend = year, yend = 0), arrow = arrow()) +
   theme_minimal()  
 ```
 ]]
@@ -448,17 +814,327 @@ gapminder %&gt;%
   aes(y = pop * gdpPercap) +  
   aes(group = country) +  
   geom_point() +  
-* geom_area(alpha = .4, fill = "plum1", color = "plum1") +
+* geom_line() +
   theme_minimal()  
 ```
 ]]
 .column[.content[
 &lt;img src="geoms_files/figure-html/time_series_rotate_4_output-1.png" width="100%" /&gt;
 ]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop * gdpPercap) +  
+  aes(group = country) +  
+  geom_point() +  
+* ggforce::geom_link2(aes(color = year, size = year, group = 1), lineend = 'round', alpha = .5) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_rotate_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop * gdpPercap) +  
+  aes(group = country) +  
+  geom_point() +  
+* geom_line(aes(color = year, group = 1)) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop * gdpPercap) +  
+  aes(group = country) +  
+  geom_point() +  
+* ggpattern::geom_col_pattern() +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_rotate_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop * gdpPercap) +  
+  aes(group = country) +  
+  geom_point() +  
+* ggpattern::geom_col_pattern(aes(pattern = factor(year))) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop * gdpPercap) +  
+  aes(group = country) +  
+  geom_point() +  
+* ggpattern::geom_col_pattern(aes(pattern_fill = factor(year))) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_rotate_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop * gdpPercap) +  
+  aes(group = country) +  
+  geom_point() +  
+* geom_area(alpha = .4, fill = "plum1", color = "plum1") +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_rotate_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop * gdpPercap) +  
+  aes(group = country) +  
+  geom_point() +  
+* ggforce::geom_bspline() +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_rotate_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop * gdpPercap) +  
+  aes(group = country) +  
+  geom_point() +  
+* ggforce::geom_bezier(aes(group = 1)) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_rotate_12_output-1.png" width="100%" /&gt;
+]]
+
 
 
 
 ---
+class: inverse, center, middle
+name: group
+
+
+## a few series
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop * gdpPercap) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = gdp) +  
+  geom_point() +  
+  geom_line(aes(linetype = country, color = country)) +  
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_multi_rotate_1_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop * gdpPercap) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = gdp) +  
+  geom_point() +  
+* ggforce::geom_bspline(aes(linetype = country)) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_multi_rotate_2_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop * gdpPercap) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = gdp) +  
+  geom_point() +  
+* geom_col(aes(fill = country), position = "dodge", alpha = .4) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_multi_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop * gdpPercap) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = gdp) +  
+  geom_point() +  
+* geom_col(aes(fill = country), alpha = .4) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_multi_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop * gdpPercap) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = gdp) +  
+  geom_point() +  
+* geom_area(aes(fill = country), alpha = .4) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_multi_rotate_5_output-1.png" width="100%" /&gt;
+]]
+
+
 
 
 ---
@@ -482,7 +1158,6 @@ Group is like a declaration that instead of plotting the entire data set all tog
 Let's see how this works with the following example. 
 
 ---
-
 
 class: split-40
 count: false
@@ -707,6 +1382,8 @@ gapminder_europe %&gt;%
 
 
 
+
+
 ---
 
 The geometric object `line` connects all points as it moves along the x axis.  If a group is not defined, the geom_line is hard to interpret, as seen before group is added.  
@@ -717,9 +1394,6 @@ Another thing we observe in the last addition to the last plot is adding an addi
 
 
 
----
-
-## continous x and y (x is time)
 
 
 ---
@@ -732,19 +1406,27 @@ count: false
 .column[.content[
 
 ```r
-gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
-  mutate(gdp = pop * gdpPercap) %&gt;%  
-  ggplot() +  
-  aes(x = year) +  
-  aes(y = gdp) +  
-  geom_point() +  
-  geom_line(aes(linetype = country, color = country)) +  
-  theme_minimal()  
+*gapminder
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/time_series_multi_rotate_1_output-1.png" width="100%" /&gt;
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
 ]]
 ---
 class: split-40
@@ -756,18 +1438,27 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
-  mutate(gdp = pop * gdpPercap) %&gt;%  
-  ggplot() +  
-  aes(x = year) +  
-  aes(y = gdp) +  
-  geom_point() +  
-* geom_col(aes(fill = country), position = "dodge", alpha = .4) +
-  theme_minimal()  
+* filter(continent == "Europe")
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/time_series_multi_rotate_2_output-1.png" width="100%" /&gt;
+
+```
+  # A tibble: 360 x 6
+     country continent  year lifeExp     pop gdpPercap
+     &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
+   1 Albania Europe     1952    55.2 1282697     1601.
+   2 Albania Europe     1957    59.3 1476505     1942.
+   3 Albania Europe     1962    64.8 1728137     2313.
+   4 Albania Europe     1967    66.2 1984060     2760.
+   5 Albania Europe     1972    67.7 2263554     3313.
+   6 Albania Europe     1977    68.9 2509048     3533.
+   7 Albania Europe     1982    70.4 2780097     3631.
+   8 Albania Europe     1987    72   3075321     3739.
+   9 Albania Europe     1992    71.6 3326498     2497.
+  10 Albania Europe     1997    73.0 3428038     3193.
+  # … with 350 more rows
+```
 ]]
 ---
 class: split-40
@@ -779,18 +1470,12 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
-  mutate(gdp = pop * gdpPercap) %&gt;%  
-  ggplot() +  
-  aes(x = year) +  
-  aes(y = gdp) +  
-  geom_point() +  
-* geom_col(aes(fill = country), alpha = .4) +
-  theme_minimal()  
+  filter(continent == "Europe") %&gt;%  
+* ggplot()
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/time_series_multi_rotate_3_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/time_series_heat_auto_3_output-1.png" width="100%" /&gt;
 ]]
 ---
 class: split-40
@@ -802,19 +1487,750 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
-  mutate(gdp = pop * gdpPercap) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
   ggplot() +  
-  aes(x = year) +  
-  aes(y = gdp) +  
-  geom_point() +  
-* geom_area(aes(fill = country), alpha = .4) +
-  theme_minimal()  
+* aes(x = factor(year))
 ```
 ]]
 .column[.content[
-&lt;img src="geoms_files/figure-html/time_series_multi_rotate_4_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/time_series_heat_auto_4_output-1.png" width="100%" /&gt;
 ]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  ggplot() +  
+  aes(x = factor(year)) +  
+* aes(y = country)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_heat_auto_5_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  ggplot() +  
+  aes(x = factor(year)) +  
+  aes(y = country) +  
+* geom_tile(color = "grey80")
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_heat_auto_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  ggplot() +  
+  aes(x = factor(year)) +  
+  aes(y = country) +  
+  geom_tile(color = "grey80") +  
+* aes(fill = lifeExp)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_heat_auto_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  ggplot() +  
+  aes(x = factor(year)) +  
+  aes(y = country) +  
+  geom_tile(color = "grey80") +  
+  aes(fill = lifeExp) +  
+* scale_fill_viridis_c(option = "magma")
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_heat_auto_8_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*gapminder
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+* filter(country %in% c("Austria", "Belgium",
+*                       "Norway", "Netherlands",
+*                       "Spain", "Italy","France"))
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 84 x 6
+     country continent  year lifeExp     pop gdpPercap
+     &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
+   1 Austria Europe     1952    66.8 6927772     6137.
+   2 Austria Europe     1957    67.5 6965860     8843.
+   3 Austria Europe     1962    69.5 7129864    10751.
+   4 Austria Europe     1967    70.1 7376998    12835.
+   5 Austria Europe     1972    70.6 7544201    16662.
+   6 Austria Europe     1977    72.2 7568430    19749.
+   7 Austria Europe     1982    73.2 7574613    21597.
+   8 Austria Europe     1987    74.9 7578903    23688.
+   9 Austria Europe     1992    76.0 7914969    27042.
+  10 Austria Europe     1997    77.5 8069876    29096.
+  # … with 74 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+* filter(year &gt; 1980)
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 42 x 6
+     country continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Austria Europe     1982    73.2  7574613    21597.
+   2 Austria Europe     1987    74.9  7578903    23688.
+   3 Austria Europe     1992    76.0  7914969    27042.
+   4 Austria Europe     1997    77.5  8069876    29096.
+   5 Austria Europe     2002    79.0  8148312    32418.
+   6 Austria Europe     2007    79.8  8199783    36126.
+   7 Belgium Europe     1982    73.9  9856303    20980.
+   8 Belgium Europe     1987    75.4  9870200    22526.
+   9 Belgium Europe     1992    76.5 10045622    25576.
+  10 Belgium Europe     1997    77.5 10199787    27561.
+  # … with 32 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+* group_by(year)
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 42 x 6
+  # Groups:   year [6]
+     country continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Austria Europe     1982    73.2  7574613    21597.
+   2 Austria Europe     1987    74.9  7578903    23688.
+   3 Austria Europe     1992    76.0  7914969    27042.
+   4 Austria Europe     1997    77.5  8069876    29096.
+   5 Austria Europe     2002    79.0  8148312    32418.
+   6 Austria Europe     2007    79.8  8199783    36126.
+   7 Belgium Europe     1982    73.9  9856303    20980.
+   8 Belgium Europe     1987    75.4  9870200    22526.
+   9 Belgium Europe     1992    76.5 10045622    25576.
+  10 Belgium Europe     1997    77.5 10199787    27561.
+  # … with 32 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+* arrange(gdpPercap)
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 42 x 6
+  # Groups:   year [6]
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Spain       Europe     1982    76.3 37983310    13926.
+   2 Spain       Europe     1987    76.9 38880702    15765.
+   3 Italy       Europe     1982    75.0 56535636    16537.
+   4 Spain       Europe     1992    77.6 39549438    18603.
+   5 Italy       Europe     1987    76.4 56729703    19207.
+   6 France      Europe     1982    74.9 54433565    20294.
+   7 Spain       Europe     1997    78.8 39855442    20445.
+   8 Belgium     Europe     1982    73.9  9856303    20980.
+   9 Netherlands Europe     1982    76.0 14310401    21399.
+  10 Austria     Europe     1982    73.2  7574613    21597.
+  # … with 32 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+* mutate(rank = 1:n())
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 42 x 7
+  # Groups:   year [6]
+     country     continent  year lifeExp      pop gdpPercap  rank
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;
+   1 Spain       Europe     1982    76.3 37983310    13926.     1
+   2 Spain       Europe     1987    76.9 38880702    15765.     1
+   3 Italy       Europe     1982    75.0 56535636    16537.     2
+   4 Spain       Europe     1992    77.6 39549438    18603.     1
+   5 Italy       Europe     1987    76.4 56729703    19207.     2
+   6 France      Europe     1982    74.9 54433565    20294.     3
+   7 Spain       Europe     1997    78.8 39855442    20445.     1
+   8 Belgium     Europe     1982    73.9  9856303    20980.     4
+   9 Netherlands Europe     1982    76.0 14310401    21399.     5
+  10 Austria     Europe     1982    73.2  7574613    21597.     6
+  # … with 32 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+* ungroup()
+```
+]]
+.column[.content[
+
+```
+  # A tibble: 42 x 7
+     country     continent  year lifeExp      pop gdpPercap  rank
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;
+   1 Spain       Europe     1982    76.3 37983310    13926.     1
+   2 Spain       Europe     1987    76.9 38880702    15765.     1
+   3 Italy       Europe     1982    75.0 56535636    16537.     2
+   4 Spain       Europe     1992    77.6 39549438    18603.     1
+   5 Italy       Europe     1987    76.4 56729703    19207.     2
+   6 France      Europe     1982    74.9 54433565    20294.     3
+   7 Spain       Europe     1997    78.8 39855442    20445.     1
+   8 Belgium     Europe     1982    73.9  9856303    20980.     4
+   9 Netherlands Europe     1982    76.0 14310401    21399.     5
+  10 Austria     Europe     1982    73.2  7574613    21597.     6
+  # … with 32 more rows
+```
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+  ungroup() %&gt;%  
+* ggplot()
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_bump_auto_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+* aes(x = year)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_bump_auto_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+* aes(y = rank)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_bump_auto_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = rank) +  
+* geom_point(size = 6)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_bump_auto_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = rank) +  
+  geom_point(size = 6) +  
+* aes(color = country)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_bump_auto_12_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = rank) +  
+  geom_point(size = 6) +  
+  aes(color = country) +  
+* ggbump::geom_bump(size = 2, smooth = 8)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_bump_auto_13_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = rank) +  
+  geom_point(size = 6) +  
+  aes(color = country) +  
+  ggbump::geom_bump(size = 2, smooth = 8) +  
+* scale_x_continuous(limits = c(1970, 2020),
+*                    breaks = seq(1982, 2007,
+*                                 by = 5))
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_bump_auto_14_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = rank) +  
+  geom_point(size = 6) +  
+  aes(color = country) +  
+  ggbump::geom_bump(size = 2, smooth = 8) +  
+  scale_x_continuous(limits = c(1970, 2020),  
+                     breaks = seq(1982, 2007,  
+                                  by = 5)) +  
+* geom_text(data = . %&gt;%
+*             filter(year == min(year)),
+*           aes(x = year - 2.5, label = country),
+*           size = 5, hjust = 1)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_bump_auto_15_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = rank) +  
+  geom_point(size = 6) +  
+  aes(color = country) +  
+  ggbump::geom_bump(size = 2, smooth = 8) +  
+  scale_x_continuous(limits = c(1970, 2020),  
+                     breaks = seq(1982, 2007,  
+                                  by = 5)) +  
+  geom_text(data = . %&gt;%  
+              filter(year == min(year)),  
+            aes(x = year - 2.5, label = country),  
+            size = 5, hjust = 1) +  
+* geom_text(data = . %&gt;%
+*             filter(year == max(year)),
+*           aes(x = year + 2.5, label = country),
+*           size = 5, hjust = 0)
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_bump_auto_16_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = rank) +  
+  geom_point(size = 6) +  
+  aes(color = country) +  
+  ggbump::geom_bump(size = 2, smooth = 8) +  
+  scale_x_continuous(limits = c(1970, 2020),  
+                     breaks = seq(1982, 2007,  
+                                  by = 5)) +  
+  geom_text(data = . %&gt;%  
+              filter(year == min(year)),  
+            aes(x = year - 2.5, label = country),  
+            size = 5, hjust = 1) +  
+  geom_text(data = . %&gt;%  
+              filter(year == max(year)),  
+            aes(x = year + 2.5, label = country),  
+            size = 5, hjust = 0) +  
+* scale_color_manual(values = paletteer::paletteer_d("basetheme::brutal", 7))
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_bump_auto_17_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = rank) +  
+  geom_point(size = 6) +  
+  aes(color = country) +  
+  ggbump::geom_bump(size = 2, smooth = 8) +  
+  scale_x_continuous(limits = c(1970, 2020),  
+                     breaks = seq(1982, 2007,  
+                                  by = 5)) +  
+  geom_text(data = . %&gt;%  
+              filter(year == min(year)),  
+            aes(x = year - 2.5, label = country),  
+            size = 5, hjust = 1) +  
+  geom_text(data = . %&gt;%  
+              filter(year == max(year)),  
+            aes(x = year + 2.5, label = country),  
+            size = 5, hjust = 0) +  
+  scale_color_manual(values = paletteer::paletteer_d("basetheme::brutal", 7)) +  
+* theme_minimal()
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_bump_auto_18_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(country %in% c("Austria", "Belgium",  
+                        "Norway", "Netherlands",  
+                        "Spain", "Italy","France")) %&gt;%  
+  filter(year &gt; 1980) %&gt;%  
+  group_by(year) %&gt;%  
+  arrange(gdpPercap) %&gt;%  
+  mutate(rank = 1:n()) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = rank) +  
+  geom_point(size = 6) +  
+  aes(color = country) +  
+  ggbump::geom_bump(size = 2, smooth = 8) +  
+  scale_x_continuous(limits = c(1970, 2020),  
+                     breaks = seq(1982, 2007,  
+                                  by = 5)) +  
+  geom_text(data = . %&gt;%  
+              filter(year == min(year)),  
+            aes(x = year - 2.5, label = country),  
+            size = 5, hjust = 1) +  
+  geom_text(data = . %&gt;%  
+              filter(year == max(year)),  
+            aes(x = year + 2.5, label = country),  
+            size = 5, hjust = 0) +  
+  scale_color_manual(values = paletteer::paletteer_d("basetheme::brutal", 7)) +  
+  theme_minimal() +  
+* theme(legend.position = "none")
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/time_series_bump_auto_19_output-1.png" width="100%" /&gt;
+]]
+
+
+
 
 
 
@@ -849,8 +2265,8 @@ count: false
 gapminder %&gt;%  
   filter(year == 2002) %&gt;%  
   ggplot() +  
-  aes(x = continent) +  
-  aes(y = lifeExp) +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
   geom_point(size = .2) +  
   geom_boxplot(alpha = .1) +  
   theme_minimal()  
@@ -871,8 +2287,8 @@ count: false
 gapminder %&gt;%  
   filter(year == 2002) %&gt;%  
   ggplot() +  
-  aes(x = continent) +  
-  aes(y = lifeExp) +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
   geom_point(size = .2) +  
 * geom_jitter(width = .2, alpha = .5, color = "green") +
   theme_minimal()  
@@ -893,8 +2309,8 @@ count: false
 gapminder %&gt;%  
   filter(year == 2002) %&gt;%  
   ggplot() +  
-  aes(x = continent) +  
-  aes(y = lifeExp) +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
   geom_point(size = .2) +  
 * geom_violin(alpha = .1) +
   theme_minimal()  
@@ -915,8 +2331,8 @@ count: false
 gapminder %&gt;%  
   filter(year == 2002) %&gt;%  
   ggplot() +  
-  aes(x = continent) +  
-  aes(y = lifeExp) +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
   geom_point(size = .2) +  
 * ggforce::geom_sina(col = "magenta", alpha = .5) +
   theme_minimal()  
@@ -937,8 +2353,8 @@ count: false
 gapminder %&gt;%  
   filter(year == 2002) %&gt;%  
   ggplot() +  
-  aes(x = continent) +  
-  aes(y = lifeExp) +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
   geom_point(size = .2) +  
 * stat_summary(fun.y = mean, geom = "point", col = "goldenrod2", size = 8) +
   theme_minimal()  
@@ -947,15 +2363,191 @@ gapminder %&gt;%
 .column[.content[
 &lt;img src="geoms_files/figure-html/geom_discrete_continuous_rotate_5_output-1.png" width="100%" /&gt;
 ]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
+  geom_point(size = .2) +  
+* ggridges::geom_density_ridges(alpha = .2, fill = "blue") +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/geom_discrete_continuous_rotate_6_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
+  geom_point(size = .2) +  
+* ggridges::geom_density_ridges(scale = .7, alpha = .2, fill = "blue") +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/geom_discrete_continuous_rotate_7_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
+  geom_point(size = .2) +  
+* ggridges::geom_density_ridges(scale = 1.5, alpha = .2, fill = "blue") +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/geom_discrete_continuous_rotate_8_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
+  geom_point(size = .2) +  
+* ggridges::geom_density_ridges_gradient(aes(fill = stat(x))) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/geom_discrete_continuous_rotate_9_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
+  geom_point(size = .2) +  
+* ggridges::stat_density_ridges(quantile_lines = TRUE, quantiles = c(0.025, 0.975), alpha = 0.5, fill = "plum4") +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/geom_discrete_continuous_rotate_10_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
+  geom_point(size = .2) +  
+* ggridges::geom_density_ridges(jittered_points = TRUE, position = "raincloud", alpha = .5, scale = 0.9) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/geom_discrete_continuous_rotate_11_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
+  geom_point(size = .2) +  
+* ggridges::geom_density_ridges(stat = "binline", bins = 20, scale = 0.95, draw_baseline = FALSE) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/geom_discrete_continuous_rotate_12_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
+  geom_point(size = .2) +  
+* ggridges::geom_density_ridges(scale = 2, alpha = .5) + ggridges::scale_fill_cyclical(values = c("blue", "green")) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/geom_discrete_continuous_rotate_13_output-1.png" width="100%" /&gt;
+]]
 
 
 
 
 
 ---
+class: middle, center, inverse
 
-
-1 value per category
+# Singe value per category
 
 
 ---
@@ -1030,6 +2622,16 @@ gapminder %&gt;%
 ]]
 
 
+
+
+
+```r
+# library(igraph)
+# graph &lt;- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+# 
+# ggraph(graph, 'treemap', weight = 'size') + 
+#     geom_node_tile(aes(fill = depth), size = 0.25)
+```
 
 
 
@@ -1204,7 +2806,7 @@ gapminder_2002 %&gt;%
   ggplot() +  
   aes(x = continent) +  
   aes(y = age_category) +  
-  geom_jitter(col = "blue", alpha = .3, width = .25, height = .25) +  
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) +  
   geom_count(col = "magenta", alpha = .6) +  
   theme_minimal()  
 ```
@@ -1231,7 +2833,7 @@ gapminder_2002 %&gt;%
   ggplot() +  
   aes(x = continent) +  
   aes(y = age_category) +  
-  geom_jitter(col = "blue", alpha = .3, width = .25, height = .25) +  
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) +  
 * geom_text(data = . %&gt;% group_by(age_category, continent) %&gt;% count, aes(label = n)) +
   theme_minimal()  
 ```
@@ -1258,13 +2860,67 @@ gapminder_2002 %&gt;%
   ggplot() +  
   aes(x = continent) +  
   aes(y = age_category) +  
-  geom_jitter(col = "blue", alpha = .3, width = .25, height = .25) +  
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) +  
 * geom_label(data = . %&gt;% group_by(age_category, continent) %&gt;% count, aes(label = n)) +
   theme_minimal()  
 ```
 ]]
 .column[.content[
 &lt;img src="geoms_files/figure-html/discrete2x_rotate_3_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_2002 %&gt;%  
+  mutate(seventy_plus = lifeExp &gt;= 75) %&gt;%  
+  mutate(age_category =  
+           case_when(seventy_plus == T ~  
+                       "Seventy +",  
+                     seventy_plus == F ~  
+                       "&lt; Seventy")) %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = age_category) +  
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) +  
+* geom_point(position = ggforce::position_jitternormal()) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/discrete2x_rotate_4_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder_2002 %&gt;%  
+  mutate(seventy_plus = lifeExp &gt;= 75) %&gt;%  
+  mutate(age_category =  
+           case_when(seventy_plus == T ~  
+                       "Seventy +",  
+                     seventy_plus == F ~  
+                       "&lt; Seventy")) %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = age_category) +  
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) +  
+* geom_point(position = ggforce::position_jitternormal(sd_x = 0.15, sd_y = 0.01)) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/discrete2x_rotate_5_output-1.png" width="100%" /&gt;
 ]]
 
 
@@ -1355,1006 +3011,12 @@ class: middle, center, inverse
 ---
 
 
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-*readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv')
-```
-]]
-.column[.content[
-
-```
-  # A tibble: 49,384 x 25
-     player season  rank date       game_num age   team  at    opp   location
-     &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
-   1 Alex …   2006     1 2005-10-05        1 20-0… WSH   &lt;NA&gt;  CBJ   Home    
-   2 Alex …   2006     2 2005-10-07        2 20-0… WSH   &lt;NA&gt;  ATL   Home    
-   3 Alex …   2006     3 2005-10-08        3 20-0… WSH   @     ATL   Away    
-   4 Alex …   2006     4 2005-10-10        4 20-0… WSH   &lt;NA&gt;  NYR   Home    
-   5 Alex …   2006     5 2005-10-12        5 20-0… WSH   @     CAR   Away    
-   6 Alex …   2006     6 2005-10-13        6 20-0… WSH   &lt;NA&gt;  NYI   Home    
-   7 Alex …   2006     7 2005-10-16        7 20-0… WSH   &lt;NA&gt;  TBL   Home    
-   8 Alex …   2006     8 2005-10-20        8 20-0… WSH   @     FLA   Away    
-   9 Alex …   2006     9 2005-10-22        9 20-0… WSH   &lt;NA&gt;  CAR   Home    
-  10 Alex …   2006    10 2005-10-26       10 20-0… WSH   @     BUF   Away    
-  # … with 49,374 more rows, and 15 more variables: outcome &lt;chr&gt;, goals &lt;dbl&gt;,
-  #   assists &lt;dbl&gt;, points &lt;dbl&gt;, plus_minus &lt;dbl&gt;, penalty_min &lt;dbl&gt;,
-  #   goals_even &lt;dbl&gt;, goals_powerplay &lt;dbl&gt;, goals_short &lt;dbl&gt;,
-  #   goals_gamewinner &lt;dbl&gt;, assists_even &lt;dbl&gt;, assists_powerplay &lt;dbl&gt;,
-  #   assists_short &lt;dbl&gt;, shots &lt;dbl&gt;, shot_percent &lt;dbl&gt;
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-* game_goals
-```
-]]
-.column[.content[
-
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-*game_goals
-```
-]]
-.column[.content[
-
-```
-  # A tibble: 49,384 x 25
-     player season  rank date       game_num age   team  at    opp   location
-     &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
-   1 Alex …   2006     1 2005-10-05        1 20-0… WSH   &lt;NA&gt;  CBJ   Home    
-   2 Alex …   2006     2 2005-10-07        2 20-0… WSH   &lt;NA&gt;  ATL   Home    
-   3 Alex …   2006     3 2005-10-08        3 20-0… WSH   @     ATL   Away    
-   4 Alex …   2006     4 2005-10-10        4 20-0… WSH   &lt;NA&gt;  NYR   Home    
-   5 Alex …   2006     5 2005-10-12        5 20-0… WSH   @     CAR   Away    
-   6 Alex …   2006     6 2005-10-13        6 20-0… WSH   &lt;NA&gt;  NYI   Home    
-   7 Alex …   2006     7 2005-10-16        7 20-0… WSH   &lt;NA&gt;  TBL   Home    
-   8 Alex …   2006     8 2005-10-20        8 20-0… WSH   @     FLA   Away    
-   9 Alex …   2006     9 2005-10-22        9 20-0… WSH   &lt;NA&gt;  CAR   Home    
-  10 Alex …   2006    10 2005-10-26       10 20-0… WSH   @     BUF   Away    
-  # … with 49,374 more rows, and 15 more variables: outcome &lt;chr&gt;, goals &lt;dbl&gt;,
-  #   assists &lt;dbl&gt;, points &lt;dbl&gt;, plus_minus &lt;dbl&gt;, penalty_min &lt;dbl&gt;,
-  #   goals_even &lt;dbl&gt;, goals_powerplay &lt;dbl&gt;, goals_short &lt;dbl&gt;,
-  #   goals_gamewinner &lt;dbl&gt;, assists_even &lt;dbl&gt;, assists_powerplay &lt;dbl&gt;,
-  #   assists_short &lt;dbl&gt;, shots &lt;dbl&gt;, shot_percent &lt;dbl&gt;
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-* count(season)
-```
-]]
-.column[.content[
-
-```
-  # A tibble: 40 x 2
-     season     n
-      &lt;dbl&gt; &lt;int&gt;
-   1   1980   231
-   2   1981   339
-   3   1982   385
-   4   1983   430
-   5   1984   528
-   6   1985   556
-   7   1986   580
-   8   1987   697
-   9   1988   799
-  10   1989   877
-  # … with 30 more rows
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-* full_join(tibble(season = 1980:2020))
-```
-]]
-.column[.content[
-
-```
-  # A tibble: 41 x 2
-     season     n
-      &lt;dbl&gt; &lt;int&gt;
-   1   1980   231
-   2   1981   339
-   3   1982   385
-   4   1983   430
-   5   1984   528
-   6   1985   556
-   7   1986   580
-   8   1987   697
-   9   1988   799
-  10   1989   877
-  # … with 31 more rows
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-* ggplot()
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_6_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-* aes(x = season)
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_7_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-* aes(y = n)
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_8_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-* geom_col()   # stat is identity
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_9_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-* geom_point()   # stat is identity
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_10_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-* geom_line()   # stat is identity
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_11_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-* geom_area(alpha = .2,  # stat is identity
-*           fill = "magenta")
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_12_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-* aes(fill = season)
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_13_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-* aes(xend = season)
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_14_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-  aes(xend = season) +  
-* aes(yend = 0)
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_15_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-  aes(xend = season) +  
-  aes(yend = 0) +  
-* geom_segment(linetype = "dotted")
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_16_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-  aes(xend = season) +  
-  aes(yend = 0) +  
-  geom_segment(linetype = "dotted") -&gt;  
-*you_aggregate_then_plot
-```
-]]
-.column[.content[
-
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-  aes(xend = season) +  
-  aes(yend = 0) +  
-  geom_segment(linetype = "dotted") -&gt;  
-you_aggregate_then_plot  
-
-*game_goals
-```
-]]
-.column[.content[
-
-```
-  # A tibble: 49,384 x 25
-     player season  rank date       game_num age   team  at    opp   location
-     &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
-   1 Alex …   2006     1 2005-10-05        1 20-0… WSH   &lt;NA&gt;  CBJ   Home    
-   2 Alex …   2006     2 2005-10-07        2 20-0… WSH   &lt;NA&gt;  ATL   Home    
-   3 Alex …   2006     3 2005-10-08        3 20-0… WSH   @     ATL   Away    
-   4 Alex …   2006     4 2005-10-10        4 20-0… WSH   &lt;NA&gt;  NYR   Home    
-   5 Alex …   2006     5 2005-10-12        5 20-0… WSH   @     CAR   Away    
-   6 Alex …   2006     6 2005-10-13        6 20-0… WSH   &lt;NA&gt;  NYI   Home    
-   7 Alex …   2006     7 2005-10-16        7 20-0… WSH   &lt;NA&gt;  TBL   Home    
-   8 Alex …   2006     8 2005-10-20        8 20-0… WSH   @     FLA   Away    
-   9 Alex …   2006     9 2005-10-22        9 20-0… WSH   &lt;NA&gt;  CAR   Home    
-  10 Alex …   2006    10 2005-10-26       10 20-0… WSH   @     BUF   Away    
-  # … with 49,374 more rows, and 15 more variables: outcome &lt;chr&gt;, goals &lt;dbl&gt;,
-  #   assists &lt;dbl&gt;, points &lt;dbl&gt;, plus_minus &lt;dbl&gt;, penalty_min &lt;dbl&gt;,
-  #   goals_even &lt;dbl&gt;, goals_powerplay &lt;dbl&gt;, goals_short &lt;dbl&gt;,
-  #   goals_gamewinner &lt;dbl&gt;, assists_even &lt;dbl&gt;, assists_powerplay &lt;dbl&gt;,
-  #   assists_short &lt;dbl&gt;, shots &lt;dbl&gt;, shot_percent &lt;dbl&gt;
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-  aes(xend = season) +  
-  aes(yend = 0) +  
-  geom_segment(linetype = "dotted") -&gt;  
-you_aggregate_then_plot  
-
-game_goals %&gt;%  
-* ggplot()
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_19_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-  aes(xend = season) +  
-  aes(yend = 0) +  
-  geom_segment(linetype = "dotted") -&gt;  
-you_aggregate_then_plot  
-
-game_goals %&gt;%  
-  ggplot() +  
-* aes(x = season)
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_20_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-  aes(xend = season) +  
-  aes(yend = 0) +  
-  geom_segment(linetype = "dotted") -&gt;  
-you_aggregate_then_plot  
-
-game_goals %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-* geom_bar()   # a version of geom column
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_21_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-  aes(xend = season) +  
-  aes(yend = 0) +  
-  geom_segment(linetype = "dotted") -&gt;  
-you_aggregate_then_plot  
-
-game_goals %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  geom_bar() +  # a version of geom column
-* geom_point(stat = "count")
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_22_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-  aes(xend = season) +  
-  aes(yend = 0) +  
-  geom_segment(linetype = "dotted") -&gt;  
-you_aggregate_then_plot  
-
-game_goals %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  geom_bar() +  # a version of geom column
-  geom_point(stat = "count") +  
-* geom_line(stat = "count")
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_23_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-  aes(xend = season) +  
-  aes(yend = 0) +  
-  geom_segment(linetype = "dotted") -&gt;  
-you_aggregate_then_plot  
-
-game_goals %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  geom_bar() +  # a version of geom column
-  geom_point(stat = "count") +  
-  geom_line(stat = "count") +  
-* geom_area(stat = "count",
-*           alpha = .2,
-*           fill = "magenta")
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_24_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-  aes(xend = season) +  
-  aes(yend = 0) +  
-  geom_segment(linetype = "dotted") -&gt;  
-you_aggregate_then_plot  
-
-game_goals %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  geom_bar() +  # a version of geom column
-  geom_point(stat = "count") +  
-  geom_line(stat = "count") +  
-  geom_area(stat = "count",  
-            alpha = .2,  
-            fill = "magenta") +  
-* aes(fill = season)   # not completely grasping why fill cant work here
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/stat_auto_25_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -&gt;  
-  game_goals  
-
-game_goals %&gt;%  
-  count(season) %&gt;%  
-  full_join(tibble(season = 1980:2020)) %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  aes(y = n) +  
-  geom_col() +  # stat is identity
-  geom_point() +  # stat is identity
-  geom_line() +  # stat is identity
-  geom_area(alpha = .2,  # stat is identity
-            fill = "magenta") +  
-  aes(fill = season) +  
-  aes(xend = season) +  
-  aes(yend = 0) +  
-  geom_segment(linetype = "dotted") -&gt;  
-you_aggregate_then_plot  
-
-game_goals %&gt;%  
-  ggplot() +  
-  aes(x = season) +  
-  geom_bar() +  # a version of geom column
-  geom_point(stat = "count") +  
-  geom_line(stat = "count") +  
-  geom_area(stat = "count",  
-            alpha = .2,  
-            fill = "magenta") +  
-  aes(fill = season) -&gt;  # not completely grasping why fill cant work here
-*ggplot_aggregates_for_you
-```
-]]
-.column[.content[
-
-]]
 
 
 
 
 ---
 
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-*tibble(my_var = c(1, 2.5, 2.5, 2.5,
-*                 7, 7.25, 7.25))
-```
-]]
-.column[.content[
-
-```
-  # A tibble: 7 x 1
-    my_var
-     &lt;dbl&gt;
-  1   1   
-  2   2.5 
-  3   2.5 
-  4   2.5 
-  5   7   
-  6   7.25
-  7   7.25
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-tibble(my_var = c(1, 2.5, 2.5, 2.5,  
-                  7, 7.25, 7.25)) %&gt;%  
-* ggplot()
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/bar_discrete_continuous_auto_2_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-tibble(my_var = c(1, 2.5, 2.5, 2.5,  
-                  7, 7.25, 7.25)) %&gt;%  
-  ggplot() +  
-* aes(x = my_var)
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/bar_discrete_continuous_auto_3_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-tibble(my_var = c(1, 2.5, 2.5, 2.5,  
-                  7, 7.25, 7.25)) %&gt;%  
-  ggplot() +  
-  aes(x = my_var) +  
-* geom_bar(fill = "blue",  # default is
-*          alpha = .5,  # widths adjusted so
-*          linetype = "dotted")   # no overlap
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/bar_discrete_continuous_auto_4_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-tibble(my_var = c(1, 2.5, 2.5, 2.5,  
-                  7, 7.25, 7.25)) %&gt;%  
-  ggplot() +  
-  aes(x = my_var) +  
-  geom_bar(fill = "blue",  # default is
-           alpha = .5,  # widths adjusted so
-           linetype = "dotted") +  # no overlap
-* geom_bar(alpha = .5,
-*          width = .6,  #setting width
-*          fill = "orange")
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/bar_discrete_continuous_auto_5_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-tibble(my_var = c(1, 2.5, 2.5, 2.5,  
-                  7, 7.25, 7.25)) %&gt;%  
-  ggplot() +  
-  aes(x = my_var) +  
-  geom_bar(fill = "blue",  # default is
-           alpha = .5,  # widths adjusted so
-           linetype = "dotted") +  # no overlap
-  geom_bar(alpha = .5,  
-           width = .6,  #setting width
-           fill = "orange") +  
-# replacing previous aes x statement
-# each category take up horizontal space of 1
-* aes(x = as_factor(my_var))
-```
-]]
-.column[.content[
-&lt;img src="geoms_files/figure-html/bar_discrete_continuous_auto_6_output-1.png" width="100%" /&gt;
-]]
 
 
 
