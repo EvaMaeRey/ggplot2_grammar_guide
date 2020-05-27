@@ -701,6 +701,36 @@ ggplot(data = gapminder_2002) +
 .column[.content[
 &lt;img src="geoms_files/figure-html/continuous_continuous_rotate_31_output-1.png" width="100%" /&gt;
 ]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggpointdensity::geom_pointdensity() +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/continuous_continuous_rotate_32_output-1.png" width="100%" /&gt;
+]]
+
+
+
+
+---
+
+x and y dense
+
+---
 
 
 
@@ -1734,7 +1764,7 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-* arrange(gdpPercap)
+* arrange(lifeExp)
 ```
 ]]
 .column[.content[
@@ -1744,16 +1774,16 @@ gapminder %&gt;%
   # Groups:   year [6]
      country     continent  year lifeExp      pop gdpPercap
      &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-   1 Spain       Europe     1982    76.3 37983310    13926.
-   2 Spain       Europe     1987    76.9 38880702    15765.
-   3 Italy       Europe     1982    75.0 56535636    16537.
-   4 Spain       Europe     1992    77.6 39549438    18603.
-   5 Italy       Europe     1987    76.4 56729703    19207.
-   6 France      Europe     1982    74.9 54433565    20294.
-   7 Spain       Europe     1997    78.8 39855442    20445.
-   8 Belgium     Europe     1982    73.9  9856303    20980.
-   9 Netherlands Europe     1982    76.0 14310401    21399.
-  10 Austria     Europe     1982    73.2  7574613    21597.
+   1 Austria     Europe     1982    73.2  7574613    21597.
+   2 Belgium     Europe     1982    73.9  9856303    20980.
+   3 France      Europe     1982    74.9 54433565    20294.
+   4 Austria     Europe     1987    74.9  7578903    23688.
+   5 Italy       Europe     1982    75.0 56535636    16537.
+   6 Belgium     Europe     1987    75.4  9870200    22526.
+   7 Norway      Europe     1987    75.9  4186147    31541.
+   8 Norway      Europe     1982    76.0  4114787    26299.
+   9 Austria     Europe     1992    76.0  7914969    27042.
+  10 Netherlands Europe     1982    76.0 14310401    21399.
   # … with 32 more rows
 ```
 ]]
@@ -1772,8 +1802,8 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-* mutate(rank = 1:n())
+  arrange(lifeExp) %&gt;%  
+* mutate(rank_life_exp = 1:n())
 ```
 ]]
 .column[.content[
@@ -1781,18 +1811,18 @@ gapminder %&gt;%
 ```
   # A tibble: 42 x 7
   # Groups:   year [6]
-     country     continent  year lifeExp      pop gdpPercap  rank
-     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;
-   1 Spain       Europe     1982    76.3 37983310    13926.     1
-   2 Spain       Europe     1987    76.9 38880702    15765.     1
-   3 Italy       Europe     1982    75.0 56535636    16537.     2
-   4 Spain       Europe     1992    77.6 39549438    18603.     1
-   5 Italy       Europe     1987    76.4 56729703    19207.     2
-   6 France      Europe     1982    74.9 54433565    20294.     3
-   7 Spain       Europe     1997    78.8 39855442    20445.     1
-   8 Belgium     Europe     1982    73.9  9856303    20980.     4
-   9 Netherlands Europe     1982    76.0 14310401    21399.     5
-  10 Austria     Europe     1982    73.2  7574613    21597.     6
+     country     continent  year lifeExp      pop gdpPercap rank_life_exp
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;         &lt;int&gt;
+   1 Austria     Europe     1982    73.2  7574613    21597.             1
+   2 Belgium     Europe     1982    73.9  9856303    20980.             2
+   3 France      Europe     1982    74.9 54433565    20294.             3
+   4 Austria     Europe     1987    74.9  7578903    23688.             1
+   5 Italy       Europe     1982    75.0 56535636    16537.             4
+   6 Belgium     Europe     1987    75.4  9870200    22526.             2
+   7 Norway      Europe     1987    75.9  4186147    31541.             3
+   8 Norway      Europe     1982    76.0  4114787    26299.             5
+   9 Austria     Europe     1992    76.0  7914969    27042.             1
+  10 Netherlands Europe     1982    76.0 14310401    21399.             6
   # … with 32 more rows
 ```
 ]]
@@ -1811,8 +1841,8 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
 * ungroup()
 ```
 ]]
@@ -1820,18 +1850,18 @@ gapminder %&gt;%
 
 ```
   # A tibble: 42 x 7
-     country     continent  year lifeExp      pop gdpPercap  rank
-     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;
-   1 Spain       Europe     1982    76.3 37983310    13926.     1
-   2 Spain       Europe     1987    76.9 38880702    15765.     1
-   3 Italy       Europe     1982    75.0 56535636    16537.     2
-   4 Spain       Europe     1992    77.6 39549438    18603.     1
-   5 Italy       Europe     1987    76.4 56729703    19207.     2
-   6 France      Europe     1982    74.9 54433565    20294.     3
-   7 Spain       Europe     1997    78.8 39855442    20445.     1
-   8 Belgium     Europe     1982    73.9  9856303    20980.     4
-   9 Netherlands Europe     1982    76.0 14310401    21399.     5
-  10 Austria     Europe     1982    73.2  7574613    21597.     6
+     country     continent  year lifeExp      pop gdpPercap rank_life_exp
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;         &lt;int&gt;
+   1 Austria     Europe     1982    73.2  7574613    21597.             1
+   2 Belgium     Europe     1982    73.9  9856303    20980.             2
+   3 France      Europe     1982    74.9 54433565    20294.             3
+   4 Austria     Europe     1987    74.9  7578903    23688.             1
+   5 Italy       Europe     1982    75.0 56535636    16537.             4
+   6 Belgium     Europe     1987    75.4  9870200    22526.             2
+   7 Norway      Europe     1987    75.9  4186147    31541.             3
+   8 Norway      Europe     1982    76.0  4114787    26299.             5
+   9 Austria     Europe     1992    76.0  7914969    27042.             1
+  10 Netherlands Europe     1982    76.0 14310401    21399.             6
   # … with 32 more rows
 ```
 ]]
@@ -1850,8 +1880,8 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
   ungroup() %&gt;%  
 * ggplot()
 ```
@@ -1874,8 +1904,8 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
   ungroup() %&gt;%  
   ggplot() +  
 * aes(x = year)
@@ -1899,12 +1929,12 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
   ungroup() %&gt;%  
   ggplot() +  
   aes(x = year) +  
-* aes(y = rank)
+* aes(y = rank_life_exp)
 ```
 ]]
 .column[.content[
@@ -1925,12 +1955,12 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
   ungroup() %&gt;%  
   ggplot() +  
   aes(x = year) +  
-  aes(y = rank) +  
+  aes(y = rank_life_exp) +  
 * geom_point(size = 6)
 ```
 ]]
@@ -1952,12 +1982,12 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
   ungroup() %&gt;%  
   ggplot() +  
   aes(x = year) +  
-  aes(y = rank) +  
+  aes(y = rank_life_exp) +  
   geom_point(size = 6) +  
 * aes(color = country)
 ```
@@ -1980,12 +2010,12 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
   ungroup() %&gt;%  
   ggplot() +  
   aes(x = year) +  
-  aes(y = rank) +  
+  aes(y = rank_life_exp) +  
   geom_point(size = 6) +  
   aes(color = country) +  
 * ggbump::geom_bump(size = 2, smooth = 8)
@@ -2009,12 +2039,12 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
   ungroup() %&gt;%  
   ggplot() +  
   aes(x = year) +  
-  aes(y = rank) +  
+  aes(y = rank_life_exp) +  
   geom_point(size = 6) +  
   aes(color = country) +  
   ggbump::geom_bump(size = 2, smooth = 8) +  
@@ -2041,12 +2071,12 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
   ungroup() %&gt;%  
   ggplot() +  
   aes(x = year) +  
-  aes(y = rank) +  
+  aes(y = rank_life_exp) +  
   geom_point(size = 6) +  
   aes(color = country) +  
   ggbump::geom_bump(size = 2, smooth = 8) +  
@@ -2077,12 +2107,12 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
   ungroup() %&gt;%  
   ggplot() +  
   aes(x = year) +  
-  aes(y = rank) +  
+  aes(y = rank_life_exp) +  
   geom_point(size = 6) +  
   aes(color = country) +  
   ggbump::geom_bump(size = 2, smooth = 8) +  
@@ -2117,12 +2147,12 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
   ungroup() %&gt;%  
   ggplot() +  
   aes(x = year) +  
-  aes(y = rank) +  
+  aes(y = rank_life_exp) +  
   geom_point(size = 6) +  
   aes(color = country) +  
   ggbump::geom_bump(size = 2, smooth = 8) +  
@@ -2158,12 +2188,12 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
   ungroup() %&gt;%  
   ggplot() +  
   aes(x = year) +  
-  aes(y = rank) +  
+  aes(y = rank_life_exp) +  
   geom_point(size = 6) +  
   aes(color = country) +  
   ggbump::geom_bump(size = 2, smooth = 8) +  
@@ -2200,12 +2230,12 @@ gapminder %&gt;%
                         "Spain", "Italy","France")) %&gt;%  
   filter(year &gt; 1980) %&gt;%  
   group_by(year) %&gt;%  
-  arrange(gdpPercap) %&gt;%  
-  mutate(rank = 1:n()) %&gt;%  
+  arrange(lifeExp) %&gt;%  
+  mutate(rank_life_exp = 1:n()) %&gt;%  
   ungroup() %&gt;%  
   ggplot() +  
   aes(x = year) +  
-  aes(y = rank) +  
+  aes(y = rank_life_exp) +  
   geom_point(size = 6) +  
   aes(color = country) +  
   ggbump::geom_bump(size = 2, smooth = 8) +  
@@ -2290,7 +2320,7 @@ gapminder %&gt;%
   aes(y = continent) +  
   aes(x = lifeExp) +  
   geom_point(size = .2) +  
-* geom_jitter(width = .2, alpha = .5, color = "green") +
+* geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) +
   theme_minimal()  
 ```
 ]]
@@ -2312,7 +2342,7 @@ gapminder %&gt;%
   aes(y = continent) +  
   aes(x = lifeExp) +  
   geom_point(size = .2) +  
-* geom_violin(alpha = .1) +
+* geom_jitter(width = .2, alpha = .5, color = "green") +
   theme_minimal()  
 ```
 ]]
@@ -2334,7 +2364,7 @@ gapminder %&gt;%
   aes(y = continent) +  
   aes(x = lifeExp) +  
   geom_point(size = .2) +  
-* ggforce::geom_sina(col = "magenta", alpha = .5) +
+* geom_violin(alpha = .1) +
   theme_minimal()  
 ```
 ]]
@@ -2356,7 +2386,7 @@ gapminder %&gt;%
   aes(y = continent) +  
   aes(x = lifeExp) +  
   geom_point(size = .2) +  
-* stat_summary(fun.y = mean, geom = "point", col = "goldenrod2", size = 8) +
+* ggforce::geom_sina(col = "magenta", alpha = .5) +
   theme_minimal()  
 ```
 ]]
@@ -2378,7 +2408,7 @@ gapminder %&gt;%
   aes(y = continent) +  
   aes(x = lifeExp) +  
   geom_point(size = .2) +  
-* ggridges::geom_density_ridges(alpha = .2, fill = "blue") +
+* stat_summary(fun.y = mean, geom = "point", col = "goldenrod2", size = 8) +
   theme_minimal()  
 ```
 ]]
@@ -2400,7 +2430,7 @@ gapminder %&gt;%
   aes(y = continent) +  
   aes(x = lifeExp) +  
   geom_point(size = .2) +  
-* ggridges::geom_density_ridges(scale = .7, alpha = .2, fill = "blue") +
+* ggridges::geom_density_ridges(alpha = .2, fill = "blue") +
   theme_minimal()  
 ```
 ]]
@@ -2422,7 +2452,7 @@ gapminder %&gt;%
   aes(y = continent) +  
   aes(x = lifeExp) +  
   geom_point(size = .2) +  
-* ggridges::geom_density_ridges(scale = 1.5, alpha = .2, fill = "blue") +
+* ggridges::geom_density_ridges(scale = .7, alpha = .2, fill = "blue") +
   theme_minimal()  
 ```
 ]]
@@ -2444,7 +2474,7 @@ gapminder %&gt;%
   aes(y = continent) +  
   aes(x = lifeExp) +  
   geom_point(size = .2) +  
-* ggridges::geom_density_ridges_gradient(aes(fill = stat(x))) +
+* ggridges::geom_density_ridges(scale = 1.5, alpha = .2, fill = "blue") +
   theme_minimal()  
 ```
 ]]
@@ -2466,7 +2496,7 @@ gapminder %&gt;%
   aes(y = continent) +  
   aes(x = lifeExp) +  
   geom_point(size = .2) +  
-* ggridges::stat_density_ridges(quantile_lines = TRUE, quantiles = c(0.025, 0.975), alpha = 0.5, fill = "plum4") +
+* ggridges::geom_density_ridges_gradient(aes(fill = stat(x))) +
   theme_minimal()  
 ```
 ]]
@@ -2488,7 +2518,7 @@ gapminder %&gt;%
   aes(y = continent) +  
   aes(x = lifeExp) +  
   geom_point(size = .2) +  
-* ggridges::geom_density_ridges(jittered_points = TRUE, position = "raincloud", alpha = .5, scale = 0.9) +
+* ggridges::stat_density_ridges(quantile_lines = TRUE, quantiles = c(0.025, 0.975), alpha = 0.5, fill = "plum4") +
   theme_minimal()  
 ```
 ]]
@@ -2510,7 +2540,7 @@ gapminder %&gt;%
   aes(y = continent) +  
   aes(x = lifeExp) +  
   geom_point(size = .2) +  
-* ggridges::geom_density_ridges(stat = "binline", bins = 20, scale = 0.95, draw_baseline = FALSE) +
+* ggridges::geom_density_ridges(jittered_points = TRUE, position = "raincloud", alpha = .5, scale = 0.9) +
   theme_minimal()  
 ```
 ]]
@@ -2532,12 +2562,56 @@ gapminder %&gt;%
   aes(y = continent) +  
   aes(x = lifeExp) +  
   geom_point(size = .2) +  
-* ggridges::geom_density_ridges(scale = 2, alpha = .5) + ggridges::scale_fill_cyclical(values = c("blue", "green")) +
+* ggridges::geom_density_ridges(stat = "binline", bins = 20, scale = 0.95, draw_baseline = FALSE) +
   theme_minimal()  
 ```
 ]]
 .column[.content[
 &lt;img src="geoms_files/figure-html/geom_discrete_continuous_rotate_13_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
+  geom_point(size = .2) +  
+* ggridges::geom_density_ridges(scale = 2, alpha = .5) + ggridges::scale_fill_cyclical(values = c("blue", "green")) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/geom_discrete_continuous_rotate_14_output-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(y = continent) +  
+  aes(x = lifeExp) +  
+  geom_point(size = .2) +  
+* geom_point(aes(color = continent), position = position_nudge(x = 0, y = .2), size = .5, alpha = 0.8) + geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) +
+  theme_minimal()  
+```
+]]
+.column[.content[
+&lt;img src="geoms_files/figure-html/geom_discrete_continuous_rotate_15_output-1.png" width="100%" /&gt;
 ]]
 
 
@@ -2625,13 +2699,6 @@ gapminder %&gt;%
 
 
 
-```r
-# library(igraph)
-# graph &lt;- graph_from_data_frame(flare$edges, vertices = flare$vertices)
-# 
-# ggraph(graph, 'treemap', weight = 'size') + 
-#     geom_node_tile(aes(fill = depth), size = 0.25)
-```
 
 
 
@@ -3016,6 +3083,8 @@ class: middle, center, inverse
 
 
 ---
+
+
 
 
 

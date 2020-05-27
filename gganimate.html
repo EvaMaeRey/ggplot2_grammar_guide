@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>gganimate</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# gganimate
+## a ‘flipbookr’ tutorial
+### Gina Reynolds
+
+---
+
+
+
+```
+## ── Attaching packages ──────────────────────────── tidyverse 1.3.0 ──
+```
+
+```
+## ✓ ggplot2 3.3.0     ✓ purrr   0.3.3
+## ✓ tibble  3.0.0     ✓ dplyr   0.8.5
+## ✓ tidyr   1.0.2     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0
+```
+
+```
+## Warning: package 'tibble' was built under R version 3.6.2
+```
+
+```
+## ── Conflicts ─────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+```
+
+
+---
+
+- transition - change the data
+- viewpoint - changing field of view
+- shadows - memory
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-transitions-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  scale_x_log10() +  
+  NULL   
+```
+]
+ 
+.right-output-transitions-rotate[
+&lt;img src="gganimate_files/figure-html/transitions_rotate_1_output-1.png" width="864" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-transitions-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  scale_x_log10() +  
+* gganimate::transition_time(time = year)
+```
+]
+ 
+.right-output-transitions-rotate[
+![](gganimate_files/figure-html/transitions_rotate_2_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-transitions-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  scale_x_log10() +  
+* gganimate::transition_reveal(along = year)
+```
+]
+ 
+.right-output-transitions-rotate[
+![](gganimate_files/figure-html/transitions_rotate_3_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-transitions-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  scale_x_log10() +  
+* gganimate::transition_manual(frames = continent)
+```
+]
+ 
+.right-output-transitions-rotate[
+![](gganimate_files/figure-html/transitions_rotate_4_output-1.gif)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.left-code-transitions-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-transitions-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+# Graphing as time series
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-time_series_point-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point(size = 8) +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  facet_wrap(~ continent) +  
+  NULL   
+```
+]
+ 
+.right-output-time_series_point-rotate[
+&lt;img src="gganimate_files/figure-html/time_series_point_rotate_1_output-1.png" width="864" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_point-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point(size = 8) +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  facet_wrap(~ continent) +  
+* gganimate::transition_time(time = year)
+```
+]
+ 
+.right-output-time_series_point-rotate[
+![](gganimate_files/figure-html/time_series_point_rotate_2_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_point-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point(size = 8) +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  facet_wrap(~ continent) +  
+* gganimate::transition_reveal(along = year)
+```
+]
+ 
+.right-output-time_series_point-rotate[
+![](gganimate_files/figure-html/time_series_point_rotate_3_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_point-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point(size = 8) +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  facet_wrap(~ continent) +  
+* gganimate::transition_manual(frames = continent)
+```
+]
+ 
+.right-output-time_series_point-rotate[
+![](gganimate_files/figure-html/time_series_point_rotate_4_output-1.gif)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.left-code-time_series_point-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-time_series_point-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+
+---
+
+# geom_line(),  goem_path
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-time_series-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_line() +  
+  geom_point(size = 8) +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  facet_wrap(~ continent) +  
+  NULL   
+```
+]
+ 
+.right-output-time_series-rotate[
+&lt;img src="gganimate_files/figure-html/time_series_rotate_1_output-1.png" width="864" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_line() +  
+  geom_point(size = 8) +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  facet_wrap(~ continent) +  
+* gganimate::transition_reveal(along = year)
+```
+]
+ 
+.right-output-time_series-rotate[
+![](gganimate_files/figure-html/time_series_rotate_2_output-1.gif)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.left-code-time_series-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-time_series-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-time_series_path-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_path() +  
+  geom_point(size = 5) +  
+  aes(color = continent) +  
+  scale_x_log10() +  
+  facet_wrap(~ continent) +  
+  NULL   
+```
+]
+ 
+.right-output-time_series_path-rotate[
+&lt;img src="gganimate_files/figure-html/time_series_path_rotate_1_output-1.png" width="864" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_path-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_path() +  
+  geom_point(size = 5) +  
+  aes(color = continent) +  
+  scale_x_log10() +  
+  facet_wrap(~ continent) +  
+* gganimate::transition_reveal(along = year)
+```
+]
+ 
+.right-output-time_series_path-rotate[
+![](gganimate_files/figure-html/time_series_path_rotate_2_output-1.gif)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.left-code-time_series_path-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-time_series_path-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-enter_exit-rotate[
+
+```r
+library(gganimate)  
+options(gganimate.nframes = 50)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year &gt; 1990) %&gt;%  
+  ggplot(data = .) +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point(size = 20) +  
+  aes(color = continent) +  
+  facet_wrap(~ continent) +  
+  transition_events(start = year, end = as.integer(year + 1), enter_length = 1L, exit_length = 1L) +  
+  NULL   
+```
+]
+ 
+.right-output-enter_exit-rotate[
+![](gganimate_files/figure-html/enter_exit_rotate_1_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-enter_exit-rotate[
+
+```r
+library(gganimate)  
+options(gganimate.nframes = 50)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year &gt; 1990) %&gt;%  
+  ggplot(data = .) +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point(size = 20) +  
+  aes(color = continent) +  
+  facet_wrap(~ continent) +  
+  transition_events(start = year, end = as.integer(year + 1), enter_length = 1L, exit_length = 1L) +  
+* enter_fade() + exit_fade()
+```
+]
+ 
+.right-output-enter_exit-rotate[
+![](gganimate_files/figure-html/enter_exit_rotate_2_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-enter_exit-rotate[
+
+```r
+library(gganimate)  
+options(gganimate.nframes = 50)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year &gt; 1990) %&gt;%  
+  ggplot(data = .) +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point(size = 20) +  
+  aes(color = continent) +  
+  facet_wrap(~ continent) +  
+  transition_events(start = year, end = as.integer(year + 1), enter_length = 1L, exit_length = 1L) +  
+* enter_fly() + exit_fly()
+```
+]
+ 
+.right-output-enter_exit-rotate[
+![](gganimate_files/figure-html/enter_exit_rotate_3_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-enter_exit-rotate[
+
+```r
+library(gganimate)  
+options(gganimate.nframes = 50)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year &gt; 1990) %&gt;%  
+  ggplot(data = .) +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point(size = 20) +  
+  aes(color = continent) +  
+  facet_wrap(~ continent) +  
+  transition_events(start = year, end = as.integer(year + 1), enter_length = 1L, exit_length = 1L) +  
+* enter_appear() + exit_disappear()
+```
+]
+ 
+.right-output-enter_exit-rotate[
+![](gganimate_files/figure-html/enter_exit_rotate_4_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-enter_exit-rotate[
+
+```r
+library(gganimate)  
+options(gganimate.nframes = 50)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year &gt; 1990) %&gt;%  
+  ggplot(data = .) +  
+  aes(x = year) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point(size = 20) +  
+  aes(color = continent) +  
+  facet_wrap(~ continent) +  
+  transition_events(start = year, end = as.integer(year + 1), enter_length = 1L, exit_length = 1L) +  
+* enter_grow() + exit_shrink()
+```
+]
+ 
+.right-output-enter_exit-rotate[
+![](gganimate_files/figure-html/enter_exit_rotate_5_output-1.gif)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.left-code-enter_exit-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-enter_exit-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-enter_exit_col-rotate[
+
+```r
+library(gganimate)  
+options(gganimate.nframes = 50)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  filter(year &gt; 1990) %&gt;%  
+  ggplot(data = .) +  
+  aes(x = factor(year)) +  
+  aes(y = lifeExp) +  
+  geom_col(position = "dodge") +  
+  aes(fill = country) +  
+  transition_states(states = year) +  
+  NULL +  
+  shadow_mark()  
+```
+]
+ 
+.right-output-enter_exit_col-rotate[
+![](gganimate_files/figure-html/enter_exit_col_rotate_1_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-enter_exit_col-rotate[
+
+```r
+library(gganimate)  
+options(gganimate.nframes = 50)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  filter(year &gt; 1990) %&gt;%  
+  ggplot(data = .) +  
+  aes(x = factor(year)) +  
+  aes(y = lifeExp) +  
+  geom_col(position = "dodge") +  
+  aes(fill = country) +  
+  transition_states(states = year) +  
+* enter_fade() +
+  shadow_mark()  
+```
+]
+ 
+.right-output-enter_exit_col-rotate[
+![](gganimate_files/figure-html/enter_exit_col_rotate_2_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-enter_exit_col-rotate[
+
+```r
+library(gganimate)  
+options(gganimate.nframes = 50)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  filter(year &gt; 1990) %&gt;%  
+  ggplot(data = .) +  
+  aes(x = factor(year)) +  
+  aes(y = lifeExp) +  
+  geom_col(position = "dodge") +  
+  aes(fill = country) +  
+  transition_states(states = year) +  
+* enter_fly() +
+  shadow_mark()  
+```
+]
+ 
+.right-output-enter_exit_col-rotate[
+![](gganimate_files/figure-html/enter_exit_col_rotate_3_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-enter_exit_col-rotate[
+
+```r
+library(gganimate)  
+options(gganimate.nframes = 50)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  filter(year &gt; 1990) %&gt;%  
+  ggplot(data = .) +  
+  aes(x = factor(year)) +  
+  aes(y = lifeExp) +  
+  geom_col(position = "dodge") +  
+  aes(fill = country) +  
+  transition_states(states = year) +  
+* enter_appear() +
+  shadow_mark()  
+```
+]
+ 
+.right-output-enter_exit_col-rotate[
+![](gganimate_files/figure-html/enter_exit_col_rotate_4_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-enter_exit_col-rotate[
+
+```r
+library(gganimate)  
+options(gganimate.nframes = 50)  
+library(gapminder)  
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  filter(year &gt; 1990) %&gt;%  
+  ggplot(data = .) +  
+  aes(x = factor(year)) +  
+  aes(y = lifeExp) +  
+  geom_col(position = "dodge") +  
+  aes(fill = country) +  
+  transition_states(states = year) +  
+* enter_grow() +
+  shadow_mark()  
+```
+]
+ 
+.right-output-enter_exit_col-rotate[
+![](gganimate_files/figure-html/enter_exit_col_rotate_5_output-1.gif)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.left-code-enter_exit_col-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-enter_exit_col-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+
+---
+
+# shadow_*()
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-transitions_shadow-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  scale_x_log10() +  
+  gganimate::transition_time(time = year) +  
+  NULL +  
+  NULL -&gt;  
+g  
+
+animate(plot = g, detail = 10)  
+```
+]
+ 
+.right-output-transitions_shadow-rotate[
+![](gganimate_files/figure-html/transitions_shadow_rotate_1_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-transitions_shadow-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  scale_x_log10() +  
+  gganimate::transition_time(time = year) +  
+* shadow_mark() +
+  NULL -&gt;  
+g  
+
+animate(plot = g, detail = 10)  
+```
+]
+ 
+.right-output-transitions_shadow-rotate[
+![](gganimate_files/figure-html/transitions_shadow_rotate_2_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-transitions_shadow-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  scale_x_log10() +  
+  gganimate::transition_time(time = year) +  
+* shadow_trail() +
+  NULL -&gt;  
+g  
+
+animate(plot = g, detail = 10)  
+```
+]
+ 
+.right-output-transitions_shadow-rotate[
+![](gganimate_files/figure-html/transitions_shadow_rotate_3_output-1.gif)&lt;!-- --&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-transitions_shadow-rotate[
+
+```r
+options(gganimate.nframes = 50)  
+library(gapminder)  
+ggplot(data = gapminder) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(group = country) +  
+  geom_point() +  
+  aes(color = continent) +  
+  aes(size = pop) +  
+  scale_x_log10() +  
+  gganimate::transition_time(time = year) +  
+* shadow_wake(wake_length = .25) +
+  NULL -&gt;  
+g  
+
+animate(plot = g, detail = 10)  
+```
+]
+ 
+.right-output-transitions_shadow-rotate[
+![](gganimate_files/figure-html/transitions_shadow_rotate_4_output-1.gif)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.left-code-transitions_shadow-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-transitions_shadow-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "10:5",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

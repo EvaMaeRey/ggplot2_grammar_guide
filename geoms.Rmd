@@ -107,7 +107,19 @@ ggplot(data = gapminder_2002) +
   ggforce::geom_mark_circle(aes(fill = continent)) + #ROTATE
   ggforce::geom_mark_ellipse(aes(fill = continent, filter = continent == "Europe")) + #ROTATE
   ggforce::geom_mark_rect(aes(fill = continent)) + #ROTATE
+  ggpointdensity::geom_pointdensity() + #ROTATE
   theme_minimal()
+```
+
+---
+
+x and y dense
+
+---
+
+
+```{r}
+
 ```
 
 
@@ -274,12 +286,12 @@ gapminder %>%
                         "Spain", "Italy","France")) %>%
   filter(year > 1980) %>% 
   group_by(year) %>% 
-  arrange(gdpPercap) %>% 
-  mutate(rank = 1:n()) %>% 
+  arrange(lifeExp) %>% 
+  mutate(rank_life_exp = 1:n()) %>% 
   ungroup() %>% 
   ggplot() +
   aes(x = year) +
-  aes(y = rank) +
+  aes(y = rank_life_exp) +
   geom_point(size = 6) +
   aes(color = country) +
   ggbump::geom_bump(size = 2, smooth = 8) +
@@ -333,6 +345,8 @@ gapminder %>%
   aes(x = lifeExp) +
   geom_point(size = .2) + 
   geom_boxplot(alpha = .1) + #ROTATE
+  geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) + #ROTATE
+  geom_boxplot(aes(color = gdpPercap >= 10000)  width = .1, outlier.shape = NA, alpha = 0.5) + #ROTATE
   geom_jitter(width = .2, alpha = .5, color = "green") + #ROTATE
   geom_violin(alpha = .1) + #ROTATE
   ggforce::geom_sina(col = "magenta", alpha = .5) + #ROTATE
@@ -345,6 +359,7 @@ gapminder %>%
   ggridges::geom_density_ridges(jittered_points = TRUE, position = "raincloud", alpha = .5, scale = 0.9) + #ROTATE
   ggridges::geom_density_ridges(stat = "binline", bins = 20, scale = 0.95, draw_baseline = FALSE) + #ROTATE
   ggridges::geom_density_ridges(scale = 2, alpha = .5) + ggridges::scale_fill_cyclical(values = c("blue", "green")) + #ROTATE
+  geom_point(aes(color = continent), position = position_nudge(x = 0, y = .2), size = .5, alpha = 0.8) + geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) + #ROTATE
   theme_minimal()
 ```
 
@@ -374,12 +389,18 @@ gapminder %>%
 ```
 
 
-```{r}
-# library(igraph)
-# graph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
-# 
-# ggraph(graph, 'treemap', weight = 'size') + 
-#     geom_node_tile(aes(fill = depth), size = 0.25)
+```{r, eval = F, echo = F}
+# gapminder %>% 
+#   filter(year == 2002) %>% 
+#   filter(continent == "Europe") %>% 
+#   mutate(to = 1) %>% 
+#   select(country, to, pop) %>% 
+#   rename(from = country) %>% 
+#   uncount(round(pop/10000000)) %>% 
+#   select(-pop) %>% 
+# igraph::graph_from_data_frame(.) %>% 
+# ggraph::ggraph(., layout = "treemap") + 
+#   geom_node_tile(aes(fill = depth), size = 0.25)
 ```
 
 
@@ -555,6 +576,8 @@ tibble(my_var = c(1, 2.5, 2.5, 2.5,
   # each category take up horizontal space of 1 
   aes(x = as_factor(my_var)) 
 ```
+
+
 
 
 

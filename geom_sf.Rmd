@@ -1,0 +1,273 @@
+---
+title: "Mapping Data in R with ggplot2 and geom_sf()"
+subtitle: "a 'flipbookr' tutorial"
+author: "Gina Reynolds and Conner J. Surrency"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, hygge, ninjutsu]
+    nature:
+      ratio: 10:5
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, echo=F}
+knitr::opts_chunk$set(fig.width = 12, message = FALSE, warning = FALSE, comment = "", cache = T, fig.retina = 3)
+library(flipbookr)
+```
+
+# What Are We Doing?
+--
+
+- Here we will walk through the process of creating maps in RStudio.
+--
+
+- This will include the packages required and how to code a map.
+--
+
+- We will be looking at data from two cases: Wetherspoon restaurants in UK, and defense expenditure of NATO member states. 
+
+
+---
+
+## Set-Up
+--
+
+We will need the following packages (and data) installed:  
+--
+
+- tidyverse
+--
+
+- rnaturalearth
+
+
+---
+#Example #1
+--
+
+We know the location of restaurants in the UK and the price of the empire burgur. 
+
+
+The map we make will be a simple static map that shows those points.
+
+---
+
+`r chunk_reveal("wetherspoon")`
+
+```{r wetherspoon, include = F}
+library(tidyverse)
+library(rnaturalearth)
+library(readxl)
+read_excel("wetherspoon.xlsx") ->
+wetherspoon_raw
+#
+wetherspoon_raw %>%
+  janitor::clean_names() %>% 
+  select(1:5)  ->
+wetherspoon
+```
+
+---
+
+```{r wether, include = FALSE, echo=F}
+rnaturalearth::ne_countries(
+  scale = "medium", returnclass = "sf") %>% 
+  select(name, continent, geometry) %>% 
+  filter(name == 'United Kingdom') -> 
+uk
+#
+ggplot(data = wetherspoon) + 
+  ggplot2::geom_sf(data = uk) + 
+  geom_point(aes(x = longitude, 
+                   y = latitude, 
+                   color = empire_state_burger), 
+               alpha = .3) +
+    scale_color_viridis_c() + 
+    labs(color = "Empire State Burger\nCost (pounds)") +
+    theme_bw() +
+    theme(plot.title = element_text(hjust = 0.5)) + 
+    theme(axis.title = element_blank()) 
+```
+
+
+
+`r chunk_reveal("wether")`
+
+
+---
+#Example #2
+--
+
+The second example will also draw its shapefiles from the rnaturalearth package. We will also use a dataset containing the defense expenditure of NATO member states. 
+
+We will make a colored map that allows for easy visual comparison of spending levels. This type is called a choropleth map.
+
+---
+
+
+```{r, echo=T}
+library(readxl)
+nato_expenditure <- read_excel("nato_expenditure.xlsx")
+
+nato_expenditure
+```
+---
+
+```{r nato, include = FALSE, echo=F}
+nato_names <- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",
+                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")
+#
+rnaturalearth::ne_countries(
+  scale = "medium", returnclass = "sf") %>%   
+  select(name, pop_est, gdp_md_est, 
+         continent, geometry) %>%
+  filter(name %in% nato_names) %>% 
+  left_join(nato_expenditure, by = "name") ->
+  nato_countries
+#
+ggplot(data = nato_countries) + 
+  ggplot2::geom_sf(data = nato_countries) + 
+    aes(fill = spendingPercap) +
+    scale_fill_viridis_c(option = "magma") +
+  ggplot2::coord_sf(xlim = c(-175, 47.5), 
+           ylim = c(23, 85), 
+           expand = FALSE) + 
+  labs(title = "Defense Expenditure by Share of GDP (%)", 
+         subtitle = "NATO Member States", 
+         fill = "Share of GDP (%)") + 
+  theme_bw() +
+  theme(plot.title = 
+            element_text(hjust = 0.5)) + 
+  theme(plot.subtitle = 
+            element_text(hjust = 0.5)) +
+  coord_sf() 
+```
+
+`r chunk_reveal("nato", break_type = "auto")`
+
+
+---
+
+`r chunk_reveal("projections", break_type = "rotate")`
+
+
+```{r projections, include = F}
+rnaturalearth::ne_countries(
+  scale = "medium", returnclass = "sf") ->
+ne_countries
+
+ggplot(data = ne_countries) + 
+  ggplot2::geom_sf(data = ne_countries) + 
+    aes(fill = pop_est) +
+    scale_fill_viridis_c(option = "magma") +
+  labs(title = "Defense Expenditure by Share of GDP (%)", 
+         subtitle = "NATO Member States", 
+         fill = "Share of GDP (%)") + 
+  theme_bw() +
+  theme(plot.title = 
+            element_text(hjust = 0.5)) + 
+  theme(plot.subtitle = 
+            element_text(hjust = 0.5)) +
+  coord_sf() + #ROTATE
+  coord_sf(crs = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=merc") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=145 +lat_0=-90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=135 +lat_0=-90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=125 +lat_0=-90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=-90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=-90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=-70 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=-50 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=-30 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=-10 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=10 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=30 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=50 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=70 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=0 +lon_0=90 +lat_0=90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=10 +lon_0=70 +lat_0=90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=20 +lon_0=50 +lat_0=90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=30 +lon_0=30 +lat_0=90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=40 +lon_0=15 +lat_0=90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=laea +y_0=50 +lon_0=0 +lat_0=90 +ellps=WGS84 +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=igh") + #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=57.5 +lon_0=-76 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") + #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=-56 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=-36 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=-16 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=0 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=15 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=30 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=50 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=70 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=90 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=49.5 +lat_2=45.5 +lat_0=77.5 +lon_0=90 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=69.5 +lat_2=45.5 +lat_0=77.5 +lon_0=90 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=89.5 +lat_2=45.5 +lat_0=77.5 +lon_0=90 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=110 +lat_2=45.5 +lat_0=77.5 +lon_0=90 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE
+  coord_sf(crs = "+proj=aea +lat_1=120 +lat_2=45.5 +lat_0=77.5 +lon_0=90 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") #ROTATE 
+  coord_sf(crs = "+proj=stere +lat_0=90") #ROTATE 
+  coord_sf(crs = "+proj=stere +lat_0=-90") #ROTATE 
+  coord_sf(crs = "+proj=lcc +lat_0=30 +lat_1=60 +lon_0=-100") #ROTATE 
+  coord_sf(crs = "+proj=moll") #ROTATE 
+```
+
+---
+
+
+
+
+
+---
+
+`r chunk_reveal("mapproj", break_type = "rotate")`
+
+```{r mapproj, include=F}
+library(maps)
+library(mapproj)
+# Bonne equal-area projection with state abbreviations
+map("state",proj='bonne', param=25) #ROTATE
+map("state",proj='bonne', param=45) #ROTATE
+map("state",proj='bonne', param=65) #ROTATE
+map("state",proj="albers", par=c(10,50)) #ROTATE
+map("state",proj="albers", par=c(20,50)) # another Albers projection #ROTATE
+map("state",proj="albers", par=c(30,50)) # another Albers projection #ROTATE
+map("state",proj="albers", par=c(40,50)) # another Albers projection #ROTATE
+map("state",proj="albers", par=c(50,50)) # another Albers projection #ROTATE
+map("state",proj="albers", par=c(60,50)) # another Albers projection #ROTATE
+map("state",proj="albers", par=c(70,50)) # another Albers projection #ROTATE
+map("world",proj="gnomonic",orient=c(0,-100,0)) # example of orient #ROTATE
+map("world",proj="gnomonic",orient=c(0,-90,0)) # example of orient #ROTATE
+map("world",proj="gnomonic",orient=c(0,-80,0)) # example of orient #ROTATE
+map("world",proj="gnomonic",orient=c(0,-70,0)) # example of orient #ROTATE
+map("world",proj="gnomonic",orient=c(0,-60,0)) # example of orient #ROTATE
+map("world",proj="gnomonic",orient=c(10,-60,0)) # example of orient #ROTATE
+map("world",proj="gnomonic",orient=c(20,-60,0)) # example of orient #ROTATE
+map("world",proj="gnomonic",orient=c(30,-60,0)) # example of orient #ROTATE
+map("world",proj="gnomonic",orient=c(40,-60,0)) # example of orient #ROTATE
+map("world",proj="gnomonic",orient=c(40,-60,10)) # example of orient #ROTATE
+map("world",proj="gnomonic",orient=c(40,-60,20)) # example of orient #ROTATE
+map("world",proj="gnomonic",orient=c(40,-60,30)) # example of orient #ROTATE
+map("world",proj="gnomonic",orient=c(40,-60,40)) # example of orient #ROTATE
+map("world",proj = "cylindrical") #ROTATE
+map("world",proj = "aitoff") #ROTATE
+map("world",proj = "azequalarea") #ROTATE
+map("world",proj = "azequidist") #ROTATE
+map("world",proj = "eisenlohr") #ROTATE
+map("world",proj = "gilbert") #ROTATE
+map("world",proj = "guyou") #ROTATE
+map("world",proj = "hex") #ROTATE
+map("world",proj = "lagrange") #ROTATE
+map("world",proj = "laue") #ROTATE
+map("world",proj = "mercator") #ROTATE
+map("world",proj = "orthographic") #ROTATE
+map("world",proj = "polyconic") #ROTATE
+map("world",proj = "sinusoidal") #ROTATE
+map("world",proj = "tetra") #ROTATE
+```

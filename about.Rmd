@@ -18,28 +18,67 @@ files <- list.files(path = path, pattern = pattern)
 file_path <- paste0(path,files)
 gifski::gifski(png_files = file_path, progress = F,
                gif_file = gif_file, 
+               delay = .2,
                width = 100, height = 100)
 
 } 
 
+select_static <- function(path, pattern){
+  
+  files <- list.files(path = path, pattern = pattern)
+  file_path <- paste0(path,files)
+  file_path[3]
+  
+}
+
 use_gif <- function(gif_file){
   
-  knitr::include_graphics(path = gif_file, )
+  knitr::include_graphics(path = gif_file)
+  
+}
+
+
+use_static_and_gif <- function(static_file, gif_file){
+
+paste0('<img class="static" width = 100, height = 100 src="', 
+       static_file, 
+       '"><img class="active" src="', 
+       gif_file,'">')
   
 }
 
 build_and_use_gif <- function(path, 
                               pattern, 
+                              static_file = select_static(path, pattern),
                               gif_file = paste0(pattern, ".gif")){
   
   build_gif(path = path, pattern = pattern, gif_file = gif_file)
-  use_gif(gif_file = gif_file)
+  use_static_and_gif(static_file = static_file,
+                     gif_file = gif_file)
   
 }
 
 knitr::opts_chunk$set(echo = F, eval = T, message = F, warning = F, cache = F)
 ```
 
+
+
+```{css}
+.static {
+  position:absolute;
+  background: white;
+}
+
+.static:hover {
+  opacity:0;
+}
+```
+
+
+
+<img class="static" src="https://lh4.googleusercontent.com/-gZiu96oTuu4/Uag5oWLQHfI/AAAAAAAABSE/pl1W8n91hH0/w140-h165-no/Homer-Static.png"><img class="active" src="https://lh4.googleusercontent.com/i1RprwcvxhbN2TAMunNxS4RiNVT0DvlD9FNQCvPFuJ0=w140-h165-no">
+
+**Homer dips his toe into some Data Vis! Leaving him here just for Data Viz Spring 2020!**
 
 
 These are my ideas about the *grammar* of ggplot2.  ggplot2 is based on the grammar of graphics.  But it has its *own* grammar too --- it is a *particular* implementation of the grammar of graphics --- and a lot of really helpful decisions are part of its grammar (like having set defaults for aesthetic scales, and scale and plot labels make it easier to build plots quickly).  If you are teaching ggplot2, you might think about teaching the grammar of ggplot2 *first* and then come back to the *grammar of graphics* --- because there will be more context for seeing how an implemenation relates to the larger philosophy.  There are a lot of great resources out there already teaching the grammar of graphics which are sources of inspiration for the *guide*.  
@@ -91,7 +130,7 @@ Grammar Analogy | How?  | What?
 6. **Punctuation**  | *facet_wrap(~continent)*| [**faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables ](facet.html){target="_blank"}
 7. **Greetings**|*theme_minimal()* | [**themes** changing plot look and feel](theme.html){target="_blank"}
 8. **The Written Language** | *ggsave(file = "plot.png", <br> plot = g, <br>  height = "4in", <br> width = "6in")*|[save plots with different **resolutions** and **file formats**](ggsave.html){target="_blank"}
-9. **Composition** | *library(patchwork) <br> (g1 + g2) \| g3 <br> <br> library(cowplot) <br> plotgrid(...,)* | [create ensembles](ensembles.html){target="_blank"}
+9. **Composition** | *library(patchwork) <br> (g1 + g2) \| g3 <br> <br> library(cowplot) <br> plotgrid(...,)* | [Composing plots into ensembles](ensembles.html){target="_blank"}
 10. **Concision** | last_plot(), writing functions | We've been intentionally verbose, but we can chose to be more concise
 ---
 
@@ -113,14 +152,14 @@ p <- "geoms_files/figure-html/"
 
 [A closer look at **geoms**](geoms.html){target="_blank"}
 
-- [continuous - continuous](geoms.html#cc){target="_blank"} `r build_and_use_gif(path = p, pattern = "continuous_continuous")`
+- [continuous X continuous](geoms.html#cc){target="_blank"} `r build_and_use_gif(path = p, pattern = "continuous_continuous")`
 - [univaritate continuous](geoms.html#c){target="_blank"} `r build_and_use_gif(path = p, pattern = "univariate_continuous")`
 - [1 discrete](geoms.html#d){target="_blank"}
-- [continuous - discrete](geoms.html#cd){target="_blank"} `r build_and_use_gif(path = p, pattern = "geom_discrete_continuous")`
-- [discrete - continous, single value](){} `r build_and_use_gif(path = p, pattern = "single_value")`
-- [discrete - discrete](geoms.html#dd){target="_blank"} `r build_and_use_gif(path = p, pattern = "discrete2x")`
+- [continuous X discrete](geoms.html#cd){target="_blank"} `r build_and_use_gif(path = p, pattern = "geom_discrete_continuous")`
+- [discrete X continous, single value](){} `r build_and_use_gif(path = p, pattern = "single_value")`
+- [discrete X discrete](geoms.html#dd){target="_blank"} `r build_and_use_gif(path = p, pattern = "discrete2x")`
 - [single series]  `r build_and_use_gif(path = p, pattern = "time_series_ro")`
-- [series - multi]  `r build_and_use_gif(path = p, pattern = "time_series_multi")`
+- [multi series]  `r build_and_use_gif(path = p, pattern = "time_series_multi")`
   
   
 
@@ -146,21 +185,27 @@ More Annotation topics
 
 External Theme Packages
 
-- [{ggeasy} - easy adjustment for common theme modifications](themes_ggeasy.html){target="_blank"}
+- [{ggeasy} easy adjustment for common theme modifications](themes_ggeasy.html){target="_blank"}
 - [External Themes, {ggthemes} {ggthemr}](external_themes.html){target="_blank"}
 
 
 
 Spatial
 
-- [geom_sf](https://evamaerey.github.io/flipbooks/geom_sf/geom_sf#1){target="_blank"}
+- [geom_sf](geom_sf.html){target="_blank"}
 - [tmap](tmap.html){target="_blank"}
 
 
 Network
 
-- [An example](https://evamaerey.github.io/flipbooks/the_office/the_office.html#81)
+- [{ggraph} and {tidygraph}]()
+- [An example with the office data](https://evamaerey.github.io/flipbooks/the_office/the_office.html#81)
 
+
+Animation
+
+- [{gganimate}](gganimate.html){target="_blank"}
+- [easing]()
 
 
 
@@ -193,11 +238,11 @@ ggplot2 is very flexible, so there often there are more than one way of getting 
 If you aren't on board with this guide (and even if you are)   you may want check out other resouces.  The more definitive and comprehensive guide to ggplot2 is the 3rd edition of [*ggplot2: elegant graphics for data analysis*](ggplot2-book.org){target="_blank"}. Some other workshop materials are Alison Hill's [Take a Sad Plot and Make it Better](https://alison.netlify.app/rlm-sad-plot-better/#1), Garrick Aden-Buie's [*A Gentle Guide to the Grammar of Graphics with ggplot2*](https://pkg.garrickadenbuie.com/gentle-ggplot2/#1){target="_blank"}, Will Chase's [*R you ready to make charts?*](https://www.williamrchase.com/slides/ggplot_intro.html#1){target="_blank"}, Malcom Barrett's [*Designing ggplots making clear figures that communicate*](https://designing-ggplots.netlify.com/#1){target="_blank"}, and Thomas Lin Pederson's [*Drawing anything with ggplot2*](https://github.com/thomasp85/ggplot2_workshop/blob/master/presentation.pdf){target="_blank"}.  [The ggplot2 cheatsheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf){target="_blank"} is also excellent. 
 
 
----
+<!-- --- -->
 
-# Navigating the grammar guide
+<!-- # Navigating the grammar guide -->
 
-<a href="navigate.html" class="button">Suggested Navigation</a>
+<!-- <a href="navigate.html" class="button">Suggested Navigation</a> -->
 
 ---
 

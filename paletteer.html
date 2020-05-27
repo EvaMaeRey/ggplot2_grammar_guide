@@ -91,14 +91,14 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-names_d-auto[
 
 ```r
 *paletteer::palettes_d_names
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-names_d-auto[
 
 ```
                 package                        palette length        type
@@ -1534,21 +1534,22 @@ count: false
 1430              yarrr                           info      9 qualitative
 1431              yarrr                          info2     14 qualitative
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-names_d-auto[
 
 ```r
 paletteer::palettes_d_names %&gt;%  
 * group_by(package)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-names_d-auto[
 
 ```
 # A tibble: 1,431 x 4
@@ -1567,22 +1568,23 @@ paletteer::palettes_d_names %&gt;%
 10 basetheme default        8 qualitative
 # … with 1,421 more rows
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-names_d-auto[
 
 ```r
 paletteer::palettes_d_names %&gt;%  
   group_by(package) %&gt;%  
 * count()
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-names_d-auto[
 
 ```
 # A tibble: 43 x 2
@@ -1601,14 +1603,14 @@ paletteer::palettes_d_names %&gt;%
 10 ggpomological     2
 # … with 33 more rows
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-names_d-auto[
 
 ```r
 paletteer::palettes_d_names %&gt;%  
@@ -1616,22 +1618,23 @@ paletteer::palettes_d_names %&gt;%
   count() %&gt;%  
 * pull()
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-names_d-auto[
 
 ```
  [1]   5   9  22   2  54  17  18   6  92   2  45 101  18  27   1  16  13  21 128
 [20]   6  17  25  12  16  16  48 389   8  14   7  34  35  41   5   3  35  27  16
 [39]   8  14  18  19  21
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-names_d-auto[
 
 ```r
 paletteer::palettes_d_names %&gt;%  
@@ -1640,20 +1643,21 @@ paletteer::palettes_d_names %&gt;%
   pull() %&gt;%  
 * sum()
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-names_d-auto[
 
 ```
 [1] 1431
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-names_d-auto[
 
 ```r
 paletteer::palettes_d_names %&gt;%  
@@ -1664,8 +1668,9 @@ paletteer::palettes_d_names %&gt;%
 
 *paletteer::palettes_c_names
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-names_d-auto[
 
 ```
 [1] 1431
@@ -1989,14 +1994,14 @@ paletteer::palettes_d_names %&gt;%
 314       viridis                                   plasma  sequential
 315       viridis                                  cividis  sequential
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-names_d-auto[
 
 ```r
 paletteer::palettes_d_names %&gt;%  
@@ -2008,8 +2013,9 @@ paletteer::palettes_d_names %&gt;%
 paletteer::palettes_c_names %&gt;%  
 * group_by(package)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-names_d-auto[
 
 ```
 [1] 1431
@@ -2032,14 +2038,14 @@ paletteer::palettes_c_names %&gt;%
 10 gameofthrones tully      sequential
 # … with 305 more rows
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-names_d-auto[
 
 ```r
 paletteer::palettes_d_names %&gt;%  
@@ -2052,8 +2058,9 @@ paletteer::palettes_c_names %&gt;%
   group_by(package) %&gt;%  
 * count()
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-names_d-auto[
 
 ```
 [1] 1431
@@ -2074,14 +2081,14 @@ paletteer::palettes_c_names %&gt;%
 8 scico            24
 9 viridis           5
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-names_d-auto[
 
 ```r
 paletteer::palettes_d_names %&gt;%  
@@ -2095,8 +2102,9 @@ paletteer::palettes_c_names %&gt;%
   count() %&gt;%  
 * pull()
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-names_d-auto[
 
 ```
 [1] 1431
@@ -2105,14 +2113,14 @@ paletteer::palettes_c_names %&gt;%
 ```
 [1]  16  51 115  15   8   4  77  24   5
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-names_d-auto[
 
 ```r
 paletteer::palettes_d_names %&gt;%  
@@ -2127,8 +2135,9 @@ paletteer::palettes_c_names %&gt;%
   pull() %&gt;%  
 * sum()
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-names_d-auto[
 
 ```
 [1] 1431
@@ -2137,7 +2146,24 @@ paletteer::palettes_c_names %&gt;%
 ```
 [1] 315
 ```
-]]
+]
+
+&lt;style&gt;
+.left-code-names_d-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-names_d-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -2158,8 +2184,7 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-palettes_d-rotate[
 
 ```r
 library(gapminder)  
@@ -2173,17 +2198,18 @@ gapminder %&gt;%
   geom_point() +  
   scale_color_paletteer_d("nord::aurora")   
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-palettes_d-rotate[
 &lt;img src="paletteer_files/figure-html/palettes_d_rotate_1_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-palettes_d-rotate[
 
 ```r
 library(gapminder)  
@@ -2197,17 +2223,18 @@ gapminder %&gt;%
   geom_point() +  
 * scale_color_paletteer_d("basetheme::ink")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-palettes_d-rotate[
 &lt;img src="paletteer_files/figure-html/palettes_d_rotate_2_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-palettes_d-rotate[
 
 ```r
 library(gapminder)  
@@ -2221,17 +2248,18 @@ gapminder %&gt;%
   geom_point() +  
 * scale_color_paletteer_d("basetheme::ink")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-palettes_d-rotate[
 &lt;img src="paletteer_files/figure-html/palettes_d_rotate_3_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-palettes_d-rotate[
 
 ```r
 library(gapminder)  
@@ -2245,10 +2273,28 @@ gapminder %&gt;%
   geom_point() +  
 * scale_color_paletteer_d("LaCroixColoR::Orange")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-palettes_d-rotate[
 &lt;img src="paletteer_files/figure-html/palettes_d_rotate_4_output-1.png" width="432" /&gt;
-]]
+]
+
+&lt;style&gt;
+.left-code-palettes_d-rotate {
+  color: #777;
+  width: 59%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-palettes_d-rotate {
+  width: 40%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -2276,8 +2322,7 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-palettes_c-rotate[
 
 ```r
 library(gapminder)  
@@ -2292,17 +2337,18 @@ gapminder %&gt;%
              alpha = .7) +  
   scale_color_paletteer_c("grDevices::Purple-Blue")   
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-palettes_c-rotate[
 &lt;img src="paletteer_files/figure-html/palettes_c_rotate_1_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-palettes_c-rotate[
 
 ```r
 library(gapminder)  
@@ -2317,17 +2363,18 @@ gapminder %&gt;%
              alpha = .7) +  
 * scale_color_paletteer_c("pals::kovesi.rainbow_bgyr_35_85_c73")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-palettes_c-rotate[
 &lt;img src="paletteer_files/figure-html/palettes_c_rotate_2_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-palettes_c-rotate[
 
 ```r
 library(gapminder)  
@@ -2342,17 +2389,18 @@ gapminder %&gt;%
              alpha = .7) +  
 * scale_color_paletteer_c("ggthemes::Red-Gold")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-palettes_c-rotate[
 &lt;img src="paletteer_files/figure-html/palettes_c_rotate_3_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-palettes_c-rotate[
 
 ```r
 library(gapminder)  
@@ -2367,10 +2415,28 @@ gapminder %&gt;%
              alpha = .7) +  
 * scale_color_paletteer_c("scico::devon")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-palettes_c-rotate[
 &lt;img src="paletteer_files/figure-html/palettes_c_rotate_4_output-1.png" width="432" /&gt;
-]]
+]
+
+&lt;style&gt;
+.left-code-palettes_c-rotate {
+  color: #777;
+  width: 59%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-palettes_c-rotate {
+  width: 40%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -2394,8 +2460,7 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-palettes_binned-rotate[
 
 ```r
 library(gapminder)  
@@ -2410,17 +2475,18 @@ gapminder %&gt;%
              alpha = .7) +  
   scale_color_paletteer_binned("grDevices::Purple-Blue")   
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-palettes_binned-rotate[
 &lt;img src="paletteer_files/figure-html/palettes_binned_rotate_1_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-palettes_binned-rotate[
 
 ```r
 library(gapminder)  
@@ -2435,17 +2501,18 @@ gapminder %&gt;%
              alpha = .7) +  
 * scale_color_paletteer_binned("pals::kovesi.rainbow_bgyr_35_85_c73")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-palettes_binned-rotate[
 &lt;img src="paletteer_files/figure-html/palettes_binned_rotate_2_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-palettes_binned-rotate[
 
 ```r
 library(gapminder)  
@@ -2460,17 +2527,18 @@ gapminder %&gt;%
              alpha = .7) +  
 * scale_color_paletteer_binned("ggthemes::Red-Gold")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-palettes_binned-rotate[
 &lt;img src="paletteer_files/figure-html/palettes_binned_rotate_3_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-palettes_binned-rotate[
 
 ```r
 library(gapminder)  
@@ -2485,10 +2553,28 @@ gapminder %&gt;%
              alpha = .7) +  
 * scale_color_paletteer_binned("scico::devon")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-palettes_binned-rotate[
 &lt;img src="paletteer_files/figure-html/palettes_binned_rotate_4_output-1.png" width="432" /&gt;
-]]
+]
+
+&lt;style&gt;
+.left-code-palettes_binned-rotate {
+  color: #777;
+  width: 59%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-palettes_binned-rotate {
+  width: 40%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -2513,8 +2599,7 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 pal &lt;- paletteer_d("awtools::a_palette")  
@@ -2525,8 +2610,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -2897,14 +2983,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("awtools::bpalette")
@@ -2915,8 +3001,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -3311,14 +3398,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("awtools::gpalette")
@@ -3329,8 +3416,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -3689,14 +3777,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("basetheme::brutal")
@@ -3707,8 +3795,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -4085,14 +4174,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("basetheme::clean")
@@ -4103,8 +4192,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -4481,14 +4571,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("basetheme::dark")
@@ -4499,8 +4589,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -4877,14 +4968,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("calecopal::sierra1")
@@ -4895,8 +4986,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -5261,14 +5353,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("calecopal::sierra2")
@@ -5279,8 +5371,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -5645,14 +5738,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("calecopal::chaparral1")
@@ -5663,8 +5756,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -6029,14 +6123,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("colorblindr::OkabeIto")
@@ -6047,8 +6141,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -6419,14 +6514,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("colorblindr::OkabeIto_black")
@@ -6437,8 +6532,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -6809,14 +6905,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("colRoz::grandis")
@@ -6827,8 +6923,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -7193,14 +7290,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("colRoz::flavolineata")
@@ -7211,8 +7308,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -7577,14 +7675,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("colRoz::whitei")
@@ -7595,8 +7693,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -7961,14 +8060,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("dichromat::BrowntoBlue.10")
@@ -7979,8 +8078,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -8357,14 +8457,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("dichromat::BrowntoBlue.12")
@@ -8375,8 +8475,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -8759,14 +8860,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("dichromat::BluetoDarkOrange.12")
@@ -8777,8 +8878,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -9161,14 +9263,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("DresdenColor::stormfront")
@@ -9179,8 +9281,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -9545,14 +9648,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("DresdenColor::foolmoon")
@@ -9563,8 +9666,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -9929,14 +10033,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("DresdenColor::graveperil")
@@ -9947,8 +10051,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -10313,14 +10418,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("dutchmasters::milkmaid")
@@ -10331,8 +10436,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -10718,14 +10824,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("dutchmasters::pearl_earring")
@@ -10736,8 +10842,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -11117,14 +11224,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("dutchmasters::view_of_Delft")
@@ -11135,8 +11242,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -11519,14 +11627,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("fishualize::Acanthurus_leucosternon")
@@ -11537,8 +11645,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -11900,14 +12009,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("fishualize::Acanthurus_olivaceus")
@@ -11918,8 +12027,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -12281,14 +12391,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("fishualize::Acanthurus_sohal")
@@ -12299,8 +12409,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -12662,14 +12773,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ggpomological::pomological_base")
@@ -12680,8 +12791,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -13049,14 +13161,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ggpomological::pomological_palette")
@@ -13067,8 +13179,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -13442,14 +13555,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ggsci::nrc_npg")
@@ -13460,8 +13573,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -13838,14 +13952,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ggsci::default_aaas")
@@ -13856,8 +13970,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -14234,14 +14349,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ggsci::default_nejm")
@@ -14252,8 +14367,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -14624,14 +14740,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ggthemes::calc")
@@ -14642,8 +14758,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -15026,14 +15143,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ggthemes::manyeys")
@@ -15044,8 +15161,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -15449,14 +15567,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ggthemes::gdoc")
@@ -15467,8 +15585,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -15845,14 +15964,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ggthemr::flat")
@@ -15863,8 +15982,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -16238,14 +16358,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ggthemr::flat dark")
@@ -16256,8 +16376,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -16631,14 +16752,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ggthemr::dust")
@@ -16649,8 +16770,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -17024,14 +17146,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ghibli::MarnieLight1")
@@ -17042,8 +17164,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -17411,14 +17534,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ghibli::MarnieMedium1")
@@ -17429,8 +17552,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -17798,14 +17922,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ghibli::MarnieDark1")
@@ -17816,8 +17940,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -18185,14 +18310,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("grDevices::blues9")
@@ -18203,8 +18328,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -18578,14 +18704,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("IslamicArt::shiraz")
@@ -18596,8 +18722,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -18980,14 +19107,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("IslamicArt::samarqand")
@@ -18998,8 +19125,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -19382,14 +19510,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("IslamicArt::samarqand2")
@@ -19400,8 +19528,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -19760,14 +19889,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("jcolors::default")
@@ -19778,8 +19907,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -20141,14 +20271,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("jcolors::pal2")
@@ -20159,8 +20289,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -20522,14 +20653,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("jcolors::pal3")
@@ -20540,8 +20671,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -20903,14 +21035,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("LaCroixColoR::PassionFruit")
@@ -20921,8 +21053,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -21287,14 +21420,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("LaCroixColoR::Mango")
@@ -21305,8 +21438,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -21671,14 +21805,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("LaCroixColoR::Pure")
@@ -21689,8 +21823,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -22055,14 +22190,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("lisa::JosefAlbers")
@@ -22073,8 +22208,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -22436,14 +22572,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("lisa::JosefAlbers_1")
@@ -22454,8 +22590,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -22817,14 +22954,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("lisa::GretchenAlbrecht")
@@ -22835,8 +22972,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -23198,14 +23336,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("MapPalettes::green_machine")
@@ -23216,8 +23354,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -23579,14 +23718,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("MapPalettes::bruiser")
@@ -23597,8 +23736,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -23960,14 +24100,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("MapPalettes::tealberry_pie")
@@ -23978,8 +24118,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -24341,14 +24482,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("miscpalettes::dreaming")
@@ -24359,8 +24500,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -24731,14 +24873,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("miscpalettes::jojo")
@@ -24749,8 +24891,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -25121,14 +25264,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("miscpalettes::beach")
@@ -25139,8 +25282,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -25511,14 +25655,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("nationalparkcolors::SmokyMountains")
@@ -25529,8 +25673,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -25895,14 +26040,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("nationalparkcolors::RockyMountains")
@@ -25913,8 +26058,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -26276,14 +26422,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("nationalparkcolors::Yellowstone")
@@ -26294,8 +26440,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -26660,14 +26807,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("NineteenEightyR::cobra")
@@ -26678,8 +26825,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -27044,14 +27192,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("NineteenEightyR::electronic_night")
@@ -27062,8 +27210,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -27425,14 +27574,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("NineteenEightyR::hotpink")
@@ -27443,8 +27592,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -27806,14 +27956,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("nord::polarnight")
@@ -27824,8 +27974,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -28184,14 +28335,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("nord::snowstorm")
@@ -28202,8 +28353,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -28559,14 +28711,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("nord::frost")
@@ -28577,8 +28729,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -28937,14 +29090,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ochRe::namatjira_qual")
@@ -28955,8 +29108,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -29327,14 +29481,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ochRe::namatjira_div")
@@ -29345,8 +29499,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -29717,14 +29872,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("ochRe::mccrea")
@@ -29735,8 +29890,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -30116,14 +30272,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("palettesForR::Android")
@@ -30134,8 +30290,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -30527,14 +30684,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("palettesForR::Bears")
@@ -30545,8 +30702,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -31661,14 +31819,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("palettesForR::Bgold")
@@ -31679,8 +31837,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -32795,14 +32954,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("palettetown::bulbasaur")
@@ -32813,8 +32972,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -33200,14 +33360,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("palettetown::ivysaur")
@@ -33218,8 +33378,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -33605,14 +33766,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("palettetown::venusaur")
@@ -33623,8 +33784,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -34013,14 +34175,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("pals::alphabet")
@@ -34031,8 +34193,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -34457,14 +34620,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("pals::alphabet2")
@@ -34475,8 +34638,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -34901,14 +35065,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("pals::glasbey")
@@ -34919,8 +35083,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -35363,14 +35528,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("PNWColors::Starfish")
@@ -35381,8 +35546,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -35750,14 +35916,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("PNWColors::Shuksan")
@@ -35768,8 +35934,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -36140,14 +36307,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("PNWColors::Bay")
@@ -36158,8 +36325,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -36521,14 +36689,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("Polychrome::alphabet")
@@ -36539,8 +36707,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -36965,14 +37134,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("Polychrome::dark")
@@ -36983,8 +37152,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -37403,14 +37573,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("Polychrome::glasbey")
@@ -37421,8 +37591,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -37865,14 +38036,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("rcartocolor::ag_Sunset")
@@ -37883,8 +38054,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -38252,14 +38424,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("rcartocolor::ag_GrnYl")
@@ -38270,8 +38442,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -38639,14 +38812,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("rcartocolor::Tropic")
@@ -38657,8 +38830,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -39026,14 +39200,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("RColorBrewer::BrBG")
@@ -39044,8 +39218,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -39425,14 +39600,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("RColorBrewer::PiYG")
@@ -39443,8 +39618,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -39824,14 +40000,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("RColorBrewer::PRGn")
@@ -39842,8 +40018,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -40223,14 +40400,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("Redmonder::dPBIYlBu")
@@ -40241,8 +40418,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -40622,14 +40800,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("Redmonder::dPBIYlPu")
@@ -40640,8 +40818,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -41021,14 +41200,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("Redmonder::dPBIPuGn")
@@ -41039,8 +41218,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -41420,14 +41600,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("RSkittleBrewer::original")
@@ -41438,8 +41618,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -41801,14 +41982,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("RSkittleBrewer::tropical")
@@ -41819,8 +42000,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -42182,14 +42364,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("RSkittleBrewer::wildberry")
@@ -42200,8 +42382,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -42563,14 +42746,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("tidyquant::tq_light")
@@ -42581,8 +42764,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -42965,14 +43149,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("tidyquant::tq_dark")
@@ -42983,8 +43167,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -43367,14 +43552,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("tidyquant::tq_green")
@@ -43385,8 +43570,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -43769,14 +43955,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("trekcolors::andorian")
@@ -43787,8 +43973,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -44162,14 +44349,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("trekcolors::bajoran")
@@ -44180,8 +44367,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -44546,14 +44734,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("trekcolors::borg")
@@ -44564,8 +44752,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -44939,14 +45128,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("tvthemes::attackOnTitan")
@@ -44957,8 +45146,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -45329,14 +45519,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("tvthemes::FireNation")
@@ -45347,8 +45537,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -45719,14 +45910,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("tvthemes::AirNomads")
@@ -45737,8 +45928,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -46106,14 +46298,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("unikn::pal_unikn")
@@ -46124,8 +46316,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -46505,14 +46698,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("unikn::pal_unikn_web")
@@ -46523,8 +46716,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -46901,14 +47095,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("unikn::pal_unikn_ppt")
@@ -46919,8 +47113,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -47297,14 +47492,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("vapeplot::vaporwave")
@@ -47315,8 +47510,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -47705,14 +47901,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("vapeplot::cool")
@@ -47723,8 +47919,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -48086,14 +48283,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("vapeplot::crystal_pepsi")
@@ -48104,8 +48301,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -48464,14 +48662,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("vapoRwave::avanti")
@@ -48482,8 +48680,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -48845,14 +49044,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("vapoRwave::cool")
@@ -48863,8 +49062,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -49226,14 +49426,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("vapoRwave::crystalPepsi")
@@ -49244,8 +49444,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -49604,14 +49805,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("werpals::cinderella")
@@ -49622,8 +49823,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -49985,14 +50187,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("werpals::monet")
@@ -50003,8 +50205,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -50369,14 +50572,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("werpals::small_world")
@@ -50387,8 +50590,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -50753,14 +50957,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("wesanderson::BottleRocket1")
@@ -50771,8 +50975,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -51140,14 +51345,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("wesanderson::BottleRocket2")
@@ -51158,8 +51363,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -51521,14 +51727,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("wesanderson::Rushmore1")
@@ -51539,8 +51745,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -51902,14 +52109,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("yarrr::basel")
@@ -51920,8 +52127,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -52298,14 +52506,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("yarrr::pony")
@@ -52316,8 +52524,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -52691,14 +52900,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_d-rotate[
 
 ```r
 *pal &lt;- paletteer_d("yarrr::xmen")
@@ -52709,8 +52918,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_d-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -53081,7 +53291,24 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
+&lt;style&gt;
+.left-code-straight_up_d-rotate {
+  color: #777;
+  width: 69%;
+  height: 92%;
+  float: left;
+  font-size: 110%
+}
+.right-output-straight_up_d-rotate {
+  width: 30%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -53107,8 +53334,7 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 pal &lt;- paletteer_c("gameofthrones::baratheon", 9)  
@@ -53119,8 +53345,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -53494,14 +53721,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("gameofthrones::greyjoy", 9)
@@ -53512,8 +53739,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -53887,14 +54115,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("gameofthrones::jon_snow", 9)
@@ -53905,8 +54133,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -54280,14 +54509,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("gameofthrones::lannister", 9)
@@ -54298,8 +54527,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -54673,14 +54903,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("gameofthrones::martell", 9)
@@ -54691,8 +54921,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -55066,14 +55297,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("ggthemes::Blue-Green Sequential", 9)
@@ -55084,8 +55315,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -55459,14 +55691,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("ggthemes::Blue Light", 9)
@@ -55477,8 +55709,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -55852,14 +56085,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("ggthemes::Orange Light", 9)
@@ -55870,8 +56103,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -56245,14 +56479,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("ggthemes::Blue", 9)
@@ -56263,8 +56497,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -56638,14 +56873,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("ggthemes::Orange", 9)
@@ -56656,8 +56891,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -57031,14 +57267,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("grDevices::rainbow", 9)
@@ -57049,8 +57285,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -57424,14 +57661,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("grDevices::heat.colors", 9)
@@ -57442,8 +57679,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -57817,14 +58055,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("grDevices::terrain.colors", 9)
@@ -57835,8 +58073,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -58210,14 +58449,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("grDevices::topo.colors", 9)
@@ -58228,8 +58467,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -58603,14 +58843,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("grDevices::cm.colors", 9)
@@ -58621,8 +58861,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -58996,14 +59237,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("harrypotter::slytherin", 9)
@@ -59014,8 +59255,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -59389,14 +59631,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("harrypotter::gryffindor", 9)
@@ -59407,8 +59649,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -59782,14 +60025,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("harrypotter::hufflepuff", 9)
@@ -59800,8 +60043,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -60175,14 +60419,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("harrypotter::ravenclaw", 9)
@@ -60193,8 +60437,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -60568,14 +60813,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("harrypotter::ravenclaw2", 9)
@@ -60586,8 +60831,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -60961,14 +61207,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("oompaBase::redscale", 9)
@@ -60979,8 +61225,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -61354,14 +61601,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("oompaBase::greenscale", 9)
@@ -61372,8 +61619,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -61747,14 +61995,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("oompaBase::bluescale", 9)
@@ -61765,8 +62013,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -62140,14 +62389,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("oompaBase::blueyellow", 9)
@@ -62158,8 +62407,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -62533,14 +62783,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("oompaBase::cyanyellow", 9)
@@ -62551,8 +62801,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -62926,14 +63177,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("pals::coolwarm", 9)
@@ -62944,8 +63195,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -63319,14 +63571,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("pals::warmcool", 9)
@@ -63337,8 +63589,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -63712,14 +63965,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("pals::jet", 9)
@@ -63730,8 +63983,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -64105,14 +64359,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("pals::parula", 9)
@@ -64123,8 +64377,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -64498,14 +64753,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("pals::cubicyf", 9)
@@ -64516,8 +64771,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -64891,14 +65147,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("scico::acton", 9)
@@ -64909,8 +65165,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -65284,14 +65541,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("scico::bamako", 9)
@@ -65302,8 +65559,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -65677,14 +65935,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("scico::batlow", 9)
@@ -65695,8 +65953,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -66070,14 +66329,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("scico::berlin", 9)
@@ -66088,8 +66347,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -66463,14 +66723,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("scico::bilbao", 9)
@@ -66481,8 +66741,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -66856,14 +67117,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("viridis::viridis", 9)
@@ -66874,8 +67135,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -67249,14 +67511,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("viridis::inferno", 9)
@@ -67267,8 +67529,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -67642,14 +67905,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("viridis::magma", 9)
@@ -67660,8 +67923,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -68035,14 +68299,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("viridis::plasma", 9)
@@ -68053,8 +68317,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -68428,14 +68693,14 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-straight_up_c-rotate[
 
 ```r
 *pal &lt;- paletteer_c("viridis::cividis", 9)
@@ -68446,8 +68711,9 @@ pal %&gt;%
   gt::data_color(columns = vars(pal),  
                  colors = as.character(pal))  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-straight_up_c-rotate[
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -68821,7 +69087,24 @@ pal %&gt;%
   
   
 </table></div>
-]]
+]
+
+&lt;style&gt;
+.left-code-straight_up_c-rotate {
+  color: #777;
+  width: 69%;
+  height: 92%;
+  float: left;
+  font-size: 110%
+}
+.right-output-straight_up_c-rotate {
+  width: 30%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -68890,30 +69173,20 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
 })();
 (function() {
   "use strict"
-  /* Replace <script> tags in slides area to make them executable
-   *
-   * Runs after post-processing of markdown source into slides and replaces only
-   * <script>s on the last slide of continued slides using the .has-continuation
-   * class added by xaringan. Finally, any <script>s in the slides area that
-   * aren't executed are commented out.
-   */
+  // Replace <script> tags in slides area to make them executable
   var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+    '.remark-slides-area .remark-slide-container script'
   );
   if (!scripts.length) return;
   for (var i = 0; i < scripts.length; i++) {
     var s = document.createElement('script');
     var code = document.createTextNode(scripts[i].textContent);
     s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
     scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-  var scriptsNotExecuted = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container.has-continuation script'
-  );
-  if (!scriptsNotExecuted.length) return;
-  for (var i = 0; i < scriptsNotExecuted.length; i++) {
-    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
-    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
   }
 })();
 (function() {

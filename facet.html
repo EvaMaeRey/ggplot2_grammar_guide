@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Facet</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Facet
+### Gina Reynolds
+
+---
+
+
+
+
+
+
+
+
+---
+
+name: facets
+
+# Punctuation: Small multiples
+
+Punctuation helps us break up language into digestible pieces. Breaking up visualization can also be helpful.  
+
+Creating *small multiples* also known as *faceting* is a powerful way to make data more digestible.   In ggplot, small plots based on a categorical variable can be visualized side by side.  
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  NULL   
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_1_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_wrap(~ continent)
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_2_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_wrap(~ continent, ncol = 2)
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_wrap(~ continent, scales = "free_x")
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_wrap(~ continent, scales = "free_x")
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_wrap(~ continent, scales = "free")
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_grid(continent ~ pop &gt; 10000000)
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_grid(. ~ pop &gt; 10000000)
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_grid(continent ~ .)
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_9_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_wrap(vars(continent, pop &gt; 10000000), scales = "free_y")
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_10_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_null()  # overrides any facetting
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_11_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-facets-rotate {
+  color: #777;
+  width: 54%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-facets-rotate {
+  width: 45%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 60%}
+&lt;/style&gt;
+
+
+&lt;!-- ```{r, dpi=400, eval = F} --&gt;
+&lt;!-- gapminder %&gt;%  --&gt;
+&lt;!--   select(continent) %&gt;%  --&gt;
+&lt;!--   ggplot() + --&gt;
+&lt;!--   aes(x = 1) + --&gt;
+&lt;!--   aes(fill = continent) + --&gt;
+&lt;!--   geom_bar(color = "white", size = .2) + --&gt;
+&lt;!--   coord_polar(theta = "y") + --&gt;
+&lt;!--   theme_void() + --&gt;
+&lt;!--   scale_fill_viridis_d() + --&gt;
+&lt;!--   theme(rect = element_rect(fill = "grey",  --&gt;
+&lt;!--                             color = "grey",  --&gt;
+&lt;!--                             linetype = "solid", --&gt;
+&lt;!--                             size = 0)) --&gt;
+
+&lt;!-- ggsave("pie.svg", dpi = 320,device = "svg") --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- Or at least an organized twitter thread!?  Another idea for you: pull aes() out of ggplot(). Do you do it? Lot's of reasons to do it! Downside is currently most examples make use of nested approach. @grrrck does this too, and esquisse --&gt;
+
+&lt;!-- ggplot(data = my_data) +  --&gt;
+&lt;!--    aes(x = my_var) --&gt;
+
+&lt;!-- Is it possible to do this with multiple geoms? I usually specify aes within the geom like  --&gt;
+
+&lt;!-- ggplot(data) + --&gt;
+&lt;!--   geom_point(aes(x, y)) + --&gt;
+&lt;!--   geom_line(aes(x, y, group = id))  --&gt;
+
+&lt;!-- I prefer this approach because it's explicit which aesthetics are bound to which geoms --&gt;
+
+&lt;!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! --&gt;
+
+
+&lt;!-- To change the data used for a plot, use the %+% operator! Oh!!!  --&gt;
+
+
+&lt;!-- # Stat_* --&gt;
+
+&lt;!-- ## Univariate discrete --&gt;
+
+
+
+&lt;!-- ```{r univariate_discrete, eval = F, echo = F} --&gt;
+&lt;!-- ggplot(gapminder_2002) + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   stat_count() + --&gt;
+&lt;!--   geom_bar() # convenience geom --&gt;
+&lt;!--             # default counting --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- r chunk_reveal("univariate_discrete")` --&gt;
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- ggplot(data = gapminder_2002) + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   aes(y = lifeExp) + --&gt;
+&lt;!--   geom_point(alpha = .1) + --&gt;
+&lt;!--   stat_summary( --&gt;
+&lt;!--     fun.ymin = min, --&gt;
+&lt;!--     fun.ymax = max, --&gt;
+&lt;!--     fun.y = median --&gt;
+&lt;!--   ) --&gt;
+&lt;!-- ``` --&gt;
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- gapminder_2002 %&gt;%  --&gt;
+&lt;!--   mutate(seventy_plus = lifeExp &gt; 60) %&gt;%  --&gt;
+&lt;!-- ggplot() + --&gt;
+&lt;!--   aes(x = continent) + --&gt;
+&lt;!--   aes(fill = seventy_plus) + --&gt;
+&lt;!--   geom_bar(alpha = .2) --&gt;
+&lt;!-- ``` --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,218 @@
+---
+title: "gganimate"
+subtitle: "a 'flipbookr' tutorial"
+author: "Gina Reynolds"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, hygge, ninjutsu]
+    nature:
+      ratio: 10:5
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, echo=F}
+knitr::opts_chunk$set(fig.width = 12, message = FALSE, warning = FALSE, comment = "", cache = T, fig.retina = 3)
+library(flipbookr)
+library(tidyverse)
+```
+
+
+---
+
+- transition - change the data
+- viewpoint - changing field of view
+- shadows - memory
+
+
+
+---
+
+`r chunk_reveal("transitions", break_type = "rotate")`
+
+```{r transitions, include = F}
+options(gganimate.nframes = 50)
+library(gapminder)
+ggplot(data = gapminder) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  aes(group = country) +
+  geom_point() +
+  aes(color = continent) +
+  aes(size = pop) +
+  scale_x_log10() +
+  NULL + #ROTATE
+  gganimate::transition_time(time = year) + #ROTATE
+  gganimate::transition_reveal(along = year) + #ROTATE
+  gganimate::transition_manual(frames = continent) #ROTATE
+```
+
+---
+
+# Graphing as time series
+
+---
+
+`r chunk_reveal("time_series_point", break_type = "rotate")`
+
+
+```{r time_series_point, include = F}
+options(gganimate.nframes = 50)
+library(gapminder)
+ggplot(data = gapminder) +
+  aes(x = year) +
+  aes(y = lifeExp) +
+  aes(group = country) + 
+  geom_point(size = 8) +
+  aes(color = continent) +
+  aes(size = pop) +
+  facet_wrap(~ continent) +
+  NULL + #ROTATE
+  gganimate::transition_time(time = year) + #ROTATE
+  gganimate::transition_reveal(along = year) + #ROTATE
+  gganimate::transition_manual(frames = continent) #ROTATE
+```
+
+
+
+
+---
+
+# geom_line(),  goem_path
+
+---
+
+`r chunk_reveal("time_series", break_type = "rotate")`
+
+
+```{r time_series, include = F}
+options(gganimate.nframes = 50)
+library(gapminder)
+ggplot(data = gapminder) +
+  aes(x = year) +
+  aes(y = lifeExp) +
+  aes(group = country) + 
+  geom_line() + 
+  geom_point(size = 8) +
+  aes(color = continent) +
+  aes(size = pop) +
+  facet_wrap(~ continent) +
+  NULL + #ROTATE
+  gganimate::transition_reveal(along = year) #ROTATE
+```
+
+
+---
+
+`r chunk_reveal("time_series_path", break_type = "rotate")`
+
+
+```{r time_series_path, include = F}
+options(gganimate.nframes = 50)
+library(gapminder)
+ggplot(data = gapminder) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  aes(group = country) + 
+  geom_path() + 
+  geom_point(size = 5) +
+  aes(color = continent) +
+  scale_x_log10() +
+  facet_wrap(~ continent) +
+  NULL + #ROTATE
+  gganimate::transition_reveal(along = year) #ROTATE
+```
+
+
+
+---
+
+`r chunk_reveal("enter_exit", break_type = "rotate")`
+
+```{r enter_exit, include = F}
+library(gganimate)
+options(gganimate.nframes = 50)
+library(gapminder)
+gapminder %>% 
+  filter(year > 1990) %>% 
+  ggplot(data = .) +
+  aes(x = year) +
+  aes(y = lifeExp) +
+  aes(group = country) + 
+  geom_point(size = 20) +
+  aes(color = continent) +
+  facet_wrap(~ continent) +
+  transition_events(start = year, end = as.integer(year + 1), enter_length = 1L, exit_length = 1L) + 
+  NULL + #ROTATE
+  enter_fade() + exit_fade() + #ROTATE
+  enter_fly() + exit_fly() + #ROTATE
+  enter_appear() + exit_disappear() + #ROTATE
+  enter_grow() + exit_shrink() #ROTATE
+```
+
+
+
+
+---
+
+`r chunk_reveal("enter_exit_col", break_type = "rotate")`
+
+```{r enter_exit_col, include = F}
+library(gganimate)
+options(gganimate.nframes = 50)
+library(gapminder)
+gapminder %>% 
+  filter(continent == "Oceania") %>% 
+  filter(year > 1990) %>% 
+  ggplot(data = .) +
+  aes(x = factor(year)) +
+  aes(y = lifeExp) +
+  geom_col(position = "dodge") +
+  aes(fill = country) +
+  transition_states(states = year) +
+  NULL + #ROTATE
+  enter_fade() +  #ROTATE
+  enter_fly() + #ROTATE
+  enter_appear() + #ROTATE
+  enter_grow() + #ROTATE
+  shadow_mark()
+```
+
+
+
+
+
+---
+
+# shadow_*()
+
+---
+
+`r chunk_reveal("transitions_shadow", break_type = "rotate")`
+
+```{r transitions_shadow, echo = F, eval = F}
+options(gganimate.nframes = 50)
+library(gapminder)
+ggplot(data = gapminder) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  aes(group = country) +
+  geom_point() +
+  aes(color = continent) +
+  aes(size = pop) +
+  scale_x_log10() +
+  gganimate::transition_time(time = year) + 
+  NULL + #ROTATE
+  shadow_mark() + #ROTATE
+  shadow_trail() + #ROTATE
+  shadow_wake(wake_length = .25) + #ROTATE
+  NULL ->
+g
+
+animate(plot = g, detail = 10)
+```
+
+
+

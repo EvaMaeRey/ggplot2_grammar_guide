@@ -231,7 +231,7 @@ class: inverse, middle, center
 
 <!-- https://images.unsplash.com/photo-1504197885-609741792ce7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80 -->
 
-`r chunk_reveal("rgb", break_type = "rotate")`
+`r chunk_reveal("rgb", break_type = "rotate", width_code = "60%", width_output = "39%")`
 
 ```{r rgb, eval = F, echo = F}
 ggplot() +
@@ -366,7 +366,7 @@ binary code...
 ---
 
 
-`r chunk_reveal("hex", break_type = "rotate")`
+`r chunk_reveal("hex", break_type = "rotate", width_code = "60%", width_output = "39%")`
 
 ```{r hex, eval = F, echo= F}
 rgb(red =  0, green = 0, blue = 0, alpha = 1) #ROTATE
@@ -482,7 +482,7 @@ class: inverse, middle, center
 
 ---
 
-`r chunk_reveal("hex_to_rgb", break_type = "rotate")`
+`r chunk_reveal("hex_to_rgb", break_type = "rotate", font_size_code = "200")`
 
 ```{r hex_to_rgb, eval = F, echo = F}
 col2rgb("#FFFFFF") #ROTATE 
@@ -619,7 +619,7 @@ class:  center, middle, inverse
 
 <!-- https://images.unsplash.com/photo-1504197885-609741792ce7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80 -->
 
-`r chunk_reveal("hsv", break_type = "rotate")`
+`r chunk_reveal("hsv", break_type = "rotate", width_code = "60%", width_output = "39%", font_size_code = "90%")`
 
 ```{r hsv, eval = F, echo = F}
 ggplot() +
@@ -688,5 +688,5 @@ ggplot() +
 
 
 ```{css, eval = TRUE, echo = FALSE}
-.remark-code{line-height: 1.5; font-size: 70%}
+.remark-code{line-height: 1.5; font-size: 110%}
 ```

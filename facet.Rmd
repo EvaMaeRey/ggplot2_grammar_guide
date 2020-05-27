@@ -1,6 +1,6 @@
 ---
-title: "Facets, quick themes, ggsave"
-author: "Gina Reynolds, July 2019"
+title: "Facet"
+author: "Gina Reynolds"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -34,26 +34,33 @@ Punctuation helps us break up language into digestible pieces. Breaking up visua
 Creating *small multiples* also known as *faceting* is a powerful way to make data more digestible.   In ggplot, small plots based on a categorical variable can be visualized side by side.  
 
 
+
+---
+
+`r chunk_reveal("facets", break_type = "rotate", width_code = "54%", width_output = "45%")`
+
+
 ```{r facets, eval = F, echo = F}
 ggplot(data = gapminder_2002) +
   aes(x = gdpPercap / 1000) +
   aes(y = lifeExp) +
   geom_point() +
   aes(color = continent) +
+  NULL + #ROTATE
   facet_wrap(~ continent) + #ROTATE
   facet_wrap(~ continent, ncol = 2) + #ROTATE
   facet_wrap(~ continent, scales = "free_x") + #ROTATE
-  facet_wrap(~ continent, scales = "free_y") + #ROTATE
+  facet_wrap(~ continent, scales = "free_x") + #ROTATE
   facet_wrap(~ continent, scales = "free") + #ROTATE
-  facet_null() + # overrides any facetting #ROTATE
   facet_grid(continent ~ pop > 10000000) + #ROTATE
   facet_grid(. ~ pop > 10000000) + #ROTATE
-  facet_grid(continent ~ .)  #ROTATE
+  facet_grid(continent ~ .) + #ROTATE
+  facet_wrap(vars(continent, pop > 10000000), scales = "free_y") + #ROTATE
+  facet_null() # overrides any facetting #ROTATE
 ```
 
----
 
-`r chunk_reveal("facets", break_type = "rotate")`
+
 
 
 

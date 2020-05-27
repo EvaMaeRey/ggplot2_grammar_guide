@@ -128,7 +128,7 @@ discrete (categorical) scales
 
 ---
 
-`r chunk_reveal("palettes_d", break_type = "rotate")`
+`r chunk_reveal("palettes_d", break_type = "rotate", width_code = "59%", width_output = "40%")`
 
 
 ```{r palettes_d, include = F}
@@ -166,7 +166,7 @@ continuous scales
 ---
 
 
-`r chunk_reveal("palettes_c", break_type = "rotate")`
+`r chunk_reveal("palettes_c", break_type = "rotate", width_code = "59%", width_output = "40%")`
 
 ```{r palettes_c, include = F}
 library(gapminder)
@@ -201,7 +201,7 @@ binned continuous scales
 ---
 
 
-`r chunk_reveal("palettes_binned", break_type = "rotate")`
+`r chunk_reveal("palettes_binned", break_type = "rotate", width_code = "59%", width_output = "40%")`
 
 ```{r palettes_binned, include = F}
 library(gapminder)
@@ -237,7 +237,7 @@ This is ~ 150 out of ~ 1400
 
 ---
 
-`r chunk_reveal("straight_up_d", break_type = "rotate")`
+`r chunk_reveal("straight_up_d", break_type = "rotate", width_code = "69%", width_output = "30%", font_size_code = "110%")`
 
 
 
@@ -391,7 +391,7 @@ This is ~ 40 out of ~ 300 total scales.
 
 ---
 
-`r chunk_reveal("straight_up_c", break_type = "rotate")`
+`r chunk_reveal("straight_up_c", break_type = "rotate", width_code = "69%", width_output = "30%", font_size_code = "110%")`
 
 ```{r straight_up_c, include=F}
 pal <- paletteer_c("gameofthrones::baratheon", 9) #ROTATE
