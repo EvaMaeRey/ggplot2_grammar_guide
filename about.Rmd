@@ -158,8 +158,12 @@ p <- "geoms_files/figure-html/"
 - [continuous X discrete](geoms.html#cd){target="_blank"} `r build_and_use_gif(path = p, pattern = "geom_discrete_continuous")`
 - [discrete X continous, single value](){} `r build_and_use_gif(path = p, pattern = "single_value")`
 - [discrete X discrete](geoms.html#dd){target="_blank"} `r build_and_use_gif(path = p, pattern = "discrete2x")`
-- [single series]  `r build_and_use_gif(path = p, pattern = "time_series_ro")`
-- [multi series]  `r build_and_use_gif(path = p, pattern = "time_series_multi")`
+- [single series](geoms.html#single_series)  `r build_and_use_gif(path = p, pattern = "time_series_ro")`
+- [multi series](geoms.html#mult_series)  `r build_and_use_gif(path = p, pattern = "time_series_multi")`
+  
+  
+  
+
   
   
 
@@ -198,8 +202,8 @@ Spatial
 
 Network
 
-- [{ggraph} and {tidygraph}]()
-- [An example with the office data](https://evamaerey.github.io/flipbooks/the_office/the_office.html#81)
+- [{ggraph} and {tidygraph}](ggraph.html){target="_blank"} 
+- [An example with the office data](https://evamaerey.github.io/flipbooks/the_office/the_office.html#81){target="_blank"}
 
 
 Animation

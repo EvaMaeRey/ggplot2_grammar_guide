@@ -101,11 +101,14 @@ ggplot(data = gapminder_2002) +
   ggbump::geom_sigmoid(aes(group = country, xend = 20, yend = lifeExp - 3), color = "firebrick") + #ROTATE
   geom_path(color = "plum4") + #ROTATE
   geom_polygon(alpha = 0.5, fill = "plum4") + #ROTATE
+  ggforce::geom_mark_hull() + #ROTATE
+  ggforce::geom_mark_hull(concavity = 7) + #ROTATE
   ggforce::geom_mark_hull(aes(fill = continent)) + #ROTATE
-  ggforce::geom_mark_hull(aes(fill = continent), concavity = 7) + #ROTATE
   ggforce::geom_mark_hull(aes(fill = continent, filter = continent == "Europe")) + #ROTATE
+  ggforce::geom_mark_circle() + #ROTATE
   ggforce::geom_mark_circle(aes(fill = continent)) + #ROTATE
   ggforce::geom_mark_ellipse(aes(fill = continent, filter = continent == "Europe")) + #ROTATE
+  ggforce::geom_mark_rect() + #ROTATE
   ggforce::geom_mark_rect(aes(fill = continent)) + #ROTATE
   ggpointdensity::geom_pointdensity() + #ROTATE
   theme_minimal()
@@ -119,7 +122,7 @@ x and y dense
 
 
 ```{r}
-
+# dense
 ```
 
 
@@ -176,7 +179,7 @@ gapminder %>%
 
 ---
 class: inverse, center, middle
-name: group
+name: mult_series
 
 
 ## a few series
@@ -347,7 +350,6 @@ gapminder %>%
   geom_point(size = .2) + 
   geom_boxplot(alpha = .1) + #ROTATE
   geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) + #ROTATE
-  geom_boxplot(aes(color = gdpPercap >= 10000)  width = .1, outlier.shape = NA, alpha = 0.5) + #ROTATE
   geom_jitter(width = .2, alpha = .5, color = "green") + #ROTATE
   geom_violin(alpha = .1) + #ROTATE
   ggforce::geom_sina(col = "magenta", alpha = .5) + #ROTATE

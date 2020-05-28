@@ -1,0 +1,3573 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>ggraph</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds, December 2019" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: left, top, inverse
+background-image: url(https://images.unsplash.com/photo-1495592822108-9e6261896da8?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1050&amp;q=80)
+background-size: 170%
+
+
+
+# .right.large[Intro to Network Analysis/Visualization]
+### .right.large[Evangeline 'Gina' Reynolds]
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+#### Photo Credit: Pietro Jeng
+
+
+
+
+---
+
+## *The promise of network analysis is the placement of significance on the relationships between actors, rather than seeing actors as isolated entities.* &amp;ndash; Jesse Sadler
+
+
+--
+
+## *Show me your company and I'll tell you who you are.* &amp;ndash; A proverb quoted in Cervantes' Don Quixote
+
+---
+
+
+class: split-40
+count: false
+ 
+
+.left-code-data_prep0-auto[
+
+```r
+*library(ggraph)
+```
+]
+ 
+.right-output-data_prep0-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-data_prep0-auto[
+
+```r
+library(ggraph)  
+*library(tidygraph)
+```
+]
+ 
+.right-output-data_prep0-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-data_prep0-auto[
+
+```r
+library(ggraph)  
+library(tidygraph)  
+*tidygraph::create_notable(name =
+*                           'zachary')
+```
+]
+ 
+.right-output-data_prep0-auto[
+
+```
+# A tbl_graph: 34 nodes and 78 edges
+#
+# An undirected simple graph with 1 component
+#
+# Node Data: 34 x 0 (active)
+#
+# Edge Data: 78 x 2
+   from    to
+  &lt;int&gt; &lt;int&gt;
+1     1     2
+2     1     3
+3     1     4
+# … with 75 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-data_prep0-auto[
+
+```r
+library(ggraph)  
+library(tidygraph)  
+tidygraph::create_notable(name =  
+                            'zachary') %&gt;%  
+* mutate(id = 1:n())
+```
+]
+ 
+.right-output-data_prep0-auto[
+
+```
+# A tbl_graph: 34 nodes and 78 edges
+#
+# An undirected simple graph with 1 component
+#
+# Node Data: 34 x 1 (active)
+     id
+  &lt;int&gt;
+1     1
+2     2
+3     3
+4     4
+5     5
+6     6
+# … with 28 more rows
+#
+# Edge Data: 78 x 2
+   from    to
+  &lt;int&gt; &lt;int&gt;
+1     1     2
+2     1     3
+3     1     4
+# … with 75 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-data_prep0-auto[
+
+```r
+library(ggraph)  
+library(tidygraph)  
+tidygraph::create_notable(name =  
+                            'zachary') %&gt;%  
+  mutate(id = 1:n()) -&gt;  
+*dat_minimal
+```
+]
+ 
+.right-output-data_prep0-auto[
+
+]
+
+&lt;style&gt;
+.left-code-data_prep0-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-data_prep0-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+---
+
+
+# Questions to ask:
+
+### Is my network cohesive? Is it "dense"?
+
+--
+
+###  Are there important individuals within the network?
+
+--
+
+###  Are there communities within the network?
+
+--
+
+###  If I see fissure in the network, along what lines might I expect to see that?
+
+
+---
+class: inverse
+
+# Density
+
+--
+
+### Number of connections out of total possible
+
+
+
+
+```r
+choose(34, 2)
+```
+
+```
+[1] 561
+```
+
+--
+
+$$ \frac{n!}{(n-k)!k!} $$ 
+
+
+--
+
+
+```r
+# Density
+78/562
+```
+
+```
+[1] 0.13879
+```
+
+
+---
+class: inverse, middle, center
+
+# Visualizing networks
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-plot_karate0-auto[
+
+```r
+*set.seed(9823)
+```
+]
+ 
+.right-output-plot_karate0-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-plot_karate0-auto[
+
+```r
+set.seed(9823)  
+*dat_minimal
+```
+]
+ 
+.right-output-plot_karate0-auto[
+
+```
+# A tbl_graph: 34 nodes and 78 edges
+#
+# An undirected simple graph with 1 component
+#
+# Node Data: 34 x 1 (active)
+     id
+  &lt;int&gt;
+1     1
+2     2
+3     3
+4     4
+5     5
+6     6
+# … with 28 more rows
+#
+# Edge Data: 78 x 2
+   from    to
+  &lt;int&gt; &lt;int&gt;
+1     1     2
+2     1     3
+3     1     4
+# … with 75 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-plot_karate0-auto[
+
+```r
+set.seed(9823)  
+dat_minimal %&gt;%  
+* ggraph(layout = "randomly")
+```
+]
+ 
+.right-output-plot_karate0-auto[
+&lt;img src="ggraph_files/figure-html/plot_karate0_auto_3_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-plot_karate0-auto[
+
+```r
+set.seed(9823)  
+dat_minimal %&gt;%  
+  ggraph(layout = "randomly") +  
+* geom_node_point()
+```
+]
+ 
+.right-output-plot_karate0-auto[
+&lt;img src="ggraph_files/figure-html/plot_karate0_auto_4_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-plot_karate0-auto[
+
+```r
+set.seed(9823)  
+dat_minimal %&gt;%  
+  ggraph(layout = "randomly") +  
+  geom_node_point() +  
+* geom_edge_link(color = "orange")
+```
+]
+ 
+.right-output-plot_karate0-auto[
+&lt;img src="ggraph_files/figure-html/plot_karate0_auto_5_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-plot_karate0-auto[
+
+```r
+set.seed(9823)  
+dat_minimal %&gt;%  
+  ggraph(layout = "randomly") +  
+  geom_node_point() +  
+  geom_edge_link(color = "orange") +  
+* geom_node_point()
+```
+]
+ 
+.right-output-plot_karate0-auto[
+&lt;img src="ggraph_files/figure-html/plot_karate0_auto_6_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-plot_karate0-auto[
+
+```r
+set.seed(9823)  
+dat_minimal %&gt;%  
+  ggraph(layout = "randomly") +  
+  geom_node_point() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+* geom_node_point(size = 8,
+*                 shape = 21,
+*                 fill = "steelblue")
+```
+]
+ 
+.right-output-plot_karate0-auto[
+&lt;img src="ggraph_files/figure-html/plot_karate0_auto_7_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-plot_karate0-auto[
+
+```r
+set.seed(9823)  
+dat_minimal %&gt;%  
+  ggraph(layout = "randomly") +  
+  geom_node_point() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+* geom_node_text(size = 2,
+*                color = "grey97",
+*                aes(label = id)
+*                )
+```
+]
+ 
+.right-output-plot_karate0-auto[
+&lt;img src="ggraph_files/figure-html/plot_karate0_auto_8_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-plot_karate0-auto[
+
+```r
+set.seed(9823)  
+dat_minimal %&gt;%  
+  ggraph(layout = "randomly") +  
+  geom_node_point() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+* theme(plot.margin = margin(.5, .5, .5, .5, "cm"))
+```
+]
+ 
+.right-output-plot_karate0-auto[
+&lt;img src="ggraph_files/figure-html/plot_karate0_auto_9_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.left-code-plot_karate0-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-plot_karate0-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+class: inverse, middle, center
+
+# Layout
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+  ggraph(layout = "randomly") +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_1_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "circle") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_2_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "sphere") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_3_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "kk") +  #Kamada and Kawai
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_4_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "fr") +  #Fruchterman and Reingold
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_5_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "auto") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_6_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "linear") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_7_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph( layout = "linear", circular = TRUE) +
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_8_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "grid") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_9_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "star") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_10_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "dh") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_11_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "drl") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_12_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "gem") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_13_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "mds") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_14_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "lgl") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout-rotate[
+&lt;img src="ggraph_files/figure-html/layout_rotate_15_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.left-code-layout-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-layout-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+class: inverse, middle, center
+
+# geom_edge_arc
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+  ggraph(layout = "randomly") +  
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_1_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "circle") +
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_2_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "sphere") +
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_3_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "kk") +  #Kamada and Kawai
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_4_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "fr") +  #Fruchterman and Reingold
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_5_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "auto") +
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_6_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "linear") +
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_7_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph( layout = "linear", circular = TRUE) +
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_8_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "grid") +
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_9_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "star") +
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_10_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "dh") +
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_11_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "drl") +
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_12_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "gem") +
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_13_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "mds") +
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_14_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-layout_arc-rotate[
+
+```r
+dat_minimal %&gt;%  
+* ggraph(layout = "lgl") +
+  geom_edge_arc(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(size = 8,  
+                  shape = 21,  
+                  fill = "steelblue") +  
+  geom_node_text(size = 2,  
+                 color = "grey97",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-layout_arc-rotate[
+&lt;img src="ggraph_files/figure-html/layout_arc_rotate_15_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.left-code-layout_arc-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-layout_arc-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+  ggraph(layout = "kk") +  #Kamada and Kawai 
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_1_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "fr") +  #Fruchterman and Reingold
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_2_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "randomly") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_3_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "circle") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_4_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "sphere") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_5_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "auto") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_6_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "linear") + geom_edge_arc(color = "orange") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_7_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph( layout = "linear", circular = TRUE) + geom_edge_arc(color = "orange") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_8_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "grid") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_9_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "star") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_10_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "dh") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_11_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "drl") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_12_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "gem") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_13_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "mds") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_14_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-spread-rotate[
+
+```r
+set.seed(0417)  
+# Generate scale-free graphs according to the Barabasi Albert model
+igraph::sample_pa(100, directed = T)  %&gt;%  
+* ggraph(layout = "lgl") +
+  geom_edge_link(color = "orange") +  
+  geom_node_point(size = 5,  
+                  color = "steelblue",  
+                  alpha = .8)  
+```
+]
+ 
+.right-output-spread-rotate[
+&lt;img src="ggraph_files/figure-html/spread_rotate_15_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.left-code-spread-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-spread-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+---
+class: center, middle, inverse
+
+
+# Centrality
+
+--
+
+## Degree
+
+--
+
+## Betweenness
+
+--
+
+## Closeness
+
+
+
+
+---
+
+## Degree Centrality
+
+--
+
+### "Incidence upon"
+
+--
+
+### Who do you have immediate contact with?
+
+
+---
+
+## Closeness Centrality
+
+--
+
+### "The reciprocal of the farness" Bavelas (1950)
+
+--
+
+#### for a node 1, count the number of edges that must be traversed (shortest path) to get to node 2, to node 3, to node 4, etc...
+
+--
+
+#### Add these.  
+
+--
+
+#### Take reciprocal
+
+--
+
+
+$$ C_c(x) = \frac{1}{\sum_yd(y,x)}   $$
+
+
+
+---
+
+## Betweenness Centrality
+
+#### Betweenness centrality quantifies the number of times a node acts as a bridge along the shortest path between two other nodes.
+
+--
+
+#### take each pair of nodes in a network
+
+--
+
+#### identify the shortest path between them
+
+--
+
+#### for each node in the network count the number of time it is an "on-the-way" nodes
+
+&lt;!-- --- --&gt;
+
+
+&lt;!-- $$ C_B(x) = \frac{\sigma_{st}(V)}{\sigma_{st}} $$ --&gt;
+
+
+
+
+---
+
+$$ C_B(x) = \frac{total~number~of~shortest~paths~passing~ throught~node}{total~number~of~shortest~paths~in~network}   $$
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-calculations-auto[
+
+```r
+*dat_minimal
+```
+]
+ 
+.right-output-calculations-auto[
+
+```
+# A tbl_graph: 34 nodes and 78 edges
+#
+# An undirected simple graph with 1 component
+#
+# Node Data: 34 x 1 (active)
+     id
+  &lt;int&gt;
+1     1
+2     2
+3     3
+4     4
+5     5
+6     6
+# … with 28 more rows
+#
+# Edge Data: 78 x 2
+   from    to
+  &lt;int&gt; &lt;int&gt;
+1     1     2
+2     1     3
+3     1     4
+# … with 75 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-calculations-auto[
+
+```r
+dat_minimal %&gt;%  
+* activate(nodes)
+```
+]
+ 
+.right-output-calculations-auto[
+
+```
+# A tbl_graph: 34 nodes and 78 edges
+#
+# An undirected simple graph with 1 component
+#
+# Node Data: 34 x 1 (active)
+     id
+  &lt;int&gt;
+1     1
+2     2
+3     3
+4     4
+5     5
+6     6
+# … with 28 more rows
+#
+# Edge Data: 78 x 2
+   from    to
+  &lt;int&gt; &lt;int&gt;
+1     1     2
+2     1     3
+3     1     4
+# … with 75 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-calculations-auto[
+
+```r
+dat_minimal %&gt;%  
+  activate(nodes) %&gt;%  
+* mutate(degree =
+*          centrality_degree())
+```
+]
+ 
+.right-output-calculations-auto[
+
+```
+# A tbl_graph: 34 nodes and 78 edges
+#
+# An undirected simple graph with 1 component
+#
+# Node Data: 34 x 2 (active)
+     id degree
+  &lt;int&gt;  &lt;dbl&gt;
+1     1     16
+2     2      9
+3     3     10
+4     4      6
+5     5      3
+6     6      4
+# … with 28 more rows
+#
+# Edge Data: 78 x 2
+   from    to
+  &lt;int&gt; &lt;int&gt;
+1     1     2
+2     1     3
+3     1     4
+# … with 75 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-calculations-auto[
+
+```r
+dat_minimal %&gt;%  
+  activate(nodes) %&gt;%  
+  mutate(degree =  
+           centrality_degree()) %&gt;%  
+* mutate(close = centrality_closeness())
+```
+]
+ 
+.right-output-calculations-auto[
+
+```
+# A tbl_graph: 34 nodes and 78 edges
+#
+# An undirected simple graph with 1 component
+#
+# Node Data: 34 x 3 (active)
+     id degree  close
+  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1     1     16 0.0172
+2     2      9 0.0147
+3     3     10 0.0169
+4     4      6 0.0141
+5     5      3 0.0115
+6     6      4 0.0116
+# … with 28 more rows
+#
+# Edge Data: 78 x 2
+   from    to
+  &lt;int&gt; &lt;int&gt;
+1     1     2
+2     1     3
+3     1     4
+# … with 75 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-calculations-auto[
+
+```r
+dat_minimal %&gt;%  
+  activate(nodes) %&gt;%  
+  mutate(degree =  
+           centrality_degree()) %&gt;%  
+  mutate(close = centrality_closeness()) %&gt;%  
+* mutate(between =
+*          centrality_betweenness())
+```
+]
+ 
+.right-output-calculations-auto[
+
+```
+# A tbl_graph: 34 nodes and 78 edges
+#
+# An undirected simple graph with 1 component
+#
+# Node Data: 34 x 4 (active)
+     id degree  close between
+  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1     1     16 0.0172 231.   
+2     2      9 0.0147  28.5  
+3     3     10 0.0169  75.9  
+4     4      6 0.0141   6.29 
+5     5      3 0.0115   0.333
+6     6      4 0.0116  15.8  
+# … with 28 more rows
+#
+# Edge Data: 78 x 2
+   from    to
+  &lt;int&gt; &lt;int&gt;
+1     1     2
+2     1     3
+3     1     4
+# … with 75 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-calculations-auto[
+
+```r
+dat_minimal %&gt;%  
+  activate(nodes) %&gt;%  
+  mutate(degree =  
+           centrality_degree()) %&gt;%  
+  mutate(close = centrality_closeness()) %&gt;%  
+  mutate(between =  
+           centrality_betweenness()) %&gt;%  
+*mutate(clique = as.factor(group_infomap()))
+```
+]
+ 
+.right-output-calculations-auto[
+
+```
+# A tbl_graph: 34 nodes and 78 edges
+#
+# An undirected simple graph with 1 component
+#
+# Node Data: 34 x 5 (active)
+     id degree  close between clique
+  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt; 
+1     1     16 0.0172 231.    2     
+2     2      9 0.0147  28.5   2     
+3     3     10 0.0169  75.9   2     
+4     4      6 0.0141   6.29  2     
+5     5      3 0.0115   0.333 3     
+6     6      4 0.0116  15.8   3     
+# … with 28 more rows
+#
+# Edge Data: 78 x 2
+   from    to
+  &lt;int&gt; &lt;int&gt;
+1     1     2
+2     1     3
+3     1     4
+# … with 75 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-calculations-auto[
+
+```r
+dat_minimal %&gt;%  
+  activate(nodes) %&gt;%  
+  mutate(degree =  
+           centrality_degree()) %&gt;%  
+  mutate(close = centrality_closeness()) %&gt;%  
+  mutate(between =  
+           centrality_betweenness()) %&gt;%  
+ mutate(clique = as.factor(group_infomap())) -&gt;  
+*dat_centrality_calc
+```
+]
+ 
+.right-output-calculations-auto[
+
+]
+
+&lt;style&gt;
+.left-code-calculations-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-calculations-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+# Network "Decoration"
+
+--
+
+#### representing features of nodes or edges with variation in aesthetics (color, size, linewidth, line type)
+
+--
+
+#### How might we decorate our plot with centrality measures?
+
+---
+
+
+class: split-40
+count: false
+ 
+
+.left-code-centrality-rotate[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point(aes(  
+    size = 5,  
+  ),  
+  fill = "steelblue",  
+  shape = 21)  +  
+  geom_node_text(size = 3.5,  
+                 color = "grey92",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  scale_size(range = c(2,8), trans = "sqrt") +  
+  theme_void(base_family = "Courier",  
+             base_size = 20) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-centrality-rotate[
+&lt;img src="ggraph_files/figure-html/centrality_rotate_1_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-centrality-rotate[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point(aes(  
+*   size = degree,
+  ),  
+  fill = "steelblue",  
+  shape = 21)  +  
+  geom_node_text(size = 3.5,  
+                 color = "grey92",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  scale_size(range = c(2,8), trans = "sqrt") +  
+  theme_void(base_family = "Courier",  
+             base_size = 20) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-centrality-rotate[
+&lt;img src="ggraph_files/figure-html/centrality_rotate_2_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-centrality-rotate[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point(aes(  
+*   size = close
+  ),  
+  fill = "steelblue",  
+  shape = 21)  +  
+  geom_node_text(size = 3.5,  
+                 color = "grey92",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  scale_size(range = c(2,8), trans = "sqrt") +  
+  theme_void(base_family = "Courier",  
+             base_size = 20) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-centrality-rotate[
+&lt;img src="ggraph_files/figure-html/centrality_rotate_3_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-centrality-rotate[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point(aes(  
+*   size = between, #ROTATE
+  ),  
+  fill = "steelblue",  
+  shape = 21)  +  
+  geom_node_text(size = 3.5,  
+                 color = "grey92",  
+                 aes(label = id)  
+                 ) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  scale_size(range = c(2,8), trans = "sqrt") +  
+  theme_void(base_family = "Courier",  
+             base_size = 20) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-centrality-rotate[
+&lt;img src="ggraph_files/figure-html/centrality_rotate_4_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.left-code-centrality-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-centrality-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+# Detecting communities/cliques
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-community-auto[
+
+```r
+*dat_centrality_calc
+```
+]
+ 
+.right-output-community-auto[
+
+```
+# A tbl_graph: 34 nodes and 78 edges
+#
+# An undirected simple graph with 1 component
+#
+# Node Data: 34 x 5 (active)
+     id degree  close between clique
+  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt; 
+1     1     16 0.0172 231.    2     
+2     2      9 0.0147  28.5   2     
+3     3     10 0.0169  75.9   2     
+4     4      6 0.0141   6.29  2     
+5     5      3 0.0115   0.333 3     
+6     6      4 0.0116  15.8   3     
+# … with 28 more rows
+#
+# Edge Data: 78 x 2
+   from    to
+  &lt;int&gt; &lt;int&gt;
+1     1     2
+2     1     3
+3     1     4
+# … with 75 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-community-auto[
+
+```r
+dat_centrality_calc %&gt;%  
+* ggraph()
+```
+]
+ 
+.right-output-community-auto[
+&lt;img src="ggraph_files/figure-html/community_auto_2_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-community-auto[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+* geom_edge_link(color = "orange")
+```
+]
+ 
+.right-output-community-auto[
+&lt;img src="ggraph_files/figure-html/community_auto_3_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-community-auto[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+* geom_node_point(
+*   aes(fill = clique,
+*       size = degree),
+*   shape = 21)
+```
+]
+ 
+.right-output-community-auto[
+&lt;img src="ggraph_files/figure-html/community_auto_4_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-community-auto[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point(  
+    aes(fill = clique,  
+        size = degree),  
+    shape = 21)  +  
+* ggforce::geom_mark_hull(aes(x = x,
+*                             y = y,
+*                             fill = clique))
+```
+]
+ 
+.right-output-community-auto[
+&lt;img src="ggraph_files/figure-html/community_auto_5_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-community-auto[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point(  
+    aes(fill = clique,  
+        size = degree),  
+    shape = 21)  +  
+  ggforce::geom_mark_hull(aes(x = x,  
+                              y = y,  
+                              fill = clique)) +  
+* scale_fill_viridis(discrete = T, option = 2)
+```
+]
+ 
+.right-output-community-auto[
+&lt;img src="ggraph_files/figure-html/community_auto_6_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-community-auto[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point(  
+    aes(fill = clique,  
+        size = degree),  
+    shape = 21)  +  
+  ggforce::geom_mark_hull(aes(x = x,  
+                              y = y,  
+                              fill = clique)) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+* labs(fill = NULL, color = NULL)
+```
+]
+ 
+.right-output-community-auto[
+&lt;img src="ggraph_files/figure-html/community_auto_7_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-community-auto[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point(  
+    aes(fill = clique,  
+        size = degree),  
+    shape = 21)  +  
+  ggforce::geom_mark_hull(aes(x = x,  
+                              y = y,  
+                              fill = clique)) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+* scale_size(range = c(2,8), trans = "sqrt")
+```
+]
+ 
+.right-output-community-auto[
+&lt;img src="ggraph_files/figure-html/community_auto_8_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-community-auto[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point(  
+    aes(fill = clique,  
+        size = degree),  
+    shape = 21)  +  
+  ggforce::geom_mark_hull(aes(x = x,  
+                              y = y,  
+                              fill = clique)) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  scale_size(range = c(2,8), trans = "sqrt") +  
+* theme_void(base_family = "Courier",
+*            base_size = 20)
+```
+]
+ 
+.right-output-community-auto[
+&lt;img src="ggraph_files/figure-html/community_auto_9_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-community-auto[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point(  
+    aes(fill = clique,  
+        size = degree),  
+    shape = 21)  +  
+  ggforce::geom_mark_hull(aes(x = x,  
+                              y = y,  
+                              fill = clique)) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  scale_size(range = c(2,8), trans = "sqrt") +  
+  theme_void(base_family = "Courier",  
+             base_size = 20) +  
+* theme(plot.background =
+*         element_rect(fill = "steelblue4",
+*                      color = "grey90"))
+```
+]
+ 
+.right-output-community-auto[
+&lt;img src="ggraph_files/figure-html/community_auto_10_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-community-auto[
+
+```r
+dat_centrality_calc %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point(  
+    aes(fill = clique,  
+        size = degree),  
+    shape = 21)  +  
+  ggforce::geom_mark_hull(aes(x = x,  
+                              y = y,  
+                              fill = clique)) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  scale_size(range = c(2,8), trans = "sqrt") +  
+  theme_void(base_family = "Courier",  
+             base_size = 20) +  
+  theme(plot.background =  
+          element_rect(fill = "steelblue4",  
+                       color = "grey90")) +  
+* theme(plot.margin = margin(.5, .5, .5, .5, "cm"))
+```
+]
+ 
+.right-output-community-auto[
+&lt;img src="ggraph_files/figure-html/community_auto_11_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.left-code-community-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-community-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+
+
+
+---
+
+# Karate Club
+
+Zachary: An Information Flow Model for Conflict and Fission in Small Groups
+
+
+
+---
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-plot_karate-1[
+
+```r
+dat %&gt;%  
+  ggraph() +  
+  geom_edge_link(color = "orange") +  
+  geom_node_point() +  
+  geom_node_point(aes(fill = leader,  
+                      size = betweenness),  
+                  shape = 21) +  
+  scale_fill_viridis(discrete = T, option = 2) +  
+  labs(fill = NULL, color = NULL) +  
+  scale_size(range = c(2,8), trans = "sqrt") +  
+  theme_void(base_family = "Courier",  
+             base_size = 20) +  
+  theme(plot.background =  
+          element_rect(fill = "steelblue4",  
+                       color = "grey90")) +  
+  theme(plot.margin = margin(.5, .5, .5, .5, "cm"))  
+```
+]
+ 
+.right-output-plot_karate-1[
+&lt;img src="ggraph_files/figure-html/plot_karate_1_1_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.left-code-plot_karate-1 {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-plot_karate-1 {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+# Karate Club Club
+
+You can join the club by being the first to present your analysis of the Karate Club data at a Network Analysis conference
+
+
+
+
+---
+
+# The dyad - another relational data paradigm
+
+
+
+
+
+# Rise of the dyad
+
+
+---
+
+.pull-left[
+
+```r
+dat %&gt;% 
+  as_tibble() -&gt;
+dat_node
+
+dat %&gt;% 
+  activate(edges) %&gt;% 
+  as_tibble() -&gt;
+dat_edges
+
+
+dat_edges %&gt;% 
+  right_join(
+    dat_node  %&gt;% 
+  mutate(from = id))
+```
+]
+.pull-right[
+
+```
+# A tibble: 86 x 5
+    from    to    id leader betweenness
+   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;fct&gt;        &lt;dbl&gt;
+ 1     1     2     1 Mr. Hi        231.
+ 2     1     3     1 Mr. Hi        231.
+ 3     1     4     1 Mr. Hi        231.
+ 4     1     5     1 Mr. Hi        231.
+ 5     1     6     1 Mr. Hi        231.
+ 6     1     7     1 Mr. Hi        231.
+ 7     1     8     1 Mr. Hi        231.
+ 8     1     9     1 Mr. Hi        231.
+ 9     1    11     1 Mr. Hi        231.
+10     1    12     1 Mr. Hi        231.
+# … with 76 more rows
+```
+]
+
+
+--
+
+- unmodeled dependence
+- independence of observations
+
+---
+
+# Emerging concerns about the use of dyads
+
+
+
+
+
+---
+class: inverse, middle, center
+
+# Clustering and dimension reduction
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-dendro-auto[
+
+```r
+*datasets::mtcars
+```
+]
+ 
+.right-output-dendro-auto[
+
+```
+                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dendro-auto[
+
+```r
+datasets::mtcars %&gt;%  
+* dist()
+```
+]
+ 
+.right-output-dendro-auto[
+
+```
+                      Mazda RX4 Mazda RX4 Wag  Datsun 710 Hornet 4 Drive
+Mazda RX4 Wag         0.6153251                                         
+Datsun 710           54.9086059    54.8915169                           
+Hornet 4 Drive       98.1125212    98.0958939 150.9935191               
+Hornet Sportabout   210.3374396   210.3358546 265.0831615    121.0297564
+Valiant              65.4717710    65.4392224 117.7547018     33.5508692
+Duster 360          241.4076490   241.4088680 294.4790230    169.4299647
+Merc 240D            50.1532711    50.1146059  49.6584796    121.2739722
+Merc 230             25.4683117    25.3284509  33.1803843    118.2433145
+Merc 280             15.3641921    15.2956865  66.9363534     91.4224033
+Merc 280C            15.6724727    15.5837744  67.0261397     91.4612914
+Merc 450SE          135.4307018   135.4254826 189.1954941     72.4964325
+Merc 450SL          135.4014424   135.3960351 189.1631745     72.4313532
+Merc 450SLC         135.4794674   135.4723157 189.2345426     72.5718466
+Cadillac Fleetwood  326.3395903   326.3355070 381.0926242    234.4403876
+Lincoln Continental 318.0469808   318.0429333 372.8012090    227.9726091
+Chrysler Imperial   304.7203408   304.7169175 359.3014906    218.1548299
+Fiat 128             93.2679950    93.2530993  40.9933763    184.9689734
+Honda Civic         102.8307567   102.8238713  52.7704607    191.5518700
+Toyota Corolla      100.6040368   100.5887588  47.6535017    192.6714187
+Toyota Corona        42.3075233    42.2659224  12.9654743    138.5304725
+Dodge Challenger    163.1150750   163.1134210 217.7795805     72.4403915
+AMC Javelin         149.6047203   149.6014522 204.3188913     61.3601899
+Camaro Z28          233.2228758   233.2248748 286.0049209    163.6632641
+Pontiac Firebird    248.6780270   248.6762035 303.3583889    156.2240346
+Fiat X1-9            92.5048389    92.4940020  39.8815148    184.4471198
+Porsche 914-2        44.4033659    44.4073589  13.1357109    139.1579524
+Lotus Europa         65.7328377    65.7362635  25.0948550    163.2367437
+Ford Pantera L      245.4247064   245.4293785 297.2940489    180.1140339
+Ferrari Dino         66.7661029    66.7764167  90.2415509    130.5523007
+Maserati Bora       265.6454248   265.6491465 309.7718171    229.3419352
+Volvo 142E           39.1894029    39.1626037  20.6939436    137.0363299
+                    Hornet Sportabout     Valiant  Duster 360   Merc 240D
+Mazda RX4 Wag                                                            
+Datsun 710                                                               
+Hornet 4 Drive                                                           
+Hornet Sportabout                                                        
+Valiant                   152.1241352                                    
+Duster 360                 70.1767262 194.6094525                        
+Merc 240D                 241.5069657  89.5911056 281.2962502            
+Merc 230                  233.4924012  85.0079649 265.8823313  33.6873047
+Merc 280                  199.3344960  60.2909811 227.8998521  64.7754228
+Merc 280C                 199.3406564  60.2655656 227.8813169  64.8898713
+Merc 450SE                 84.3888482  90.6970264 106.4084264 175.1620073
+Merc 450SL                 84.3683999  90.6769728 106.4320572 175.1189767
+Merc 450SLC                84.4332423  90.7092989 106.4010305 175.2118218
+Cadillac Fleetwood        116.2804201 266.6280942 119.0239068 355.6627498
+Lincoln Continental       108.0624299 259.6304391 104.5112999 348.9901277
+Chrysler Imperial          97.2049146 248.7713290  81.4297699 338.1959373
+Fiat 128                  302.0377212 152.1153263 333.9792070  68.6105903
+Honda Civic               310.0324645 158.9615769 344.0518316  72.0014488
+Toyota Corolla            309.5581776 159.8302995 341.0218232  76.2806458
+Toyota Corona             252.3331988 105.2876428 282.0508820  44.0850975
+Dodge Challenger           48.9838851 103.4310693 103.9023864 192.8617917
+AMC Javelin                61.4274240  91.0444349 110.3084921 180.5479760
+Camaro Z28                 70.9665308 187.8463771  10.0761203 273.8367985
+Pontiac Firebird           40.0052475 188.5272116  80.8057339 277.4606884
+Fiat X1-9                 301.5669483 151.4379425 333.4843231  67.9163981
+Porsche 914-2             254.1452553 106.0585767 285.1986201  39.4469276
+Lotus Europa              272.3582423 130.8248192 296.4572287  72.8971106
+Ford Pantera L             89.5934049 203.0177926  21.2655990 287.5238795
+Ferrari Dino              215.0673853 106.5694802 226.2036333 113.3023005
+Maserati Bora             170.7094473 242.4393015 107.7224977 313.8633093
+Volvo 142E                248.0063378 104.1863681 275.1353516  53.6823481
+                       Merc 230    Merc 280   Merc 280C  Merc 450SE  Merc 450SL
+Mazda RX4 Wag                                                                  
+Datsun 710                                                                     
+Hornet 4 Drive                                                                 
+Hornet Sportabout                                                              
+Valiant                                                                        
+Duster 360                                                                     
+Merc 240D                                                                      
+Merc 230                                                                       
+Merc 280             39.2994160                                                
+Merc 280C            39.3868519   1.5231546                                    
+Merc 450SE          159.8179555 122.3642489 122.3461050                        
+Merc 450SL          159.7760899 122.3443771 122.3355492   0.9826495            
+Merc 450SLC         159.8495837 122.3934970 122.3586862   1.3726252   2.1383405
+Cadillac Fleetwood  349.2832611 315.3904859 315.3557081 197.8842803 197.9154476
+Lincoln Continental 341.3154316 306.6760719 306.6406187 187.5997191 187.6330806
+Chrysler Imperial   328.4335161 292.7146896 292.6989332 171.6600758 171.6743028
+Fiat 128             69.3127910 106.5053149 106.6829794 228.3247948 228.2592340
+Honda Civic          78.5387212 116.7280991 116.8711475 238.0141824 237.9588183
+Toyota Corolla       76.7731674 113.6290721 113.8118009 235.5183809 235.4481971
+Toyota Corona        21.0962017  54.3641713  54.4258314 176.6020527 176.5727477
+Dodge Challenger    185.8331870 152.8929263 152.8722437  51.8008639  51.8242520
+AMC Javelin         172.5312555 139.1457974 139.1181977  41.2080044  41.2411618
+Camaro Z28          257.7469734 219.5520854 219.5276434  98.7203049  98.7566899
+Pontiac Firebird    271.3871978 238.1726099 238.1806292 124.3368538 124.3204160
+Fiat X1-9            68.5564864 105.7412910 105.8560373 227.7627676 227.7173075
+Porsche 914-2        22.1180967  57.6458160  57.8473863 179.5034108 179.4550855
+Lotus Europa         50.1094030  74.1443580  74.3824296 193.3074449 193.2407697
+Ford Pantera L      269.9772035 231.4081306 231.4024263 112.8181834 112.8296774
+Ferrari Dino         80.6550953  56.8365103  56.8987601 131.0272205 131.0077635
+Maserati Bora       288.8755628 250.5874125 250.5774357 157.1633256 157.1768956
+Volvo 142E           24.6913548  48.8053450  48.8884618 170.4500681 170.4225164
+                    Merc 450SLC Cadillac Fleetwood Lincoln Continental
+Mazda RX4 Wag                                                         
+Datsun 710                                                            
+Hornet 4 Drive                                                        
+Hornet Sportabout                                                     
+Valiant                                                               
+Duster 360                                                            
+Merc 240D                                                             
+Merc 230                                                              
+Merc 280                                                              
+Merc 280C                                                             
+Merc 450SE                                                            
+Merc 450SL                                                            
+Merc 450SLC                                                           
+Cadillac Fleetwood  197.8526242                                       
+Lincoln Continental 187.5671081         15.6224446                    
+Chrysler Imperial   171.6557637         40.8399636          25.3714237
+Fiat 128            228.4051825        417.7687579         410.0206984
+Honda Civic         238.0828999        425.3271621         417.9679574
+Toyota Corolla      235.6024098        425.3446517         417.5429986
+Toyota Corona       176.6305359        368.3195488         360.0267515
+Dodge Challenger     51.8012606        163.6314881         156.2805020
+AMC Javelin          41.1929050        176.8610896         169.0925457
+Camaro Z28           98.7035830        128.4587210         114.0932078
+Pontiac Firebird    124.3726128         78.5385347          72.6947903
+Fiat X1-9           227.8176554        417.2490481         409.4998363
+Porsche 914-2       179.5720446        370.0956775         362.0145494
+Lotus Europa        193.3969216        388.5350012         379.4716659
+Ford Pantera L      112.8332602        134.8119464         119.7236456
+Ferrari Dino        131.0704490        328.5441628         317.7063117
+Maserati Bora       157.1683970        214.9366858         199.3420611
+Volvo 142E          170.4843735        364.1000930         355.4009443
+                    Chrysler Imperial    Fiat 128 Honda Civic Toyota Corolla
+Mazda RX4 Wag                                                               
+Datsun 710                                                                  
+Hornet 4 Drive                                                              
+Hornet Sportabout                                                           
+Valiant                                                                     
+Duster 360                                                                  
+Merc 240D                                                                   
+Merc 230                                                                    
+Merc 280                                                                    
+Merc 280C                                                                   
+Merc 450SE                                                                  
+Merc 450SL                                                                  
+Merc 450SLC                                                                 
+Cadillac Fleetwood                                                          
+Lincoln Continental                                                         
+Chrysler Imperial                                                           
+Fiat 128                  397.2276375                                       
+Honda Civic               405.8152201  14.5590942                           
+Toyota Corolla            404.6335386   7.8324789  14.3480626               
+Toyota Corona             346.5724649  52.8798281  63.8985563     59.8451285
+Dodge Challenger          145.9194779 254.2367888 261.8498815    261.8345312
+AMC Javelin               157.8097554 241.1203621 248.9636504    248.6917065
+Camaro Z28                 91.2880886 325.6636235 335.8883188    332.6589699
+Pontiac Firebird           68.2030747 339.5857659 347.0655360    347.1667643
+Fiat X1-9                 396.7597522   5.1473415  14.7807070     10.3922856
+Porsche 914-2             348.8466861  49.0644372  59.4588768     56.3243031
+Lotus Europa              364.5994326  49.9112509  64.0495153     53.8846563
+Ford Pantera L             95.3805385 337.1639236 347.8337714    343.9920962
+Ferrari Dino              300.1640703 128.3950054 141.7044478    133.4707617
+Maserati Bora             174.2936864 349.5338830 362.1620777    355.2601619
+Volvo 142E                341.2896659  61.3301247  73.3766041     67.7189421
+                    Toyota Corona Dodge Challenger AMC Javelin  Camaro Z28
+Mazda RX4 Wag                                                             
+Datsun 710                                                                
+Hornet 4 Drive                                                            
+Hornet Sportabout                                                         
+Valiant                                                                   
+Duster 360                                                                
+Merc 240D                                                                 
+Merc 230                                                                  
+Merc 280                                                                  
+Merc 280C                                                                 
+Merc 450SE                                                                
+Merc 450SL                                                                
+Merc 450SLC                                                               
+Cadillac Fleetwood                                                        
+Lincoln Continental                                                       
+Chrysler Imperial                                                         
+Fiat 128                                                                  
+Honda Civic                                                               
+Toyota Corolla                                                            
+Toyota Corona                                                             
+Dodge Challenger      205.0347927                                         
+AMC Javelin           191.5580526       14.0154995                        
+Camaro Z28            273.6316895      100.3046106 105.6062618            
+Pontiac Firebird      290.6240706       85.8075196  99.2836114  86.2665759
+Fiat X1-9              51.8411748      253.6624046 240.5266823 325.1490914
+Porsche 914-2           8.6535903      206.6452569 193.3080584 276.8924414
+Lotus Europa           31.2536926      226.5004836 212.7568765 287.6179004
+Ford Pantera L        285.1287911      118.7516779 123.3832044  19.3589023
+Ferrari Dino           82.2355734      174.9280395 161.1060307 216.7489910
+Maserati Bora         299.1865216      185.9059273 185.1553411 102.5946154
+Volvo 142E             12.2505275      201.3682522 187.6978440 266.5277736
+                    Pontiac Firebird   Fiat X1-9 Porsche 914-2 Lotus Europa
+Mazda RX4 Wag                                                              
+Datsun 710                                                                 
+Hornet 4 Drive                                                             
+Hornet Sportabout                                                          
+Valiant                                                                    
+Duster 360                                                                 
+Merc 240D                                                                  
+Merc 230                                                                   
+Merc 280                                                                   
+Merc 280C                                                                  
+Merc 450SE                                                                 
+Merc 450SL                                                                 
+Merc 450SLC                                                                
+Cadillac Fleetwood                                                         
+Lincoln Continental                                                        
+Chrysler Imperial                                                          
+Fiat 128                                                                   
+Honda Civic                                                                
+Toyota Corolla                                                             
+Toyota Corona                                                              
+Dodge Challenger                                                           
+AMC Javelin                                                                
+Camaro Z28                                                                 
+Pontiac Firebird                                                           
+Fiat X1-9                339.1396182                                       
+Porsche 914-2            292.1646488  48.3775209                           
+Lotus Europa             311.3862342  49.8406880    33.7678653             
+Ford Pantera L           101.7389686 336.7018783   288.5852993  297.5376920
+Ferrari Dino             255.0570519 127.8210813    87.9105966   80.4553451
+Maserati Bora            188.3240020 349.1199576   303.9222549  303.2796468
+Volvo 142E               286.7497823  60.4120429    18.7555858   27.8104457
+                    Ford Pantera L Ferrari Dino Maserati Bora
+Mazda RX4 Wag                                                
+Datsun 710                                                   
+Hornet 4 Drive                                               
+Hornet Sportabout                                            
+Valiant                                                      
+Duster 360                                                   
+Merc 240D                                                    
+Merc 230                                                     
+Merc 280                                                     
+Merc 280C                                                    
+Merc 450SE                                                   
+Merc 450SL                                                   
+Merc 450SLC                                                  
+Cadillac Fleetwood                                           
+Lincoln Continental                                          
+Chrysler Imperial                                            
+Fiat 128                                                     
+Honda Civic                                                  
+Toyota Corolla                                               
+Toyota Corona                                                
+Dodge Challenger                                             
+AMC Javelin                                                  
+Camaro Z28                                                   
+Pontiac Firebird                                             
+Fiat X1-9                                                    
+Porsche 914-2                                                
+Lotus Europa                                                 
+Ford Pantera L                                               
+Ferrari Dino           224.4587490                           
+Maserati Bora           86.9383253  223.5342175              
+Volvo 142E             277.4803312   70.4751034   289.1157363
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dendro-auto[
+
+```r
+datasets::mtcars %&gt;%  
+  dist() %&gt;%  
+* hclust()
+```
+]
+ 
+.right-output-dendro-auto[
+
+```
+
+Call:
+hclust(d = .)
+
+Cluster method   : complete 
+Distance         : euclidean 
+Number of objects: 32 
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dendro-auto[
+
+```r
+datasets::mtcars %&gt;%  
+  dist() %&gt;%  
+  hclust() %&gt;%  
+* ggraph()
+```
+]
+ 
+.right-output-dendro-auto[
+&lt;img src="ggraph_files/figure-html/dendro_auto_4_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dendro-auto[
+
+```r
+datasets::mtcars %&gt;%  
+  dist() %&gt;%  
+  hclust() %&gt;%  
+  ggraph() +  
+* geom_edge_elbow()
+```
+]
+ 
+.right-output-dendro-auto[
+&lt;img src="ggraph_files/figure-html/dendro_auto_5_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dendro-auto[
+
+```r
+datasets::mtcars %&gt;%  
+  dist() %&gt;%  
+  hclust() %&gt;%  
+  ggraph() +  
+  geom_edge_elbow() +  
+* geom_node_point(aes(filter = leaf))
+```
+]
+ 
+.right-output-dendro-auto[
+&lt;img src="ggraph_files/figure-html/dendro_auto_6_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dendro-auto[
+
+```r
+datasets::mtcars %&gt;%  
+  dist() %&gt;%  
+  hclust() %&gt;%  
+  ggraph() +  
+  geom_edge_elbow() +  
+  geom_node_point(aes(filter = leaf)) +  
+* coord_polar(theta = "x")
+```
+]
+ 
+.right-output-dendro-auto[
+&lt;img src="ggraph_files/figure-html/dendro_auto_7_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dendro-auto[
+
+```r
+datasets::mtcars %&gt;%  
+  dist() %&gt;%  
+  hclust() %&gt;%  
+  ggraph() +  
+  geom_edge_elbow() +  
+  geom_node_point(aes(filter = leaf)) +  
+  coord_polar(theta = "x") +  
+* scale_y_reverse()
+```
+]
+ 
+.right-output-dendro-auto[
+&lt;img src="ggraph_files/figure-html/dendro_auto_8_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dendro-auto[
+
+```r
+datasets::mtcars %&gt;%  
+  dist() %&gt;%  
+  hclust() %&gt;%  
+  ggraph() +  
+  geom_edge_elbow() +  
+  geom_node_point(aes(filter = leaf)) +  
+  coord_polar(theta = "x") +  
+  scale_y_reverse() +  
+* geom_node_text(aes(x = x*1.05, y = y*1.05, filter = leaf,
+*                angle = node_angle(x, y), label = label),
+*            size = 3, hjust = 'outward')
+```
+]
+ 
+.right-output-dendro-auto[
+&lt;img src="ggraph_files/figure-html/dendro_auto_9_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.left-code-dendro-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-dendro-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+---
+
+# Reveiw
+
+
+
+
+
+
+#### Today we discussed r-l-t--n-l d-t- -nd -ts -n-lys-s.  We was that there has been increased usage in the term N-tw-rk V-s--l-z-t--n in G--gl-'s ngr-m v--w-r &amp;ndash; usage has been skyrocketing. Then we talked about network data structure, using the classic Z-ch-ry's K-r-t- Cl-b data set as an example.   Raw network data is composed of about -dg- l-sts, and n-d-s l-sts.  
+
+#### We also explored a number of network visualization l-y--ts.  A couple of f-rc--d-r-ct-d layouts were the Fructerman-Reingold and Kamada Kawai &amp;ndash; different algorithms based on physical models that balancing -ttr-ct-v- and r-p-ls-v- f-rc-s -- you might think of a the edges as a set of springs. These force-derected layouts contrast with geometric layouts like the c-rcl- or sph-r- or the r-nd-m layouts.
+
+---
+
+#### The simplest centrality measure was *degree* centrality -- which calculates "incidence upon" -- just the number of connections to the node.  The other two were cl-s-n-ss centrality and b-tw--nn-ss. 
+
+#### We actually calculated characteristics of our node too measures too &amp;ndash; c-ntr-l-ty measures for our network example. 
+
+#### Sometimes, network visualizations are d-c-r-t-d with variation in --sth-t-cs (colors, shapes, size) that represent these characteristics (line width or line type is typical for the edge list). We had size of nodes represent centrality measures in our network visualization.  
+
+
+---
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ![](images_for_lecture/difference_in_difference_bdm.png) --&gt;
+&lt;!-- --- --&gt;
+
+
+
+
+&lt;!-- ![](images_for_lecture/replicate_bdm_stack_exchange.png) --&gt;
+
+&lt;!-- ```{r, eval = F} --&gt;
+&lt;!-- set.seed(9184) --&gt;
+&lt;!-- LETTERS[1:10] %&gt;%  --&gt;
+&lt;!--   crossing(unit = ., year = 1990:1995) %&gt;%  --&gt;
+&lt;!--   group_by(unit) %&gt;% --&gt;
+&lt;!--   mutate(intervention = sample(year, 1)) %&gt;%  --&gt;
+&lt;!--   mutate(treated = year &gt;= intervention) %&gt;%  --&gt;
+&lt;!--   mutate(outcome_null = cumsum(runif(n()))) %&gt;%  --&gt;
+&lt;!--   mutate(outcome = treated*5 + outcome_null) %&gt;%  --&gt;
+&lt;!--   ungroup() %&gt;%  --&gt;
+&lt;!--   ggplot() + --&gt;
+&lt;!--   aes(group = unit) + --&gt;
+&lt;!--   aes(y = outcome) + --&gt;
+&lt;!--   aes(x = year) + --&gt;
+&lt;!--   geom_point() + --&gt;
+&lt;!--   geom_line() + --&gt;
+&lt;!--   aes(color = treated) + --&gt;
+&lt;!--   scale_color_manual(values = c("darkgrey", "steelblue")) + --&gt;
+&lt;!--   facet_wrap(~unit) --&gt;
+&lt;!-- ``` --&gt;
+
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ![](images_for_lecture/difference_in_difference_bdm.png) --&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- # Flipbooks --&gt;
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- &gt; I think I have figured it out through the flipbooks you have posted. -- Maria T. --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- &gt; I'm happy to advance the use of the flip books as they were incredibly helpful to learning how to code in R. I’ll probably even continue to use them for reference as I look for internships that require the use of R ... --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- Ask my Graduate Research Assistants (R Consortium Grant funded): --&gt;
+
+&lt;!-- - Suraj Tharpa --&gt;
+&lt;!-- - Ryan Granier --&gt;
+&lt;!-- - Britt Woodrum --&gt;
+&lt;!-- - Conner Surracy --&gt;
+&lt;!-- - Matt Gambino --&gt;
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ![]() --&gt;
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 80%}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:10",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
