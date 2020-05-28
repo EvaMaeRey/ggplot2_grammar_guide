@@ -14,7 +14,7 @@ output:
 ---
 
 ```{r setup, echo=F}
-knitr::opts_chunk$set(fig.width = 12, message = FALSE, warning = FALSE, comment = "", cache = T, fig.retina = 3)
+knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, comment = "", cache = T, fig.retina = 3)
 library(flipbookr)
 library(tidyverse)
 ```
@@ -43,10 +43,13 @@ ggplot(data = gapminder) +
   aes(color = continent) +
   aes(size = pop) +
   scale_x_log10() +
-  NULL + #ROTATE
   gganimate::transition_time(time = year) + #ROTATE
   gganimate::transition_reveal(along = year) + #ROTATE
-  gganimate::transition_manual(frames = continent) #ROTATE
+  gganimate::transition_manual(frames = continent) + #ROTATE
+  NULL ->
+g
+
+animate(plot = g)
 ```
 
 ---
@@ -59,7 +62,7 @@ ggplot(data = gapminder) +
 
 
 ```{r time_series_point, include = F}
-options(gganimate.nframes = 50)
+options(gganimate.nframes = 10)
 library(gapminder)
 ggplot(data = gapminder) +
   aes(x = year) +
@@ -69,10 +72,13 @@ ggplot(data = gapminder) +
   aes(color = continent) +
   aes(size = pop) +
   facet_wrap(~ continent) +
-  NULL + #ROTATE
   gganimate::transition_time(time = year) + #ROTATE
   gganimate::transition_reveal(along = year) + #ROTATE
-  gganimate::transition_manual(frames = continent) #ROTATE
+  gganimate::transition_manual(frames = continent) + #ROTATE
+  NULL ->
+g
+
+animate(plot = g)
 ```
 
 
@@ -84,11 +90,11 @@ ggplot(data = gapminder) +
 
 ---
 
-`r chunk_reveal("time_series", break_type = "rotate")`
+`r chunk_reveal("time_series", break_type = 1)`
 
 
 ```{r time_series, include = F}
-options(gganimate.nframes = 50)
+options(gganimate.nframes = 10)
 library(gapminder)
 ggplot(data = gapminder) +
   aes(x = year) +
@@ -99,18 +105,21 @@ ggplot(data = gapminder) +
   aes(color = continent) +
   aes(size = pop) +
   facet_wrap(~ continent) +
-  NULL + #ROTATE
-  gganimate::transition_reveal(along = year) #ROTATE
+  gganimate::transition_reveal(along = year) +
+  NULL ->
+g
+
+animate(plot = g)
 ```
 
 
 ---
 
-`r chunk_reveal("time_series_path", break_type = "rotate")`
+`r chunk_reveal("time_series_path", break_type = 1)`
 
 
 ```{r time_series_path, include = F}
-options(gganimate.nframes = 50)
+options(gganimate.nframes = 10)
 library(gapminder)
 ggplot(data = gapminder) +
   aes(x = gdpPercap) +
@@ -121,19 +130,22 @@ ggplot(data = gapminder) +
   aes(color = continent) +
   scale_x_log10() +
   facet_wrap(~ continent) +
-  NULL + #ROTATE
-  gganimate::transition_reveal(along = year) #ROTATE
+  gganimate::transition_reveal(along = year) + 
+  NULL ->
+g
+
+animate(plot = g)
 ```
 
 
 
 ---
 
-`r chunk_reveal("enter_exit", break_type = "rotate")`
+r chunk_reveal("enter_exit", break_type = "rotate")`
 
-```{r enter_exit, include = F}
+```{r enter_exit, eval = F, echo = F}
 library(gganimate)
-options(gganimate.nframes = 50)
+options(gganimate.nframes = 10)
 library(gapminder)
 gapminder %>% 
   filter(year > 1990) %>% 
@@ -149,7 +161,11 @@ gapminder %>%
   enter_fade() + exit_fade() + #ROTATE
   enter_fly() + exit_fly() + #ROTATE
   enter_appear() + exit_disappear() + #ROTATE
-  enter_grow() + exit_shrink() #ROTATE
+  enter_grow() + exit_shrink() + #ROTATE
+  NULL ->
+g
+
+animate(plot = g)
 ```
 
 
@@ -157,11 +173,11 @@ gapminder %>%
 
 ---
 
-`r chunk_reveal("enter_exit_col", break_type = "rotate")`
+r chunk_reveal("enter_exit_col", break_type = "rotate")`
 
-```{r enter_exit_col, include = F}
+```{r enter_exit_col, echo = F, eval = F}
 library(gganimate)
-options(gganimate.nframes = 50)
+options(gganimate.nframes = 10)
 library(gapminder)
 gapminder %>% 
   filter(continent == "Oceania") %>% 
@@ -177,7 +193,10 @@ gapminder %>%
   enter_fly() + #ROTATE
   enter_appear() + #ROTATE
   enter_grow() + #ROTATE
-  shadow_mark()
+  shadow_mark() ->
+g
+
+animate(plot = g)
 ```
 
 
@@ -193,7 +212,7 @@ gapminder %>%
 `r chunk_reveal("transitions_shadow", break_type = "rotate")`
 
 ```{r transitions_shadow, echo = F, eval = F}
-options(gganimate.nframes = 50)
+options(gganimate.nframes = 10)
 library(gapminder)
 ggplot(data = gapminder) +
   aes(x = gdpPercap) +
@@ -204,15 +223,42 @@ ggplot(data = gapminder) +
   aes(size = pop) +
   scale_x_log10() +
   gganimate::transition_time(time = year) + 
-  NULL + #ROTATE
-  shadow_mark() + #ROTATE
-  shadow_trail() + #ROTATE
-  shadow_wake(wake_length = .25) + #ROTATE
+  NULL + # current location no shadow no memory #ROTATE
+  shadow_mark() + # leave mark where actual data exists #ROTATE
+  shadow_trail() + # like crumbs along the way #ROTATE
+  shadow_wake(wake_length = .25) + # tail in recent #ROTATE
   NULL ->
 g
 
 animate(plot = g, detail = 10)
 ```
 
+---
 
+# speed - nframes
+
+---
+
+`r chunk_reveal("speed", break_type = "rotate")`
+
+```{r speed, echo = F, eval = F}
+options(gganimate.nframes = 10) #ROTATE
+options(gganimate.nframes = 20) #ROTATE
+options(gganimate.nframes = 30) #ROTATE
+options(gganimate.nframes = 40) #ROTATE
+
+library(gapminder)
+ggplot(data = gapminder) +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  aes(group = country) +
+  geom_point() +
+  aes(color = continent) +
+  aes(size = pop) +
+  scale_x_log10() +
+  gganimate::transition_time(time = year) -> # tail in recent #ROTATE
+g
+
+animate(plot = g, detail = 10)
+```
 

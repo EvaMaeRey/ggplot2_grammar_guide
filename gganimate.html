@@ -21,7 +21,7 @@ class: center, middle, inverse, title-slide
 
 
 ```
-## ── Attaching packages ──────────────────────────── tidyverse 1.3.0 ──
+## ── Attaching packages ───────────────────────────────────────────── tidyverse 1.3.0 ──
 ```
 
 ```
@@ -36,7 +36,7 @@ class: center, middle, inverse, title-slide
 ```
 
 ```
-## ── Conflicts ─────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```
@@ -69,12 +69,16 @@ ggplot(data = gapminder) +
   aes(color = continent) +  
   aes(size = pop) +  
   scale_x_log10() +  
-  NULL   
+  gganimate::transition_time(time = year) +  
+  NULL -&gt;  
+g  
+
+animate(plot = g)  
 ```
 ]
  
 .right-output-transitions-rotate[
-&lt;img src="gganimate_files/figure-html/transitions_rotate_1_output-1.png" width="864" /&gt;
+![](gganimate_files/figure-html/transitions_rotate_1_output-1.gif)&lt;!-- --&gt;
 ]
 
 ---
@@ -95,7 +99,11 @@ ggplot(data = gapminder) +
   aes(color = continent) +  
   aes(size = pop) +  
   scale_x_log10() +  
-* gganimate::transition_time(time = year)
+* gganimate::transition_reveal(along = year) +
+  NULL -&gt;  
+g  
+
+animate(plot = g)  
 ```
 ]
  
@@ -121,38 +129,16 @@ ggplot(data = gapminder) +
   aes(color = continent) +  
   aes(size = pop) +  
   scale_x_log10() +  
-* gganimate::transition_reveal(along = year)
+* gganimate::transition_manual(frames = continent) +
+  NULL -&gt;  
+g  
+
+animate(plot = g)  
 ```
 ]
  
 .right-output-transitions-rotate[
 ![](gganimate_files/figure-html/transitions_rotate_3_output-1.gif)&lt;!-- --&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-transitions-rotate[
-
-```r
-options(gganimate.nframes = 50)  
-library(gapminder)  
-ggplot(data = gapminder) +  
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +  
-  aes(group = country) +  
-  geom_point() +  
-  aes(color = continent) +  
-  aes(size = pop) +  
-  scale_x_log10() +  
-* gganimate::transition_manual(frames = continent)
-```
-]
- 
-.right-output-transitions-rotate[
-![](gganimate_files/figure-html/transitions_rotate_4_output-1.gif)&lt;!-- --&gt;
 ]
 
 &lt;style&gt;
@@ -187,7 +173,7 @@ count: false
 .left-code-time_series_point-rotate[
 
 ```r
-options(gganimate.nframes = 50)  
+options(gganimate.nframes = 10)  
 library(gapminder)  
 ggplot(data = gapminder) +  
   aes(x = year) +  
@@ -197,12 +183,16 @@ ggplot(data = gapminder) +
   aes(color = continent) +  
   aes(size = pop) +  
   facet_wrap(~ continent) +  
-  NULL   
+  gganimate::transition_time(time = year) +  
+  NULL -&gt;  
+g  
+
+animate(plot = g)  
 ```
 ]
  
 .right-output-time_series_point-rotate[
-&lt;img src="gganimate_files/figure-html/time_series_point_rotate_1_output-1.png" width="864" /&gt;
+![](gganimate_files/figure-html/time_series_point_rotate_1_output-1.gif)&lt;!-- --&gt;
 ]
 
 ---
@@ -213,7 +203,7 @@ count: false
 .left-code-time_series_point-rotate[
 
 ```r
-options(gganimate.nframes = 50)  
+options(gganimate.nframes = 10)  
 library(gapminder)  
 ggplot(data = gapminder) +  
   aes(x = year) +  
@@ -223,7 +213,11 @@ ggplot(data = gapminder) +
   aes(color = continent) +  
   aes(size = pop) +  
   facet_wrap(~ continent) +  
-* gganimate::transition_time(time = year)
+* gganimate::transition_reveal(along = year) +
+  NULL -&gt;  
+g  
+
+animate(plot = g)  
 ```
 ]
  
@@ -239,7 +233,7 @@ count: false
 .left-code-time_series_point-rotate[
 
 ```r
-options(gganimate.nframes = 50)  
+options(gganimate.nframes = 10)  
 library(gapminder)  
 ggplot(data = gapminder) +  
   aes(x = year) +  
@@ -249,38 +243,16 @@ ggplot(data = gapminder) +
   aes(color = continent) +  
   aes(size = pop) +  
   facet_wrap(~ continent) +  
-* gganimate::transition_reveal(along = year)
+* gganimate::transition_manual(frames = continent) +
+  NULL -&gt;  
+g  
+
+animate(plot = g)  
 ```
 ]
  
 .right-output-time_series_point-rotate[
 ![](gganimate_files/figure-html/time_series_point_rotate_3_output-1.gif)&lt;!-- --&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-time_series_point-rotate[
-
-```r
-options(gganimate.nframes = 50)  
-library(gapminder)  
-ggplot(data = gapminder) +  
-  aes(x = year) +  
-  aes(y = lifeExp) +  
-  aes(group = country) +  
-  geom_point(size = 8) +  
-  aes(color = continent) +  
-  aes(size = pop) +  
-  facet_wrap(~ continent) +  
-* gganimate::transition_manual(frames = continent)
-```
-]
- 
-.right-output-time_series_point-rotate[
-![](gganimate_files/figure-html/time_series_point_rotate_4_output-1.gif)&lt;!-- --&gt;
 ]
 
 &lt;style&gt;
@@ -316,10 +288,10 @@ class: split-40
 count: false
  
 
-.left-code-time_series-rotate[
+.left-code-time_series-1[
 
 ```r
-options(gganimate.nframes = 50)  
+options(gganimate.nframes = 10)  
 library(gapminder)  
 ggplot(data = gapminder) +  
   aes(x = year) +  
@@ -330,50 +302,27 @@ ggplot(data = gapminder) +
   aes(color = continent) +  
   aes(size = pop) +  
   facet_wrap(~ continent) +  
-  NULL   
+  gganimate::transition_reveal(along = year) +  
+  NULL -&gt;  
+g  
+
+animate(plot = g)  
 ```
 ]
  
-.right-output-time_series-rotate[
-&lt;img src="gganimate_files/figure-html/time_series_rotate_1_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-time_series-rotate[
-
-```r
-options(gganimate.nframes = 50)  
-library(gapminder)  
-ggplot(data = gapminder) +  
-  aes(x = year) +  
-  aes(y = lifeExp) +  
-  aes(group = country) +  
-  geom_line() +  
-  geom_point(size = 8) +  
-  aes(color = continent) +  
-  aes(size = pop) +  
-  facet_wrap(~ continent) +  
-* gganimate::transition_reveal(along = year)
-```
-]
- 
-.right-output-time_series-rotate[
-![](gganimate_files/figure-html/time_series_rotate_2_output-1.gif)&lt;!-- --&gt;
+.right-output-time_series-1[
+![](gganimate_files/figure-html/time_series_1_1_output-1.gif)&lt;!-- --&gt;
 ]
 
 &lt;style&gt;
-.left-code-time_series-rotate {
+.left-code-time_series-1 {
   color: #777;
   width: 38%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-time_series-rotate {
+.right-output-time_series-1 {
   width: 60%;
   float: right;
   padding-left: 1%;
@@ -392,10 +341,10 @@ class: split-40
 count: false
  
 
-.left-code-time_series_path-rotate[
+.left-code-time_series_path-1[
 
 ```r
-options(gganimate.nframes = 50)  
+options(gganimate.nframes = 10)  
 library(gapminder)  
 ggplot(data = gapminder) +  
   aes(x = gdpPercap) +  
@@ -406,50 +355,27 @@ ggplot(data = gapminder) +
   aes(color = continent) +  
   scale_x_log10() +  
   facet_wrap(~ continent) +  
-  NULL   
+  gganimate::transition_reveal(along = year) +  
+  NULL -&gt;  
+g  
+
+animate(plot = g)  
 ```
 ]
  
-.right-output-time_series_path-rotate[
-&lt;img src="gganimate_files/figure-html/time_series_path_rotate_1_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-time_series_path-rotate[
-
-```r
-options(gganimate.nframes = 50)  
-library(gapminder)  
-ggplot(data = gapminder) +  
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +  
-  aes(group = country) +  
-  geom_path() +  
-  geom_point(size = 5) +  
-  aes(color = continent) +  
-  scale_x_log10() +  
-  facet_wrap(~ continent) +  
-* gganimate::transition_reveal(along = year)
-```
-]
- 
-.right-output-time_series_path-rotate[
-![](gganimate_files/figure-html/time_series_path_rotate_2_output-1.gif)&lt;!-- --&gt;
+.right-output-time_series_path-1[
+![](gganimate_files/figure-html/time_series_path_1_1_output-1.gif)&lt;!-- --&gt;
 ]
 
 &lt;style&gt;
-.left-code-time_series_path-rotate {
+.left-code-time_series_path-1 {
   color: #777;
   width: 38%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-time_series_path-rotate {
+.right-output-time_series_path-1 {
   width: 60%;
   float: right;
   padding-left: 1%;
@@ -465,166 +391,7 @@ ggplot(data = gapminder) +
 
 ---
 
-class: split-40
-count: false
- 
-
-.left-code-enter_exit-rotate[
-
-```r
-library(gganimate)  
-options(gganimate.nframes = 50)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year &gt; 1990) %&gt;%  
-  ggplot(data = .) +  
-  aes(x = year) +  
-  aes(y = lifeExp) +  
-  aes(group = country) +  
-  geom_point(size = 20) +  
-  aes(color = continent) +  
-  facet_wrap(~ continent) +  
-  transition_events(start = year, end = as.integer(year + 1), enter_length = 1L, exit_length = 1L) +  
-  NULL   
-```
-]
- 
-.right-output-enter_exit-rotate[
-![](gganimate_files/figure-html/enter_exit_rotate_1_output-1.gif)&lt;!-- --&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-enter_exit-rotate[
-
-```r
-library(gganimate)  
-options(gganimate.nframes = 50)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year &gt; 1990) %&gt;%  
-  ggplot(data = .) +  
-  aes(x = year) +  
-  aes(y = lifeExp) +  
-  aes(group = country) +  
-  geom_point(size = 20) +  
-  aes(color = continent) +  
-  facet_wrap(~ continent) +  
-  transition_events(start = year, end = as.integer(year + 1), enter_length = 1L, exit_length = 1L) +  
-* enter_fade() + exit_fade()
-```
-]
- 
-.right-output-enter_exit-rotate[
-![](gganimate_files/figure-html/enter_exit_rotate_2_output-1.gif)&lt;!-- --&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-enter_exit-rotate[
-
-```r
-library(gganimate)  
-options(gganimate.nframes = 50)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year &gt; 1990) %&gt;%  
-  ggplot(data = .) +  
-  aes(x = year) +  
-  aes(y = lifeExp) +  
-  aes(group = country) +  
-  geom_point(size = 20) +  
-  aes(color = continent) +  
-  facet_wrap(~ continent) +  
-  transition_events(start = year, end = as.integer(year + 1), enter_length = 1L, exit_length = 1L) +  
-* enter_fly() + exit_fly()
-```
-]
- 
-.right-output-enter_exit-rotate[
-![](gganimate_files/figure-html/enter_exit_rotate_3_output-1.gif)&lt;!-- --&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-enter_exit-rotate[
-
-```r
-library(gganimate)  
-options(gganimate.nframes = 50)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year &gt; 1990) %&gt;%  
-  ggplot(data = .) +  
-  aes(x = year) +  
-  aes(y = lifeExp) +  
-  aes(group = country) +  
-  geom_point(size = 20) +  
-  aes(color = continent) +  
-  facet_wrap(~ continent) +  
-  transition_events(start = year, end = as.integer(year + 1), enter_length = 1L, exit_length = 1L) +  
-* enter_appear() + exit_disappear()
-```
-]
- 
-.right-output-enter_exit-rotate[
-![](gganimate_files/figure-html/enter_exit_rotate_4_output-1.gif)&lt;!-- --&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-enter_exit-rotate[
-
-```r
-library(gganimate)  
-options(gganimate.nframes = 50)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(year &gt; 1990) %&gt;%  
-  ggplot(data = .) +  
-  aes(x = year) +  
-  aes(y = lifeExp) +  
-  aes(group = country) +  
-  geom_point(size = 20) +  
-  aes(color = continent) +  
-  facet_wrap(~ continent) +  
-  transition_events(start = year, end = as.integer(year + 1), enter_length = 1L, exit_length = 1L) +  
-* enter_grow() + exit_shrink()
-```
-]
- 
-.right-output-enter_exit-rotate[
-![](gganimate_files/figure-html/enter_exit_rotate_5_output-1.gif)&lt;!-- --&gt;
-]
-
-&lt;style&gt;
-.left-code-enter_exit-rotate {
-  color: #777;
-  width: 38%;
-  height: 92%;
-  float: left;
-  font-size: 80%
-}
-.right-output-enter_exit-rotate {
-  width: 60%;
-  float: right;
-  padding-left: 1%;
-}
-&lt;/style&gt;
-
-
+r chunk_reveal("enter_exit", break_type = "rotate")`
 
 
 
@@ -633,166 +400,7 @@ gapminder %&gt;%
 
 ---
 
-class: split-40
-count: false
- 
-
-.left-code-enter_exit_col-rotate[
-
-```r
-library(gganimate)  
-options(gganimate.nframes = 50)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
-  filter(year &gt; 1990) %&gt;%  
-  ggplot(data = .) +  
-  aes(x = factor(year)) +  
-  aes(y = lifeExp) +  
-  geom_col(position = "dodge") +  
-  aes(fill = country) +  
-  transition_states(states = year) +  
-  NULL +  
-  shadow_mark()  
-```
-]
- 
-.right-output-enter_exit_col-rotate[
-![](gganimate_files/figure-html/enter_exit_col_rotate_1_output-1.gif)&lt;!-- --&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-enter_exit_col-rotate[
-
-```r
-library(gganimate)  
-options(gganimate.nframes = 50)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
-  filter(year &gt; 1990) %&gt;%  
-  ggplot(data = .) +  
-  aes(x = factor(year)) +  
-  aes(y = lifeExp) +  
-  geom_col(position = "dodge") +  
-  aes(fill = country) +  
-  transition_states(states = year) +  
-* enter_fade() +
-  shadow_mark()  
-```
-]
- 
-.right-output-enter_exit_col-rotate[
-![](gganimate_files/figure-html/enter_exit_col_rotate_2_output-1.gif)&lt;!-- --&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-enter_exit_col-rotate[
-
-```r
-library(gganimate)  
-options(gganimate.nframes = 50)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
-  filter(year &gt; 1990) %&gt;%  
-  ggplot(data = .) +  
-  aes(x = factor(year)) +  
-  aes(y = lifeExp) +  
-  geom_col(position = "dodge") +  
-  aes(fill = country) +  
-  transition_states(states = year) +  
-* enter_fly() +
-  shadow_mark()  
-```
-]
- 
-.right-output-enter_exit_col-rotate[
-![](gganimate_files/figure-html/enter_exit_col_rotate_3_output-1.gif)&lt;!-- --&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-enter_exit_col-rotate[
-
-```r
-library(gganimate)  
-options(gganimate.nframes = 50)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
-  filter(year &gt; 1990) %&gt;%  
-  ggplot(data = .) +  
-  aes(x = factor(year)) +  
-  aes(y = lifeExp) +  
-  geom_col(position = "dodge") +  
-  aes(fill = country) +  
-  transition_states(states = year) +  
-* enter_appear() +
-  shadow_mark()  
-```
-]
- 
-.right-output-enter_exit_col-rotate[
-![](gganimate_files/figure-html/enter_exit_col_rotate_4_output-1.gif)&lt;!-- --&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-enter_exit_col-rotate[
-
-```r
-library(gganimate)  
-options(gganimate.nframes = 50)  
-library(gapminder)  
-gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
-  filter(year &gt; 1990) %&gt;%  
-  ggplot(data = .) +  
-  aes(x = factor(year)) +  
-  aes(y = lifeExp) +  
-  geom_col(position = "dodge") +  
-  aes(fill = country) +  
-  transition_states(states = year) +  
-* enter_grow() +
-  shadow_mark()  
-```
-]
- 
-.right-output-enter_exit_col-rotate[
-![](gganimate_files/figure-html/enter_exit_col_rotate_5_output-1.gif)&lt;!-- --&gt;
-]
-
-&lt;style&gt;
-.left-code-enter_exit_col-rotate {
-  color: #777;
-  width: 38%;
-  height: 92%;
-  float: left;
-  font-size: 80%
-}
-.right-output-enter_exit_col-rotate {
-  width: 60%;
-  float: right;
-  padding-left: 1%;
-}
-&lt;/style&gt;
-
-
+r chunk_reveal("enter_exit_col", break_type = "rotate")`
 
 
 
@@ -813,7 +421,7 @@ count: false
 .left-code-transitions_shadow-rotate[
 
 ```r
-options(gganimate.nframes = 50)  
+options(gganimate.nframes = 10)  
 library(gapminder)  
 ggplot(data = gapminder) +  
   aes(x = gdpPercap) +  
@@ -844,7 +452,7 @@ count: false
 .left-code-transitions_shadow-rotate[
 
 ```r
-options(gganimate.nframes = 50)  
+options(gganimate.nframes = 10)  
 library(gapminder)  
 ggplot(data = gapminder) +  
   aes(x = gdpPercap) +  
@@ -875,7 +483,7 @@ count: false
 .left-code-transitions_shadow-rotate[
 
 ```r
-options(gganimate.nframes = 50)  
+options(gganimate.nframes = 10)  
 library(gapminder)  
 ggplot(data = gapminder) +  
   aes(x = gdpPercap) +  
@@ -906,7 +514,7 @@ count: false
 .left-code-transitions_shadow-rotate[
 
 ```r
-options(gganimate.nframes = 50)  
+options(gganimate.nframes = 10)  
 library(gapminder)  
 ggplot(data = gapminder) +  
   aes(x = gdpPercap) +  
