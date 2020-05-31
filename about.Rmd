@@ -10,53 +10,7 @@ output:
 
 
 ```{r, echo = F}
-build_gif <- function(path, 
-                      pattern, 
-                      gif_file = paste0(pattern, ".gif")){
-  
-files <- list.files(path = path, pattern = pattern)
-file_path <- paste0(path,files)
-gifski::gifski(png_files = file_path, progress = F,
-               gif_file = gif_file, 
-               delay = .2,
-               width = 100, height = 100)
-
-} 
-
-select_static <- function(path, pattern){
-  
-  files <- list.files(path = path, pattern = pattern)
-  file_path <- paste0(path,files)
-  file_path[3]
-  
-}
-
-use_gif <- function(gif_file){
-  
-  knitr::include_graphics(path = gif_file)
-  
-}
-
-
-use_static_and_gif <- function(static_file, gif_file){
-
-paste0('<img class="static" width = 100, height = 100 src="', 
-       static_file, 
-       '"><img class="active" src="', 
-       gif_file,'">')
-  
-}
-
-build_and_use_gif <- function(path, 
-                              pattern, 
-                              static_file = select_static(path, pattern),
-                              gif_file = paste0(pattern, ".gif")){
-  
-  build_gif(path = path, pattern = pattern, gif_file = gif_file)
-  use_static_and_gif(static_file = static_file,
-                     gif_file = gif_file)
-  
-}
+library(viztoc)
 
 knitr::opts_chunk$set(echo = F, eval = T, message = F, warning = F, cache = F)
 ```
@@ -78,7 +32,7 @@ knitr::opts_chunk$set(echo = F, eval = T, message = F, warning = F, cache = F)
 
 <img class="static" src="https://lh4.googleusercontent.com/-gZiu96oTuu4/Uag5oWLQHfI/AAAAAAAABSE/pl1W8n91hH0/w140-h165-no/Homer-Static.png"><img class="active" src="https://lh4.googleusercontent.com/i1RprwcvxhbN2TAMunNxS4RiNVT0DvlD9FNQCvPFuJ0=w140-h165-no">
 
-**Homer dips his toe into some Data Vis! Leaving him here just for Data Viz Spring 2020!**
+**Homer dips his toe into some Data Viz! Leaving him here just for Data Viz Spring 2020!**
 
 
 These are my ideas about the *grammar* of ggplot2.  ggplot2 is based on the grammar of graphics.  But it has its *own* grammar too --- it is a *particular* implementation of the grammar of graphics --- and a lot of really helpful decisions are part of its grammar (like having set defaults for aesthetic scales, and scale and plot labels make it easier to build plots quickly).  If you are teaching ggplot2, you might think about teaching the grammar of ggplot2 *first* and then come back to the *grammar of graphics* --- because there will be more context for seeing how an implemenation relates to the larger philosophy.  There are a lot of great resources out there already teaching the grammar of graphics which are sources of inspiration for the *guide*.  
@@ -113,8 +67,8 @@ These are my ideas about the *grammar* of ggplot2.  ggplot2 is based on the gram
 
 
 
-Grammar Analogy | How?  | What?
----|---|---
+Grammar Analogy | How?  | What? |
+---|---|---|---
 1. **The Declarative Mood**  | ggplot(data = gapminder) +| [Declaring the **data**](data_aes_geom.html){target="_blank"}
 2. **The Interogative Mood** |aes(**color** = pop) + | [Asking for **representation of variables by aesthetics** (color, size, x position, etc.) (also known as **aesthetic mapping**) ](data_aes_geom.html#aes){target="_blank"}
     - *Modifiers I* | *labs(**color** = continent) +<br>labs(title = "my title") +* | [modifying *default* **aesthetic labels** (and **plot labels**)](modifiers.html#labs){target="_blank"}
@@ -127,12 +81,14 @@ Grammar Analogy | How?  | What?
 ||   ***color** = "blue"<br>*  | **aesthetics *not* representing variables; *unmapped* aesthetics** (i.e.  **The Imperative Mood)** 
 || ) + |
 5. **Interjections**| *annotate(geom = "point", <br> x = 10, <br> y = 12, <br> color = "blue")* | [Adding context with **annotation layers**](annotate.html){target="_blank"}
-6. **Punctuation**  | *facet_wrap(~continent)*| [**faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables ](facet.html){target="_blank"}
-7. **Greetings**|*theme_minimal()* | [**themes** changing plot look and feel](themes.html){target="_blank"}
+6. **Punctuation**  | *facet_wrap(~continent)*| [**faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables ](facet.html){target="_blank"} | `r viztoc:::build_and_use_gif(path = "facet_files/figure-html/", pattern = "")`
+7. **Greetings**|*theme_minimal()* | [**themes** changing plot look and feel](themes.html){target="_blank"} | `r viztoc:::build_and_use_gif(path = "themes_files/figure-html/", pattern = "")`
 8. **The Written Language** | *ggsave(file = "plot.png", <br> plot = g, <br>  height = "4in", <br> width = "6in")*|[save plots with different **resolutions** and **file formats**](ggsave.html){target="_blank"}
 9. **Composition** | *library(patchwork) <br> (g1 + g2) \| g3 <br> <br> library(cowplot) <br> plotgrid(...,)* | [Composing plots into ensembles](ensembles.html){target="_blank"}
 10. **Concision** | last_plot(), writing functions | We've been intentionally verbose, but we can chose to be more concise
 ---
+
+
 
 
 <!-- - *Modifiers IV* | guides() + | [to be added?] -->
@@ -150,16 +106,20 @@ p <- "geoms_files/figure-html/"
 
 
 
+r viztoc:::build_and_use_gif(path = "scales_files/figure-html/", pattern = ".")`
+
+
+
 [A closer look at **geoms**](geoms.html){target="_blank"}
 
-- [continuous X continuous](geoms.html#cc){target="_blank"} `r build_and_use_gif(path = p, pattern = "continuous_continuous")`
-- [univaritate continuous](geoms.html#c){target="_blank"} `r build_and_use_gif(path = p, pattern = "univariate_continuous")`
+- [continuous X continuous](geoms.html#cc){target="_blank"} `r viztoc:::build_and_use_gif(path = p, pattern = "continuous_continuous")`
+- [univaritate continuous](geoms.html#c){target="_blank"} `r viztoc:::build_and_use_gif(path = p, pattern = "univariate_continuous")`
 - [1 discrete](geoms.html#d){target="_blank"}
-- [continuous X discrete](geoms.html#cd){target="_blank"} `r build_and_use_gif(path = p, pattern = "geom_discrete_continuous")`
-- [discrete X continous, single value](){} `r build_and_use_gif(path = p, pattern = "single_value")`
-- [discrete X discrete](geoms.html#dd){target="_blank"} `r build_and_use_gif(path = p, pattern = "discrete2x")`
-- [single series](geoms.html#single_series)  `r build_and_use_gif(path = p, pattern = "time_series_ro")`
-- [multi series](geoms.html#mult_series)  `r build_and_use_gif(path = p, pattern = "time_series_multi")`
+- [continuous X discrete](geoms.html#cd){target="_blank"} `r viztoc:::build_and_use_gif(path = p, pattern = "geom_discrete_continuous")`
+- [discrete X continous, single value](){} `r viztoc:::build_and_use_gif(path = p, pattern = "single_value")`
+- [discrete X discrete](geoms.html#dd){target="_blank"} `r viztoc:::build_and_use_gif(path = p, pattern = "discrete2x")`
+- [single series](geoms.html#single_series)  `r viztoc:::build_and_use_gif(path = p, pattern = "time_series_ro")`
+- [multi series](geoms.html#mult_series)  `r viztoc:::build_and_use_gif(path = p, pattern = "time_series_multi")`
   
   
   

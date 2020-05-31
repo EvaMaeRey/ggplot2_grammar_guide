@@ -1,6 +1,6 @@
 ---
-title: "geoms"
-author: "Gina Reynolds, July 2019"
+title: "{ggplot2} and extensions geoms"
+author: "Gina Reynolds"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -18,6 +18,20 @@ library(tidyverse)
 library(gapminder)
 options(scipen = 10)
 ```
+
+
+---
+
+- ggplot2
+- ggforce
+- ggbump
+- ggpointdensity
+- ggrepel
+- packcircles
+- waffle
+
+
+---
 
 
 ```{r prep_data, eval = T, echo = F}
@@ -43,18 +57,8 @@ continent_aggregate
 
 ---
 
-# 'Nouns':  The geom_*() pile on
+# 'Nouns':  The geom_*() line up
 
-It is probably not good practice to include too many geoms in any one plot that you present.  But it might be instructive to go ahead do so here, to see how they relate, and represent the same underlying data.  
-
-We can set opacity (alpha) to a high level to avoid completely blocking out previous geometric layers; this move previews the *unmapped aesthetics* topic - coming up. 
-
-In the first example many "variables" are "computed on the fly", like the 0 represented by xend and yend and the mean of life exectency and per capita GDP. A point for discussion.  
-
----
-
-
-> In ggplot2, geoms can be roughly divided into individual and collective geoms. An individual geom has a distinctive graphical object for each row in the data frame. For example, the point geom has a single point for each observation. On the other hand, collective geoms represent multiple observations. This may be a result of a statistical summary, or may be fundamental to the display of the geom, as with polygons. Lines and paths fall somewhere in between: each overall line is composed of a set of straight segments, but each segment represents two points. --- Hadley Wickham *ggplot2: Elegant graphics for data analysis*
 
 
 
@@ -62,7 +66,24 @@ In the first example many "variables" are "computed on the fly", like the 0 repr
 class: inverse, center, middle
 name: cc
 
-## continous x and y
+# continous x and y
+
+---
+
+
+`r chunk_reveal("continuous_continuous_build")`
+
+
+```{r continuous_continuous_build, eval = F, echo =F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap/1000) +
+  aes(y = lifeExp) +
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +
+  geom_point() +
+  theme_minimal()
+```
+
+
 
 
 ---
@@ -84,7 +105,9 @@ ggplot(data = gapminder_2002) +
   geom_text(aes(label = country)) + #ROTATE
   geom_label(aes(label = country)) + #ROTATE
   stat_density_2d(aes(fill = ..density..), geom = "raster",  contour = FALSE, alpha = .5) +  #ROTATE
-  geom_density2d() +  #ROTATE
+  geom_density2d() + #ROTATE
+  ggalt::stat_bkde2d(bandwidth=c(0.5, 4), aes(fill = ..level..), geom = "polygon") + #ROTATE
+  ggalt::geom_bkde2d(bandwidth=c(0.5, 4)) + #ROTATE
   geom_smooth() +  # #ROTATE
   geom_smooth(method = lm) + #ROTATE
   geom_hex(alpha = .5,color = "white") + #ROTATE
@@ -101,6 +124,10 @@ ggplot(data = gapminder_2002) +
   ggbump::geom_sigmoid(aes(group = country, xend = 20, yend = lifeExp - 3), color = "firebrick") + #ROTATE
   geom_path(color = "plum4") + #ROTATE
   geom_polygon(alpha = 0.5, fill = "plum4") + #ROTATE
+  ggalt::geom_encircle(s_shape=0.5, expand=0.1, colour="purple") + #ROTATE
+  ggalt::geom_encircle(aes(color = continent), s_shape=0.5, expand=0.1) + #ROTATE
+  ggalt::geom_encircle(s_shape=1, expand=0.1, colour="purple") + #ROTATE
+  ggalt::geom_encircle(aes(color = continent), s_shape=1, expand=0.1) + #ROTATE
   ggforce::geom_mark_hull() + #ROTATE
   ggforce::geom_mark_hull(concavity = 7) + #ROTATE
   ggforce::geom_mark_hull(aes(fill = continent)) + #ROTATE
@@ -120,9 +147,17 @@ x and y dense
 
 ---
 
+`r chunk_reveal("dense")`
 
-```{r}
-# dense
+```{r dense, include = F}
+set.seed(2022)
+tibble(my_x = rnorm(2000),
+       my_y = my_x + rnorm(2000)) %>% 
+  ggplot() +
+  aes(x = my_x) +
+  aes(y = my_y) +
+  ggpointdensity::geom_pointdensity() +
+  scale_color_viridis_c()
 ```
 
 
@@ -147,8 +182,6 @@ name: single_series
 ## Single series
 
 
-[Or I'm on the overview track, take me to the next session](#local)
-
 ---
 
 `r chunk_reveal("time_series", break_type = "rotate")`
@@ -167,15 +200,195 @@ gapminder %>%
   geom_line() + #ROTATE
   ggforce::geom_link2(aes(color = year, size = year, group = 1), lineend = 'round', alpha = .5) + #ROTATE
   geom_line(aes(color = year, group = 1)) + #ROTATE
-  ggpattern::geom_col_pattern() + #ROTATE
-  ggpattern::geom_col_pattern(aes(pattern = factor(year))) + #ROTATE
-  ggpattern::geom_col_pattern(aes(pattern_fill = factor(year))) + #ROTATE
   geom_area(alpha = .4, fill = "plum1", color = "plum1") + #ROTATE
-  ggforce::geom_bspline() + #ROTATE
-  ggforce::geom_bezier(aes(group = 1)) + #ROTATE 
   theme_minimal()
 ```
 
+
+
+
+---
+
+`r chunk_reveal("jagged", break_type = "rotate")`
+
+
+```{r jagged, include=F}
+set.seed(2022)
+tibble(my_x = 1990:2010,
+       my_y = rnorm(21)) %>% 
+  ggplot() +
+  aes(x = my_x) + 
+  aes(y = my_y) +
+  geom_point() + 
+  aes(color = my_y) +
+  geom_line() + #ROTATE
+  geom_smooth() + #ROTATE
+  ggforce::geom_link() + #ROTATE
+  ggforce::geom_bspline() + #ROTATE
+  ggforce::geom_bezier(aes(group = 1)) + #ROTATE 
+  ggalt::geom_xspline(spline_shape = 0.4) + #ROTATE
+  ggalt::geom_xspline(spline_shape = 0.8) + #ROTATE
+  ggalt::geom_xspline(spline_shape = 0.1) + #ROTATE
+  ggalt::geom_xspline(spline_shape = -1, size = 0.5) + #ROTATE
+  ggforce::geom_link2(aes(size = my_y, group = 1), lineend = 'round', alpha = .5) + #ROTATE
+  scale_color_viridis_c()
+```
+
+
+---
+
+`r chunk_reveal("polar_bar")`
+
+```{r polar_bar, include = F}
+gapminder %>% 
+  filter(continent == "Oceania") %>% 
+  mutate(pop_millions = pop/1000000) %>% 
+  arrange(-pop) %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = pop_millions) +
+  geom_col(width = 4, position = "dodge") +
+  coord_polar() +  
+  scale_y_continuous(limits = c(-10, 25)) +
+  scale_x_continuous(breaks = seq(1952, 2007, by = 5), 
+                     limits = c(1950, 2010)) +
+  aes(fill = country) +
+  geom_text(data = . %>% filter(country == "Australia"),
+            aes(label = year,
+                y = pop_millions + 3),
+            fontface = "bold",
+            color = "navy") +
+  theme_void() + 
+  theme(legend.position = c(.8,.8)) +
+  labs(fill = NULL)
+```
+
+---
+
+`r chunk_reveal("pie_donut")`
+
+```{r pie_donut, include = F}
+gapminder %>%  
+  filter(year == 2002) %>%  
+  count(continent) %>%  
+  mutate(text_pos_y = sum(n) - cumsum(n)) %>%  
+  mutate(text_pos_y = (lag(text_pos_y,  
+                           default = sum(n)) +  
+                       text_pos_y) / 2) %>%  
+  ggplot() +  
+  aes(x = 1) +
+  aes(y = n) +
+  geom_col(width = 2) +
+  aes(fill = continent) +
+  geom_text(aes(label = continent, 
+                y = text_pos_y, 
+                x = 2.3 + c(.3,.1,.2,.3,0)),  
+            color = "navy",
+            fontface = "bold") +
+  coord_polar(theta = "y") +
+  theme_void() +
+  scale_x_continuous(limits = c(-3, 2.8)) +
+  theme(legend.position = "none")
+```
+
+
+---
+
+`r chunk_reveal("circle_pack")`
+
+```{r circle_pack, include = F}
+gapminder %>% 
+  filter(continent == "Americas") %>% 
+  filter(year == 2002) %>% 
+  select(country, pop) ->
+prep
+
+packcircles::circleProgressiveLayout(prep$pop,
+                                         sizetype = 'area') ->
+pack
+  
+pack %>% 
+  packcircles::circleLayoutVertices(npoints = 50) ->
+circle_outlines
+  
+circle_outlines %>% 
+  ggplot() + 
+  aes(x = x, y = y) +
+  geom_polygon(colour = "black", alpha = 0.6) +
+  aes(group = id) + 
+  aes(fill = factor(id)) +
+  geom_text(data = cbind(prep, pack), 
+            aes(x, y, size = pop, label = country,
+                group = NULL, fill = NULL)) +
+  theme(legend.position = "none") +
+  coord_equal()
+```
+
+---
+
+`r chunk_reveal("treemapify")`
+
+```{r treemapify, include = F}
+gapminder %>% 
+  filter(continent == "Americas") %>% 
+  filter(year == 2002) %>% 
+  mutate(pop_millions = pop/1000000) %>% 
+  ggplot() + 
+  aes(fill = pop_millions, area = pop_millions) +
+  treemapify::geom_treemap() +
+  treemapify::geom_treemap_text(aes(label = country),
+    fontface = "italic", 
+                                colour = "white", 
+                                place = "topleft",
+                                grow = F) +
+  scale_fill_viridis_c(trans = "log10", begin = .2, option = "inferno",
+                       end = .7, breaks = c(1, 3, 10, 30, 100))
+```
+
+
+
+---
+class: middle, center, inverse
+
+# Singe value per category
+
+
+---
+
+`r chunk_reveal("single_value", break_type = "rotate")`
+
+```{r single_value, include=F}
+gapminder %>% 
+  filter(year == 2002) %>% 
+  filter(continent == "Europe") %>% 
+  ggplot() +
+  aes(x = lifeExp) +
+  aes(y = reorder(country, lifeExp)) +
+  geom_point() +
+  geom_col() + #ROTATE
+  geom_segment(aes(xend = 0, yend = country)) + #ROTATE
+  geom_hline(aes(yintercept = country), linetype = "dotted") + #ROTATE
+  theme_minimal()
+```
+
+
+
+---
+
+`r chunk_reveal("waffle")`
+
+```{r waffle, include = F}
+gapminder %>%
+  filter(year == 2002) %>% 
+  count(continent) %>% 
+  ggplot() +
+  waffle::geom_waffle(aes(fill = continent, values = n),
+    n_rows = 20, size = 0.33, colour = "white", flip = T) + 
+  coord_equal() +
+  facet_wrap(~continent, strip.position = "bottom") +
+  theme_void() +
+  theme(legend.position = "none")
+```
 
 ---
 class: inverse, center, middle
@@ -205,17 +418,124 @@ gapminder %>%
   theme_minimal()
 ```
 
+---
+
+
+
+
+
 
 ---
 class: inverse, center, middle
+
+# Many series
+
+
+
+---
+
+
+
+`r chunk_reveal("aes_group")`
+
+
+```{r aes_group, eval = F, echo = F}
+gapminder %>% 
+  filter(continent %in% c("Americas", "Oceania")) %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = lifeExp) +
+  geom_point(color = "grey60") +
+  geom_line(color = "grey60") +
+  aes(color = country) +
+  scale_color_discrete(guide = F) +
+  aes(color = NULL) +
+  aes(group = country) +
+  geom_point(data = . %>% 
+               filter(country %in% 
+                       c("New Zealand","Chile")), 
+             color = "plum4",
+             size = 4) +
+  geom_line(data = . %>% 
+              filter(country %in% 
+                       c("New Zealand","Chile")), 
+            color = "plum4",
+            size = 2) +
+  geom_text(data = . %>% 
+              filter(country %in% 
+                       c("New Zealand","Chile")) %>% 
+              group_by(country) %>% 
+              slice(3),
+            aes(label = country),
+            nudge_y = 2, hjust = .7, 
+            color = "plum4", size = 5, 
+            fontface = "bold")
+```
+
+---
+
+`r chunk_reveal("difference_ribbon")`
+
+
+```{r difference_ribbon, eval = F, echo = F}
+gapminder %>%
+  filter(continent == "Oceania") %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = pop) +
+  geom_ribbon(data = . %>%
+                select(-gdpPercap, -lifeExp)  %>% 
+                pivot_wider(names_from = country,
+                            values_from = pop),
+              aes(ymin = `New Zealand`,
+                  ymax = Australia,
+                  y = NULL),
+              fill = "plum4",
+              alpha = .4) +
+  geom_line(aes(linetype = country),
+            color = "plum4")
+```
+
+---
+
+`r chunk_reveal("growth")`
+
+
+```{r growth, eval = F, echo = F}
+gapminder %>%
+  filter(continent == "Europe") %>% 
+  filter(year %in% c(1972, 2002)) %>% 
+  select(-gdpPercap, -pop) %>% 
+  mutate(country = reorder(country, lifeExp, mean)) %>% 
+  ggplot() +
+  aes(x = lifeExp) +
+  aes(y = country) +
+  geom_point() +
+  aes(color = factor(year)) +
+  geom_segment(data = . %>% 
+                 pivot_wider(names_from = year,
+                             values_from = lifeExp),
+                 aes(x = `1972`,
+                     xend = `2002`,
+                     yend = country),
+               color = "plum3",
+               size = 1.5) +
+  geom_point(size = 4) +
+  scale_color_manual(values = c("plum3", "plum4")) +
+  theme(legend.position = c(.15,.85)) +
+  labs(color = NULL, y = NULL)
+```
+
+
+
+
+---
 name: group
 
 ## The group aesthetic and geometric objects
 
 
 ---
-
-# A final aesthetic mapping: group
 
 Using geom_line(), you can use many of the same aesthetics as before as well as one special aesthetic: `group`.
 
@@ -227,28 +547,11 @@ Group is like a declaration that instead of plotting the entire data set all tog
 Let's see how this works with the following example. 
 
 ---
-
-`r chunk_reveal("aes_group")`
-
-
-```{r aes_group, eval = F, echo = F}
-gapminder_europe %>% 
-  ggplot() +
-  aes(x = year) +
-  aes(y = lifeExp) +
-  geom_point() +
-  geom_line() +
-  aes(group = country) +
-  # turning group back off
-  aes(group = NULL) + 
-  # mapping discrete data to color
-  # or linetype has similar effects
-  aes(color = country) +
-  geom_point() 
-```
+name: many_series
+class: inverse, middle, center
 
 
-
+# Many series
 
 
 ---
@@ -278,6 +581,9 @@ gapminder %>%
   scale_fill_viridis_c(option = "magma")
 ```
 
+---
+
+# ranks of a series
 
 ---
 
@@ -315,8 +621,90 @@ gapminder %>%
   theme(legend.position = "none")
 ```
 
+---
+
+`r chunk_reveal("time_series_bump_line", break_type = 1)`
+
+```{r time_series_bump_line, include=F}
+gapminder %>% 
+  filter(country %in% c("Austria", "Belgium", 
+                        "Norway", "Netherlands",
+                        "Spain", "Italy","France")) %>%
+  filter(year > 1980) %>% 
+  group_by(year) %>% 
+  arrange(lifeExp) %>% 
+  mutate(rank_life_exp = 1:n()) %>% 
+  ungroup() %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = rank_life_exp) +
+  aes(color = country) +
+  geom_line(size = 2, smooth = 8) + #<<
+  geom_point(size = 6, shape = 21, fill = "white", stroke = 2) + #<<
+  scale_x_continuous(limits = c(1970, 2020),
+                     breaks = seq(1982, 2007, 
+                                  by = 5)) +
+  geom_text(data = . %>% 
+              filter(year == min(year)),
+            aes(x = year - 2.5, label = country), 
+            size = 5, hjust = 1) +
+  geom_text(data = . %>% 
+              filter(year == max(year)),
+            aes(x = year + 2.5, label = country), 
+            size = 5, hjust = 0) +
+  scale_color_manual(values = paletteer::paletteer_d("basetheme::brutal", 7)) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
 
 
+---
+
+`r chunk_reveal("slope_plot")`
+
+```{r slope_plot, include=F}
+gapminder %>% 
+  filter(country %in% c("Belgium", 
+                        "Norway", 
+                        "Spain")) %>%
+  filter(year > 1990) %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = lifeExp) +
+  aes(color = country) +
+  geom_line(size = 2, smooth = 8) + 
+  geom_label(aes(label = round(lifeExp, 1)),
+    color = "darkgrey",
+    stroke = "red",
+    check_overlap = T) + 
+  scale_x_continuous(limits = c(1985, 2012),
+                     breaks = seq(1992, 2007, 
+                                  by = 5)) +
+  geom_text(data = . %>% 
+              filter(year == min(year)),
+            aes(x = year - 1.5, label = country), 
+            size = 5, hjust = 1) +
+  geom_text(data = . %>% 
+              filter(year == max(year)),
+            aes(x = year + 1.5, label = country), 
+            size = 5, hjust = 0) +
+  scale_color_manual(values = 
+                       paletteer::paletteer_d("basetheme::brutal", 7)) +
+  theme_minimal() +
+  theme(panel.grid.major.y = element_blank()) +
+  theme(panel.grid.minor.y = element_blank()) +
+  theme(panel.grid.minor.x = element_blank()) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(axis.text.y = element_blank()) +
+  theme(axis.ticks.y = element_blank()) +
+  theme(legend.position = "none") +
+  labs(x = NULL, y = NULL)
+```
+
+
+---
+
+[Racing bar chart](https://evamaerey.github.io/flipbooks/racing_bars/racing_barcharts.html#34) is concerned with ranks and values.
 
 
 ---
@@ -328,6 +716,70 @@ geom_area() is a special case of what other geom_*()?  Use the help to answer th
 ---
 
 Geoms is a long section consider because there are many geoms. Consider taking the [overview track](#local).
+
+
+---
+name: c
+
+# Continuous Univariate
+
+---
+
+`r chunk_reveal("univariate_continuous", break_type = "rotate")`
+
+
+```{r, univariate_continuous, eval = F, echo = F}
+gapminder %>% 
+  filter(year == 2002) %>% 
+  ggplot() +
+  aes(x = lifeExp) +
+  theme_minimal() +
+  geom_rug(col = "darkgrey") +
+  geom_histogram(alpha = .5, fill = "cadetblue") + #ROTATE
+  geom_freqpoly(linetype = "dashed") + #ROTATE
+  geom_dotplot(fill = "blue", alpha = .5) + #ROTATE
+  geom_dotplot(binwidth = "dotdensity", alpha = .5) + #ROTATE
+  geom_histogram(col = "black", fill = "maroon4", alpha = .4, aes(y = ..density..)) + #ROTATE
+  geom_density(linetype = "dotted", adjust = 1/4, size = 1.25) + #ROTATE
+  geom_density(linetype = "dashed", adjust = 1/2, size = 1.25) + #ROTATE
+  ggalt::geom_bkde(alpha = 0.3 ) + #ROTATE
+  ggalt::geom_bkde(alpha = 0.3, bandwidth = .25, aes(fill = continent)) #ROTATE
+```
+
+
+---
+
+
+
+---
+name: c
+
+# Continuous - Discrete via facetting
+
+---
+
+`r chunk_reveal("geom_discrete_continuous_facet", break_type = "rotate")`
+
+
+```{r, geom_discrete_continuous_facet, eval = F, echo = F}
+gapminder %>% 
+  filter(year == 2002) %>% 
+  ggplot() +
+  aes(x = lifeExp) +
+  theme_minimal() +
+  geom_rug(col = "darkgrey") +
+  geom_histogram(alpha = .5, fill = "cadetblue") + #ROTATE
+  geom_freqpoly(linetype = "dashed") + #ROTATE
+  geom_dotplot(fill = "blue", alpha = .5) + #ROTATE
+  geom_dotplot(binwidth = "dotdensity", alpha = .5) + #ROTATE
+  geom_histogram(col = "black", fill = "maroon4", alpha = .4, aes(y = ..density..)) + #ROTATE
+  geom_density(linetype = "dotted", adjust = 1/4, size = 1.25) + #ROTATE
+  geom_density(linetype = "dashed", adjust = 1/2, size = 1.25) + #ROTATE
+  facet_grid(continent ~ .)
+```
+
+---
+
 
 ---
 class: inverse, center, middle
@@ -344,8 +796,9 @@ name: dc
 ```{r geom_discrete_continuous, eval = F, echo = F}
 gapminder %>% 
   filter(year == 2002) %>%
+  mutate(higher_income = gdpPercap > 20000) %>% 
   ggplot() +
-  aes(y = continent) +
+  aes(y = fct_rev(continent)) +
   aes(x = lifeExp) +
   geom_point(size = .2) + 
   geom_boxplot(alpha = .1) + #ROTATE
@@ -363,33 +816,29 @@ gapminder %>%
   ggridges::geom_density_ridges(stat = "binline", bins = 20, scale = 0.95, draw_baseline = FALSE) + #ROTATE
   ggridges::geom_density_ridges(scale = 2, alpha = .5) + ggridges::scale_fill_cyclical(values = c("blue", "green")) + #ROTATE
   geom_point(aes(color = continent), position = position_nudge(x = 0, y = .2), size = .5, alpha = 0.8) + geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) + #ROTATE
-  theme_minimal()
+  theme_minimal() +
+  labs(y = NULL)
 ```
 
 
 ---
-class: middle, center, inverse
 
-# Singe value per category
+`r chunk_reveal("geom_discrete_continuous_bee", break_type = "rotate")`
 
-
----
-
-`r chunk_reveal("single_value", break_type = "rotate")`
-
-```{r single_value, include=F}
+```{r geom_discrete_continuous_bee, include = F}
 gapminder %>% 
-  filter(year == 2002) %>% 
-  filter(continent == "Europe") %>% 
+  mutate(higher_income = gdpPercap > 20000) %>% 
   ggplot() +
-  aes(x = lifeExp) +
-  aes(y = reorder(country, lifeExp)) +
-  geom_point() +
-  geom_col() + #ROTATE
-  geom_segment(aes(xend = 0, yend = country)) + #ROTATE
-  geom_hline(aes(yintercept = country), linetype = "dotted") + #ROTATE
-  theme_minimal()
+  aes(x = continent) +
+  aes(y = lifeExp) + 
+  aes(alpha = year) +
+  ggbeeswarm::geom_quasirandom(aes(x = continent, y = lifeExp)) + #ROTATE
+  ggbeeswarm::geom_quasirandom(aes(color = continent)) + #ROTATE
+  ggbeeswarm::geom_quasirandom(aes(color = higher_income), dodge.width = .8) #ROTATE
 ```
+
+
+
 
 
 ```{r, eval = F, echo = F}
@@ -406,31 +855,6 @@ gapminder %>%
 #   geom_node_tile(aes(fill = depth), size = 0.25)
 ```
 
-
-
----
-name: c
-
-## Continuous Univariate
-
----
-
-`r chunk_reveal("univariate_continuous", break_type = "rotate")`
-
-
-```{r, univariate_continuous, eval = F, echo = F}
-ggplot(gapminder_2002) +
-  aes(x = lifeExp) +
-  theme_minimal() +
-  geom_rug(col = "darkgrey") +
-  geom_histogram(alpha = .5, fill = "cadetblue") + #ROTATE
-  geom_freqpoly(linetype = "dashed") + #ROTATE
-  geom_dotplot(fill = "blue", alpha = .5) + #ROTATE
-  geom_dotplot(binwidth = "dotdensity", alpha = .5) + #ROTATE
-  geom_histogram(col = "black", fill = "maroon4", alpha = .4, aes(y = ..density..)) + #ROTATE
-  geom_density(linetype = "dotted", adjust = 1/4, size = 1.25) + #ROTATE
-  geom_density(linetype = "dashed", adjust = 1/2, size = 1.25) #ROTATE
-```
 
 
 
@@ -466,6 +890,9 @@ gapminder_2002 %>%
 ```
 
 
+
+
+
 ---
 
 `r chunk_reveal("discrete2x2", break_type = "rotate")`
@@ -488,101 +915,155 @@ gapminder_2002 %>%
 ```
 
 
+---
+
+# Mosaic
+
 
 ---
 
-```{r, eval = F, echo = F}
-require(stats)
-mosaicplot(Titanic, main = "Survival on the Titanic", color = TRUE)
+`r chunk_reveal("mosaic")`
 
-data(Titanic)
-titanic <- as.data.frame(Titanic)
-titanic$Survived <- factor(titanic$Survived, levels=c("Yes", "No"))
-
-library(ggmosaic)
-ggplot(data = titanic) +
-  ggmosaic::geom_mosaic(aes(weight = Freq, x = product(Class), y = Sex, fill = Survived))
-
+```{r mosaic, eval = F, echo = F}
+gapminder %>%
+  filter(year == 2002) %>% 
+  mutate(higher_income = gdpPercap > 20000) %>% 
+  group_by(continent, higher_income) %>%
+  summarise(count = n()) %>%
+  mutate(num_in_continents = sum(count),
+         prop = count/sum(count)) %>%
+  ungroup() %>% 
+  ggplot() + 
+  aes(x = continent, y = prop) + 
+  geom_bar(stat = "identity", 
+           position = "fill",
+           color = "lightgrey") +
+  facet_grid(~continent, scales = "free_x", space = "free_x") +
+  aes(width = num_in_continents) +
+  aes(fill = higher_income) +
+  theme(panel.spacing.x = unit(0, "npc")) + 
+  theme(strip.text = element_blank())
 ```
 
-
-
 ---
-class: middle, center, inverse
 
-# geom stats
+# Cartography, Networks, Animation...
 
---
-
-### identity
-
---
+Are in other code-movies in the [ggplot2 grammar guide](https://evamaerey.github.io/ggplot2_grammar_guide/about).
 
 
-### count
 
 
 ---
 
+<!-- --- -->
+<!-- class: middle, center, inverse -->
+
+<!-- # geom stats -->
+
+<!-- -- -->
+
+<!-- ### identity -->
+
+<!-- -- -->
 
 
-```{r stat, include=F}
-readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') ->
-  game_goals
-
-game_goals %>% 
-  count(season) %>% 
-  full_join(tibble(season = 1980:2020)) %>% 
-  ggplot() +
-  aes(x = season) +
-  aes(y = n) +
-  geom_col() + # stat is identity
-  geom_point() + # stat is identity
-  geom_line() + # stat is identity
-  geom_area(alpha = .2, # stat is identity
-            fill = "magenta") +
-  aes(fill = season) +
-  aes(xend = season) + 
-  aes(yend = 0) +
-  geom_segment(linetype = "dotted") ->
-you_aggregate_then_plot
-
-game_goals %>%
-  ggplot() +
-  aes(x = season) +
-  geom_bar() + # a version of geom column
-  geom_point(stat = "count") +
-  geom_line(stat = "count") +
-  geom_area(stat = "count",
-            alpha = .2,
-            fill = "magenta") +
-  aes(fill = season) -> # not completely grasping why fill cant work here
-ggplot_aggregates_for_you
-```
+<!-- ### count -->
 
 
----
-
-
-```{r bar_discrete_continuous, include = F}
-tibble(my_var = c(1, 2.5, 2.5, 2.5,
-                  7, 7.25, 7.25)) %>% 
-  ggplot() +
-  aes(x = my_var) +
-  geom_bar(fill = "blue", # default is  
-           alpha = .5, # widths adjusted so 
-           linetype = "dotted") + # no overlap
-  geom_bar(alpha = .5, 
-           width = .6, #setting width
-           fill = "orange") + 
-  # replacing previous aes x statement
-  # each category take up horizontal space of 1 
-  aes(x = as_factor(my_var)) 
-```
+<!-- --- -->
 
 
 
+<!-- ```{r stat, include=F} -->
+<!-- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv') -> -->
+<!--   game_goals -->
 
+<!-- game_goals %>%  -->
+<!--   count(season) %>%  -->
+<!--   full_join(tibble(season = 1980:2020)) %>%  -->
+<!--   ggplot() + -->
+<!--   aes(x = season) + -->
+<!--   aes(y = n) + -->
+<!--   geom_col() + # stat is identity -->
+<!--   geom_point() + # stat is identity -->
+<!--   geom_line() + # stat is identity -->
+<!--   geom_area(alpha = .2, # stat is identity -->
+<!--             fill = "magenta") + -->
+<!--   aes(fill = season) + -->
+<!--   aes(xend = season) +  -->
+<!--   aes(yend = 0) + -->
+<!--   geom_segment(linetype = "dotted") -> -->
+<!-- you_aggregate_then_plot -->
+
+<!-- game_goals %>% -->
+<!--   ggplot() + -->
+<!--   aes(x = season) + -->
+<!--   geom_bar() + # a version of geom column -->
+<!--   geom_point(stat = "count") + -->
+<!--   geom_line(stat = "count") + -->
+<!--   geom_area(stat = "count", -->
+<!--             alpha = .2, -->
+<!--             fill = "magenta") + -->
+<!--   aes(fill = season) -> # not completely grasping why fill cant work here -->
+<!-- ggplot_aggregates_for_you -->
+<!-- ``` -->
+
+
+<!-- --- -->
+
+
+<!-- ```{r bar_discrete_continuous, include = F} -->
+<!-- tibble(my_var = c(1, 2.5, 2.5, 2.5, -->
+<!--                   7, 7.25, 7.25)) %>%  -->
+<!--   ggplot() + -->
+<!--   aes(x = my_var) + -->
+<!--   geom_bar(fill = "blue", # default is   -->
+<!--            alpha = .5, # widths adjusted so  -->
+<!--            linetype = "dotted") + # no overlap -->
+<!--   geom_bar(alpha = .5,  -->
+<!--            width = .6, #setting width -->
+<!--            fill = "orange") +  -->
+<!--   # replacing previous aes x statement -->
+<!--   # each category take up horizontal space of 1  -->
+<!--   aes(x = as_factor(my_var))  -->
+<!-- ``` -->
+
+
+
+
+<!-- ## radar chart -->
+
+<!-- ```{r} -->
+<!-- gapminder %>%  -->
+<!--   filter(continent == "Oceania") %>%  -->
+<!--   select(year, country, gdpPercap) %>%  -->
+<!--   group_by(country) %>%  -->
+<!--   mutate(row = row_number()) %>%  -->
+<!--   mutate(dist = row/n()) %>%  -->
+<!--   mutate(y_pos = gdpPercap*sin(2*pi*dist)) %>%  -->
+<!--   mutate(x_pos = gdpPercap*cos(2*pi*dist)) -> -->
+<!-- prep -->
+
+<!-- tibble(y = (1:8 * 4000)) %>%  -->
+<!--   crossing(x = 1:12) %>%  -->
+<!--   group_by(y) %>%  -->
+<!--   mutate(row = row_number()) %>%  -->
+<!--   mutate(dist = row/n()) %>%  -->
+<!--   mutate(y_pos = y*sin(2*pi*dist)) %>%  -->
+<!--   mutate(x_pos = y*cos(2*pi*dist)) %>%  -->
+<!--   ggplot() + -->
+<!--   aes(group = y) + -->
+<!--   aes(x = x_pos) + -->
+<!--   aes(y = y_pos) + -->
+<!--   geom_path() + -->
+<!--   geom_path(data = prep, aes(group = country), -->
+<!--             color = "purple", -->
+<!--             size = 4) -->
+
+<!-- options(scipen = 30) -->
+<!-- sin(pi*2*(1:6)/6) -->
+<!-- ``` -->
 
 
 
