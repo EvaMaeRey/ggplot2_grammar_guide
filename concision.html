@@ -1,0 +1,2631 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>concision</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# concision
+### Gina Reynolds
+
+---
+
+
+
+
+
+
+
+---
+
+## In human language shorter is often better.
+
+--
+
+## "If I had more time I would have written a shorter letter"
+
+--
+
+## Tips:
+
+- Avoid prepositional phrases:  the baker's daughter, not: the daughter of the baker
+
+
+
+
+---
+
+# DRY?
+
+--
+
+## Don't Repeat Yourself
+
+---
+
+## We've been intentionally verbose
+
+--
+
+## We have repeated ourselves...
+
+--
+
+## Training *your neural net* with lots of data/experience/practice
+
+--
+
+Lessons from AI: neural networks do better at new tasks when they have lots of data/experience/practice 
+
+---
+
+# But ...
+
+
+```r
+gapminder %&gt;% 
+  filter(year == 2002) %&gt;% 
+  ggplot() +
+  aes(x = gdpPercap) +
+  aes(y = lifeExp) +
+  geom_point() +
+  aes(color = continent) +
+  labs(x = "GDP per Capita (US$)") +
+  labs(y = "Life Expectancy")
+```
+
+---
+
+# Can be ...
+
+
+```r
+gapminder %&gt;% 
+  filter(year == 2002) %&gt;% 
+  ggplot() +
+* aes(x = gdpPercap,
+*     y = lifeExp,
+*     color = continent) +
+  geom_point() +
+* labs(x = "GDP per Capita (US$)",
+*      y = "Life Expectancy")
+```
+
+---
+
+###  Another quick note on style (not related to concision)
+
+--
+
+### Non-mainstream, but fully supported (ggplot2: Elegant Graphics for Data Analysis 2009, uses it)
+
+
+```r
+gapminder %&gt;% 
+  filter(year == 2002) %&gt;% 
+  ggplot() +
+* aes(x = gdpPercap,
+*     y = lifeExp,
+*     color = continent) +
+  geom_point() 
+```
+
+---
+
+### Mainstream, (ggplot2: Elegant Graphics for Data Analysis 2016 does **not** use + aes())
+
+
+```r
+gapminder %&gt;% 
+  filter(year == 2002) %&gt;% 
+* ggplot(aes(x = gdpPercap,
+*            y = lifeExp,
+*            color = continent)) +
+  geom_point() 
+```
+
+--
+
+### I personally prefer unnested, sequential declarations
+
+--
+
+### Some really bristle at it - it's likely to be unfamiliar - not the style of mainstream training resources.
+
+---
+
+
+# ggplot DRY strategies
+
+---
+
+# last_plot()
+
+--
+
+Add stuff to existing, full, plot to produce second version
+
+
+---
+
+# g1
+# g2 &lt;- g1 + facet_wrap(~ continent)
+
+--
+
+## Add stuff to existing plot to produce second version, save both as objects
+
+---
+
+# g1
+# g1 %+% data2
+
+--
+
+## Changes out data with new pipe operator %+%
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-last_plot-auto[
+
+```r
+*library(gapminder)
+```
+]
+ 
+.right-output-last_plot-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-last_plot-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+*gapminder
+```
+]
+ 
+.right-output-last_plot-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-last_plot-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+* filter(year == 2002)
+```
+]
+ 
+.right-output-last_plot-auto[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-last_plot-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-last_plot-auto[
+&lt;img src="concision_files/figure-html/last_plot_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-last_plot-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+* aes(x = gdpPercap)
+```
+]
+ 
+.right-output-last_plot-auto[
+&lt;img src="concision_files/figure-html/last_plot_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-last_plot-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+* aes(y = lifeExp)
+```
+]
+ 
+.right-output-last_plot-auto[
+&lt;img src="concision_files/figure-html/last_plot_auto_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-last_plot-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+* geom_point()
+```
+]
+ 
+.right-output-last_plot-auto[
+&lt;img src="concision_files/figure-html/last_plot_auto_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-last_plot-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* aes(color = continent)
+```
+]
+ 
+.right-output-last_plot-auto[
+&lt;img src="concision_files/figure-html/last_plot_auto_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-last_plot-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent)  
+
+# Plot2
+*last_plot()
+```
+]
+ 
+.right-output-last_plot-auto[
+&lt;img src="concision_files/figure-html/last_plot_auto_9_output-1.png" width="100%" /&gt;&lt;img src="concision_files/figure-html/last_plot_auto_9_output-2.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-last_plot-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent)  
+
+# Plot2
+last_plot() +  
+* facet_wrap(~continent)
+```
+]
+ 
+.right-output-last_plot-auto[
+&lt;img src="concision_files/figure-html/last_plot_auto_10_output-1.png" width="100%" /&gt;&lt;img src="concision_files/figure-html/last_plot_auto_10_output-2.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-last_plot-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent)  
+
+# Plot2
+last_plot() +  
+  facet_wrap(~continent) +  
+* theme(legend.position = "none")
+```
+]
+ 
+.right-output-last_plot-auto[
+&lt;img src="concision_files/figure-html/last_plot_auto_11_output-1.png" width="100%" /&gt;&lt;img src="concision_files/figure-html/last_plot_auto_11_output-2.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-last_plot-auto {
+  color: #777;
+  width: 69%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-last_plot-auto {
+  width: 30%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+*library(gapminder)
+```
+]
+ 
+.right-output-object-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+*gapminder
+```
+]
+ 
+.right-output-object-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+* filter(year == 2002)
+```
+]
+ 
+.right-output-object-auto[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-object-auto[
+&lt;img src="concision_files/figure-html/object_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+* aes(x = gdpPercap)
+```
+]
+ 
+.right-output-object-auto[
+&lt;img src="concision_files/figure-html/object_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+* aes(y = lifeExp)
+```
+]
+ 
+.right-output-object-auto[
+&lt;img src="concision_files/figure-html/object_auto_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+* geom_point()
+```
+]
+ 
+.right-output-object-auto[
+&lt;img src="concision_files/figure-html/object_auto_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* aes(color = continent)
+```
+]
+ 
+.right-output-object-auto[
+&lt;img src="concision_files/figure-html/object_auto_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) -&gt;  
+*g1
+```
+]
+ 
+.right-output-object-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) -&gt;  
+g1  
+
+# Plot2
+*g1
+```
+]
+ 
+.right-output-object-auto[
+&lt;img src="concision_files/figure-html/object_auto_10_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) -&gt;  
+g1  
+
+# Plot2
+g1 +  
+* facet_wrap(~continent)
+```
+]
+ 
+.right-output-object-auto[
+&lt;img src="concision_files/figure-html/object_auto_11_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) -&gt;  
+g1  
+
+# Plot2
+g1 +  
+  facet_wrap(~continent) +  
+* theme()
+```
+]
+ 
+.right-output-object-auto[
+&lt;img src="concision_files/figure-html/object_auto_12_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-object-auto[
+
+```r
+library(gapminder)  
+
+# Plot1
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) -&gt;  
+g1  
+
+# Plot2
+g1 +  
+  facet_wrap(~continent) +  
+  theme() -&gt;  
+*g2
+```
+]
+ 
+.right-output-object-auto[
+
+]
+
+&lt;style&gt;
+.left-code-object-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-object-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-new_data-auto[
+
+```r
+*gapminder
+```
+]
+ 
+.right-output-new_data-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-new_data-auto[
+
+```r
+gapminder %&gt;%  
+* filter(year == 2002)
+```
+]
+ 
+.right-output-new_data-auto[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-new_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+* filter(continent == "Americas")
+```
+]
+ 
+.right-output-new_data-auto[
+
+```
+  # A tibble: 25 x 6
+     country            continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;              &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Argentina          Americas   2002    74.3  38331121     8798.
+   2 Bolivia            Americas   2002    63.9   8445134     3413.
+   3 Brazil             Americas   2002    71.0 179914212     8131.
+   4 Canada             Americas   2002    79.8  31902268    33329.
+   5 Chile              Americas   2002    77.9  15497046    10779.
+   6 Colombia           Americas   2002    71.7  41008227     5755.
+   7 Costa Rica         Americas   2002    78.1   3834934     7723.
+   8 Cuba               Americas   2002    77.2  11226999     6341.
+   9 Dominican Republic Americas   2002    70.8   8650322     4564.
+  10 Ecuador            Americas   2002    74.2  12921234     5773.
+  # … with 15 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-new_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-new_data-auto[
+&lt;img src="concision_files/figure-html/new_data_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-new_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  ggplot() +  
+* aes(x = gdpPercap)
+```
+]
+ 
+.right-output-new_data-auto[
+&lt;img src="concision_files/figure-html/new_data_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-new_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+* aes(y = lifeExp)
+```
+]
+ 
+.right-output-new_data-auto[
+&lt;img src="concision_files/figure-html/new_data_auto_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-new_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+* geom_point()
+```
+]
+ 
+.right-output-new_data-auto[
+&lt;img src="concision_files/figure-html/new_data_auto_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-new_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+* labs(title = "Americas")
+```
+]
+ 
+.right-output-new_data-auto[
+&lt;img src="concision_files/figure-html/new_data_auto_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-new_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  labs(title = "Americas") -&gt;  
+*g1
+```
+]
+ 
+.right-output-new_data-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-new_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  labs(title = "Americas") -&gt;  
+g1  
+
+# Change out data with special pipe
+*g1
+```
+]
+ 
+.right-output-new_data-auto[
+&lt;img src="concision_files/figure-html/new_data_auto_10_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-new_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  labs(title = "Americas") -&gt;  
+g1  
+
+# Change out data with special pipe
+g1 %+%  
+* (gapminder %&gt;%
+*   filter(year == 2002) %&gt;%
+*   filter(continent == "Europe"))
+```
+]
+ 
+.right-output-new_data-auto[
+&lt;img src="concision_files/figure-html/new_data_auto_11_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-new_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  labs(title = "Americas") -&gt;  
+g1  
+
+# Change out data with special pipe
+g1 %+%  
+  (gapminder %&gt;%  
+    filter(year == 2002) %&gt;%  
+    filter(continent == "Europe")) +  
+* labs(title = "Europe")
+```
+]
+ 
+.right-output-new_data-auto[
+&lt;img src="concision_files/figure-html/new_data_auto_12_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-new_data-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-new_data-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+# DRY part II
+
+--
+
+## writing functions
+
+--
+
+## writing packages (especially for themes)
+
+--
+
+### See end of [covariance walk-through](https://evamaerey.github.io/statistics/covariance_correlation.html)
+
+---
+
+Generative work:
+
+- synthetic data
+
+- generative art
+
+- minimal examples
+
+- hypothetical outcome plots
+
+- conceptual work (flatten the curve)
+
+---
+
+# Generating synthetic data
+
+- rnorm() - random normal
+- runif() - sample from random uniform distribution
+- sample() - sample from a vector
+- sample_frac() - sample rows from a data frame (bootstrapping + hops)
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-gen_art-auto[
+
+```r
+# where does randomization seed start
+*set.seed(128347)
+```
+]
+ 
+.right-output-gen_art-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-gen_art-auto[
+
+```r
+# where does randomization seed start
+set.seed(128347)  
+# create a dataframe with input vectors
+*tibble(x = runif(200),
+*      y = runif(200),
+*      z = x + y)
+```
+]
+ 
+.right-output-gen_art-auto[
+
+```
+  # A tibble: 200 x 3
+         x     y     z
+     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+   1 0.309 0.407 0.716
+   2 0.483 0.531 1.01 
+   3 0.304 0.278 0.582
+   4 0.570 0.367 0.937
+   5 0.165 0.903 1.07 
+   6 0.536 0.457 0.993
+   7 0.661 0.519 1.18 
+   8 0.188 0.120 0.309
+   9 0.280 0.739 1.02 
+  10 0.929 0.987 1.92 
+  # … with 190 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-gen_art-auto[
+
+```r
+# where does randomization seed start
+set.seed(128347)  
+# create a dataframe with input vectors
+tibble(x = runif(200),  
+       y = runif(200),  
+       z = x + y) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-gen_art-auto[
+&lt;img src="concision_files/figure-html/gen_art_auto_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-gen_art-auto[
+
+```r
+# where does randomization seed start
+set.seed(128347)  
+# create a dataframe with input vectors
+tibble(x = runif(200),  
+       y = runif(200),  
+       z = x + y) %&gt;%  
+  ggplot() +  
+* aes(x = x, y = y, color = z)
+```
+]
+ 
+.right-output-gen_art-auto[
+&lt;img src="concision_files/figure-html/gen_art_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-gen_art-auto[
+
+```r
+# where does randomization seed start
+set.seed(128347)  
+# create a dataframe with input vectors
+tibble(x = runif(200),  
+       y = runif(200),  
+       z = x + y) %&gt;%  
+  ggplot() +  
+  aes(x = x, y = y, color = z) +  
+* geom_point()
+```
+]
+ 
+.right-output-gen_art-auto[
+&lt;img src="concision_files/figure-html/gen_art_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-gen_art-auto[
+
+```r
+# where does randomization seed start
+set.seed(128347)  
+# create a dataframe with input vectors
+tibble(x = runif(200),  
+       y = runif(200),  
+       z = x + y) %&gt;%  
+  ggplot() +  
+  aes(x = x, y = y, color = z) +  
+  geom_point() +  
+* ggforce::geom_voronoi_tile(alpha = .8)
+```
+]
+ 
+.right-output-gen_art-auto[
+&lt;img src="concision_files/figure-html/gen_art_auto_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-gen_art-auto[
+
+```r
+# where does randomization seed start
+set.seed(128347)  
+# create a dataframe with input vectors
+tibble(x = runif(200),  
+       y = runif(200),  
+       z = x + y) %&gt;%  
+  ggplot() +  
+  aes(x = x, y = y, color = z) +  
+  geom_point() +  
+  ggforce::geom_voronoi_tile(alpha = .8) +  
+* aes(fill = z)
+```
+]
+ 
+.right-output-gen_art-auto[
+&lt;img src="concision_files/figure-html/gen_art_auto_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-gen_art-auto[
+
+```r
+# where does randomization seed start
+set.seed(128347)  
+# create a dataframe with input vectors
+tibble(x = runif(200),  
+       y = runif(200),  
+       z = x + y) %&gt;%  
+  ggplot() +  
+  aes(x = x, y = y, color = z) +  
+  geom_point() +  
+  ggforce::geom_voronoi_tile(alpha = .8) +  
+  aes(fill = z) +  
+* scale_fill_viridis_c()
+```
+]
+ 
+.right-output-gen_art-auto[
+&lt;img src="concision_files/figure-html/gen_art_auto_8_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-gen_art-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-gen_art-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+For creating a manageable example...
+
+--
+
+Creating a toy dataset
+
+--
+
+[d'Hondt/Jefferson seat allocation toy example](https://evamaerey.github.io/flipbooks/dhondt_jefferson_allocation/dhondt_jefferson_allocation#70)
+
+
+---
+
+Also, being able to generate some data in your software can be helpful for creating [minimal working examples](https://community.rstudio.com/t/faq-whats-a-reproducible-example-reprex-and-how-do-i-do-one/5219) for asking for help as on forums like stack overflow.
+
+---
+
+# Hypothetical outcome plots - hops
+
+---
+
+## Visualizing a confidence interval
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval-1[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm)  
+```
+]
+ 
+.right-output-conf_interval-1[
+&lt;img src="concision_files/figure-html/conf_interval_1_1_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-conf_interval-1 {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-conf_interval-1 {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_1_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_2_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_9_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_10_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_11_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_12_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_13_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_14_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_15_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_16_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_17_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_18_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_19_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-conf_interval_boot-20[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  sample_frac(1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  coord_cartesian(xlim = c(0,45), ylim = c(70,84))  
+```
+]
+ 
+.right-output-conf_interval_boot-20[
+&lt;img src="concision_files/figure-html/conf_interval_boot_20_20_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-conf_interval_boot-20 {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-conf_interval_boot-20 {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+# making a HOP with gganimate
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+*gapminder
+```
+]
+ 
+.right-output-hops-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+* filter(year == 2002)
+```
+]
+ 
+.right-output-hops-auto[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+* filter(continent == "Europe")
+```
+]
+ 
+.right-output-hops-auto[
+
+```
+  # A tibble: 30 x 6
+     country                continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;                  &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Albania                Europe     2002    75.7  3508512     4604.
+   2 Austria                Europe     2002    79.0  8148312    32418.
+   3 Belgium                Europe     2002    78.3 10311970    30486.
+   4 Bosnia and Herzegovina Europe     2002    74.1  4165416     6019.
+   5 Bulgaria               Europe     2002    72.1  7661799     7697.
+   6 Croatia                Europe     2002    74.9  4481020    11628.
+   7 Czech Republic         Europe     2002    75.5 10256295    17596.
+   8 Denmark                Europe     2002    77.2  5374693    32167.
+   9 Finland                Europe     2002    78.4  5193039    28205.
+  10 France                 Europe     2002    79.6 59925035    28926.
+  # … with 20 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+* crossing(trial = 1:20)
+```
+]
+ 
+.right-output-hops-auto[
+
+```
+  # A tibble: 600 x 7
+     country continent  year lifeExp     pop gdpPercap trial
+     &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;
+   1 Albania Europe     2002    75.7 3508512     4604.     1
+   2 Albania Europe     2002    75.7 3508512     4604.     2
+   3 Albania Europe     2002    75.7 3508512     4604.     3
+   4 Albania Europe     2002    75.7 3508512     4604.     4
+   5 Albania Europe     2002    75.7 3508512     4604.     5
+   6 Albania Europe     2002    75.7 3508512     4604.     6
+   7 Albania Europe     2002    75.7 3508512     4604.     7
+   8 Albania Europe     2002    75.7 3508512     4604.     8
+   9 Albania Europe     2002    75.7 3508512     4604.     9
+  10 Albania Europe     2002    75.7 3508512     4604.    10
+  # … with 590 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  crossing(trial = 1:20) %&gt;%  
+# sample with replacement for each trial
+* group_by(trial)
+```
+]
+ 
+.right-output-hops-auto[
+
+```
+  # A tibble: 600 x 7
+  # Groups:   trial [20]
+     country continent  year lifeExp     pop gdpPercap trial
+     &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;
+   1 Albania Europe     2002    75.7 3508512     4604.     1
+   2 Albania Europe     2002    75.7 3508512     4604.     2
+   3 Albania Europe     2002    75.7 3508512     4604.     3
+   4 Albania Europe     2002    75.7 3508512     4604.     4
+   5 Albania Europe     2002    75.7 3508512     4604.     5
+   6 Albania Europe     2002    75.7 3508512     4604.     6
+   7 Albania Europe     2002    75.7 3508512     4604.     7
+   8 Albania Europe     2002    75.7 3508512     4604.     8
+   9 Albania Europe     2002    75.7 3508512     4604.     9
+  10 Albania Europe     2002    75.7 3508512     4604.    10
+  # … with 590 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  crossing(trial = 1:20) %&gt;%  
+# sample with replacement for each trial
+  group_by(trial) %&gt;%  
+* sample_frac(frac = 1, replace = T)
+```
+]
+ 
+.right-output-hops-auto[
+
+```
+  # A tibble: 600 x 7
+  # Groups:   trial [20]
+     country         continent  year lifeExp      pop gdpPercap trial
+     &lt;fct&gt;           &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;
+   1 Albania         Europe     2002    75.7  3508512     4604.     1
+   2 Slovak Republic Europe     2002    73.8  5410052    13639.     1
+   3 Slovak Republic Europe     2002    73.8  5410052    13639.     1
+   4 Sweden          Europe     2002    80.0  8954175    29342.     1
+   5 Poland          Europe     2002    74.7 38625976    12002.     1
+   6 Montenegro      Europe     2002    74.0   720230     6557.     1
+   7 Czech Republic  Europe     2002    75.5 10256295    17596.     1
+   8 Turkey          Europe     2002    70.8 67308928     6508.     1
+   9 Greece          Europe     2002    78.3 10603863    22514.     1
+  10 Greece          Europe     2002    78.3 10603863    22514.     1
+  # … with 590 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  crossing(trial = 1:20) %&gt;%  
+# sample with replacement for each trial
+  group_by(trial) %&gt;%  
+  sample_frac(frac = 1, replace = T) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-hops-auto[
+&lt;img src="concision_files/figure-html/hops_auto_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  crossing(trial = 1:20) %&gt;%  
+# sample with replacement for each trial
+  group_by(trial) %&gt;%  
+  sample_frac(frac = 1, replace = T) %&gt;%  
+  ggplot() +  
+* aes(x = gdpPercap/1000)
+```
+]
+ 
+.right-output-hops-auto[
+&lt;img src="concision_files/figure-html/hops_auto_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  crossing(trial = 1:20) %&gt;%  
+# sample with replacement for each trial
+  group_by(trial) %&gt;%  
+  sample_frac(frac = 1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+* aes(y = lifeExp)
+```
+]
+ 
+.right-output-hops-auto[
+&lt;img src="concision_files/figure-html/hops_auto_9_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  crossing(trial = 1:20) %&gt;%  
+# sample with replacement for each trial
+  group_by(trial) %&gt;%  
+  sample_frac(frac = 1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+* facet_wrap(~trial)
+```
+]
+ 
+.right-output-hops-auto[
+&lt;img src="concision_files/figure-html/hops_auto_10_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  crossing(trial = 1:20) %&gt;%  
+# sample with replacement for each trial
+  group_by(trial) %&gt;%  
+  sample_frac(frac = 1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  facet_wrap(~trial) +  
+* geom_point(size = 3, alpha = .3)
+```
+]
+ 
+.right-output-hops-auto[
+&lt;img src="concision_files/figure-html/hops_auto_11_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  crossing(trial = 1:20) %&gt;%  
+# sample with replacement for each trial
+  group_by(trial) %&gt;%  
+  sample_frac(frac = 1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  facet_wrap(~trial) +  
+  geom_point(size = 3, alpha = .3) +  
+* geom_smooth(method = lm, se = F)
+```
+]
+ 
+.right-output-hops-auto[
+&lt;img src="concision_files/figure-html/hops_auto_12_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  crossing(trial = 1:20) %&gt;%  
+# sample with replacement for each trial
+  group_by(trial) %&gt;%  
+  sample_frac(frac = 1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  facet_wrap(~trial) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+* facet_null()
+```
+]
+ 
+.right-output-hops-auto[
+&lt;img src="concision_files/figure-html/hops_auto_13_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-hops-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  crossing(trial = 1:20) %&gt;%  
+# sample with replacement for each trial
+  group_by(trial) %&gt;%  
+  sample_frac(frac = 1, replace = T) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  facet_wrap(~trial) +  
+  geom_point(size = 3, alpha = .3) +  
+  geom_smooth(method = lm, se = F) +  
+  facet_null() +  
+* gganimate::transition_manual(frames = trial)
+```
+]
+ 
+.right-output-hops-auto[
+&lt;img src="concision_files/figure-html/hops_auto_14_output-1.gif" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-hops-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-hops-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+# caching work w/ knitr
+
+
+```r
+knitr::opts_chunk$set(
+  echo = F, eval = T,
+  message = F, warning = F, 
+* cache = T
+  )
+```
+
+
+
+
+---
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 85%}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

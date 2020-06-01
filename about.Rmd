@@ -12,7 +12,7 @@ output:
 ```{r, echo = F}
 library(viztoc)
 
-knitr::opts_chunk$set(echo = F, eval = T, message = F, warning = F, cache = F)
+knitr::opts_chunk$set(echo = F, eval = T, message = F, warning = F, cache = T)
 ```
 
 
@@ -81,11 +81,11 @@ Grammar Analogy | How?  | What? |
 ||   ***color** = "blue"<br>*  | **aesthetics *not* representing variables; *unmapped* aesthetics** (i.e.  **The Imperative Mood)** 
 || ) + |
 5. **Interjections**| *annotate(geom = "point", <br> x = 10, <br> y = 12, <br> color = "blue")* | [Adding context with **annotation layers**](annotate.html){target="_blank"}
-6. **Punctuation**  | *facet_wrap(~continent)*| [**faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables ](facet.html){target="_blank"} | `r viztoc:::build_and_use_gif(path = "facet_files/figure-html/", pattern = "")`
+6. **Punctuation**  | *facet_wrap(~continent)*| [**faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables ](facet.html){target="_blank"} 
 7. **Greetings**|*theme_minimal()* | [**themes** changing plot look and feel](themes.html){target="_blank"} | `r viztoc:::build_and_use_gif(path = "themes_files/figure-html/", pattern = "")`
 8. **The Written Language** | *ggsave(file = "plot.png", <br> plot = g, <br>  height = "4in", <br> width = "6in")*|[save plots with different **resolutions** and **file formats**](ggsave.html){target="_blank"}
 9. **Composition** | *library(patchwork) <br> (g1 + g2) \| g3 <br> <br> library(cowplot) <br> plotgrid(...,)* | [Composing plots into ensembles](ensembles.html){target="_blank"}
-10. **Concision** | last_plot(), writing functions | We've been intentionally verbose, but we can chose to be more concise
+10. **Concision** | last_plot(), switch out data with `%+%`, writing functions | [We've been intentionally verbose, but we can chose to be more concise](concision.html){target="_blank"}
 ---
 
 
@@ -106,7 +106,7 @@ p <- "geoms_files/figure-html/"
 
 
 
-r viztoc:::build_and_use_gif(path = "scales_files/figure-html/", pattern = ".")`
+<!-- r viztoc:::build_and_use_gif(path = "scales_files/figure-html/", pattern = ".")` -->
 
 
 
