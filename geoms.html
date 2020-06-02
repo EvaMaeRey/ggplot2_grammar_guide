@@ -7022,9 +7022,9 @@ gapminder %&gt;%
   scale_color_discrete(guide = F) +  
   aes(color = NULL) +  
   aes(group = country) +  
-* geom_point(data = . %&gt;%
-*              filter(country %in%
-*                      c("New Zealand","Chile")),
+* geom_point(data = . %&gt;%  # using global data
+*              filter(country %in%  # filtering to
+*                      c("New Zealand","Chile")),  # NZ and  Chile
 *            color = "plum4",
 *            size = 4)
 ```
@@ -7053,9 +7053,9 @@ gapminder %&gt;%
   scale_color_discrete(guide = F) +  
   aes(color = NULL) +  
   aes(group = country) +  
-  geom_point(data = . %&gt;%  
-               filter(country %in%  
-                       c("New Zealand","Chile")),  
+  geom_point(data = . %&gt;%  # using global data
+               filter(country %in%  # filtering to
+                       c("New Zealand","Chile")),  # NZ and  Chile
              color = "plum4",  
              size = 4) +  
 * geom_line(data = . %&gt;%
@@ -7089,9 +7089,9 @@ gapminder %&gt;%
   scale_color_discrete(guide = F) +  
   aes(color = NULL) +  
   aes(group = country) +  
-  geom_point(data = . %&gt;%  
-               filter(country %in%  
-                       c("New Zealand","Chile")),  
+  geom_point(data = . %&gt;%  # using global data
+               filter(country %in%  # filtering to
+                       c("New Zealand","Chile")),  # NZ and  Chile
              color = "plum4",  
              size = 4) +  
   geom_line(data = . %&gt;%  
@@ -7211,12 +7211,28 @@ count: false
 ```r
 gapminder %&gt;%  
   filter(continent == "Oceania") %&gt;%  
-* ggplot()
+* mutate(pop_millions = pop/1000000)
 ```
 ]
  
 .right-output-difference_ribbon-auto[
-&lt;img src="geoms_files/figure-html/difference_ribbon_auto_3_output-1.png" width="100%" /&gt;
+
+```
+  # A tibble: 24 x 7
+     country   continent  year lifeExp      pop gdpPercap pop_millions
+     &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+   1 Australia Oceania    1952    69.1  8691212    10040.         8.69
+   2 Australia Oceania    1957    70.3  9712569    10950.         9.71
+   3 Australia Oceania    1962    70.9 10794968    12217.        10.8 
+   4 Australia Oceania    1967    71.1 11872264    14526.        11.9 
+   5 Australia Oceania    1972    71.9 13177000    16789.        13.2 
+   6 Australia Oceania    1977    73.5 14074100    18334.        14.1 
+   7 Australia Oceania    1982    74.7 15184200    19477.        15.2 
+   8 Australia Oceania    1987    76.3 16257249    21889.        16.3 
+   9 Australia Oceania    1992    77.6 17481977    23425.        17.5 
+  10 Australia Oceania    1997    78.8 18565243    26998.        18.6 
+  # … with 14 more rows
+```
 ]
 
 ---
@@ -7229,13 +7245,254 @@ count: false
 ```r
 gapminder %&gt;%  
   filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) -&gt;  
+*gm_oceania
+```
+]
+ 
+.right-output-difference_ribbon-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-difference_ribbon-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) -&gt;  
+gm_oceania  
+
+*gm_oceania
+```
+]
+ 
+.right-output-difference_ribbon-auto[
+
+```
+  # A tibble: 24 x 7
+     country   continent  year lifeExp      pop gdpPercap pop_millions
+     &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+   1 Australia Oceania    1952    69.1  8691212    10040.         8.69
+   2 Australia Oceania    1957    70.3  9712569    10950.         9.71
+   3 Australia Oceania    1962    70.9 10794968    12217.        10.8 
+   4 Australia Oceania    1967    71.1 11872264    14526.        11.9 
+   5 Australia Oceania    1972    71.9 13177000    16789.        13.2 
+   6 Australia Oceania    1977    73.5 14074100    18334.        14.1 
+   7 Australia Oceania    1982    74.7 15184200    19477.        15.2 
+   8 Australia Oceania    1987    76.3 16257249    21889.        16.3 
+   9 Australia Oceania    1992    77.6 17481977    23425.        17.5 
+  10 Australia Oceania    1997    78.8 18565243    26998.        18.6 
+  # … with 14 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-difference_ribbon-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) -&gt;  
+gm_oceania  
+
+gm_oceania %&gt;%  
+* select(-gdpPercap, -lifeExp, - pop)
+```
+]
+ 
+.right-output-difference_ribbon-auto[
+
+```
+  # A tibble: 24 x 4
+     country   continent  year pop_millions
+     &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;        &lt;dbl&gt;
+   1 Australia Oceania    1952         8.69
+   2 Australia Oceania    1957         9.71
+   3 Australia Oceania    1962        10.8 
+   4 Australia Oceania    1967        11.9 
+   5 Australia Oceania    1972        13.2 
+   6 Australia Oceania    1977        14.1 
+   7 Australia Oceania    1982        15.2 
+   8 Australia Oceania    1987        16.3 
+   9 Australia Oceania    1992        17.5 
+  10 Australia Oceania    1997        18.6 
+  # … with 14 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-difference_ribbon-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) -&gt;  
+gm_oceania  
+
+gm_oceania %&gt;%  
+  select(-gdpPercap, -lifeExp, - pop) %&gt;%  
+* pivot_wider(names_from = country,
+*             values_from = pop_millions)
+```
+]
+ 
+.right-output-difference_ribbon-auto[
+
+```
+  # A tibble: 12 x 4
+     continent  year Australia `New Zealand`
+     &lt;fct&gt;     &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+   1 Oceania    1952      8.69          1.99
+   2 Oceania    1957      9.71          2.23
+   3 Oceania    1962     10.8           2.49
+   4 Oceania    1967     11.9           2.73
+   5 Oceania    1972     13.2           2.93
+   6 Oceania    1977     14.1           3.16
+   7 Oceania    1982     15.2           3.21
+   8 Oceania    1987     16.3           3.32
+   9 Oceania    1992     17.5           3.44
+  10 Oceania    1997     18.6           3.68
+  11 Oceania    2002     19.5           3.91
+  12 Oceania    2007     20.4           4.12
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-difference_ribbon-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) -&gt;  
+gm_oceania  
+
+gm_oceania %&gt;%  
+  select(-gdpPercap, -lifeExp, - pop) %&gt;%  
+  pivot_wider(names_from = country,  
+              values_from = pop_millions) -&gt;  
+*gm_oceania_pop_millions_wide
+```
+]
+ 
+.right-output-difference_ribbon-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-difference_ribbon-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) -&gt;  
+gm_oceania  
+
+gm_oceania %&gt;%  
+  select(-gdpPercap, -lifeExp, - pop) %&gt;%  
+  pivot_wider(names_from = country,  
+              values_from = pop_millions) -&gt;  
+gm_oceania_pop_millions_wide  
+
+*gm_oceania   # global data
+```
+]
+ 
+.right-output-difference_ribbon-auto[
+
+```
+  # A tibble: 24 x 7
+     country   continent  year lifeExp      pop gdpPercap pop_millions
+     &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+   1 Australia Oceania    1952    69.1  8691212    10040.         8.69
+   2 Australia Oceania    1957    70.3  9712569    10950.         9.71
+   3 Australia Oceania    1962    70.9 10794968    12217.        10.8 
+   4 Australia Oceania    1967    71.1 11872264    14526.        11.9 
+   5 Australia Oceania    1972    71.9 13177000    16789.        13.2 
+   6 Australia Oceania    1977    73.5 14074100    18334.        14.1 
+   7 Australia Oceania    1982    74.7 15184200    19477.        15.2 
+   8 Australia Oceania    1987    76.3 16257249    21889.        16.3 
+   9 Australia Oceania    1992    77.6 17481977    23425.        17.5 
+  10 Australia Oceania    1997    78.8 18565243    26998.        18.6 
+  # … with 14 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-difference_ribbon-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) -&gt;  
+gm_oceania  
+
+gm_oceania %&gt;%  
+  select(-gdpPercap, -lifeExp, - pop) %&gt;%  
+  pivot_wider(names_from = country,  
+              values_from = pop_millions) -&gt;  
+gm_oceania_pop_millions_wide  
+
+gm_oceania %&gt;%  # global data
+* ggplot()
+```
+]
+ 
+.right-output-difference_ribbon-auto[
+&lt;img src="geoms_files/figure-html/difference_ribbon_auto_10_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-difference_ribbon-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) -&gt;  
+gm_oceania  
+
+gm_oceania %&gt;%  
+  select(-gdpPercap, -lifeExp, - pop) %&gt;%  
+  pivot_wider(names_from = country,  
+              values_from = pop_millions) -&gt;  
+gm_oceania_pop_millions_wide  
+
+gm_oceania %&gt;%  # global data
   ggplot() +  
 * aes(x = year)
 ```
 ]
  
 .right-output-difference_ribbon-auto[
-&lt;img src="geoms_files/figure-html/difference_ribbon_auto_4_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/difference_ribbon_auto_11_output-1.png" width="100%" /&gt;
 ]
 
 ---
@@ -7248,14 +7505,24 @@ count: false
 ```r
 gapminder %&gt;%  
   filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) -&gt;  
+gm_oceania  
+
+gm_oceania %&gt;%  
+  select(-gdpPercap, -lifeExp, - pop) %&gt;%  
+  pivot_wider(names_from = country,  
+              values_from = pop_millions) -&gt;  
+gm_oceania_pop_millions_wide  
+
+gm_oceania %&gt;%  # global data
   ggplot() +  
   aes(x = year) +  
-* aes(y = pop)
+* aes(y = pop_millions)
 ```
 ]
  
 .right-output-difference_ribbon-auto[
-&lt;img src="geoms_files/figure-html/difference_ribbon_auto_5_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/difference_ribbon_auto_12_output-1.png" width="100%" /&gt;
 ]
 
 ---
@@ -7268,54 +7535,103 @@ count: false
 ```r
 gapminder %&gt;%  
   filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) -&gt;  
+gm_oceania  
+
+gm_oceania %&gt;%  
+  select(-gdpPercap, -lifeExp, - pop) %&gt;%  
+  pivot_wider(names_from = country,  
+              values_from = pop_millions) -&gt;  
+gm_oceania_pop_millions_wide  
+
+gm_oceania %&gt;%  # global data
   ggplot() +  
   aes(x = year) +  
-  aes(y = pop) +  
-* geom_ribbon(data = . %&gt;%
-*               select(-gdpPercap, -lifeExp)  %&gt;%
-*               pivot_wider(names_from = country,
-*                           values_from = pop),
-*             aes(ymin = `New Zealand`,
-*                 ymax = Australia,
-*                 y = NULL),
-*             fill = "plum4",
-*             alpha = .4)
-```
-]
- 
-.right-output-difference_ribbon-auto[
-&lt;img src="geoms_files/figure-html/difference_ribbon_auto_6_output-1.png" width="100%" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-difference_ribbon-auto[
-
-```r
-gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
-  ggplot() +  
-  aes(x = year) +  
-  aes(y = pop) +  
-  geom_ribbon(data = . %&gt;%  
-                select(-gdpPercap, -lifeExp)  %&gt;%  
-                pivot_wider(names_from = country,  
-                            values_from = pop),  
-              aes(ymin = `New Zealand`,  
-                  ymax = Australia,  
-                  y = NULL),  
-              fill = "plum4",  
-              alpha = .4) +  
+  aes(y = pop_millions) +  
 * geom_line(aes(linetype = country),
 *           color = "plum4")
 ```
 ]
  
 .right-output-difference_ribbon-auto[
-&lt;img src="geoms_files/figure-html/difference_ribbon_auto_7_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/difference_ribbon_auto_13_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-difference_ribbon-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) -&gt;  
+gm_oceania  
+
+gm_oceania %&gt;%  
+  select(-gdpPercap, -lifeExp, - pop) %&gt;%  
+  pivot_wider(names_from = country,  
+              values_from = pop_millions) -&gt;  
+gm_oceania_pop_millions_wide  
+
+gm_oceania %&gt;%  # global data
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop_millions) +  
+  geom_line(aes(linetype = country),  
+            color = "plum4") +  
+* geom_ribbon(data = gm_oceania_pop_millions_wide,  # local data
+*             aes(ymin = `New Zealand`,  # poorly named var like this one has space
+*                 ymax = Australia,  # must be surrounded by back ticks
+*                 y = NULL),  # without this geom ribbon is wondering about y equals year
+*             fill = "plum4",
+*             alpha = .1)
+```
+]
+ 
+.right-output-difference_ribbon-auto[
+&lt;img src="geoms_files/figure-html/difference_ribbon_auto_14_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-difference_ribbon-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) -&gt;  
+gm_oceania  
+
+gm_oceania %&gt;%  
+  select(-gdpPercap, -lifeExp, - pop) %&gt;%  
+  pivot_wider(names_from = country,  
+              values_from = pop_millions) -&gt;  
+gm_oceania_pop_millions_wide  
+
+gm_oceania %&gt;%  # global data
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop_millions) +  
+  geom_line(aes(linetype = country),  
+            color = "plum4") +  
+  geom_ribbon(data = gm_oceania_pop_millions_wide,  # local data
+              aes(ymin = `New Zealand`,  # poorly named var like this one has space
+                  ymax = Australia,  # must be surrounded by back ticks
+                  y = NULL),  # without this geom ribbon is wondering about y equals year
+              fill = "plum4",  
+              alpha = .1) +  
+* scale_y_continuous(limits = c(0, 22))
+```
+]
+ 
+.right-output-difference_ribbon-auto[
+&lt;img src="geoms_files/figure-html/difference_ribbon_auto_15_output-1.png" width="100%" /&gt;
 ]
 
 &lt;style&gt;
@@ -7449,6 +7765,103 @@ count: false
 gapminder %&gt;%  
   filter(continent == "Europe") %&gt;%  
   filter(year %in% c(1972, 2002)) %&gt;%  
+* mutate(country = reorder(country, lifeExp, mean))
+```
+]
+ 
+.right-output-growth-auto[
+
+```
+  # A tibble: 60 x 6
+     country                continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;                  &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Albania                Europe     1972    67.7  2263554     3313.
+   2 Albania                Europe     2002    75.7  3508512     4604.
+   3 Austria                Europe     1972    70.6  7544201    16662.
+   4 Austria                Europe     2002    79.0  8148312    32418.
+   5 Belgium                Europe     1972    71.4  9709100    16672.
+   6 Belgium                Europe     2002    78.3 10311970    30486.
+   7 Bosnia and Herzegovina Europe     1972    67.4  3819000     2860.
+   8 Bosnia and Herzegovina Europe     2002    74.1  4165416     6019.
+   9 Bulgaria               Europe     1972    70.9  8576200     6597.
+  10 Bulgaria               Europe     2002    72.1  7661799     7697.
+  # … with 50 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-growth-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+*gap_72_02_europe
+```
+]
+ 
+.right-output-growth-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-growth-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+*gap_72_02_europe
+```
+]
+ 
+.right-output-growth-auto[
+
+```
+  # A tibble: 60 x 6
+     country                continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;                  &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Albania                Europe     1972    67.7  2263554     3313.
+   2 Albania                Europe     2002    75.7  3508512     4604.
+   3 Austria                Europe     1972    70.6  7544201    16662.
+   4 Austria                Europe     2002    79.0  8148312    32418.
+   5 Belgium                Europe     1972    71.4  9709100    16672.
+   6 Belgium                Europe     2002    78.3 10311970    30486.
+   7 Bosnia and Herzegovina Europe     1972    67.4  3819000     2860.
+   8 Bosnia and Herzegovina Europe     2002    74.1  4165416     6019.
+   9 Bulgaria               Europe     1972    70.9  8576200     6597.
+  10 Bulgaria               Europe     2002    72.1  7661799     7697.
+  # … with 50 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-growth-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
 * select(-gdpPercap, -pop)
 ```
 ]
@@ -7484,28 +7897,33 @@ count: false
 gapminder %&gt;%  
   filter(continent == "Europe") %&gt;%  
   filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
   select(-gdpPercap, -pop) %&gt;%  
-* mutate(country = reorder(country, lifeExp, mean))
+* pivot_wider(names_from = year,
+*             values_from = lifeExp)
 ```
 ]
  
 .right-output-growth-auto[
 
 ```
-  # A tibble: 60 x 4
-     country                continent  year lifeExp
-     &lt;fct&gt;                  &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;
-   1 Albania                Europe     1972    67.7
-   2 Albania                Europe     2002    75.7
-   3 Austria                Europe     1972    70.6
-   4 Austria                Europe     2002    79.0
-   5 Belgium                Europe     1972    71.4
-   6 Belgium                Europe     2002    78.3
-   7 Bosnia and Herzegovina Europe     1972    67.4
-   8 Bosnia and Herzegovina Europe     2002    74.1
-   9 Bulgaria               Europe     1972    70.9
-  10 Bulgaria               Europe     2002    72.1
-  # … with 50 more rows
+  # A tibble: 30 x 4
+     country                continent `1972` `2002`
+     &lt;fct&gt;                  &lt;fct&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+   1 Albania                Europe      67.7   75.7
+   2 Austria                Europe      70.6   79.0
+   3 Belgium                Europe      71.4   78.3
+   4 Bosnia and Herzegovina Europe      67.4   74.1
+   5 Bulgaria               Europe      70.9   72.1
+   6 Croatia                Europe      69.6   74.9
+   7 Czech Republic         Europe      70.3   75.5
+   8 Denmark                Europe      73.5   77.2
+   9 Finland                Europe      70.9   78.4
+  10 France                 Europe      72.4   79.6
+  # … with 20 more rows
 ```
 ]
 
@@ -7520,14 +7938,19 @@ count: false
 gapminder %&gt;%  
   filter(continent == "Europe") %&gt;%  
   filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
   select(-gdpPercap, -pop) %&gt;%  
-  mutate(country = reorder(country, lifeExp, mean)) %&gt;%  
-* ggplot()
+  pivot_wider(names_from = year,  
+              values_from = lifeExp) -&gt;  
+*gap_72_02_europe_wide
 ```
 ]
  
 .right-output-growth-auto[
-&lt;img src="geoms_files/figure-html/growth_auto_6_output-1.png" width="100%" /&gt;
+
 ]
 
 ---
@@ -7541,82 +7964,16 @@ count: false
 gapminder %&gt;%  
   filter(continent == "Europe") %&gt;%  
   filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
   select(-gdpPercap, -pop) %&gt;%  
-  mutate(country = reorder(country, lifeExp, mean)) %&gt;%  
-  ggplot() +  
-* aes(x = lifeExp)
-```
-]
- 
-.right-output-growth-auto[
-&lt;img src="geoms_files/figure-html/growth_auto_7_output-1.png" width="100%" /&gt;
-]
+  pivot_wider(names_from = year,  
+              values_from = lifeExp) -&gt;  
+gap_72_02_europe_wide  
 
----
-class: split-40
-count: false
- 
-
-.left-code-growth-auto[
-
-```r
-gapminder %&gt;%  
-  filter(continent == "Europe") %&gt;%  
-  filter(year %in% c(1972, 2002)) %&gt;%  
-  select(-gdpPercap, -pop) %&gt;%  
-  mutate(country = reorder(country, lifeExp, mean)) %&gt;%  
-  ggplot() +  
-  aes(x = lifeExp) +  
-* aes(y = country)
-```
-]
- 
-.right-output-growth-auto[
-&lt;img src="geoms_files/figure-html/growth_auto_8_output-1.png" width="100%" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-growth-auto[
-
-```r
-gapminder %&gt;%  
-  filter(continent == "Europe") %&gt;%  
-  filter(year %in% c(1972, 2002)) %&gt;%  
-  select(-gdpPercap, -pop) %&gt;%  
-  mutate(country = reorder(country, lifeExp, mean)) %&gt;%  
-  ggplot() +  
-  aes(x = lifeExp) +  
-  aes(y = country) +  
-* geom_point()
-```
-]
- 
-.right-output-growth-auto[
-&lt;img src="geoms_files/figure-html/growth_auto_9_output-1.png" width="100%" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-growth-auto[
-
-```r
-gapminder %&gt;%  
-  filter(continent == "Europe") %&gt;%  
-  filter(year %in% c(1972, 2002)) %&gt;%  
-  select(-gdpPercap, -pop) %&gt;%  
-  mutate(country = reorder(country, lifeExp, mean)) %&gt;%  
-  ggplot() +  
-  aes(x = lifeExp) +  
-  aes(y = country) +  
-  geom_point() +  
-* aes(color = factor(year))
+*ggplot(data = gap_72_02_europe)
 ```
 ]
  
@@ -7635,21 +7992,17 @@ count: false
 gapminder %&gt;%  
   filter(continent == "Europe") %&gt;%  
   filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
   select(-gdpPercap, -pop) %&gt;%  
-  mutate(country = reorder(country, lifeExp, mean)) %&gt;%  
-  ggplot() +  
-  aes(x = lifeExp) +  
-  aes(y = country) +  
-  geom_point() +  
-  aes(color = factor(year)) +  
-* geom_segment(data = . %&gt;%
-*                pivot_wider(names_from = year,
-*                            values_from = lifeExp),
-*                aes(x = `1972`,
-*                    xend = `2002`,
-*                    yend = country),
-*              color = "plum3",
-*              size = 1.5)
+  pivot_wider(names_from = year,  
+              values_from = lifeExp) -&gt;  
+gap_72_02_europe_wide  
+
+ggplot(data = gap_72_02_europe) +  
+* aes(x = lifeExp)
 ```
 ]
  
@@ -7668,22 +8021,18 @@ count: false
 gapminder %&gt;%  
   filter(continent == "Europe") %&gt;%  
   filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
   select(-gdpPercap, -pop) %&gt;%  
-  mutate(country = reorder(country, lifeExp, mean)) %&gt;%  
-  ggplot() +  
+  pivot_wider(names_from = year,  
+              values_from = lifeExp) -&gt;  
+gap_72_02_europe_wide  
+
+ggplot(data = gap_72_02_europe) +  
   aes(x = lifeExp) +  
-  aes(y = country) +  
-  geom_point() +  
-  aes(color = factor(year)) +  
-  geom_segment(data = . %&gt;%  
-                 pivot_wider(names_from = year,  
-                             values_from = lifeExp),  
-                 aes(x = `1972`,  
-                     xend = `2002`,  
-                     yend = country),  
-               color = "plum3",  
-               size = 1.5) +  
-* geom_point(size = 4)
+* aes(y = country)
 ```
 ]
  
@@ -7702,23 +8051,19 @@ count: false
 gapminder %&gt;%  
   filter(continent == "Europe") %&gt;%  
   filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
   select(-gdpPercap, -pop) %&gt;%  
-  mutate(country = reorder(country, lifeExp, mean)) %&gt;%  
-  ggplot() +  
+  pivot_wider(names_from = year,  
+              values_from = lifeExp) -&gt;  
+gap_72_02_europe_wide  
+
+ggplot(data = gap_72_02_europe) +  
   aes(x = lifeExp) +  
   aes(y = country) +  
-  geom_point() +  
-  aes(color = factor(year)) +  
-  geom_segment(data = . %&gt;%  
-                 pivot_wider(names_from = year,  
-                             values_from = lifeExp),  
-                 aes(x = `1972`,  
-                     xend = `2002`,  
-                     yend = country),  
-               color = "plum3",  
-               size = 1.5) +  
-  geom_point(size = 4) +  
-* scale_color_manual(values = c("plum3", "plum4"))
+* geom_point()
 ```
 ]
  
@@ -7737,24 +8082,20 @@ count: false
 gapminder %&gt;%  
   filter(continent == "Europe") %&gt;%  
   filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
   select(-gdpPercap, -pop) %&gt;%  
-  mutate(country = reorder(country, lifeExp, mean)) %&gt;%  
-  ggplot() +  
+  pivot_wider(names_from = year,  
+              values_from = lifeExp) -&gt;  
+gap_72_02_europe_wide  
+
+ggplot(data = gap_72_02_europe) +  
   aes(x = lifeExp) +  
   aes(y = country) +  
   geom_point() +  
-  aes(color = factor(year)) +  
-  geom_segment(data = . %&gt;%  
-                 pivot_wider(names_from = year,  
-                             values_from = lifeExp),  
-                 aes(x = `1972`,  
-                     xend = `2002`,  
-                     yend = country),  
-               color = "plum3",  
-               size = 1.5) +  
-  geom_point(size = 4) +  
-  scale_color_manual(values = c("plum3", "plum4")) +  
-* theme(legend.position = c(.15,.85))
+* aes(color = factor(year))
 ```
 ]
  
@@ -7773,22 +8114,185 @@ count: false
 gapminder %&gt;%  
   filter(continent == "Europe") %&gt;%  
   filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
   select(-gdpPercap, -pop) %&gt;%  
-  mutate(country = reorder(country, lifeExp, mean)) %&gt;%  
-  ggplot() +  
+  pivot_wider(names_from = year,  
+              values_from = lifeExp) -&gt;  
+gap_72_02_europe_wide  
+
+ggplot(data = gap_72_02_europe) +  
   aes(x = lifeExp) +  
   aes(y = country) +  
   geom_point() +  
   aes(color = factor(year)) +  
-  geom_segment(data = . %&gt;%  
-                 pivot_wider(names_from = year,  
-                             values_from = lifeExp),  
-                 aes(x = `1972`,  
-                     xend = `2002`,  
+* geom_segment(data = gap_72_02_europe_wide,
+*                aes(x = `1972`,  # poorly named columns ie starting w number
+*                    xend = `2002`,  # need to be surouned by backtick
+*                    yend = country),
+*              color = "plum3",
+*              size = 1.5)
+```
+]
+ 
+.right-output-growth-auto[
+&lt;img src="geoms_files/figure-html/growth_auto_15_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-growth-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
+  select(-gdpPercap, -pop) %&gt;%  
+  pivot_wider(names_from = year,  
+              values_from = lifeExp) -&gt;  
+gap_72_02_europe_wide  
+
+ggplot(data = gap_72_02_europe) +  
+  aes(x = lifeExp) +  
+  aes(y = country) +  
+  geom_point() +  
+  aes(color = factor(year)) +  
+  geom_segment(data = gap_72_02_europe_wide,  
+                 aes(x = `1972`,  # poorly named columns ie starting w number
+                     xend = `2002`,  # need to be surouned by backtick
                      yend = country),  
                color = "plum3",  
                size = 1.5) +  
-  geom_point(size = 4) +  
+* geom_point(size = 4)   # point layer above not really needed - just for showing logic
+```
+]
+ 
+.right-output-growth-auto[
+&lt;img src="geoms_files/figure-html/growth_auto_16_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-growth-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
+  select(-gdpPercap, -pop) %&gt;%  
+  pivot_wider(names_from = year,  
+              values_from = lifeExp) -&gt;  
+gap_72_02_europe_wide  
+
+ggplot(data = gap_72_02_europe) +  
+  aes(x = lifeExp) +  
+  aes(y = country) +  
+  geom_point() +  
+  aes(color = factor(year)) +  
+  geom_segment(data = gap_72_02_europe_wide,  
+                 aes(x = `1972`,  # poorly named columns ie starting w number
+                     xend = `2002`,  # need to be surouned by backtick
+                     yend = country),  
+               color = "plum3",  
+               size = 1.5) +  
+  geom_point(size = 4) +  # point layer above not really needed - just for showing logic
+* scale_color_manual(values = c("plum3", "plum4"))
+```
+]
+ 
+.right-output-growth-auto[
+&lt;img src="geoms_files/figure-html/growth_auto_17_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-growth-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
+  select(-gdpPercap, -pop) %&gt;%  
+  pivot_wider(names_from = year,  
+              values_from = lifeExp) -&gt;  
+gap_72_02_europe_wide  
+
+ggplot(data = gap_72_02_europe) +  
+  aes(x = lifeExp) +  
+  aes(y = country) +  
+  geom_point() +  
+  aes(color = factor(year)) +  
+  geom_segment(data = gap_72_02_europe_wide,  
+                 aes(x = `1972`,  # poorly named columns ie starting w number
+                     xend = `2002`,  # need to be surouned by backtick
+                     yend = country),  
+               color = "plum3",  
+               size = 1.5) +  
+  geom_point(size = 4) +  # point layer above not really needed - just for showing logic
+  scale_color_manual(values = c("plum3", "plum4")) +  
+* theme(legend.position = c(.15,.85))
+```
+]
+ 
+.right-output-growth-auto[
+&lt;img src="geoms_files/figure-html/growth_auto_18_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-growth-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Europe") %&gt;%  
+  filter(year %in% c(1972, 2002)) %&gt;%  
+  mutate(country = reorder(country, lifeExp, mean)) -&gt;  
+gap_72_02_europe  
+
+gap_72_02_europe %&gt;%  
+  select(-gdpPercap, -pop) %&gt;%  
+  pivot_wider(names_from = year,  
+              values_from = lifeExp) -&gt;  
+gap_72_02_europe_wide  
+
+ggplot(data = gap_72_02_europe) +  
+  aes(x = lifeExp) +  
+  aes(y = country) +  
+  geom_point() +  
+  aes(color = factor(year)) +  
+  geom_segment(data = gap_72_02_europe_wide,  
+                 aes(x = `1972`,  # poorly named columns ie starting w number
+                     xend = `2002`,  # need to be surouned by backtick
+                     yend = country),  
+               color = "plum3",  
+               size = 1.5) +  
+  geom_point(size = 4) +  # point layer above not really needed - just for showing logic
   scale_color_manual(values = c("plum3", "plum4")) +  
   theme(legend.position = c(.15,.85)) +  
 * labs(color = NULL, y = NULL)
@@ -7796,7 +8300,7 @@ gapminder %&gt;%
 ]
  
 .right-output-growth-auto[
-&lt;img src="geoms_files/figure-html/growth_auto_15_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_files/figure-html/growth_auto_19_output-1.png" width="100%" /&gt;
 ]
 
 &lt;style&gt;

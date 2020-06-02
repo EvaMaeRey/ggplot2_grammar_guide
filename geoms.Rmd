@@ -451,9 +451,9 @@ gapminder %>%
   scale_color_discrete(guide = F) +
   aes(color = NULL) +
   aes(group = country) +
-  geom_point(data = . %>% 
-               filter(country %in% 
-                       c("New Zealand","Chile")), 
+  geom_point(data = . %>% # using global data
+               filter(country %in% # filtering to 
+                       c("New Zealand","Chile")), # NZ and  Chile
              color = "plum4",
              size = 4) +
   geom_line(data = . %>% 
@@ -480,20 +480,28 @@ gapminder %>%
 ```{r difference_ribbon, eval = F, echo = F}
 gapminder %>%
   filter(continent == "Oceania") %>% 
+  mutate(pop_millions = pop/1000000) ->
+gm_oceania
+
+gm_oceania %>%
+  select(-gdpPercap, -lifeExp, - pop) %>% 
+  pivot_wider(names_from = country,
+              values_from = pop_millions) ->
+gm_oceania_pop_millions_wide
+  
+gm_oceania %>% # global data
   ggplot() +
   aes(x = year) +
-  aes(y = pop) +
-  geom_ribbon(data = . %>%
-                select(-gdpPercap, -lifeExp)  %>% 
-                pivot_wider(names_from = country,
-                            values_from = pop),
-              aes(ymin = `New Zealand`,
-                  ymax = Australia,
-                  y = NULL),
-              fill = "plum4",
-              alpha = .4) +
+  aes(y = pop_millions) +
   geom_line(aes(linetype = country),
-            color = "plum4")
+            color = "plum4") +
+  geom_ribbon(data = gm_oceania_pop_millions_wide, # local data
+              aes(ymin = `New Zealand`, # poorly named var like this one has space
+                  ymax = Australia,     # must be surrounded by back ticks
+                  y = NULL), # without this geom ribbon is wondering about y equals year
+              fill = "plum4",
+              alpha = .1) +
+  scale_y_continuous(limits = c(0, 22))
 ```
 
 ---
@@ -505,22 +513,27 @@ gapminder %>%
 gapminder %>%
   filter(continent == "Europe") %>% 
   filter(year %in% c(1972, 2002)) %>% 
+  mutate(country = reorder(country, lifeExp, mean)) ->
+gap_72_02_europe
+
+gap_72_02_europe %>% 
   select(-gdpPercap, -pop) %>% 
-  mutate(country = reorder(country, lifeExp, mean)) %>% 
-  ggplot() +
+  pivot_wider(names_from = year,
+              values_from = lifeExp) ->
+gap_72_02_europe_wide
+
+ggplot(data = gap_72_02_europe) +
   aes(x = lifeExp) +
   aes(y = country) +
   geom_point() +
   aes(color = factor(year)) +
-  geom_segment(data = . %>% 
-                 pivot_wider(names_from = year,
-                             values_from = lifeExp),
-                 aes(x = `1972`,
-                     xend = `2002`,
+  geom_segment(data = gap_72_02_europe_wide,
+                 aes(x = `1972`, # poorly named columns ie starting w number
+                     xend = `2002`, # need to be surouned by backtick
                      yend = country),
                color = "plum3",
                size = 1.5) +
-  geom_point(size = 4) +
+  geom_point(size = 4) + # point layer above not really needed - just for showing logic
   scale_color_manual(values = c("plum3", "plum4")) +
   theme(legend.position = c(.15,.85)) +
   labs(color = NULL, y = NULL)
