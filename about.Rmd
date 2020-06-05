@@ -28,9 +28,7 @@ knitr::opts_chunk$set(echo = F, eval = T, message = F, warning = F, cache = T)
 }
 ```
 
-
-
-<img class="static" src="https://lh4.googleusercontent.com/-gZiu96oTuu4/Uag5oWLQHfI/AAAAAAAABSE/pl1W8n91hH0/w140-h165-no/Homer-Static.png"><img class="active" src="https://lh4.googleusercontent.com/i1RprwcvxhbN2TAMunNxS4RiNVT0DvlD9FNQCvPFuJ0=w140-h165-no">
+<a href="https://evamaerey.github.io/flipbooks/about" target="_blank"><img class="static" src="https://lh4.googleusercontent.com/-gZiu96oTuu4/Uag5oWLQHfI/AAAAAAAABSE/pl1W8n91hH0/w140-h165-no/Homer-Static.png"><img class="active" src="https://lh4.googleusercontent.com/i1RprwcvxhbN2TAMunNxS4RiNVT0DvlD9FNQCvPFuJ0=w140-h165-no"></a>
 
 **Homer dips his toe into some Data Viz! Leaving him here just for Data Viz Spring 2020!**
 
@@ -70,24 +68,27 @@ These are my ideas about the *grammar* of ggplot2.  ggplot2 is based on the gram
 Grammar Analogy | How?  | What? |
 ---|---|---|---
 1. **The Declarative Mood**  | ggplot(data = gapminder) +| [Declaring the **data**](data_aes_geom.html){target="_blank"}
-2. **The Interogative Mood** |aes(**color** = pop) + | [Asking for **representation of variables by aesthetics** (color, size, x position, etc.) (also known as **aesthetic mapping**) ](data_aes_geom.html#aes){target="_blank"}
+2. **The Interogative Mood** |aes(**color** = pop) + | [Asking for **representation of variables by aesthetics** (color, size, x position, etc.) (also known as **aesthetic mapping**) ](data_aes_geom.html#aes){target="_blank"} 
     - *Modifiers I* | *labs(**color** = continent) +<br>labs(title = "my title") +* | [modifying *default* **aesthetic labels** (and **plot labels**)](modifiers.html#labs){target="_blank"}
     - *Modifiers II* | coord_polar() + | [modifying the *default* **coordinate system** (how the *positional* aesthetics appear - x and y)](modifiers.html#coords){target="_blank"}
     - *Modifiers III* | *scale\_**color**\_viridis_d() +* | [modifying *default* **aesthetic scales**](modifiers.html#scales){target="_blank"}
 3. **Nouns** | *geom\_point() +* | [**geometric layers** taking on the aesthetics representing variables](data_aes_geom.html){target="_blank"} 
-4.**The Conditional Mood**|*geom\_point(* | [Making **local**, **geom specific** declarations rather than **global** declarations](local.html){target="_blank"} 
+4.**The Conditional Mood**|*geom\_point(* | [Making **local**, **geom specific** declarations rather than **global** declarations](local.html){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "", href = "local.html")`
 | | *data = gapminder,* | **data** is <br> geom specific 
   | |  *aes(**size** = population),* |  **aesthetic representation**<br> is geom specific
 ||   ***color** = "blue"<br>*  | **aesthetics *not* representing variables; *unmapped* aesthetics** (i.e.  **The Imperative Mood)** 
 || ) + |
-5. **Interjections**| *annotate(geom = "point", <br> x = 10, <br> y = 12, <br> color = "blue")* | [Adding context with **annotation layers**](annotate.html){target="_blank"}
-6. **Punctuation**  | *facet_wrap(~continent)*| [**faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables ](facet.html){target="_blank"} 
-7. **Greetings**|*theme_minimal()* | [**themes** changing plot look and feel](themes.html){target="_blank"} | `r viztoc:::build_and_use_gif(path = "themes_files/figure-html/", pattern = "")`
+5. **Interjections**| *annotate(geom = "point", <br> x = 10, <br> y = 12, <br> color = "blue")* | [Adding context with **annotation layers**](annotate.html){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "annotate_files/figure-html/", pattern = "", href = "annotate.html")`
+6. **Punctuation**  | *facet_wrap(~continent)*| [**faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables ](facet.html){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "facet_files/figure-html/", pattern = "", href = "facet.html")`
+7. **Greetings**|*theme_minimal()* | [**themes** changing plot look and feel](themes.html){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "themes_files/figure-html/", pattern = "", href = "themes.html")`
 8. **The Written Language** | *ggsave(file = "plot.png", <br> plot = g, <br>  height = "4in", <br> width = "6in")*|[save plots with different **resolutions** and **file formats**](ggsave.html){target="_blank"}
-9. **Composition** | *library(patchwork) <br> (g1 + g2) \| g3 <br> <br> library(cowplot) <br> plotgrid(...,)* | [Composing plots into ensembles](ensembles.html){target="_blank"}
+9. **Composition** | *library(patchwork) <br> (g1 + g2) \| g3 <br> <br> library(cowplot) <br> plotgrid(...,)* | [Composing plots into ensembles](ensembles.html){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "ensembles_files/figure-html/", pattern = "", href = "ensembles.html")`
 10. **Concision** | last_plot(), switch out data with `%+%`, writing functions | [We've been intentionally verbose, but we can chose to be more concise](concision.html){target="_blank"}
 ---
 
+```{r}
+library(viztoc)
+```
 
 
 
@@ -110,16 +111,16 @@ p <- "geoms_files/figure-html/"
 
 
 
-[A closer look at **geoms**](geoms.html){target="_blank"}
+[Another look at **geoms**](geoms.html){target="_blank"}
 
-- [continuous X continuous](geoms.html#cc){target="_blank"} `r viztoc:::build_and_use_gif(path = p, pattern = "continuous_continuous")`
-- [univaritate continuous](geoms.html#c){target="_blank"} `r viztoc:::build_and_use_gif(path = p, pattern = "univariate_continuous")`
+- [continuous X continuous](geoms.html#cc){target="_blank"} `r viztoc:::build_and_use_gif(dir = p, pattern = "continuous_continuous", href = "geoms.html#cc")`
+- [univaritate continuous](geoms.html#c){target="_blank"} `r viztoc:::build_and_use_gif(dir = p, pattern = "univariate_continuous", href = "geoms.html#c")`
 - [1 discrete](geoms.html#d){target="_blank"}
-- [continuous X discrete](geoms.html#cd){target="_blank"} `r viztoc:::build_and_use_gif(path = p, pattern = "geom_discrete_continuous")`
-- [discrete X continous, single value](){} `r viztoc:::build_and_use_gif(path = p, pattern = "single_value")`
-- [discrete X discrete](geoms.html#dd){target="_blank"} `r viztoc:::build_and_use_gif(path = p, pattern = "discrete2x")`
-- [single series](geoms.html#single_series)  `r viztoc:::build_and_use_gif(path = p, pattern = "time_series_ro")`
-- [multi series](geoms.html#mult_series)  `r viztoc:::build_and_use_gif(path = p, pattern = "time_series_multi")`
+- [continuous X discrete](geoms.html#cd){target="_blank"} `r viztoc:::build_and_use_gif(dir = p, pattern = "geom_discrete_continuous", href = "geoms.html#cd" )`
+- [discrete X continous, single value](){} `r viztoc:::build_and_use_gif(dir = p, pattern = "single_value", href = "geoms.html#cd" )`
+- [discrete X discrete](geoms.html#dd){target="_blank"} `r viztoc:::build_and_use_gif(dir = p, pattern = "discrete2x", href = "geoms.html#dd" )`
+- [single series](geoms.html#single_series)  `r viztoc:::build_and_use_gif(dir = p, pattern = "time_series_ro", href = "geoms.html#single_series")`
+- [multi series](geoms.html#mult_series)  `r viztoc:::build_and_use_gif(dir = p, pattern = "time_series_multi",  href = "geoms.html#mult_series")`
   
   
   
