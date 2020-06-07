@@ -65,25 +65,26 @@ These are my ideas about the *grammar* of ggplot2.  ggplot2 is based on the gram
 
 
 
-Grammar Analogy | How?  | What? |
+| | What? |  |  How?  
 ---|---|---|---
-1. **The Declarative Mood**  | ggplot(data = gapminder) +| [Declaring the **data**](data_aes_geom.html){target="_blank"}
-2. **The Interogative Mood** |aes(**color** = pop) + | [Asking for **representation of variables by aesthetics** (color, size, x position, etc.) (also known as **aesthetic mapping**) ](data_aes_geom.html#aes){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "data_aes_geom_files/figure-html/", pattern = "area", href = "data_aes_geom.html", width = 150, height = 150, cached_gif = T, which = 8)`
-    - *Modifiers I* | *labs(**color** = continent) +<br>labs(title = "my title") +* | [modifying *default* **aesthetic labels** (and **plot labels**)](modifiers.html#labs){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "modifiers_files/figure-html/", pattern = "labs", href = "modifiers.html#labs", which = 11, width = 150, height = 150, cached_gif = T)`
-    - *Modifiers II* | coord_polar() + | [modifying the *default* **coordinate system** (how the *positional* aesthetics appear - x and y)](modifiers.html#coords){target="_blank"}  | `r viztoc:::build_and_use_gif(dir = "modifiers_files/figure-html/", pattern = "coords", href = "modifiers.html#coords", which = 7, width = 150, height = 150, cached_gif = T)`
-    - *Modifiers III* | *scale\_**color**\_viridis_d() +* | [modifying *default* **aesthetic scales**](modifiers.html#scales){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "scales_files/figure-html/", pattern = "", href = "scales.html", which = 54, width = 150, height = 150, cached_gif = T)`
-3. **Nouns** | *geom\_point() +* | [**geometric layers** taking on the aesthetics representing variables](data_aes_geom.html){target="_blank"} 
-4.**The Conditional Mood**|*geom\_point(* | [Making **local**, **geom-specific** declarations rather than **global** declarations](local.html){target="_blank"} 
-| | *data = gapminder,* | **data** is <br> geom-specific | `r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "data", href = "local.html", width = 150, height = 150, cached_gif = T)`
-  | |  *aes(**size** = population),* |  **aesthetic representation**<br> is geom-specific | `r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "aes_mapping", href = "local.html", width = 150, height = 150, cached_gif = T)`
-||   ***color** = "blue"<br>*  | **aesthetics *not* representing variables; *unmapped* aesthetics** (i.e.  **The Imperative Mood)** | `r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "unmapped", href = "local.html", width = 150, height = 150, cached_gif = F, which = 9)`
-|| ) + |
-5. **Interjections**| *annotate(geom = "point", <br> x = 10, <br> y = 12, <br> color = "blue")* | [Adding context with **annotation layers**](annotate.html){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "annotate_files/figure-html/", pattern = "", href = "annotate.html", which = 7, width = 150, height = 150, cached_gif = F)`
-6. **Punctuation**  | *facet_wrap(~continent)*| [**faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables ](facet.html){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "facet_files/figure-html/", pattern = "", href = "facet.html", which = 6, width = 150, height = 150, cached_gif = T)`
-7. **Greetings**|*theme_minimal()* | [**themes** changing plot look and feel](themes.html){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "themes_files/figure-html/", pattern = "", href = "themes.html", which = 48, width = 150, height = 150, cached_gif = T)`
-8. **The Written Language** | *ggsave(file = "plot.png", <br> plot = g, <br>  height = "4in", <br> width = "6in")*|[save plots with different **resolutions** and **file formats**](ggsave.html){target="_blank"}
-9. **Composition** | *library(patchwork) <br> (g1 + g2) \| g3 <br> <br> library(cowplot) <br> plotgrid(...,)* | [Composing plots into ensembles](ensembles.html){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "ensembles_files/figure-html/", pattern = "", href = "ensembles.html", which = 32, width = 150, height = 150, cached_gif = T)`
-10. **Concision** | last_plot(), switch out data with `%+%`, writing functions | [We've been intentionally verbose, but there are strategies for being concise](concision.html){target="_blank"}
+1. **The Declarative Mood** | [Declaring the **data**](data_aes_geom.html){target="_blank"}| | ggplot(data = gapminder) +
+2. **The Interogative Mood**  | [Asking for **representation of variables by aesthetics** (color, size, x position, etc.) (also known as **aesthetic mapping**) ](data_aes_geom.html#aes){target="_blank"}   | `r viztoc:::build_and_use_gif(dir = "data_aes_geom_files/figure-html/", pattern = "area", href = "data_aes_geom.html", width = 150, height = 150, cached_gif = T, which = 8)` | aes(**color** = pop) +
+    **- Modifiers I** | [modifying *default* **aesthetic labels** (and **plot labels**)](modifiers.html#labs){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "modifiers_files/figure-html/", pattern = "labs", href = "modifiers.html#labs", which = 11, width = 150, height = 150, cached_gif = T)`| *labs(**color** = continent) +<br>labs(title = "my title") +*
+    **- Modifiers II**  | [modifying the *default* **coordinate system** (how the *positional* aesthetics appear - x and y)](modifiers.html#coords){target="_blank"}  | `r viztoc:::build_and_use_gif(dir = "modifiers_files/figure-html/", pattern = "coords", href = "modifiers.html#coords", which = 7, width = 150, height = 150, cached_gif = T)`| coord_polar() + 
+    **- Modifiers III** | [modifying *default* **aesthetic scales**](modifiers.html#scales){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "scales_files/figure-html/", pattern = "", href = "scales.html", which = 54, width = 150, height = 150, cached_gif = T)`| *scale\_**color**\_viridis_d() +* 
+3. **Nouns**  | [**geometric layers** taking on the aesthetics representing variables](data_aes_geom.html){target="_blank"} | **see below table** | *geom\_point() +*
+4.**The Conditional Mood**| [Making **local**, **geom-specific** declarations rather than **global** declarations](local.html){target="_blank"} ||*geom\_point(* 
+|  | **data** is <br> geom-specific  |`r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "data", href = "local.html", width = 150, height = 150, cached_gif = T)`|  *data = gapminder,*
+  |  |  **aesthetic representation**<br> is geom-specific  | `r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "aes_mapping", href = "local.html", width = 150, height = 150, cached_gif = T)`|  *aes(**size** = population),*
+| |  **aesthetics *not* representing variables; *unmapped* aesthetics** (i.e.  **The Imperative Mood)**  | `r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "unmapped", href = "local.html", width = 150, height = 150, cached_gif = F, which = 9)`|  ***color** = "blue"<br>* 
+|||| ) + 
+5. **Interjections**| [Adding context with **annotation layers**](annotate.html){target="_blank"} |  `r viztoc:::build_and_use_gif(dir = "annotate_files/figure-html/", pattern = "", href = "annotate.html", which = 7, width = 150, height = 150, cached_gif = T)` | *annotate(geom = "point", <br> x = 10, <br> y = 12, <br> color = "blue")* 
+6. **Punctuation**  | [**faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables ](facet.html){target="_blank"} |  `r viztoc:::build_and_use_gif(dir = "facet_files/figure-html/", pattern = "", href = "facet.html", which = 6, width = 150, height = 150, cached_gif = T)`| *facet_wrap(~continent)*
+7. **Greetings**| [**themes** changing plot look and feel](themes.html){target="_blank"}   | `r viztoc:::build_and_use_gif(dir = "themes_files/figure-html/", pattern = "", href = "themes.html", which = 48, width = 150, height = 150, cached_gif = T)` | *theme_minimal()*
+8. **The Written Language** | [save plots with different **resolutions** and **file formats**](ggsave.html){target="_blank"}| | *ggsave(file = "plot.png", <br> plot = g, <br>  height = "4in", <br> width = "6in")*
+9. **Composition** | [Composing plots into ensembles](ensembles.html){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "ensembles_files/figure-html/", pattern = "", href = "ensembles.html", which = 32, width = 150, height = 150, cached_gif = T)`| *library(patchwork) <br> (g1 + g2) \| g3 <br> <br> library(cowplot) <br> plotgrid(...,)*  
+10. **Concision** | [We've been intentionally verbose, but there are strategies for being concise](concision.html){target="_blank"} | | last_plot(), switch out data with `%+%`, writing functions 
+
 ---
 
 ```{r}
@@ -96,7 +97,7 @@ library(viztoc)
 
 ### A closer look at geoms.
 
-Above, the geom topics are intentionally cursory.  There are tons of geoms, and they can get distracting. But geoms are pretty fun - and there are a lot! 
+Above, the geom topics are intentionally cursory.  There are tons of geoms, and they can get distracting. But in the end, geoms are pretty fun - and there are a lot of them! Below gives you a preview of geometric marks used to describe continuous distributions, continuous-continuous joint distributions, visualizations of single series, of multiple series and discrete-discrete distributions.
 
 ```{r}
 p <- "geoms_files/figure-html/"
@@ -165,7 +166,7 @@ library(viztoc)
 
 ---
 
-A Closer Look at Color
+### A Closer Look at Color
 
 - [color theory](color.html){target="_blank"}
 - [named colors in R](named_colors.html){target="_blank"}
@@ -173,13 +174,12 @@ A Closer Look at Color
 
 `r viztoc:::build_and_use_gif(dir = "paletteer_files/figure-html/", pattern = "", href = "paletteer.html", which = 32, width = 250, height = 250, cached_gif = T)`
 
-A Closer Look at Text
+### A Closer Look at Text
 
+- font? someday
 - [{ggtext} allows variation in color, font type, etc within text](https://evamaerey.github.io/flipbooks/ggtext/ggtext){target="_blank"}
 
 
-
-r viztoc:::build_and_use_gif(dir = "ggtext_files/figure-html/", pattern = "" , href = "ggtext.html" )`
 
 External Theme Packages
 
@@ -235,7 +235,7 @@ Animation with [{gganimate}](gganimate.html){target="_blank"}
 # Other guides to ggplot2
 
 ggplot2 is very flexible, so there often there are more than one way of getting things done --- which also means there is more than one way to introduce ggplot2.
-If you aren't on board with this guide (and even if you are)   you may want check out other resouces.  The more definitive and comprehensive guide to ggplot2 is the 3rd edition of [*ggplot2: elegant graphics for data analysis*](ggplot2-book.org){target="_blank"}. Some other workshop materials are Alison Hill's [Take a Sad Plot and Make it Better](https://alison.netlify.app/rlm-sad-plot-better/#1), Garrick Aden-Buie's [*A Gentle Guide to the Grammar of Graphics with ggplot2*](https://pkg.garrickadenbuie.com/gentle-ggplot2/#1){target="_blank"}, Will Chase's [*R you ready to make charts?*](https://www.williamrchase.com/slides/ggplot_intro.html#1){target="_blank"}, Malcom Barrett's [*Designing ggplots making clear figures that communicate*](https://designing-ggplots.netlify.com/#1){target="_blank"}, and Thomas Lin Pederson's [*Drawing anything with ggplot2*](https://github.com/thomasp85/ggplot2_workshop/blob/master/presentation.pdf){target="_blank"}.  [The ggplot2 cheatsheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf){target="_blank"} is also excellent. 
+If you aren't on board with this guide (and even if you are) you may want check out other resouces --- I've learned a great deal from them!  The definitive and comprehensive guide to ggplot2 is the 3rd edition of [*ggplot2: elegant graphics for data analysis*](ggplot2-book.org){target="_blank"}. Some other workshop materials are Alison Hill's [Take a Sad Plot and Make it Better](https://alison.netlify.app/rlm-sad-plot-better/#1), Garrick Aden-Buie's [*A Gentle Guide to the Grammar of Graphics with ggplot2*](https://pkg.garrickadenbuie.com/gentle-ggplot2/#1){target="_blank"}, Will Chase's [*R you ready to make charts?*](https://www.williamrchase.com/slides/ggplot_intro.html#1){target="_blank"}, Malcom Barrett's [*Designing ggplots making clear figures that communicate*](https://designing-ggplots.netlify.com/#1){target="_blank"}, and Thomas Lin Pederson's [*Drawing anything with ggplot2*](https://github.com/thomasp85/ggplot2_workshop/blob/master/presentation.pdf){target="_blank"}.  [The ggplot2 cheatsheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf){target="_blank"} is also excellent. 
 
 
 <!-- --- -->
