@@ -70,11 +70,19 @@ Let's look at tying some data to a specific geometric object in the next example
 
 ---
 
-`r chunk_reveal("local_data")`
+`r chunk_reveal("local_data", width_code = "49%", width_output = "50%")`
 
 
 ```{r local_data, eval = F, echo = F}
-ggplot(data = gapminder_2002) + # global data
+gapminder %>% 
+  filter(year == 2002) ->
+gm_2002
+  
+gm_2002 %>% 
+  filter(continent == "Oceania") ->
+gm_2002_europe
+
+ggplot(data = gm_2002) + # global data
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +   
   geom_point() + 
@@ -85,12 +93,59 @@ ggplot(data = gapminder_2002) + # global data
   # like creating a column with a single value, 0
   aes(yend = 0) +
   # geom specific data
-  geom_segment(
-    data = gapminder_2002_europe, #BREAK2
-    aes(size = gdpPercap, #BREAK3
-        alpha = pop), #BREAK3
-    color = "orange" #BREAK4
-    )
+  geom_segment(data = gm_2002_europe)
+```
+
+
+
+---
+
+### Adjusting within call
+
+---
+
+`r chunk_reveal("local_data_filter", break_type = 1, title = "#### Manipulating data locally", width_code = "49%", width_output = "50%")`
+
+
+```{r local_data_filter, eval = F, echo = F}
+gapminder %>% 
+  filter(year == 2002) ->
+gm_2002
+
+ggplot(data = gm_2002) + # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +   
+  geom_point() + 
+  aes(color = continent) +
+  # xend and yend are required for geom_segment
+  # like creating a column with a single value, 0
+  aes(xend = 0) + 
+  # like creating a column with a single value, 0
+  aes(yend = 0) +
+  # geom specific data
+  geom_segment(data = gm_2002 %>% filter(continent == "Oceania")) #<<
+```
+
+---
+
+`r chunk_reveal("local_data_from_global", title = "#### Referring to global data locally using period (.)", break_type = 1, width_code = "49%", width_output = "50%")`
+
+
+```{r local_data_from_global, eval = F, echo = F}
+gapminder %>%  #<<
+  filter(year == 2002) %>%  #<<
+  ggplot() + 
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +   
+  geom_point() + 
+  aes(color = continent) +
+  # xend and yend are required for geom_segment
+  # like creating a column with a single value, 0
+  aes(xend = 0) + 
+  # like creating a column with a single value, 0
+  aes(yend = 0) +
+  # geom specific data
+  geom_segment(data = . %>% filter(continent == "Oceania")) #<<
 ```
 
 
@@ -104,7 +159,7 @@ An example is shown below.
 
 ---
 
-`r chunk_reveal("geom_specific_aes_mapping")`
+`r chunk_reveal("geom_specific_aes_mapping", break_type = "rotate", width_code = "49%", width_output = "50%")`
 
 
 ```{r geom_specific_aes_mapping, eval = F, echo = F}
@@ -116,8 +171,13 @@ ggplot(data = gapminder_2002_europe) +
   aes(yend = 0) + # required aes for segment
   geom_segment() +
   # geom specific aesthetics
-  geom_point(aes(color = gdpPercap,
-                 size = pop)) 
+  geom_point() + #ROTATE
+  geom_point(aes(color = gdpPercap)) + #ROTATE
+  geom_point(aes(size = gdpPercap)) + #ROTATE
+  geom_point(aes(size = pop)) + #ROTATE
+  geom_point(aes(color = gdpPercap, size = pop)) + #ROTATE
+  geom_point(aes(color = gdpPercap, x = gdpPercap/2)) #ROTATE
+  geom_point(aes(color = gdpPercap, y = 0)) #ROTATE
 ```
 
 
@@ -134,21 +194,26 @@ geom_point(color = "blue"), is an imperative -- not an ask.  A dictator move.  "
 ---
 
 
-`r chunk_reveal("unmapped_aes")`
+`r chunk_reveal("unmapped_aes", break_type = "rotate", width_code = "59%", width_output = "40%")`
 
 
 ```{r unmapped_aes, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
+gapminder %>% 
+  filter(year == 2002) %>% 
+  ggplot() +
   aes(x = gdpPercap) +
   aes(y = lifeExp) +
-  geom_point() + 
   # Another geometric layer with aesthetics 
   # that don't do representation:
-  geom_point(
-    color = "plum4",
-    size = 8,
-    shape = 21
-    )
+  geom_point() + #ROTATE
+  geom_point(color = "plum4") + #ROTATE
+  geom_point(color = "steelblue") + #ROTATE
+  geom_point(color = "#0FF3F3") + #ROTATE
+  geom_point(size = 7) + #ROTATE
+  geom_point(alpha = .5) + #ROTATE
+  geom_point(color = "plum4", size = 7) + #ROTATE
+  geom_point(color = "plum4", size = 7, alpha = .5) + #ROTATE
+  geom_point(color = "firebrick", size = 7, alpha = .8, shape = "square") #ROTATE
 ```
 
 
@@ -174,7 +239,7 @@ Look at the code that follows.  What are your expectations for the result?  Move
 
 `r chunk_reveal("all_conditional")`
 
-```{r all_conditional, eval = F, echo = T}
+```{r all_conditional, eval = F, echo = F}
 ggplot(data = gapminder_2002) + # global data
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +   
@@ -194,3 +259,12 @@ ggplot(data = gapminder_2002) + # global data
     color = "orange" #BREAK4
     )
 ```
+
+
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 60%}
+```
+

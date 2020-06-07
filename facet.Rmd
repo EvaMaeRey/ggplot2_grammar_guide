@@ -19,7 +19,7 @@ library(flipbookr)
 
 ```{r, include=FALSE}
 library(tidyverse)
-load("data_products/manipulations.Rdata")
+library(gapminder)
 ```
 
 
@@ -41,30 +41,97 @@ Creating *small multiples* also known as *faceting* is a powerful way to make da
 
 
 ```{r facets, eval = F, echo = F}
-ggplot(data = gapminder_2002) +
+gapminder %>% 
+  filter(year == 2002) %>% 
+  ggplot() +
   aes(x = gdpPercap / 1000) +
   aes(y = lifeExp) +
   geom_point() +
   aes(color = continent) +
   NULL + #ROTATE
-  facet_wrap(~ continent) + #ROTATE
-  facet_wrap(~ continent, ncol = 2) + #ROTATE
-  facet_wrap(~ continent, scales = "free_x") + #ROTATE
-  facet_wrap(~ continent, scales = "free_x") + #ROTATE
-  facet_wrap(~ continent, scales = "free") + #ROTATE
+  facet_wrap(vars(continent)) + #ROTATE
+  facet_wrap(vars(continent), ncol = 2) + #ROTATE
+  facet_wrap(vars(continent), nrow = 1) + #ROTATE
+  facet_wrap(vars(continent), scales = "free_x") + #ROTATE
+  facet_wrap(vars(continent), scales = "free_x") + #ROTATE
+  facet_wrap(vars(continent), scales = "free") + #ROTATE
+  facet_wrap(vars(continent), scales = "free", switch = "x") + #ROTATE
+  facet_wrap(vars(continent), strip.position = "top") + #ROTATE
+  facet_wrap(vars(continent), strip.position = "bottom") + #ROTATE
+  facet_wrap(vars(continent), strip.position = "left") + #ROTATE
+  facet_wrap(vars(continent), strip.position = "right") + #ROTATE
   facet_grid(continent ~ pop > 10000000) + #ROTATE
   facet_grid(. ~ pop > 10000000) + #ROTATE
-  facet_grid(continent ~ .) + #ROTATE
+  facet_grid(facets = continent ~ .) + #ROTATE
+  facet_grid(rows = vars(continent)) + #ROTATE
+  facet_grid(cols = vars(continent)) + #ROTATE
+  facet_grid(vars(continent), vars(pop > 10000000)) + #ROTATE
   facet_wrap(vars(continent, pop > 10000000), scales = "free_y") + #ROTATE
+  ggforce::facet_zoom(xlim = c(5,10), horizontal = FALSE) + #ROTATE
+  ggforce::facet_zoom(xlim = c(20, 25), ylim = c(65, 80), horizontal = FALSE) + #ROTATE
   facet_null() # overrides any facetting #ROTATE
 ```
 
 
 
+---
 
+`r chunk_reveal("background")`
 
+```{r background, include = F}
+gapminder %>% 
+  filter(year == 2002) %>% 
+  ggplot() +
+  aes(x = gdpPercap / 1000) +
+  aes(y = lifeExp) +
+  geom_point(data = . %>% select(-continent), 
+    color = "darkgrey") +
+  geom_point(color = "magenta") +
+  facet_wrap(~ continent) 
+```
 
+---
 
+`r chunk_reveal("categorical_free")`
+
+```{r categorical_free, include = F}
+ggplot(mpg, aes(drv, model)) +
+  geom_point() +
+  facet_grid(manufacturer ~ ., scales = "free", space = "free") +
+  theme(strip.text.y = element_text(angle = 0))
+```
+
+---
+
+`r chunk_reveal("matrix", width_code = "59%", width_output = "40%")`
+
+```{r matrix, include = F}
+set.seed(12345)
+library(ggforce)
+diamonds %>% 
+  select(carat, table, price, clarity) %>% 
+  sample_frac(.1) %>% 
+  ggplot() +
+  ggforce::facet_matrix(
+    rows = vars(everything())
+    ) +
+  aes(x = .panel_x) + 
+  aes(y = .panel_y) +
+  # first geom layer 
+  geom_point(alpha = 0.2) +
+  # second geom layer
+  ggforce::geom_autodensity() +
+  # third geom layer 
+  geom_density2d() +
+  # overwrites above facet specification with new
+  ggforce::facet_matrix( 
+    rows = vars(everything()), 
+     layer.lower = 1, # first geom layer
+     layer.diag = c(1,2), # first, second geom layer
+     layer.upper = 3, # third geom layer
+     grid.y.diag = FALSE
+    )
+```
 
 
 
@@ -73,90 +140,4 @@ ggplot(data = gapminder_2002) +
 ```{css, eval = TRUE, echo = F}
 .remark-code{line-height: 1.5; font-size: 60%}
 ```
-
-
-<!-- ```{r, dpi=400, eval = F} -->
-<!-- gapminder %>%  -->
-<!--   select(continent) %>%  -->
-<!--   ggplot() + -->
-<!--   aes(x = 1) + -->
-<!--   aes(fill = continent) + -->
-<!--   geom_bar(color = "white", size = .2) + -->
-<!--   coord_polar(theta = "y") + -->
-<!--   theme_void() + -->
-<!--   scale_fill_viridis_d() + -->
-<!--   theme(rect = element_rect(fill = "grey",  -->
-<!--                             color = "grey",  -->
-<!--                             linetype = "solid", -->
-<!--                             size = 0)) -->
-
-<!-- ggsave("pie.svg", dpi = 320,device = "svg") -->
-<!-- ``` -->
-
-<!-- --- -->
-
-<!-- Or at least an organized twitter thread!?  Another idea for you: pull aes() out of ggplot(). Do you do it? Lot's of reasons to do it! Downside is currently most examples make use of nested approach. @grrrck does this too, and esquisse -->
-
-<!-- ggplot(data = my_data) +  -->
-<!--    aes(x = my_var) -->
-
-<!-- Is it possible to do this with multiple geoms? I usually specify aes within the geom like  -->
-
-<!-- ggplot(data) + -->
-<!--   geom_point(aes(x, y)) + -->
-<!--   geom_line(aes(x, y, group = id))  -->
-
-<!-- I prefer this approach because it's explicit which aesthetics are bound to which geoms -->
-
-<!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! -->
-
-
-<!-- To change the data used for a plot, use the %+% operator! Oh!!!  -->
-
-
-<!-- # Stat_* -->
-
-<!-- ## Univariate discrete -->
-
-
-
-<!-- ```{r univariate_discrete, eval = F, echo = F} -->
-<!-- ggplot(gapminder_2002) + -->
-<!--   aes(x = continent) + -->
-<!--   stat_count() + -->
-<!--   geom_bar() # convenience geom -->
-<!--             # default counting -->
-<!-- ``` -->
-
-<!-- --- -->
-
-<!-- r chunk_reveal("univariate_discrete")` -->
-
-
-<!-- --- -->
-
-<!-- ```{r} -->
-<!-- ggplot(data = gapminder_2002) + -->
-<!--   aes(x = continent) + -->
-<!--   aes(y = lifeExp) + -->
-<!--   geom_point(alpha = .1) + -->
-<!--   stat_summary( -->
-<!--     fun.ymin = min, -->
-<!--     fun.ymax = max, -->
-<!--     fun.y = median -->
-<!--   ) -->
-<!-- ``` -->
-
-
-
-<!-- --- -->
-
-<!-- ```{r} -->
-<!-- gapminder_2002 %>%  -->
-<!--   mutate(seventy_plus = lifeExp > 60) %>%  -->
-<!-- ggplot() + -->
-<!--   aes(x = continent) + -->
-<!--   aes(fill = seventy_plus) + -->
-<!--   geom_bar(alpha = .2) -->
-<!-- ``` -->
 

@@ -44,7 +44,9 @@ count: false
 .left-code-facets-rotate[
 
 ```r
-ggplot(data = gapminder_2002) +  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
   aes(x = gdpPercap / 1000) +  
   aes(y = lifeExp) +  
   geom_point() +  
@@ -65,12 +67,14 @@ count: false
 .left-code-facets-rotate[
 
 ```r
-ggplot(data = gapminder_2002) +  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
   aes(x = gdpPercap / 1000) +  
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_wrap(~ continent)
+* facet_wrap(vars(continent))
 ```
 ]
  
@@ -86,12 +90,14 @@ count: false
 .left-code-facets-rotate[
 
 ```r
-ggplot(data = gapminder_2002) +  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
   aes(x = gdpPercap / 1000) +  
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_wrap(~ continent, ncol = 2)
+* facet_wrap(vars(continent), ncol = 2)
 ```
 ]
  
@@ -107,12 +113,14 @@ count: false
 .left-code-facets-rotate[
 
 ```r
-ggplot(data = gapminder_2002) +  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
   aes(x = gdpPercap / 1000) +  
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_wrap(~ continent, scales = "free_x")
+* facet_wrap(vars(continent), nrow = 1)
 ```
 ]
  
@@ -128,12 +136,14 @@ count: false
 .left-code-facets-rotate[
 
 ```r
-ggplot(data = gapminder_2002) +  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
   aes(x = gdpPercap / 1000) +  
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_wrap(~ continent, scales = "free_x")
+* facet_wrap(vars(continent), scales = "free_x")
 ```
 ]
  
@@ -149,12 +159,14 @@ count: false
 .left-code-facets-rotate[
 
 ```r
-ggplot(data = gapminder_2002) +  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
   aes(x = gdpPercap / 1000) +  
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_wrap(~ continent, scales = "free")
+* facet_wrap(vars(continent), scales = "free_x")
 ```
 ]
  
@@ -170,12 +182,14 @@ count: false
 .left-code-facets-rotate[
 
 ```r
-ggplot(data = gapminder_2002) +  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
   aes(x = gdpPercap / 1000) +  
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_grid(continent ~ pop &gt; 10000000)
+* facet_wrap(vars(continent), scales = "free")
 ```
 ]
  
@@ -191,12 +205,14 @@ count: false
 .left-code-facets-rotate[
 
 ```r
-ggplot(data = gapminder_2002) +  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
   aes(x = gdpPercap / 1000) +  
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_grid(. ~ pop &gt; 10000000)
+* facet_wrap(vars(continent), scales = "free", switch = "x")
 ```
 ]
  
@@ -212,12 +228,14 @@ count: false
 .left-code-facets-rotate[
 
 ```r
-ggplot(data = gapminder_2002) +  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
   aes(x = gdpPercap / 1000) +  
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_grid(continent ~ .)
+* facet_wrap(vars(continent), strip.position = "top")
 ```
 ]
  
@@ -233,12 +251,14 @@ count: false
 .left-code-facets-rotate[
 
 ```r
-ggplot(data = gapminder_2002) +  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
   aes(x = gdpPercap / 1000) +  
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_wrap(vars(continent, pop &gt; 10000000), scales = "free_y")
+* facet_wrap(vars(continent), strip.position = "bottom")
 ```
 ]
  
@@ -254,7 +274,262 @@ count: false
 .left-code-facets-rotate[
 
 ```r
-ggplot(data = gapminder_2002) +  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_wrap(vars(continent), strip.position = "left")
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_11_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_wrap(vars(continent), strip.position = "right")
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_12_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_grid(continent ~ pop &gt; 10000000)
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_13_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_grid(. ~ pop &gt; 10000000)
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_14_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_grid(facets = continent ~ .)
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_15_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_grid(rows = vars(continent))
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_16_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_grid(cols = vars(continent))
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_17_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_grid(vars(continent), vars(pop &gt; 10000000))
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_18_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_wrap(vars(continent, pop &gt; 10000000), scales = "free_y")
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_19_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* ggforce::facet_zoom(xlim = c(5,10), horizontal = FALSE)
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_20_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* ggforce::facet_zoom(xlim = c(20, 25), ylim = c(65, 80), horizontal = FALSE)
+```
+]
+ 
+.right-output-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_21_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
   aes(x = gdpPercap / 1000) +  
   aes(y = lifeExp) +  
   geom_point() +  
@@ -264,7 +539,7 @@ ggplot(data = gapminder_2002) +
 ]
  
 .right-output-facets-rotate[
-&lt;img src="facet_files/figure-html/facets_rotate_11_output-1.png" width="100%" /&gt;
+&lt;img src="facet_files/figure-html/facets_rotate_22_output-1.png" width="100%" /&gt;
 ]
 
 &lt;style&gt;
@@ -289,6 +564,686 @@ ggplot(data = gapminder_2002) +
 
 
 
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-background-auto[
+
+```r
+*gapminder
+```
+]
+ 
+.right-output-background-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-background-auto[
+
+```r
+gapminder %&gt;%  
+* filter(year == 2002)
+```
+]
+ 
+.right-output-background-auto[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-background-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-background-auto[
+&lt;img src="facet_files/figure-html/background_auto_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-background-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+* aes(x = gdpPercap / 1000)
+```
+]
+ 
+.right-output-background-auto[
+&lt;img src="facet_files/figure-html/background_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-background-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+* aes(y = lifeExp)
+```
+]
+ 
+.right-output-background-auto[
+&lt;img src="facet_files/figure-html/background_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-background-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+* geom_point(data = . %&gt;% select(-continent),
+*   color = "darkgrey")
+```
+]
+ 
+.right-output-background-auto[
+&lt;img src="facet_files/figure-html/background_auto_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-background-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point(data = . %&gt;% select(-continent),  
+    color = "darkgrey") +  
+* geom_point(color = "magenta")
+```
+]
+ 
+.right-output-background-auto[
+&lt;img src="facet_files/figure-html/background_auto_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-background-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point(data = . %&gt;% select(-continent),  
+    color = "darkgrey") +  
+  geom_point(color = "magenta") +  
+* facet_wrap(~ continent)
+```
+]
+ 
+.right-output-background-auto[
+&lt;img src="facet_files/figure-html/background_auto_8_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-background-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-background-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-categorical_free-auto[
+
+```r
+*ggplot(mpg, aes(drv, model))
+```
+]
+ 
+.right-output-categorical_free-auto[
+&lt;img src="facet_files/figure-html/categorical_free_auto_1_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-categorical_free-auto[
+
+```r
+ggplot(mpg, aes(drv, model)) +  
+* geom_point()
+```
+]
+ 
+.right-output-categorical_free-auto[
+&lt;img src="facet_files/figure-html/categorical_free_auto_2_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-categorical_free-auto[
+
+```r
+ggplot(mpg, aes(drv, model)) +  
+  geom_point() +  
+* facet_grid(manufacturer ~ ., scales = "free", space = "free")
+```
+]
+ 
+.right-output-categorical_free-auto[
+&lt;img src="facet_files/figure-html/categorical_free_auto_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-categorical_free-auto[
+
+```r
+ggplot(mpg, aes(drv, model)) +  
+  geom_point() +  
+  facet_grid(manufacturer ~ ., scales = "free", space = "free") +  
+* theme(strip.text.y = element_text(angle = 0))
+```
+]
+ 
+.right-output-categorical_free-auto[
+&lt;img src="facet_files/figure-html/categorical_free_auto_4_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-categorical_free-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-categorical_free-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+*set.seed(12345)
+```
+]
+ 
+.right-output-matrix-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+set.seed(12345)  
+*library(ggforce)
+```
+]
+ 
+.right-output-matrix-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+set.seed(12345)  
+library(ggforce)  
+*diamonds
+```
+]
+ 
+.right-output-matrix-auto[
+
+```
+  # A tibble: 53,940 x 10
+     carat cut       color clarity depth table price     x     y     z
+     &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+   1 0.23  Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
+   2 0.21  Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+   3 0.23  Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+   4 0.290 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+   5 0.31  Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+   6 0.24  Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
+   7 0.24  Very Good I     VVS1     62.3    57   336  3.95  3.98  2.47
+   8 0.26  Very Good H     SI1      61.9    55   337  4.07  4.11  2.53
+   9 0.22  Fair      E     VS2      65.1    61   337  3.87  3.78  2.49
+  10 0.23  Very Good H     VS1      59.4    61   338  4     4.05  2.39
+  # … with 53,930 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+set.seed(12345)  
+library(ggforce)  
+diamonds %&gt;%  
+* select(carat, table, price, clarity)
+```
+]
+ 
+.right-output-matrix-auto[
+
+```
+  # A tibble: 53,940 x 4
+     carat table price clarity
+     &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;ord&gt;  
+   1 0.23     55   326 SI2    
+   2 0.21     61   326 SI1    
+   3 0.23     65   327 VS1    
+   4 0.290    58   334 VS2    
+   5 0.31     58   335 SI2    
+   6 0.24     57   336 VVS2   
+   7 0.24     57   336 VVS1   
+   8 0.26     55   337 SI1    
+   9 0.22     61   337 VS2    
+  10 0.23     61   338 VS1    
+  # … with 53,930 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+set.seed(12345)  
+library(ggforce)  
+diamonds %&gt;%  
+  select(carat, table, price, clarity) %&gt;%  
+* sample_frac(.1)
+```
+]
+ 
+.right-output-matrix-auto[
+
+```
+  # A tibble: 5,394 x 4
+     carat table price clarity
+     &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;ord&gt;  
+   1  1.01    56  4886 SI1    
+   2  0.41    61   827 VS2    
+   3  1.26    57  4704 SI2    
+   4  0.3     57   554 SI1    
+   5  0.34    56   726 VS2    
+   6  2       56 15851 SI1    
+   7  1.16    57  9526 VVS1   
+   8  0.54    56  1760 VS2    
+   9  1.51    60 14375 VS1    
+  10  0.31    58   907 VVS2   
+  # … with 5,384 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+set.seed(12345)  
+library(ggforce)  
+diamonds %&gt;%  
+  select(carat, table, price, clarity) %&gt;%  
+  sample_frac(.1) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-matrix-auto[
+&lt;img src="facet_files/figure-html/matrix_auto_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+set.seed(12345)  
+library(ggforce)  
+diamonds %&gt;%  
+  select(carat, table, price, clarity) %&gt;%  
+  sample_frac(.1) %&gt;%  
+  ggplot() +  
+* ggforce::facet_matrix(
+*   rows = vars(everything())
+*   )
+```
+]
+ 
+.right-output-matrix-auto[
+&lt;img src="facet_files/figure-html/matrix_auto_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+set.seed(12345)  
+library(ggforce)  
+diamonds %&gt;%  
+  select(carat, table, price, clarity) %&gt;%  
+  sample_frac(.1) %&gt;%  
+  ggplot() +  
+  ggforce::facet_matrix(  
+    rows = vars(everything())  
+    ) +  
+* aes(x = .panel_x)
+```
+]
+ 
+.right-output-matrix-auto[
+&lt;img src="facet_files/figure-html/matrix_auto_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+set.seed(12345)  
+library(ggforce)  
+diamonds %&gt;%  
+  select(carat, table, price, clarity) %&gt;%  
+  sample_frac(.1) %&gt;%  
+  ggplot() +  
+  ggforce::facet_matrix(  
+    rows = vars(everything())  
+    ) +  
+  aes(x = .panel_x) +  
+* aes(y = .panel_y)
+```
+]
+ 
+.right-output-matrix-auto[
+&lt;img src="facet_files/figure-html/matrix_auto_9_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+set.seed(12345)  
+library(ggforce)  
+diamonds %&gt;%  
+  select(carat, table, price, clarity) %&gt;%  
+  sample_frac(.1) %&gt;%  
+  ggplot() +  
+  ggforce::facet_matrix(  
+    rows = vars(everything())  
+    ) +  
+  aes(x = .panel_x) +  
+  aes(y = .panel_y) +  
+# first geom layer
+* geom_point(alpha = 0.2)
+```
+]
+ 
+.right-output-matrix-auto[
+&lt;img src="facet_files/figure-html/matrix_auto_10_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+set.seed(12345)  
+library(ggforce)  
+diamonds %&gt;%  
+  select(carat, table, price, clarity) %&gt;%  
+  sample_frac(.1) %&gt;%  
+  ggplot() +  
+  ggforce::facet_matrix(  
+    rows = vars(everything())  
+    ) +  
+  aes(x = .panel_x) +  
+  aes(y = .panel_y) +  
+# first geom layer
+  geom_point(alpha = 0.2) +  
+# second geom layer
+* ggforce::geom_autodensity()
+```
+]
+ 
+.right-output-matrix-auto[
+&lt;img src="facet_files/figure-html/matrix_auto_11_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+set.seed(12345)  
+library(ggforce)  
+diamonds %&gt;%  
+  select(carat, table, price, clarity) %&gt;%  
+  sample_frac(.1) %&gt;%  
+  ggplot() +  
+  ggforce::facet_matrix(  
+    rows = vars(everything())  
+    ) +  
+  aes(x = .panel_x) +  
+  aes(y = .panel_y) +  
+# first geom layer
+  geom_point(alpha = 0.2) +  
+# second geom layer
+  ggforce::geom_autodensity() +  
+# third geom layer
+* geom_density2d()
+```
+]
+ 
+.right-output-matrix-auto[
+&lt;img src="facet_files/figure-html/matrix_auto_12_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-matrix-auto[
+
+```r
+set.seed(12345)  
+library(ggforce)  
+diamonds %&gt;%  
+  select(carat, table, price, clarity) %&gt;%  
+  sample_frac(.1) %&gt;%  
+  ggplot() +  
+  ggforce::facet_matrix(  
+    rows = vars(everything())  
+    ) +  
+  aes(x = .panel_x) +  
+  aes(y = .panel_y) +  
+# first geom layer
+  geom_point(alpha = 0.2) +  
+# second geom layer
+  ggforce::geom_autodensity() +  
+# third geom layer
+  geom_density2d() +  
+# overwrites above facet specification with new
+* ggforce::facet_matrix(
+*   rows = vars(everything()),
+*    layer.lower = 1,  # first geom layer
+*    layer.diag = c(1,2),  # first, second geom layer
+*    layer.upper = 3,  # third geom layer
+*    grid.y.diag = FALSE
+*   )
+```
+]
+ 
+.right-output-matrix-auto[
+&lt;img src="facet_files/figure-html/matrix_auto_13_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-matrix-auto {
+  color: #777;
+  width: 59%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-matrix-auto {
+  width: 40%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
 
 
 
@@ -301,92 +1256,6 @@ ggplot(data = gapminder_2002) +
 &lt;style type="text/css"&gt;
 .remark-code{line-height: 1.5; font-size: 60%}
 &lt;/style&gt;
-
-
-&lt;!-- ```{r, dpi=400, eval = F} --&gt;
-&lt;!-- gapminder %&gt;%  --&gt;
-&lt;!--   select(continent) %&gt;%  --&gt;
-&lt;!--   ggplot() + --&gt;
-&lt;!--   aes(x = 1) + --&gt;
-&lt;!--   aes(fill = continent) + --&gt;
-&lt;!--   geom_bar(color = "white", size = .2) + --&gt;
-&lt;!--   coord_polar(theta = "y") + --&gt;
-&lt;!--   theme_void() + --&gt;
-&lt;!--   scale_fill_viridis_d() + --&gt;
-&lt;!--   theme(rect = element_rect(fill = "grey",  --&gt;
-&lt;!--                             color = "grey",  --&gt;
-&lt;!--                             linetype = "solid", --&gt;
-&lt;!--                             size = 0)) --&gt;
-
-&lt;!-- ggsave("pie.svg", dpi = 320,device = "svg") --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- Or at least an organized twitter thread!?  Another idea for you: pull aes() out of ggplot(). Do you do it? Lot's of reasons to do it! Downside is currently most examples make use of nested approach. @grrrck does this too, and esquisse --&gt;
-
-&lt;!-- ggplot(data = my_data) +  --&gt;
-&lt;!--    aes(x = my_var) --&gt;
-
-&lt;!-- Is it possible to do this with multiple geoms? I usually specify aes within the geom like  --&gt;
-
-&lt;!-- ggplot(data) + --&gt;
-&lt;!--   geom_point(aes(x, y)) + --&gt;
-&lt;!--   geom_line(aes(x, y, group = id))  --&gt;
-
-&lt;!-- I prefer this approach because it's explicit which aesthetics are bound to which geoms --&gt;
-
-&lt;!-- My blog post, (which no one has probably ever read) exactly on this topic! https://evangelinereynolds.netlify.com/post/mapping-aesthetics/ … In general I'd say go global.  I think in general, most folks don't have a bunch of conflicts for aesthetics geom by geom (though occasionally yes?).  Let me know what you think! --&gt;
-
-
-&lt;!-- To change the data used for a plot, use the %+% operator! Oh!!!  --&gt;
-
-
-&lt;!-- # Stat_* --&gt;
-
-&lt;!-- ## Univariate discrete --&gt;
-
-
-
-&lt;!-- ```{r univariate_discrete, eval = F, echo = F} --&gt;
-&lt;!-- ggplot(gapminder_2002) + --&gt;
-&lt;!--   aes(x = continent) + --&gt;
-&lt;!--   stat_count() + --&gt;
-&lt;!--   geom_bar() # convenience geom --&gt;
-&lt;!--             # default counting --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- r chunk_reveal("univariate_discrete")` --&gt;
-
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ```{r} --&gt;
-&lt;!-- ggplot(data = gapminder_2002) + --&gt;
-&lt;!--   aes(x = continent) + --&gt;
-&lt;!--   aes(y = lifeExp) + --&gt;
-&lt;!--   geom_point(alpha = .1) + --&gt;
-&lt;!--   stat_summary( --&gt;
-&lt;!--     fun.ymin = min, --&gt;
-&lt;!--     fun.ymax = max, --&gt;
-&lt;!--     fun.y = median --&gt;
-&lt;!--   ) --&gt;
-&lt;!-- ``` --&gt;
-
-
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ```{r} --&gt;
-&lt;!-- gapminder_2002 %&gt;%  --&gt;
-&lt;!--   mutate(seventy_plus = lifeExp &gt; 60) %&gt;%  --&gt;
-&lt;!-- ggplot() + --&gt;
-&lt;!--   aes(x = continent) + --&gt;
-&lt;!--   aes(fill = seventy_plus) + --&gt;
-&lt;!--   geom_bar(alpha = .2) --&gt;
-&lt;!-- ``` --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

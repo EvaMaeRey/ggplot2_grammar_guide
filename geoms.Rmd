@@ -371,6 +371,12 @@ gapminder %>%
   theme_minimal()
 ```
 
+---
+
+
+```{r}
+# install.packages("waffle", repos = "https://cinc.rud.is")
+```
 
 
 ---
@@ -378,6 +384,7 @@ gapminder %>%
 `r chunk_reveal("waffle")`
 
 ```{r waffle, include = F}
+# special install 
 gapminder %>%
   filter(year == 2002) %>% 
   count(continent) %>% 

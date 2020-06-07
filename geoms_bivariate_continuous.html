@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>continuous x continuous</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# continuous x continuous
+### Gina Reynolds
+
+---
+
+
+
+
+
+---
+
+
+
+
+
+
+
+---
+
+# 'Nouns':  The geom_*() line up
+
+
+
+
+---
+class: inverse, center, middle
+name: cc
+
+# continous x and y
+
+---
+
+
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous_build-auto[
+
+```r
+*ggplot(data = gapminder_2002)
+```
+]
+ 
+.right-output-continuous_continuous_build-auto[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_build_auto_1_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous_build-auto[
+
+```r
+ggplot(data = gapminder_2002) +  
+* aes(x = gdpPercap/1000)
+```
+]
+ 
+.right-output-continuous_continuous_build-auto[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_build_auto_2_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous_build-auto[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+* aes(y = lifeExp)
+```
+]
+ 
+.right-output-continuous_continuous_build-auto[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_build_auto_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous_build-auto[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+* coord_cartesian(xlim = c(0,50), ylim = c(35,90))
+```
+]
+ 
+.right-output-continuous_continuous_build-auto[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_build_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous_build-auto[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+* geom_point()
+```
+]
+ 
+.right-output-continuous_continuous_build-auto[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_build_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous_build-auto[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* theme_minimal()
+```
+]
+ 
+.right-output-continuous_continuous_build-auto[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_build_auto_6_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-continuous_continuous_build-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-continuous_continuous_build-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+  geom_rug() +  
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_1_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_tile(width = 3, height = 3, fill = "green", alpha = .25) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_2_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_segment(aes(xend = 0, yend = 40), alpha = .2) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_curve(aes(xend = 0, yend = 40), linetype = "dotted") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_rect(aes(xmin = 20, xmax = gdpPercap/1000, ymin = 40, ymax = lifeExp), alpha = .02, fill = "magenta", color = "grey") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_text(aes(label = country)) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_label(aes(label = country)) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* stat_density_2d(aes(fill = ..density..), geom = "raster",  contour = FALSE, alpha = .5) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_density2d() +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_9_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggalt::stat_bkde2d(bandwidth=c(0.5, 4), aes(fill = ..level..), geom = "polygon") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_10_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggalt::geom_bkde2d(bandwidth=c(0.5, 4)) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_11_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_smooth() +  #
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_12_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_smooth(method = lm) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_13_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_hex(alpha = .5,color = "white") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_14_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_hex(bins = 12, alpha = .9, color = "white") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_15_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_voronoi_segment() +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_16_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_voronoi_tile(fill = "green", color = "white", alpha = .5) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_17_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_voronoi_tile(aes(fill = continent, group = -1L), color = "white", alpha = .5, normalize = TRUE) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_18_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_voronoi_tile(aes(fill = continent, group = -1L), colour = 'black', max.radius = 3, alpha = .5) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_19_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_delaunay_tile(fill = "magenta", alpha = 0.3, colour = 'black') +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_20_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_delaunay_segment2(aes(color = continent, group = -1L), size = 3, lineend = 'round') +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_21_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_bspline_closed(alpha = 0.5, fill = "cadetblue") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_22_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_bspline_closed(alpha = 0.5, fill = "cadetblue") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_23_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_diagonal(aes(xend = 20, yend = lifeExp - 3), color = "goldenrod4") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_24_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggbump::geom_sigmoid(aes(group = country, xend = 20, yend = lifeExp - 3), color = "firebrick") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_25_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_path(color = "plum4") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_26_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* geom_polygon(alpha = 0.5, fill = "plum4") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_27_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggalt::geom_encircle(s_shape=0.5, expand=0.1, colour="purple") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_28_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggalt::geom_encircle(aes(color = continent), s_shape=0.5, expand=0.1) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_29_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggalt::geom_encircle(s_shape=1, expand=0.1, colour="purple") +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_30_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggalt::geom_encircle(aes(color = continent), s_shape=1, expand=0.1) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_31_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_hull() +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_32_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_hull(concavity = 7) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_33_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_hull(aes(fill = continent)) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_34_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_hull(aes(fill = continent, filter = continent == "Europe")) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_35_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_circle() +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_36_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_circle(aes(fill = continent)) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_37_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_ellipse(aes(fill = continent, filter = continent == "Europe")) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_38_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_rect() +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_39_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggforce::geom_mark_rect(aes(fill = continent)) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_40_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-continuous_continuous-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap/1000) +  
+  aes(y = lifeExp) +  
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +  
+  geom_point() +  
+* ggpointdensity::geom_pointdensity() +
+  theme_minimal()  
+```
+]
+ 
+.right-output-continuous_continuous-rotate[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/continuous_continuous_rotate_41_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-continuous_continuous-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-continuous_continuous-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+x and y dense
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-dense-auto[
+
+```r
+*set.seed(2022)
+```
+]
+ 
+.right-output-dense-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dense-auto[
+
+```r
+set.seed(2022)  
+*tibble(my_x = rnorm(2000),
+*      my_y = my_x + rnorm(2000))
+```
+]
+ 
+.right-output-dense-auto[
+
+```
+  # A tibble: 2,000 x 2
+       my_x    my_y
+      &lt;dbl&gt;   &lt;dbl&gt;
+   1  0.900  0.355 
+   2 -1.17  -0.387 
+   3 -0.897 -0.599 
+   4 -1.44   0.0747
+   5 -0.331  0.582 
+   6 -2.90  -2.70  
+   7 -1.06   1.40  
+   8  0.278 -0.248 
+   9  0.749 -0.0528
+  10  0.242  0.926 
+  # … with 1,990 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dense-auto[
+
+```r
+set.seed(2022)  
+tibble(my_x = rnorm(2000),  
+       my_y = my_x + rnorm(2000)) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-dense-auto[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/dense_auto_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dense-auto[
+
+```r
+set.seed(2022)  
+tibble(my_x = rnorm(2000),  
+       my_y = my_x + rnorm(2000)) %&gt;%  
+  ggplot() +  
+* aes(x = my_x)
+```
+]
+ 
+.right-output-dense-auto[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/dense_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dense-auto[
+
+```r
+set.seed(2022)  
+tibble(my_x = rnorm(2000),  
+       my_y = my_x + rnorm(2000)) %&gt;%  
+  ggplot() +  
+  aes(x = my_x) +  
+* aes(y = my_y)
+```
+]
+ 
+.right-output-dense-auto[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/dense_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dense-auto[
+
+```r
+set.seed(2022)  
+tibble(my_x = rnorm(2000),  
+       my_y = my_x + rnorm(2000)) %&gt;%  
+  ggplot() +  
+  aes(x = my_x) +  
+  aes(y = my_y) +  
+* ggpointdensity::geom_pointdensity()
+```
+]
+ 
+.right-output-dense-auto[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/dense_auto_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-dense-auto[
+
+```r
+set.seed(2022)  
+tibble(my_x = rnorm(2000),  
+       my_y = my_x + rnorm(2000)) %&gt;%  
+  ggplot() +  
+  aes(x = my_x) +  
+  aes(y = my_y) +  
+  ggpointdensity::geom_pointdensity() +  
+* scale_color_viridis_c()
+```
+]
+ 
+.right-output-dense-auto[
+&lt;img src="geoms_bivariate_continuous_files/figure-html/dense_auto_7_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-dense-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-dense-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 55%}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

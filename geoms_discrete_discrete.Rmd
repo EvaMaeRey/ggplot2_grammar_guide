@@ -1,0 +1,123 @@
+---
+title: "{ggplot2} and extensions geoms"
+author: "Gina Reynolds"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "ninjutsu"]
+    nature:
+      highlightLines: yes
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
+library(flipbookr)
+options(scipen = 10)
+```
+
+
+```{r}
+library(tidyverse)
+library(gapminder)
+```
+
+
+
+---
+class: inverse, center, middle
+name: dd
+
+## Discrete v. Discrete
+
+---
+
+`r chunk_reveal("discrete2x", break_type = "rotate")`
+
+
+```{r discrete2x, eval = F, echo = F}
+gapminder %>% 
+  filter(year == 2002) %>% 
+  mutate(seventy_plus = lifeExp >= 75) %>% 
+  mutate(age_category = 
+           case_when(seventy_plus == T ~ 
+                       "Seventy +",
+                     seventy_plus == F ~ 
+                       "< Seventy")) %>% 
+  ggplot() +
+  aes(x = continent) +
+  aes(y = age_category) +
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) + 
+  geom_count(col = "magenta", alpha = .6) + #ROTATE
+  geom_text(data = . %>% group_by(age_category, continent) %>% count, aes(label = n)) + #ROTATE
+  geom_label(data = . %>% group_by(age_category, continent) %>% count, aes(label = n)) + #ROTATE
+  geom_point(position = ggforce::position_jitternormal()) + #ROTATE
+  geom_point(position = ggforce::position_jitternormal(sd_x = 0.15, sd_y = 0.01)) + #ROTATE
+  theme_minimal()
+```
+
+
+
+
+
+---
+
+`r chunk_reveal("discrete2x2", break_type = "rotate")`
+
+```{r discrete2x2, eval = F, echo = F}
+gapminder %>%
+  filter(year == 2002) %>% 
+  mutate(seventyfive_plus = lifeExp >= 75) %>% 
+  mutate(age_category = 
+           case_when(seventyfive_plus == T ~ 
+                       "75+",
+                     seventyfive_plus == F ~ 
+                       "<75")) %>% 
+  ggplot() +
+  aes(x = age_category) +
+  aes(fill = continent) +
+  geom_point(stat = "count") +
+  geom_bar(position = "dodge", alpha = .6) + #ROTATE
+  geom_bar(alpha = .6) + #ROTATE
+  theme_minimal()
+```
+
+
+---
+
+# Mosaic
+
+
+---
+
+`r chunk_reveal("mosaic")`
+
+```{r mosaic, eval = F, echo = F}
+gapminder %>%
+  filter(year == 2002) %>% 
+  mutate(higher_income = gdpPercap > 20000) %>% 
+  group_by(continent, higher_income) %>%
+  summarise(count = n()) %>%
+  mutate(num_in_continents = sum(count),
+         prop = count/sum(count)) %>%
+  ungroup() %>% 
+  ggplot() + 
+  aes(x = continent, y = prop) + 
+  geom_bar(stat = "identity", 
+           position = "fill",
+           color = "lightgrey") +
+  facet_grid(~continent, scales = "free_x", space = "free_x") +
+  aes(width = num_in_continents) +
+  aes(fill = higher_income) +
+  theme(panel.spacing.x = unit(0, "npc")) + 
+  theme(strip.text = element_blank())
+```
+
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 55%}
+```
+

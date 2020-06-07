@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>{ggplot2} and extensions geoms</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gina Reynolds" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# {ggplot2} and extensions geoms
+### Gina Reynolds
+
+---
+
+
+
+
+
+
+```r
+library(tidyverse)
+library(gapminder)
+```
+
+
+
+---
+class: inverse, center, middle
+name: dd
+
+## Discrete v. Discrete
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-discrete2x-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(seventy_plus = lifeExp &gt;= 75) %&gt;%  
+  mutate(age_category =  
+           case_when(seventy_plus == T ~  
+                       "Seventy +",  
+                     seventy_plus == F ~  
+                       "&lt; Seventy")) %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = age_category) +  
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) +  
+  geom_count(col = "magenta", alpha = .6) +  
+  theme_minimal()  
+```
+]
+ 
+.right-output-discrete2x-rotate[
+&lt;img src="geoms_discrete_discrete_files/figure-html/discrete2x_rotate_1_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-discrete2x-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(seventy_plus = lifeExp &gt;= 75) %&gt;%  
+  mutate(age_category =  
+           case_when(seventy_plus == T ~  
+                       "Seventy +",  
+                     seventy_plus == F ~  
+                       "&lt; Seventy")) %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = age_category) +  
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) +  
+* geom_text(data = . %&gt;% group_by(age_category, continent) %&gt;% count, aes(label = n)) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-discrete2x-rotate[
+&lt;img src="geoms_discrete_discrete_files/figure-html/discrete2x_rotate_2_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-discrete2x-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(seventy_plus = lifeExp &gt;= 75) %&gt;%  
+  mutate(age_category =  
+           case_when(seventy_plus == T ~  
+                       "Seventy +",  
+                     seventy_plus == F ~  
+                       "&lt; Seventy")) %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = age_category) +  
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) +  
+* geom_label(data = . %&gt;% group_by(age_category, continent) %&gt;% count, aes(label = n)) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-discrete2x-rotate[
+&lt;img src="geoms_discrete_discrete_files/figure-html/discrete2x_rotate_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-discrete2x-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(seventy_plus = lifeExp &gt;= 75) %&gt;%  
+  mutate(age_category =  
+           case_when(seventy_plus == T ~  
+                       "Seventy +",  
+                     seventy_plus == F ~  
+                       "&lt; Seventy")) %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = age_category) +  
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) +  
+* geom_point(position = ggforce::position_jitternormal()) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-discrete2x-rotate[
+&lt;img src="geoms_discrete_discrete_files/figure-html/discrete2x_rotate_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-discrete2x-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(seventy_plus = lifeExp &gt;= 75) %&gt;%  
+  mutate(age_category =  
+           case_when(seventy_plus == T ~  
+                       "Seventy +",  
+                     seventy_plus == F ~  
+                       "&lt; Seventy")) %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = age_category) +  
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) +  
+* geom_point(position = ggforce::position_jitternormal(sd_x = 0.15, sd_y = 0.01)) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-discrete2x-rotate[
+&lt;img src="geoms_discrete_discrete_files/figure-html/discrete2x_rotate_5_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-discrete2x-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-discrete2x-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-discrete2x2-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(seventyfive_plus = lifeExp &gt;= 75) %&gt;%  
+  mutate(age_category =  
+           case_when(seventyfive_plus == T ~  
+                       "75+",  
+                     seventyfive_plus == F ~  
+                       "&lt;75")) %&gt;%  
+  ggplot() +  
+  aes(x = age_category) +  
+  aes(fill = continent) +  
+  geom_point(stat = "count") +  
+  geom_bar(position = "dodge", alpha = .6) +  
+  theme_minimal()  
+```
+]
+ 
+.right-output-discrete2x2-rotate[
+&lt;img src="geoms_discrete_discrete_files/figure-html/discrete2x2_rotate_1_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-discrete2x2-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(seventyfive_plus = lifeExp &gt;= 75) %&gt;%  
+  mutate(age_category =  
+           case_when(seventyfive_plus == T ~  
+                       "75+",  
+                     seventyfive_plus == F ~  
+                       "&lt;75")) %&gt;%  
+  ggplot() +  
+  aes(x = age_category) +  
+  aes(fill = continent) +  
+  geom_point(stat = "count") +  
+* geom_bar(alpha = .6) +
+  theme_minimal()  
+```
+]
+ 
+.right-output-discrete2x2-rotate[
+&lt;img src="geoms_discrete_discrete_files/figure-html/discrete2x2_rotate_2_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-discrete2x2-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-discrete2x2-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+# Mosaic
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+*gapminder
+```
+]
+ 
+.right-output-mosaic-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+* filter(year == 2002)
+```
+]
+ 
+.right-output-mosaic-auto[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+* mutate(higher_income = gdpPercap &gt; 20000)
+```
+]
+ 
+.right-output-mosaic-auto[
+
+```
+  # A tibble: 142 x 7
+     country     continent  year lifeExp       pop gdpPercap higher_income
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt; &lt;lgl&gt;        
+   1 Afghanistan Asia       2002    42.1  25268405      727. FALSE        
+   2 Albania     Europe     2002    75.7   3508512     4604. FALSE        
+   3 Algeria     Africa     2002    71.0  31287142     5288. FALSE        
+   4 Angola      Africa     2002    41.0  10866106     2773. FALSE        
+   5 Argentina   Americas   2002    74.3  38331121     8798. FALSE        
+   6 Australia   Oceania    2002    80.4  19546792    30688. TRUE         
+   7 Austria     Europe     2002    79.0   8148312    32418. TRUE         
+   8 Bahrain     Asia       2002    74.8    656397    23404. TRUE         
+   9 Bangladesh  Asia       2002    62.0 135656790     1136. FALSE        
+  10 Belgium     Europe     2002    78.3  10311970    30486. TRUE         
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+* group_by(continent, higher_income)
+```
+]
+ 
+.right-output-mosaic-auto[
+
+```
+  # A tibble: 142 x 7
+  # Groups:   continent, higher_income [8]
+     country     continent  year lifeExp       pop gdpPercap higher_income
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt; &lt;lgl&gt;        
+   1 Afghanistan Asia       2002    42.1  25268405      727. FALSE        
+   2 Albania     Europe     2002    75.7   3508512     4604. FALSE        
+   3 Algeria     Africa     2002    71.0  31287142     5288. FALSE        
+   4 Angola      Africa     2002    41.0  10866106     2773. FALSE        
+   5 Argentina   Americas   2002    74.3  38331121     8798. FALSE        
+   6 Australia   Oceania    2002    80.4  19546792    30688. TRUE         
+   7 Austria     Europe     2002    79.0   8148312    32418. TRUE         
+   8 Bahrain     Asia       2002    74.8    656397    23404. TRUE         
+   9 Bangladesh  Asia       2002    62.0 135656790     1136. FALSE        
+  10 Belgium     Europe     2002    78.3  10311970    30486. TRUE         
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  group_by(continent, higher_income) %&gt;%  
+* summarise(count = n())
+```
+]
+ 
+.right-output-mosaic-auto[
+
+```
+  # A tibble: 8 x 3
+  # Groups:   continent [5]
+    continent higher_income count
+    &lt;fct&gt;     &lt;lgl&gt;         &lt;int&gt;
+  1 Africa    FALSE            52
+  2 Americas  FALSE            23
+  3 Americas  TRUE              2
+  4 Asia      FALSE            26
+  5 Asia      TRUE              7
+  6 Europe    FALSE            13
+  7 Europe    TRUE             17
+  8 Oceania   TRUE              2
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  group_by(continent, higher_income) %&gt;%  
+  summarise(count = n()) %&gt;%  
+* mutate(num_in_continents = sum(count),
+*        prop = count/sum(count))
+```
+]
+ 
+.right-output-mosaic-auto[
+
+```
+  # A tibble: 8 x 5
+  # Groups:   continent [5]
+    continent higher_income count num_in_continents  prop
+    &lt;fct&gt;     &lt;lgl&gt;         &lt;int&gt;             &lt;int&gt; &lt;dbl&gt;
+  1 Africa    FALSE            52                52 1    
+  2 Americas  FALSE            23                25 0.92 
+  3 Americas  TRUE              2                25 0.08 
+  4 Asia      FALSE            26                33 0.788
+  5 Asia      TRUE              7                33 0.212
+  6 Europe    FALSE            13                30 0.433
+  7 Europe    TRUE             17                30 0.567
+  8 Oceania   TRUE              2                 2 1
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  group_by(continent, higher_income) %&gt;%  
+  summarise(count = n()) %&gt;%  
+  mutate(num_in_continents = sum(count),  
+         prop = count/sum(count)) %&gt;%  
+* ungroup()
+```
+]
+ 
+.right-output-mosaic-auto[
+
+```
+  # A tibble: 8 x 5
+    continent higher_income count num_in_continents  prop
+    &lt;fct&gt;     &lt;lgl&gt;         &lt;int&gt;             &lt;int&gt; &lt;dbl&gt;
+  1 Africa    FALSE            52                52 1    
+  2 Americas  FALSE            23                25 0.92 
+  3 Americas  TRUE              2                25 0.08 
+  4 Asia      FALSE            26                33 0.788
+  5 Asia      TRUE              7                33 0.212
+  6 Europe    FALSE            13                30 0.433
+  7 Europe    TRUE             17                30 0.567
+  8 Oceania   TRUE              2                 2 1
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  group_by(continent, higher_income) %&gt;%  
+  summarise(count = n()) %&gt;%  
+  mutate(num_in_continents = sum(count),  
+         prop = count/sum(count)) %&gt;%  
+  ungroup() %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-mosaic-auto[
+&lt;img src="geoms_discrete_discrete_files/figure-html/mosaic_auto_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  group_by(continent, higher_income) %&gt;%  
+  summarise(count = n()) %&gt;%  
+  mutate(num_in_continents = sum(count),  
+         prop = count/sum(count)) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+* aes(x = continent, y = prop)
+```
+]
+ 
+.right-output-mosaic-auto[
+&lt;img src="geoms_discrete_discrete_files/figure-html/mosaic_auto_9_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  group_by(continent, higher_income) %&gt;%  
+  summarise(count = n()) %&gt;%  
+  mutate(num_in_continents = sum(count),  
+         prop = count/sum(count)) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = continent, y = prop) +  
+* geom_bar(stat = "identity",
+*          position = "fill",
+*          color = "lightgrey")
+```
+]
+ 
+.right-output-mosaic-auto[
+&lt;img src="geoms_discrete_discrete_files/figure-html/mosaic_auto_10_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  group_by(continent, higher_income) %&gt;%  
+  summarise(count = n()) %&gt;%  
+  mutate(num_in_continents = sum(count),  
+         prop = count/sum(count)) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = continent, y = prop) +  
+  geom_bar(stat = "identity",  
+           position = "fill",  
+           color = "lightgrey") +  
+* facet_grid(~continent, scales = "free_x", space = "free_x")
+```
+]
+ 
+.right-output-mosaic-auto[
+&lt;img src="geoms_discrete_discrete_files/figure-html/mosaic_auto_11_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  group_by(continent, higher_income) %&gt;%  
+  summarise(count = n()) %&gt;%  
+  mutate(num_in_continents = sum(count),  
+         prop = count/sum(count)) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = continent, y = prop) +  
+  geom_bar(stat = "identity",  
+           position = "fill",  
+           color = "lightgrey") +  
+  facet_grid(~continent, scales = "free_x", space = "free_x") +  
+* aes(width = num_in_continents)
+```
+]
+ 
+.right-output-mosaic-auto[
+&lt;img src="geoms_discrete_discrete_files/figure-html/mosaic_auto_12_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  group_by(continent, higher_income) %&gt;%  
+  summarise(count = n()) %&gt;%  
+  mutate(num_in_continents = sum(count),  
+         prop = count/sum(count)) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = continent, y = prop) +  
+  geom_bar(stat = "identity",  
+           position = "fill",  
+           color = "lightgrey") +  
+  facet_grid(~continent, scales = "free_x", space = "free_x") +  
+  aes(width = num_in_continents) +  
+* aes(fill = higher_income)
+```
+]
+ 
+.right-output-mosaic-auto[
+&lt;img src="geoms_discrete_discrete_files/figure-html/mosaic_auto_13_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  group_by(continent, higher_income) %&gt;%  
+  summarise(count = n()) %&gt;%  
+  mutate(num_in_continents = sum(count),  
+         prop = count/sum(count)) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = continent, y = prop) +  
+  geom_bar(stat = "identity",  
+           position = "fill",  
+           color = "lightgrey") +  
+  facet_grid(~continent, scales = "free_x", space = "free_x") +  
+  aes(width = num_in_continents) +  
+  aes(fill = higher_income) +  
+* theme(panel.spacing.x = unit(0, "npc"))
+```
+]
+ 
+.right-output-mosaic-auto[
+&lt;img src="geoms_discrete_discrete_files/figure-html/mosaic_auto_14_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-mosaic-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  group_by(continent, higher_income) %&gt;%  
+  summarise(count = n()) %&gt;%  
+  mutate(num_in_continents = sum(count),  
+         prop = count/sum(count)) %&gt;%  
+  ungroup() %&gt;%  
+  ggplot() +  
+  aes(x = continent, y = prop) +  
+  geom_bar(stat = "identity",  
+           position = "fill",  
+           color = "lightgrey") +  
+  facet_grid(~continent, scales = "free_x", space = "free_x") +  
+  aes(width = num_in_continents) +  
+  aes(fill = higher_income) +  
+  theme(panel.spacing.x = unit(0, "npc")) +  
+* theme(strip.text = element_blank())
+```
+]
+ 
+.right-output-mosaic-auto[
+&lt;img src="geoms_discrete_discrete_files/figure-html/mosaic_auto_15_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-mosaic-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-mosaic-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 55%}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

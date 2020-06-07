@@ -46,96 +46,317 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-local_data-auto[
 
 ```r
-*ggplot(data = gapminder_2002)   # global data
+*gapminder
 ```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/local_data_auto_1_output-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-output-local_data-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-local_data-auto[
 
 ```r
-ggplot(data = gapminder_2002) +  # global data
+gapminder %&gt;%  
+* filter(year == 2002)
+```
+]
+ 
+.right-output-local_data-auto[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-local_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+*gm_2002
+```
+]
+ 
+.right-output-local_data-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-local_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+gm_2002  
+
+*gm_2002
+```
+]
+ 
+.right-output-local_data-auto[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-local_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+gm_2002  
+
+gm_2002 %&gt;%  
+* filter(continent == "Oceania")
+```
+]
+ 
+.right-output-local_data-auto[
+
+```
+  # A tibble: 2 x 6
+    country     continent  year lifeExp      pop gdpPercap
+    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+  1 Australia   Oceania    2002    80.4 19546792    30688.
+  2 New Zealand Oceania    2002    79.1  3908037    23190.
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-local_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+gm_2002  
+
+gm_2002 %&gt;%  
+  filter(continent == "Oceania") -&gt;  
+*gm_2002_europe
+```
+]
+ 
+.right-output-local_data-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-local_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+gm_2002  
+
+gm_2002 %&gt;%  
+  filter(continent == "Oceania") -&gt;  
+gm_2002_europe  
+
+*ggplot(data = gm_2002)   # global data
+```
+]
+ 
+.right-output-local_data-auto[
+&lt;img src="local_files/figure-html/local_data_auto_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-local_data-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+gm_2002  
+
+gm_2002 %&gt;%  
+  filter(continent == "Oceania") -&gt;  
+gm_2002_europe  
+
+ggplot(data = gm_2002) +  # global data
 * aes(x = gdpPercap)
 ```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/local_data_auto_2_output-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-output-local_data-auto[
+&lt;img src="local_files/figure-html/local_data_auto_8_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-local_data-auto[
 
 ```r
-ggplot(data = gapminder_2002) +  # global data
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+gm_2002  
+
+gm_2002 %&gt;%  
+  filter(continent == "Oceania") -&gt;  
+gm_2002_europe  
+
+ggplot(data = gm_2002) +  # global data
   aes(x = gdpPercap) +  
 * aes(y = lifeExp)
 ```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/local_data_auto_3_output-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-output-local_data-auto[
+&lt;img src="local_files/figure-html/local_data_auto_9_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-local_data-auto[
 
 ```r
-ggplot(data = gapminder_2002) +  # global data
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+gm_2002  
+
+gm_2002 %&gt;%  
+  filter(continent == "Oceania") -&gt;  
+gm_2002_europe  
+
+ggplot(data = gm_2002) +  # global data
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
 * geom_point()
 ```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/local_data_auto_4_output-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-output-local_data-auto[
+&lt;img src="local_files/figure-html/local_data_auto_10_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-local_data-auto[
 
 ```r
-ggplot(data = gapminder_2002) +  # global data
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+gm_2002  
+
+gm_2002 %&gt;%  
+  filter(continent == "Oceania") -&gt;  
+gm_2002_europe  
+
+ggplot(data = gm_2002) +  # global data
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
   geom_point() +  
 * aes(color = continent)
 ```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/local_data_auto_5_output-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-output-local_data-auto[
+&lt;img src="local_files/figure-html/local_data_auto_11_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-local_data-auto[
 
 ```r
-ggplot(data = gapminder_2002) +  # global data
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+gm_2002  
+
+gm_2002 %&gt;%  
+  filter(continent == "Oceania") -&gt;  
+gm_2002_europe  
+
+ggplot(data = gm_2002) +  # global data
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
   geom_point() +  
@@ -144,20 +365,29 @@ ggplot(data = gapminder_2002) +  # global data
 # like creating a column with a single value, 0
 * aes(xend = 0)
 ```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/local_data_auto_6_output-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-output-local_data-auto[
+&lt;img src="local_files/figure-html/local_data_auto_12_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-local_data-auto[
 
 ```r
-ggplot(data = gapminder_2002) +  # global data
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+gm_2002  
+
+gm_2002 %&gt;%  
+  filter(continent == "Oceania") -&gt;  
+gm_2002_europe  
+
+ggplot(data = gm_2002) +  # global data
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
   geom_point() +  
@@ -168,20 +398,29 @@ ggplot(data = gapminder_2002) +  # global data
 # like creating a column with a single value, 0
 * aes(yend = 0)
 ```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/local_data_auto_7_output-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-output-local_data-auto[
+&lt;img src="local_files/figure-html/local_data_auto_13_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-local_data-auto[
 
 ```r
-ggplot(data = gapminder_2002) +  # global data
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+gm_2002  
+
+gm_2002 %&gt;%  
+  filter(continent == "Oceania") -&gt;  
+gm_2002_europe  
+
+ggplot(data = gm_2002) +  # global data
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
   geom_point() +  
@@ -192,17 +431,138 @@ ggplot(data = gapminder_2002) +  # global data
 # like creating a column with a single value, 0
   aes(yend = 0) +  
 # geom specific data
-* geom_segment(
-*   data = gapminder_2002_europe,
-*   aes(size = gdpPercap,
-*       alpha = pop),
-*   color = "orange"
-*   )
+* geom_segment(data = gm_2002_europe)
 ```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/local_data_auto_8_output-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-output-local_data-auto[
+&lt;img src="local_files/figure-html/local_data_auto_14_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-local_data-auto {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-local_data-auto {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+---
+
+### Adjusting within call
+
+---
+
+class: split-40
+count: false
+ 
+#### Manipulating data locally
+.left-code-local_data_filter-1[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) -&gt;  
+gm_2002  
+
+ggplot(data = gm_2002) +  # global data
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
+  aes(xend = 0) +  
+# like creating a column with a single value, 0
+  aes(yend = 0) +  
+# geom specific data
+* geom_segment(data = gm_2002 %&gt;% filter(continent == "Oceania"))
+```
+]
+ 
+.right-output-local_data_filter-1[
+&lt;img src="local_files/figure-html/local_data_filter_1_1_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-local_data_filter-1 {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-local_data_filter-1 {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+#### Referring to global data locally using period (.)
+.left-code-local_data_from_global-1[
+
+```r
+*gapminder %&gt;%
+* filter(year == 2002) %&gt;%
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+# xend and yend are required for geom_segment
+# like creating a column with a single value, 0
+  aes(xend = 0) +  
+# like creating a column with a single value, 0
+  aes(yend = 0) +  
+# geom specific data
+* geom_segment(data = . %&gt;% filter(continent == "Oceania"))
+```
+]
+ 
+.right-output-local_data_from_global-1[
+&lt;img src="local_files/figure-html/local_data_from_global_1_1_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-local_data_from_global-1 {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-local_data_from_global-1 {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -222,118 +582,7 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
-
-```r
-*ggplot(data = gapminder_2002_europe)
-```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_1_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002_europe) +  
-# global aesthetics
-* aes(x = gdpPercap)
-```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_2_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002_europe) +  
-# global aesthetics
-  aes(x = gdpPercap) +  
-* aes(y = lifeExp)
-```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_3_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002_europe) +  
-# global aesthetics
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +  
-* aes(xend = 0)   # required aes for segment
-```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_4_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002_europe) +  
-# global aesthetics
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +  
-  aes(xend = 0) +  # required aes for segment
-* aes(yend = 0)   # required aes for segment
-```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_5_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002_europe) +  
-# global aesthetics
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +  
-  aes(xend = 0) +  # required aes for segment
-  aes(yend = 0) +  # required aes for segment
-* geom_segment()
-```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_6_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
+.left-code-geom_specific_aes_mapping-rotate[
 
 ```r
 ggplot(data = gapminder_2002_europe) +  
@@ -344,13 +593,174 @@ ggplot(data = gapminder_2002_europe) +
   aes(yend = 0) +  # required aes for segment
   geom_segment() +  
 # geom specific aesthetics
-* geom_point(aes(color = gdpPercap,
-*                size = pop))
+  geom_point()   
 ```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/geom_specific_aes_mapping_auto_7_output-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-output-geom_specific_aes_mapping-rotate[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_rotate_1_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_specific_aes_mapping-rotate[
+
+```r
+ggplot(data = gapminder_2002_europe) +  
+# global aesthetics
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(xend = 0) +  # required aes for segment
+  aes(yend = 0) +  # required aes for segment
+  geom_segment() +  
+# geom specific aesthetics
+* geom_point(aes(color = gdpPercap))
+```
+]
+ 
+.right-output-geom_specific_aes_mapping-rotate[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_rotate_2_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_specific_aes_mapping-rotate[
+
+```r
+ggplot(data = gapminder_2002_europe) +  
+# global aesthetics
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(xend = 0) +  # required aes for segment
+  aes(yend = 0) +  # required aes for segment
+  geom_segment() +  
+# geom specific aesthetics
+* geom_point(aes(size = gdpPercap))
+```
+]
+ 
+.right-output-geom_specific_aes_mapping-rotate[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_rotate_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_specific_aes_mapping-rotate[
+
+```r
+ggplot(data = gapminder_2002_europe) +  
+# global aesthetics
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(xend = 0) +  # required aes for segment
+  aes(yend = 0) +  # required aes for segment
+  geom_segment() +  
+# geom specific aesthetics
+* geom_point(aes(size = pop))
+```
+]
+ 
+.right-output-geom_specific_aes_mapping-rotate[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_rotate_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_specific_aes_mapping-rotate[
+
+```r
+ggplot(data = gapminder_2002_europe) +  
+# global aesthetics
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(xend = 0) +  # required aes for segment
+  aes(yend = 0) +  # required aes for segment
+  geom_segment() +  
+# geom specific aesthetics
+* geom_point(aes(color = gdpPercap, size = pop))
+```
+]
+ 
+.right-output-geom_specific_aes_mapping-rotate[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_rotate_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_specific_aes_mapping-rotate[
+
+```r
+ggplot(data = gapminder_2002_europe) +  
+# global aesthetics
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(xend = 0) +  # required aes for segment
+  aes(yend = 0) +  # required aes for segment
+  geom_segment() +  
+# geom specific aesthetics
+* geom_point(aes(color = gdpPercap, x = gdpPercap/2))
+```
+]
+ 
+.right-output-geom_specific_aes_mapping-rotate[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_rotate_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_specific_aes_mapping-rotate[
+
+```r
+ggplot(data = gapminder_2002_europe) +  
+# global aesthetics
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  aes(xend = 0) +  # required aes for segment
+  aes(yend = 0) +  # required aes for segment
+  geom_segment() +  
+# geom specific aesthetics
+* geom_point(aes(color = gdpPercap, y = 0))
+```
+]
+ 
+.right-output-geom_specific_aes_mapping-rotate[
+&lt;img src="local_files/figure-html/geom_specific_aes_mapping_rotate_7_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-geom_specific_aes_mapping-rotate {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-geom_specific_aes_mapping-rotate {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -373,92 +783,224 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-unmapped_aes-rotate[
 
 ```r
-*ggplot(data = gapminder_2002)
-```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/unmapped_aes_auto_1_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +  
-* aes(x = gdpPercap)
-```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/unmapped_aes_auto_2_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +  
-  aes(x = gdpPercap) +  
-* aes(y = lifeExp)
-```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/unmapped_aes_auto_3_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
   aes(x = gdpPercap) +  
   aes(y = lifeExp) +  
-* geom_point()
-```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/unmapped_aes_auto_4_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(data = gapminder_2002) +  
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +  
-  geom_point() +  
 # Another geometric layer with aesthetics
 # that don't do representation:
-* geom_point(
-*   color = "plum4",
-*   size = 8,
-*   shape = 21
-*   )
+  geom_point()   
 ```
-]]
-.column[.content[
-&lt;img src="local_files/figure-html/unmapped_aes_auto_5_output-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-output-unmapped_aes-rotate[
+&lt;img src="local_files/figure-html/unmapped_aes_rotate_1_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-unmapped_aes-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+# Another geometric layer with aesthetics
+# that don't do representation:
+* geom_point(color = "plum4")
+```
+]
+ 
+.right-output-unmapped_aes-rotate[
+&lt;img src="local_files/figure-html/unmapped_aes_rotate_2_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-unmapped_aes-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+# Another geometric layer with aesthetics
+# that don't do representation:
+* geom_point(color = "steelblue")
+```
+]
+ 
+.right-output-unmapped_aes-rotate[
+&lt;img src="local_files/figure-html/unmapped_aes_rotate_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-unmapped_aes-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+# Another geometric layer with aesthetics
+# that don't do representation:
+* geom_point(color = "#0FF3F3")
+```
+]
+ 
+.right-output-unmapped_aes-rotate[
+&lt;img src="local_files/figure-html/unmapped_aes_rotate_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-unmapped_aes-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+# Another geometric layer with aesthetics
+# that don't do representation:
+* geom_point(size = 7)
+```
+]
+ 
+.right-output-unmapped_aes-rotate[
+&lt;img src="local_files/figure-html/unmapped_aes_rotate_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-unmapped_aes-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+# Another geometric layer with aesthetics
+# that don't do representation:
+* geom_point(alpha = .5)
+```
+]
+ 
+.right-output-unmapped_aes-rotate[
+&lt;img src="local_files/figure-html/unmapped_aes_rotate_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-unmapped_aes-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+# Another geometric layer with aesthetics
+# that don't do representation:
+* geom_point(color = "plum4", size = 7)
+```
+]
+ 
+.right-output-unmapped_aes-rotate[
+&lt;img src="local_files/figure-html/unmapped_aes_rotate_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-unmapped_aes-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+# Another geometric layer with aesthetics
+# that don't do representation:
+* geom_point(color = "plum4", size = 7, alpha = .5)
+```
+]
+ 
+.right-output-unmapped_aes-rotate[
+&lt;img src="local_files/figure-html/unmapped_aes_rotate_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-unmapped_aes-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+# Another geometric layer with aesthetics
+# that don't do representation:
+* geom_point(color = "firebrick", size = 7, alpha = .8, shape = "square")
+```
+]
+ 
+.right-output-unmapped_aes-rotate[
+&lt;img src="local_files/figure-html/unmapped_aes_rotate_9_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-unmapped_aes-rotate {
+  color: #777;
+  width: 59%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-unmapped_aes-rotate {
+  width: 40%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -488,56 +1030,58 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-all_conditional-auto[
 
 ```r
 *ggplot(data = gapminder_2002)   # global data
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-all_conditional-auto[
 &lt;img src="local_files/figure-html/all_conditional_auto_1_output-1.png" width="100%" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-all_conditional-auto[
 
 ```r
 ggplot(data = gapminder_2002) +  # global data
 * aes(x = gdpPercap)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-all_conditional-auto[
 &lt;img src="local_files/figure-html/all_conditional_auto_2_output-1.png" width="100%" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-all_conditional-auto[
 
 ```r
 ggplot(data = gapminder_2002) +  # global data
   aes(x = gdpPercap) +  
 * aes(y = lifeExp)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-all_conditional-auto[
 &lt;img src="local_files/figure-html/all_conditional_auto_3_output-1.png" width="100%" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-all_conditional-auto[
 
 ```r
 ggplot(data = gapminder_2002) +  # global data
@@ -546,17 +1090,18 @@ ggplot(data = gapminder_2002) +  # global data
 * geom_point(size = 5,
 *            alpha = .7)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-all_conditional-auto[
 &lt;img src="local_files/figure-html/all_conditional_auto_4_output-1.png" width="100%" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-all_conditional-auto[
 
 ```r
 ggplot(data = gapminder_2002) +  # global data
@@ -566,17 +1111,18 @@ ggplot(data = gapminder_2002) +  # global data
              alpha = .7) +  
 * aes(color = continent)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-all_conditional-auto[
 &lt;img src="local_files/figure-html/all_conditional_auto_5_output-1.png" width="100%" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-all_conditional-auto[
 
 ```r
 ggplot(data = gapminder_2002) +  # global data
@@ -589,17 +1135,18 @@ ggplot(data = gapminder_2002) +  # global data
 # like creating a column with a single value, 0
 * aes(xend = 0)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-all_conditional-auto[
 &lt;img src="local_files/figure-html/all_conditional_auto_6_output-1.png" width="100%" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-all_conditional-auto[
 
 ```r
 ggplot(data = gapminder_2002) +  # global data
@@ -614,17 +1161,18 @@ ggplot(data = gapminder_2002) +  # global data
 # like creating a column with a single value, 0
 * aes(yend = 0)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-all_conditional-auto[
 &lt;img src="local_files/figure-html/all_conditional_auto_7_output-1.png" width="100%" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-all_conditional-auto[
 
 ```r
 ggplot(data = gapminder_2002) +  # global data
@@ -646,32 +1194,38 @@ ggplot(data = gapminder_2002) +  # global data
 *   color = "orange"
 *   )
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-all_conditional-auto[
 &lt;img src="local_files/figure-html/all_conditional_auto_8_output-1.png" width="100%" /&gt;
-]]
+]
+
+&lt;style&gt;
+.left-code-all_conditional-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-all_conditional-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
 
 
-```r
-ggplot(data = gapminder_2002) + # global data
-  aes(x = gdpPercap) +  
-  aes(y = lifeExp) +   
-  geom_point(size = 5,
-             alpha = .7) + 
-  aes(color = continent) +
-  # xend and yend are required for geom_segment
-  # like creating a column with a single value, 0
-  aes(xend = 0) + 
-  # like creating a column with a single value, 0
-  aes(yend = 0) +
-  # geom specific data
-  geom_segment(
-    data = gapminder_2002_europe, #BREAK2
-    aes(size = gdpPercap, #BREAK3
-        alpha = pop), #BREAK3
-    color = "orange" #BREAK4
-    )
-```
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 60%}
+&lt;/style&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

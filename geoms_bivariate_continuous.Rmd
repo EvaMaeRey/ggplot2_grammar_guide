@@ -1,0 +1,160 @@
+---
+title: "continuous x continuous"
+author: "Gina Reynolds"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "ninjutsu"]
+    nature:
+      highlightLines: yes
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
+library(flipbookr)
+library(tidyverse)
+library(gapminder)
+options(scipen = 10)
+```
+
+
+---
+
+
+```{r prep_data, eval = T, echo = F}
+gapminder %>% # data from package
+  filter(year == 2002) -> # filtering
+gapminder_2002 # saving subset object
+gapminder_2002 %>% 
+  filter(continent == "Europe") ->
+gapminder_2002_europe  
+gapminder %>% 
+  filter(continent == "Europe") ->
+gapminder_europe
+gapminder %>% 
+  select(country, continent) %>% 
+  distinct() %>% 
+  group_by(continent) %>% 
+  summarise(country_count = n()) ->
+continent_aggregate
+```
+
+
+
+
+---
+
+# 'Nouns':  The geom_*() line up
+
+
+
+
+---
+class: inverse, center, middle
+name: cc
+
+# continous x and y
+
+---
+
+
+`r chunk_reveal("continuous_continuous_build")`
+
+
+```{r continuous_continuous_build, eval = F, echo =F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap/1000) +
+  aes(y = lifeExp) +
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +
+  geom_point() +
+  theme_minimal()
+```
+
+
+
+
+---
+
+`r chunk_reveal("continuous_continuous", break_type= "rotate")`
+
+
+```{r continuous_continuous, eval = F, echo =F}
+ggplot(data = gapminder_2002) +
+  aes(x = gdpPercap/1000) +
+  aes(y = lifeExp) +
+  coord_cartesian(xlim = c(0,50), ylim = c(35,90)) +
+  geom_point() +
+  geom_rug() + #ROTATE
+  geom_tile(width = 3, height = 3, fill = "green", alpha = .25) + #ROTATE
+  geom_segment(aes(xend = 0, yend = 40), alpha = .2) + #ROTATE
+  geom_curve(aes(xend = 0, yend = 40), linetype = "dotted") + #ROTATE
+  geom_rect(aes(xmin = 20, xmax = gdpPercap/1000, ymin = 40, ymax = lifeExp), alpha = .02, fill = "magenta", color = "grey") + #ROTATE
+  geom_text(aes(label = country)) + #ROTATE
+  geom_label(aes(label = country)) + #ROTATE
+  stat_density_2d(aes(fill = ..density..), geom = "raster",  contour = FALSE, alpha = .5) +  #ROTATE
+  geom_density2d() + #ROTATE
+  ggalt::stat_bkde2d(bandwidth=c(0.5, 4), aes(fill = ..level..), geom = "polygon") + #ROTATE
+  ggalt::geom_bkde2d(bandwidth=c(0.5, 4)) + #ROTATE
+  geom_smooth() +  # #ROTATE
+  geom_smooth(method = lm) + #ROTATE
+  geom_hex(alpha = .5,color = "white") + #ROTATE
+  geom_hex(bins = 12, alpha = .9, color = "white") + #ROTATE
+  ggforce::geom_voronoi_segment() + #ROTATE
+  ggforce::geom_voronoi_tile(fill = "green", color = "white", alpha = .5) + #ROTATE
+  ggforce::geom_voronoi_tile(aes(fill = continent, group = -1L), color = "white", alpha = .5, normalize = TRUE) + #ROTATE
+  ggforce::geom_voronoi_tile(aes(fill = continent, group = -1L), colour = 'black', max.radius = 3, alpha = .5) + #ROTATE
+  ggforce::geom_delaunay_tile(fill = "magenta", alpha = 0.3, colour = 'black') + #ROTATE
+  ggforce::geom_delaunay_segment2(aes(color = continent, group = -1L), size = 3, lineend = 'round') + #ROTATE
+  ggforce::geom_bspline_closed(alpha = 0.5, fill = "cadetblue") + #ROTATE
+  ggforce::geom_bspline_closed(alpha = 0.5, fill = "cadetblue") + #ROTATE
+  ggforce::geom_diagonal(aes(xend = 20, yend = lifeExp - 3), color = "goldenrod4") + #ROTATE
+  ggbump::geom_sigmoid(aes(group = country, xend = 20, yend = lifeExp - 3), color = "firebrick") + #ROTATE
+  geom_path(color = "plum4") + #ROTATE
+  geom_polygon(alpha = 0.5, fill = "plum4") + #ROTATE
+  ggalt::geom_encircle(s_shape=0.5, expand=0.1, colour="purple") + #ROTATE
+  ggalt::geom_encircle(aes(color = continent), s_shape=0.5, expand=0.1) + #ROTATE
+  ggalt::geom_encircle(s_shape=1, expand=0.1, colour="purple") + #ROTATE
+  ggalt::geom_encircle(aes(color = continent), s_shape=1, expand=0.1) + #ROTATE
+  ggforce::geom_mark_hull() + #ROTATE
+  ggforce::geom_mark_hull(concavity = 7) + #ROTATE
+  ggforce::geom_mark_hull(aes(fill = continent)) + #ROTATE
+  ggforce::geom_mark_hull(aes(fill = continent, filter = continent == "Europe")) + #ROTATE
+  ggforce::geom_mark_circle() + #ROTATE
+  ggforce::geom_mark_circle(aes(fill = continent)) + #ROTATE
+  ggforce::geom_mark_ellipse(aes(fill = continent, filter = continent == "Europe")) + #ROTATE
+  ggforce::geom_mark_rect() + #ROTATE
+  ggforce::geom_mark_rect(aes(fill = continent)) + #ROTATE
+  ggpointdensity::geom_pointdensity() + #ROTATE
+  theme_minimal()
+```
+
+---
+
+x and y dense
+
+---
+
+`r chunk_reveal("dense")`
+
+```{r dense, include = F}
+set.seed(2022)
+tibble(my_x = rnorm(2000),
+       my_y = my_x + rnorm(2000)) %>% 
+  ggplot() +
+  aes(x = my_x) +
+  aes(y = my_y) +
+  ggpointdensity::geom_pointdensity() +
+  scale_color_viridis_c()
+```
+
+
+
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 55%}
+```
+

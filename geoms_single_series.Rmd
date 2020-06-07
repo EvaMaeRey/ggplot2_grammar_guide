@@ -1,0 +1,270 @@
+---
+title: "single series geoms"
+author: "Gina Reynolds"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "ninjutsu"]
+    nature:
+      highlightLines: yes
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
+library(flipbookr)
+options(scipen = 10)
+```
+
+
+---
+
+- ggplot2
+- ggforce
+- ggbump
+- ggpointdensity
+- ggrepel
+- packcircles
+- waffle
+
+
+---
+
+
+```{r}
+library(tidyverse)
+library(gapminder)
+```
+
+
+---
+name: single_series
+
+## Single series
+
+
+---
+
+`r chunk_reveal("time_series", break_type = "rotate")`
+
+```{r time_series, include=F}
+gapminder %>% 
+  filter(country == "New Zealand") %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = pop * gdpPercap) +
+  aes(group = country) +
+  geom_point() +
+  geom_col() + #ROTATE
+  geom_segment(aes(xend = year, yend = 0)) + #ROTATE
+  geom_segment(aes(xend = year, yend = 0), arrow = arrow()) + #ROTATE
+  geom_line() + #ROTATE
+  ggforce::geom_link2(aes(color = year, size = year, group = 1), lineend = 'round', alpha = .5) + #ROTATE
+  geom_line(aes(color = year, group = 1)) + #ROTATE
+  geom_area(alpha = .4, fill = "plum1", color = "plum1") + #ROTATE
+  theme_minimal()
+```
+
+
+
+
+
+---
+
+`r chunk_reveal("jagged", break_type = "rotate")`
+
+
+```{r jagged, include=F}
+set.seed(2022)
+tibble(my_x = 1990:2010,
+       my_y = rnorm(21)) %>% 
+  ggplot() +
+  aes(x = my_x) + 
+  aes(y = my_y) +
+  geom_point() + 
+  aes(color = my_y) +
+  geom_line() + #ROTATE
+  geom_smooth() + #ROTATE
+  ggforce::geom_link() + #ROTATE
+  ggforce::geom_bspline() + #ROTATE
+  ggforce::geom_bezier(aes(group = 1)) + #ROTATE 
+  ggalt::geom_xspline(spline_shape = 0.4) + #ROTATE
+  ggalt::geom_xspline(spline_shape = 0.8) + #ROTATE
+  ggalt::geom_xspline(spline_shape = 0.1) + #ROTATE
+  ggalt::geom_xspline(spline_shape = -1, size = 0.5) + #ROTATE
+  ggforce::geom_link2(aes(size = my_y, group = 1), lineend = 'round', alpha = .5) + #ROTATE
+  scale_color_viridis_c()
+```
+
+
+---
+
+`r chunk_reveal("polar_bar")`
+
+```{r polar_bar, include = F}
+gapminder %>% 
+  filter(continent == "Oceania") %>% 
+  mutate(pop_millions = pop/1000000) %>% 
+  arrange(-pop) %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = pop_millions) +
+  geom_col(width = 4, position = "dodge") +
+  coord_polar() +  
+  scale_y_continuous(limits = c(-10, 25)) +
+  scale_x_continuous(breaks = seq(1952, 2007, by = 5), 
+                     limits = c(1950, 2010)) +
+  aes(fill = country) +
+  geom_text(data = . %>% filter(country == "Australia"),
+            aes(label = year,
+                y = pop_millions + 3),
+            fontface = "bold",
+            color = "navy") +
+  theme_void() + 
+  theme(legend.position = c(.8,.8)) +
+  labs(fill = NULL)
+```
+
+---
+
+`r chunk_reveal("pie_donut")`
+
+```{r pie_donut, include = F}
+gapminder %>%  
+  filter(year == 2002) %>%  
+  count(continent) %>%  
+  mutate(text_pos_y = sum(n) - cumsum(n)) %>%  
+  mutate(text_pos_y = (lag(text_pos_y,  
+                           default = sum(n)) +  
+                       text_pos_y) / 2) %>%  
+  ggplot() +  
+  aes(x = 1) +
+  aes(y = n) +
+  geom_col(width = 2) +
+  aes(fill = continent) +
+  geom_text(aes(label = continent, 
+                y = text_pos_y, 
+                x = 2.3 + c(.3,.1,.2,.3,0)),  
+            color = "navy",
+            fontface = "bold") +
+  coord_polar(theta = "y") +
+  theme_void() +
+  scale_x_continuous(limits = c(-3, 2.8)) +
+  theme(legend.position = "none")
+```
+
+
+---
+
+`r chunk_reveal("circle_pack")`
+
+```{r circle_pack, include = F}
+gapminder %>% 
+  filter(continent == "Americas") %>% 
+  filter(year == 2002) %>% 
+  select(country, pop) ->
+prep
+
+packcircles::circleProgressiveLayout(prep$pop,
+                                         sizetype = 'area') ->
+pack
+  
+pack %>% 
+  packcircles::circleLayoutVertices(npoints = 50) ->
+circle_outlines
+  
+circle_outlines %>% 
+  ggplot() + 
+  aes(x = x, y = y) +
+  geom_polygon(colour = "black", alpha = 0.6) +
+  aes(group = id) + 
+  aes(fill = factor(id)) +
+  geom_text(data = cbind(prep, pack), 
+            aes(x, y, size = pop, label = country,
+                group = NULL, fill = NULL)) +
+  theme(legend.position = "none") +
+  coord_equal()
+```
+
+---
+
+`r chunk_reveal("treemapify")`
+
+```{r treemapify, include = F}
+gapminder %>% 
+  filter(continent == "Americas") %>% 
+  filter(year == 2002) %>% 
+  mutate(pop_millions = pop/1000000) %>% 
+  ggplot() + 
+  aes(fill = pop_millions, area = pop_millions) +
+  treemapify::geom_treemap() +
+  treemapify::geom_treemap_text(aes(label = country),
+    fontface = "italic", 
+                                colour = "white", 
+                                place = "topleft",
+                                grow = F) +
+  scale_fill_viridis_c(trans = "log10", begin = .2, option = "inferno",
+                       end = .7, breaks = c(1, 3, 10, 30, 100))
+```
+
+
+
+---
+class: middle, center, inverse
+
+# Singe value per category
+
+
+---
+
+`r chunk_reveal("single_value", break_type = "rotate")`
+
+```{r single_value, include=F}
+gapminder %>% 
+  filter(year == 2002) %>% 
+  filter(continent == "Europe") %>% 
+  ggplot() +
+  aes(x = lifeExp) +
+  aes(y = reorder(country, lifeExp)) +
+  geom_point() +
+  geom_col() + #ROTATE
+  geom_segment(aes(xend = 0, yend = country)) + #ROTATE
+  geom_hline(aes(yintercept = country), linetype = "dotted") + #ROTATE
+  theme_minimal()
+```
+
+---
+
+
+```{r}
+# install.packages("waffle", repos = "https://cinc.rud.is")
+```
+
+
+---
+
+`r chunk_reveal("waffle")`
+
+```{r waffle, include = F}
+# special install 
+gapminder %>%
+  filter(year == 2002) %>% 
+  count(continent) %>% 
+  ggplot() +
+  waffle::geom_waffle(aes(fill = continent, values = n),
+    n_rows = 20, size = 0.33, colour = "white", flip = T) + 
+  coord_equal() +
+  facet_wrap(~continent, strip.position = "bottom") +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 55%}
+```
+
