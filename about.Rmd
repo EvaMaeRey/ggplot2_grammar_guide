@@ -195,6 +195,7 @@ Spatial with [geom_sf](geom_sf.html){target="_blank"} and [tmap](tmap.html){targ
 
 `r viztoc:::build_and_use_gif(dir = "geom_sf_files/figure-html/", pattern = "" , href = "geoms_sf.html", width = 150, height = 150, cached_gif = T, which = 80)`
 
+`r viztoc:::build_and_use_gif(dir = "rayshader_files/figure-html/", pattern = "" , href = "rayshader.html", width = 150, height = 150, cached_gif = T, which = 14)`
 
 
 </div>
