@@ -22,6 +22,7 @@ class: center, middle, inverse, title-slide
 
 
 ```r
+library(flipbookr)
 library(tidyverse)
 library(gapminder)
 ```
@@ -39,6 +40,174 @@ library(gapminder)
 name: c
 
 # Continuous Univariate
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-univariate_continuous_build-auto[
+
+```r
+*gapminder
+```
+]
+ 
+.right-output-univariate_continuous_build-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-univariate_continuous_build-auto[
+
+```r
+gapminder %&gt;%  
+* filter(year == 2002)
+```
+]
+ 
+.right-output-univariate_continuous_build-auto[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-univariate_continuous_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-univariate_continuous_build-auto[
+&lt;img src="geoms_continuous_distribution_files/figure-html/univariate_continuous_build_auto_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-univariate_continuous_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+* aes(x = lifeExp)
+```
+]
+ 
+.right-output-univariate_continuous_build-auto[
+&lt;img src="geoms_continuous_distribution_files/figure-html/univariate_continuous_build_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-univariate_continuous_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = lifeExp) +  
+* theme_minimal()
+```
+]
+ 
+.right-output-univariate_continuous_build-auto[
+&lt;img src="geoms_continuous_distribution_files/figure-html/univariate_continuous_build_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-univariate_continuous_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = lifeExp) +  
+  theme_minimal() +  
+* geom_rug(col = "darkgrey")
+```
+]
+ 
+.right-output-univariate_continuous_build-auto[
+&lt;img src="geoms_continuous_distribution_files/figure-html/univariate_continuous_build_auto_6_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-univariate_continuous_build-auto {
+  color: #777;
+  width: 59%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-univariate_continuous_build-auto {
+  width: 40%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+
 
 ---
 
@@ -242,17 +411,19 @@ gapminder %&gt;%
 &lt;style&gt;
 .left-code-univariate_continuous-rotate {
   color: #777;
-  width: 38%;
+  width: 59%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-univariate_continuous-rotate {
-  width: 60%;
+  width: 40%;
   float: right;
   padding-left: 1%;
 }
 &lt;/style&gt;
+
+
 
 
 
@@ -270,6 +441,171 @@ name: c
 # Continuous - Discrete via facetting
 
 ---
+
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous_facet_build-auto[
+
+```r
+*gapminder
+```
+]
+ 
+.right-output-geom_discrete_continuous_facet_build-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous_facet_build-auto[
+
+```r
+gapminder %&gt;%  
+* filter(year == 2002)
+```
+]
+ 
+.right-output-geom_discrete_continuous_facet_build-auto[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous_facet_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-geom_discrete_continuous_facet_build-auto[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_facet_build_auto_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous_facet_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+* aes(x = lifeExp)
+```
+]
+ 
+.right-output-geom_discrete_continuous_facet_build-auto[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_facet_build_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous_facet_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = lifeExp) +  
+* theme_minimal()
+```
+]
+ 
+.right-output-geom_discrete_continuous_facet_build-auto[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_facet_build_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous_facet_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = lifeExp) +  
+  theme_minimal() +  
+* geom_rug(col = "darkgrey")
+```
+]
+ 
+.right-output-geom_discrete_continuous_facet_build-auto[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_facet_build_auto_6_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-geom_discrete_continuous_facet_build-auto {
+  color: #777;
+  width: 59%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-geom_discrete_continuous_facet_build-auto {
+  width: 40%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
 
 class: split-40
 count: false
@@ -434,13 +770,13 @@ gapminder %&gt;%
 &lt;style&gt;
 .left-code-geom_discrete_continuous_facet-rotate {
   color: #777;
-  width: 38%;
+  width: 59%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-geom_discrete_continuous_facet-rotate {
-  width: 60%;
+  width: 40%;
   float: right;
   padding-left: 1%;
 }
@@ -467,6 +803,209 @@ class: split-40
 count: false
  
 
+.left-code-geom_discrete_continuous_build-auto[
+
+```r
+*gapminder
+```
+]
+ 
+.right-output-geom_discrete_continuous_build-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous_build-auto[
+
+```r
+gapminder %&gt;%  
+* filter(year == 2002)
+```
+]
+ 
+.right-output-geom_discrete_continuous_build-auto[
+
+```
+  # A tibble: 142 x 6
+     country     continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1  25268405      727.
+   2 Albania     Europe     2002    75.7   3508512     4604.
+   3 Algeria     Africa     2002    71.0  31287142     5288.
+   4 Angola      Africa     2002    41.0  10866106     2773.
+   5 Argentina   Americas   2002    74.3  38331121     8798.
+   6 Australia   Oceania    2002    80.4  19546792    30688.
+   7 Austria     Europe     2002    79.0   8148312    32418.
+   8 Bahrain     Asia       2002    74.8    656397    23404.
+   9 Bangladesh  Asia       2002    62.0 135656790     1136.
+  10 Belgium     Europe     2002    78.3  10311970    30486.
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+* mutate(higher_income = gdpPercap &gt; 20000)
+```
+]
+ 
+.right-output-geom_discrete_continuous_build-auto[
+
+```
+  # A tibble: 142 x 7
+     country     continent  year lifeExp       pop gdpPercap higher_income
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt; &lt;lgl&gt;        
+   1 Afghanistan Asia       2002    42.1  25268405      727. FALSE        
+   2 Albania     Europe     2002    75.7   3508512     4604. FALSE        
+   3 Algeria     Africa     2002    71.0  31287142     5288. FALSE        
+   4 Angola      Africa     2002    41.0  10866106     2773. FALSE        
+   5 Argentina   Americas   2002    74.3  38331121     8798. FALSE        
+   6 Australia   Oceania    2002    80.4  19546792    30688. TRUE         
+   7 Austria     Europe     2002    79.0   8148312    32418. TRUE         
+   8 Bahrain     Asia       2002    74.8    656397    23404. TRUE         
+   9 Bangladesh  Asia       2002    62.0 135656790     1136. FALSE        
+  10 Belgium     Europe     2002    78.3  10311970    30486. TRUE         
+  # … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-geom_discrete_continuous_build-auto[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_build_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  ggplot() +  
+* aes(y = fct_rev(continent))
+```
+]
+ 
+.right-output-geom_discrete_continuous_build-auto[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_build_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  ggplot() +  
+  aes(y = fct_rev(continent)) +  
+* aes(x = lifeExp)
+```
+]
+ 
+.right-output-geom_discrete_continuous_build-auto[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_build_auto_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  ggplot() +  
+  aes(y = fct_rev(continent)) +  
+  aes(x = lifeExp) +  
+* geom_point()
+```
+]
+ 
+.right-output-geom_discrete_continuous_build-auto[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_build_auto_7_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-geom_discrete_continuous_build-auto {
+  color: #777;
+  width: 59%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-geom_discrete_continuous_build-auto {
+  width: 40%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+
+class: split-40
+count: false
+ 
+
 .left-code-geom_discrete_continuous-rotate[
 
 ```r
@@ -476,7 +1015,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
   geom_boxplot(alpha = .1) +  
   theme_minimal() +  
   labs(y = NULL)  
@@ -501,7 +1040,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
 * geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) +
   theme_minimal() +  
   labs(y = NULL)  
@@ -526,7 +1065,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
 * geom_jitter(width = .2, alpha = .5, color = "green") +
   theme_minimal() +  
   labs(y = NULL)  
@@ -551,7 +1090,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
 * geom_violin(alpha = .1) +
   theme_minimal() +  
   labs(y = NULL)  
@@ -576,7 +1115,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
 * ggforce::geom_sina(col = "magenta", alpha = .5) +
   theme_minimal() +  
   labs(y = NULL)  
@@ -601,7 +1140,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
 * stat_summary(fun.y = mean, geom = "point", col = "goldenrod2", size = 8) +
   theme_minimal() +  
   labs(y = NULL)  
@@ -626,7 +1165,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
 * ggridges::geom_density_ridges(alpha = .2, fill = "blue") +
   theme_minimal() +  
   labs(y = NULL)  
@@ -651,7 +1190,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
 * ggridges::geom_density_ridges(scale = .7, alpha = .2, fill = "blue") +
   theme_minimal() +  
   labs(y = NULL)  
@@ -676,7 +1215,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
 * ggridges::geom_density_ridges(scale = 1.5, alpha = .2, fill = "blue") +
   theme_minimal() +  
   labs(y = NULL)  
@@ -701,7 +1240,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
 * ggridges::geom_density_ridges_gradient(aes(fill = stat(x))) +
   theme_minimal() +  
   labs(y = NULL)  
@@ -726,7 +1265,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
 * ggridges::stat_density_ridges(quantile_lines = TRUE, quantiles = c(0.025, 0.975), alpha = 0.5, fill = "plum4") +
   theme_minimal() +  
   labs(y = NULL)  
@@ -751,7 +1290,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
 * ggridges::geom_density_ridges(jittered_points = TRUE, position = "raincloud", alpha = .5, scale = 0.9) +
   theme_minimal() +  
   labs(y = NULL)  
@@ -776,7 +1315,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
+  geom_point() +  
 * ggridges::geom_density_ridges(stat = "binline", bins = 20, scale = 0.95, draw_baseline = FALSE) +
   theme_minimal() +  
   labs(y = NULL)  
@@ -801,8 +1340,8 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
-* ggridges::geom_density_ridges(scale = 2, alpha = .5) + ggridges::scale_fill_cyclical(values = c("blue", "green")) +
+  geom_point() +  
+* ggridges::geom_density_ridges(scale = 2, alpha = .5) +
   theme_minimal() +  
   labs(y = NULL)  
 ```
@@ -826,8 +1365,8 @@ gapminder %&gt;%
   ggplot() +  
   aes(y = fct_rev(continent)) +  
   aes(x = lifeExp) +  
-  geom_point(size = .2) +  
-* geom_point(aes(color = continent), position = position_nudge(x = 0, y = .2), size = .5, alpha = 0.8) + geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) +
+  geom_point() +  
+* ggridges::scale_fill_cyclical(values = c("blue", "green")) +
   theme_minimal() +  
   labs(y = NULL)  
 ```
@@ -837,16 +1376,66 @@ gapminder %&gt;%
 &lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_rotate_15_output-1.png" width="100%" /&gt;
 ]
 
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  ggplot() +  
+  aes(y = fct_rev(continent)) +  
+  aes(x = lifeExp) +  
+  geom_point() +  
+* geom_point(aes(color = continent), position = position_nudge(x = 0, y = .2), size = .5, alpha = 0.8) + geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) +
+  theme_minimal() +  
+  labs(y = NULL)  
+```
+]
+ 
+.right-output-geom_discrete_continuous-rotate[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_rotate_16_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-geom_discrete_continuous-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  ggplot() +  
+  aes(y = fct_rev(continent)) +  
+  aes(x = lifeExp) +  
+  geom_point() +  
+* ggalt::geom_bkde(alpha = 0.3, bandwidth = .25, aes(fill = continent)) +
+  theme_minimal() +  
+  labs(y = NULL)  
+```
+]
+ 
+.right-output-geom_discrete_continuous-rotate[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_rotate_17_output-1.png" width="100%" /&gt;
+]
+
 &lt;style&gt;
 .left-code-geom_discrete_continuous-rotate {
   color: #777;
-  width: 38%;
+  width: 59%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-geom_discrete_continuous-rotate {
-  width: 60%;
+  width: 40%;
   float: right;
   padding-left: 1%;
 }
@@ -928,13 +1517,13 @@ gapminder %&gt;%
 &lt;style&gt;
 .left-code-geom_discrete_continuous_bee-rotate {
   color: #777;
-  width: 38%;
+  width: 59%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-geom_discrete_continuous_bee-rotate {
-  width: 60%;
+  width: 40%;
   float: right;
   padding-left: 1%;
 }

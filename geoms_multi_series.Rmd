@@ -34,7 +34,22 @@ name: mult_series
 
 ---
 
-`r chunk_reveal("time_series_multi", break_type = "rotate")`
+`r chunk_reveal("time_series_multi_build", width_code = "49%", width_output = "50%")`
+
+```{r time_series_multi_build, include=F}
+gapminder %>% 
+  filter(continent == "Oceania") %>% 
+  mutate(gdp = pop * gdpPercap) %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = gdp) +
+  geom_point()
+```
+
+
+---
+
+`r chunk_reveal("time_series_multi", break_type = "rotate", width_code = "49%", width_output = "50%")`
 
 ```{r time_series_multi, include=F}
 gapminder %>% 
@@ -70,7 +85,7 @@ class: inverse, center, middle
 
 
 
-`r chunk_reveal("aes_group")`
+`r chunk_reveal("aes_group", width_code = "49%", width_output = "50%")`
 
 
 ```{r aes_group, eval = F, echo = F}
@@ -79,8 +94,8 @@ gapminder %>%
   ggplot() +
   aes(x = year) +
   aes(y = lifeExp) +
-  geom_point(color = "grey60") +
-  geom_line(color = "grey60") +
+  geom_point() +
+  geom_line() +
   aes(color = country) +
   scale_color_discrete(guide = F) +
   aes(color = NULL) +
@@ -108,7 +123,7 @@ gapminder %>%
 
 ---
 
-`r chunk_reveal("difference_ribbon")`
+`r chunk_reveal("difference_ribbon", width_code = "49%", width_output = "50%")`
 
 
 ```{r difference_ribbon, eval = F, echo = F}
@@ -140,7 +155,7 @@ gm_oceania %>% # global data
 
 ---
 
-`r chunk_reveal("growth")`
+`r chunk_reveal("growth", width_code = "49%", width_output = "50%")`
 
 
 ```{r growth, eval = F, echo = F}
@@ -162,12 +177,15 @@ ggplot(data = gap_72_02_europe) +
   geom_point() +
   aes(color = factor(year)) +
   geom_segment(data = gap_72_02_europe_wide,
-                 aes(x = `1972`, # poorly named columns ie starting w number
-                     xend = `2002`, # need to be surouned by backtick
+               # poorly named columns ie starting w number
+               # need to be surrouned by backtick
+                 aes(x = `1972`, 
+                     xend = `2002`, 
                      yend = country),
                color = "plum3",
                size = 1.5) +
-  geom_point(size = 4) + # point layer above not really needed - just for showing logic
+  # point layer above not really needed - just for showing logic
+  geom_point(size = 4) + 
   scale_color_manual(values = c("plum3", "plum4")) +
   theme(legend.position = c(.15,.85)) +
   labs(color = NULL, y = NULL)
@@ -228,13 +246,44 @@ gapminder %>%
   scale_fill_viridis_c(option = "magma")
 ```
 
+
+---
+
+`r chunk_reveal("polar_bar")`
+
+```{r polar_bar, include = F}
+gapminder %>% 
+  filter(continent == "Oceania") %>% 
+  mutate(pop_millions = pop/1000000) %>% 
+  arrange(-pop) %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = pop_millions) +
+  geom_col(width = 4, position = "dodge") +
+  coord_polar() +  
+  scale_y_continuous(limits = c(-10, 25)) +
+  scale_x_continuous(breaks = seq(1952, 2007, by = 5), 
+                     limits = c(1950, 2010)) +
+  aes(fill = country) +
+  geom_text(data = . %>% 
+              filter(country == "Australia"),
+            aes(label = year,
+                y = pop_millions + 3),
+            fontface = "bold",
+            color = "navy") +
+  theme_void() + 
+  theme(legend.position = c(.8,.8)) +
+  labs(fill = NULL)
+```
+
+
 ---
 
 # ranks of a series
 
 ---
 
-`r chunk_reveal("time_series_bump", break_type = "auto")`
+`r chunk_reveal("time_series_bump", break_type = "auto", width_code = "49%", width_output = "50%")`
 
 ```{r time_series_bump, include=F}
 gapminder %>% 
@@ -270,7 +319,7 @@ gapminder %>%
 
 ---
 
-`r chunk_reveal("time_series_bump_line", break_type = 1)`
+`r chunk_reveal("time_series_bump_line", break_type = 1, width_code = "49%", width_output = "50%")`
 
 ```{r time_series_bump_line, include=F}
 gapminder %>% 
@@ -307,13 +356,11 @@ gapminder %>%
 
 ---
 
-`r chunk_reveal("slope_plot")`
+`r chunk_reveal("slope_plot", width_code = "60%", width_output = "39%")`
 
 ```{r slope_plot, include=F}
 gapminder %>% 
-  filter(country %in% c("Belgium", 
-                        "Norway", 
-                        "Spain")) %>%
+  filter(country %in% c("Belgium", "Norway", "Spain")) %>%
   filter(year > 1990) %>% 
   ggplot() +
   aes(x = year) +
@@ -321,22 +368,15 @@ gapminder %>%
   aes(color = country) +
   geom_line(size = 2, smooth = 8) + 
   geom_label(aes(label = round(lifeExp, 1)),
-    color = "darkgrey",
-    stroke = "red",
-    check_overlap = T) + 
-  scale_x_continuous(limits = c(1985, 2012),
-                     breaks = seq(1992, 2007, 
-                                  by = 5)) +
-  geom_text(data = . %>% 
-              filter(year == min(year)),
+             color = "darkgrey", stroke = "red", check_overlap = T) + 
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +
+  geom_text(data = . %>% filter(year == min(year)),
             aes(x = year - 1.5, label = country), 
             size = 5, hjust = 1) +
-  geom_text(data = . %>% 
-              filter(year == max(year)),
+  geom_text(data = . %>% filter(year == max(year)),
             aes(x = year + 1.5, label = country), 
             size = 5, hjust = 0) +
-  scale_color_manual(values = 
-                       paletteer::paletteer_d("basetheme::brutal", 7)) +
+  scale_color_manual(values =  paletteer::paletteer_d("basetheme::brutal", 7)) +
   theme_minimal() +
   theme(panel.grid.major.y = element_blank()) +
   theme(panel.grid.minor.y = element_blank()) +
@@ -346,6 +386,28 @@ gapminder %>%
   theme(axis.ticks.y = element_blank()) +
   theme(legend.position = "none") +
   labs(x = NULL, y = NULL)
+```
+
+
+---
+
+`r chunk_reveal("waffle", width_code = "60%", width_output = "39%")`
+
+```{r waffle, include = F}
+gapminder %>%  
+  filter(continent == "Oceania") %>%  
+  ggplot() +  
+  waffle::geom_waffle(aes(values = pop/1000000, 
+                          fill = country), 
+                      color = "white", 
+                      size = .25, 
+                      n_rows = 3, flip = T) +
+  coord_equal() +  
+  facet_wrap(~ year, nrow = 1, strip.position = "bottom") +  
+  theme_void() +
+  labs(title = "Population (millions)") +
+  labs(fill = NULL) +
+  theme(legend.position = "bottom")
 ```
 
 

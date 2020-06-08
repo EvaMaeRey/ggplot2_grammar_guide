@@ -41,6 +41,208 @@ class: split-40
 count: false
  
 
+.left-code-time_series_multi_build-auto[
+
+```r
+*gapminder
+```
+]
+ 
+.right-output-time_series_multi_build-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_multi_build-auto[
+
+```r
+gapminder %&gt;%  
+* filter(continent == "Oceania")
+```
+]
+ 
+.right-output-time_series_multi_build-auto[
+
+```
+  # A tibble: 24 x 6
+     country   continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Australia Oceania    1952    69.1  8691212    10040.
+   2 Australia Oceania    1957    70.3  9712569    10950.
+   3 Australia Oceania    1962    70.9 10794968    12217.
+   4 Australia Oceania    1967    71.1 11872264    14526.
+   5 Australia Oceania    1972    71.9 13177000    16789.
+   6 Australia Oceania    1977    73.5 14074100    18334.
+   7 Australia Oceania    1982    74.7 15184200    19477.
+   8 Australia Oceania    1987    76.3 16257249    21889.
+   9 Australia Oceania    1992    77.6 17481977    23425.
+  10 Australia Oceania    1997    78.8 18565243    26998.
+  # … with 14 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_multi_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+* mutate(gdp = pop * gdpPercap)
+```
+]
+ 
+.right-output-time_series_multi_build-auto[
+
+```
+  # A tibble: 24 x 7
+     country   continent  year lifeExp      pop gdpPercap           gdp
+     &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+   1 Australia Oceania    1952    69.1  8691212    10040.  87256254102.
+   2 Australia Oceania    1957    70.3  9712569    10950. 106349227169.
+   3 Australia Oceania    1962    70.9 10794968    12217. 131884573002.
+   4 Australia Oceania    1967    71.1 11872264    14526. 172457986742.
+   5 Australia Oceania    1972    71.9 13177000    16789. 221223770658.
+   6 Australia Oceania    1977    73.5 14074100    18334. 258037329175.
+   7 Australia Oceania    1982    74.7 15184200    19477. 295742804309.
+   8 Australia Oceania    1987    76.3 16257249    21889. 355853119294.
+   9 Australia Oceania    1992    77.6 17481977    23425. 409511234952.
+  10 Australia Oceania    1997    78.8 18565243    26998. 501223252921.
+  # … with 14 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_multi_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop * gdpPercap) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-time_series_multi_build-auto[
+&lt;img src="geoms_multi_series_files/figure-html/time_series_multi_build_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_multi_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop * gdpPercap) %&gt;%  
+  ggplot() +  
+* aes(x = year)
+```
+]
+ 
+.right-output-time_series_multi_build-auto[
+&lt;img src="geoms_multi_series_files/figure-html/time_series_multi_build_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_multi_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop * gdpPercap) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+* aes(y = gdp)
+```
+]
+ 
+.right-output-time_series_multi_build-auto[
+&lt;img src="geoms_multi_series_files/figure-html/time_series_multi_build_auto_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_multi_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop * gdpPercap) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = gdp) +  
+* geom_point()
+```
+]
+ 
+.right-output-time_series_multi_build-auto[
+&lt;img src="geoms_multi_series_files/figure-html/time_series_multi_build_auto_7_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-time_series_multi_build-auto {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-time_series_multi_build-auto {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
 .left-code-time_series_multi-rotate[
 
 ```r
@@ -159,13 +361,13 @@ gapminder %&gt;%
 &lt;style&gt;
 .left-code-time_series_multi-rotate {
   color: #777;
-  width: 38%;
+  width: 49%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-time_series_multi-rotate {
-  width: 60%;
+  width: 50%;
   float: right;
   padding-left: 1%;
 }
@@ -327,7 +529,7 @@ gapminder %&gt;%
   ggplot() +  
   aes(x = year) +  
   aes(y = lifeExp) +  
-* geom_point(color = "grey60")
+* geom_point()
 ```
 ]
  
@@ -348,8 +550,8 @@ gapminder %&gt;%
   ggplot() +  
   aes(x = year) +  
   aes(y = lifeExp) +  
-  geom_point(color = "grey60") +  
-* geom_line(color = "grey60")
+  geom_point() +  
+* geom_line()
 ```
 ]
  
@@ -370,8 +572,8 @@ gapminder %&gt;%
   ggplot() +  
   aes(x = year) +  
   aes(y = lifeExp) +  
-  geom_point(color = "grey60") +  
-  geom_line(color = "grey60") +  
+  geom_point() +  
+  geom_line() +  
 * aes(color = country)
 ```
 ]
@@ -393,8 +595,8 @@ gapminder %&gt;%
   ggplot() +  
   aes(x = year) +  
   aes(y = lifeExp) +  
-  geom_point(color = "grey60") +  
-  geom_line(color = "grey60") +  
+  geom_point() +  
+  geom_line() +  
   aes(color = country) +  
 * scale_color_discrete(guide = F)
 ```
@@ -417,8 +619,8 @@ gapminder %&gt;%
   ggplot() +  
   aes(x = year) +  
   aes(y = lifeExp) +  
-  geom_point(color = "grey60") +  
-  geom_line(color = "grey60") +  
+  geom_point() +  
+  geom_line() +  
   aes(color = country) +  
   scale_color_discrete(guide = F) +  
 * aes(color = NULL)
@@ -442,8 +644,8 @@ gapminder %&gt;%
   ggplot() +  
   aes(x = year) +  
   aes(y = lifeExp) +  
-  geom_point(color = "grey60") +  
-  geom_line(color = "grey60") +  
+  geom_point() +  
+  geom_line() +  
   aes(color = country) +  
   scale_color_discrete(guide = F) +  
   aes(color = NULL) +  
@@ -468,8 +670,8 @@ gapminder %&gt;%
   ggplot() +  
   aes(x = year) +  
   aes(y = lifeExp) +  
-  geom_point(color = "grey60") +  
-  geom_line(color = "grey60") +  
+  geom_point() +  
+  geom_line() +  
   aes(color = country) +  
   scale_color_discrete(guide = F) +  
   aes(color = NULL) +  
@@ -499,8 +701,8 @@ gapminder %&gt;%
   ggplot() +  
   aes(x = year) +  
   aes(y = lifeExp) +  
-  geom_point(color = "grey60") +  
-  geom_line(color = "grey60") +  
+  geom_point() +  
+  geom_line() +  
   aes(color = country) +  
   scale_color_discrete(guide = F) +  
   aes(color = NULL) +  
@@ -535,8 +737,8 @@ gapminder %&gt;%
   ggplot() +  
   aes(x = year) +  
   aes(y = lifeExp) +  
-  geom_point(color = "grey60") +  
-  geom_line(color = "grey60") +  
+  geom_point() +  
+  geom_line() +  
   aes(color = country) +  
   scale_color_discrete(guide = F) +  
   aes(color = NULL) +  
@@ -570,13 +772,13 @@ gapminder %&gt;%
 &lt;style&gt;
 .left-code-aes_group-auto {
   color: #777;
-  width: 38%;
+  width: 49%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-aes_group-auto {
-  width: 60%;
+  width: 50%;
   float: right;
   padding-left: 1%;
 }
@@ -1089,13 +1291,13 @@ gm_oceania %&gt;%  # global data
 &lt;style&gt;
 .left-code-difference_ribbon-auto {
   color: #777;
-  width: 38%;
+  width: 49%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-difference_ribbon-auto {
-  width: 60%;
+  width: 50%;
   float: right;
   padding-left: 1%;
 }
@@ -1581,8 +1783,10 @@ ggplot(data = gap_72_02_europe) +
   geom_point() +  
   aes(color = factor(year)) +  
 * geom_segment(data = gap_72_02_europe_wide,
-*                aes(x = `1972`,  # poorly named columns ie starting w number
-*                    xend = `2002`,  # need to be surouned by backtick
+# poorly named columns ie starting w number
+# need to be surrouned by backtick
+*                aes(x = `1972`,
+*                    xend = `2002`,
 *                    yend = country),
 *              color = "plum3",
 *              size = 1.5)
@@ -1619,12 +1823,15 @@ ggplot(data = gap_72_02_europe) +
   geom_point() +  
   aes(color = factor(year)) +  
   geom_segment(data = gap_72_02_europe_wide,  
-                 aes(x = `1972`,  # poorly named columns ie starting w number
-                     xend = `2002`,  # need to be surouned by backtick
+# poorly named columns ie starting w number
+# need to be surrouned by backtick
+                 aes(x = `1972`,  
+                     xend = `2002`,  
                      yend = country),  
                color = "plum3",  
                size = 1.5) +  
-* geom_point(size = 4)   # point layer above not really needed - just for showing logic
+# point layer above not really needed - just for showing logic
+* geom_point(size = 4)
 ```
 ]
  
@@ -1658,12 +1865,15 @@ ggplot(data = gap_72_02_europe) +
   geom_point() +  
   aes(color = factor(year)) +  
   geom_segment(data = gap_72_02_europe_wide,  
-                 aes(x = `1972`,  # poorly named columns ie starting w number
-                     xend = `2002`,  # need to be surouned by backtick
+# poorly named columns ie starting w number
+# need to be surrouned by backtick
+                 aes(x = `1972`,  
+                     xend = `2002`,  
                      yend = country),  
                color = "plum3",  
                size = 1.5) +  
-  geom_point(size = 4) +  # point layer above not really needed - just for showing logic
+# point layer above not really needed - just for showing logic
+  geom_point(size = 4) +  
 * scale_color_manual(values = c("plum3", "plum4"))
 ```
 ]
@@ -1698,12 +1908,15 @@ ggplot(data = gap_72_02_europe) +
   geom_point() +  
   aes(color = factor(year)) +  
   geom_segment(data = gap_72_02_europe_wide,  
-                 aes(x = `1972`,  # poorly named columns ie starting w number
-                     xend = `2002`,  # need to be surouned by backtick
+# poorly named columns ie starting w number
+# need to be surrouned by backtick
+                 aes(x = `1972`,  
+                     xend = `2002`,  
                      yend = country),  
                color = "plum3",  
                size = 1.5) +  
-  geom_point(size = 4) +  # point layer above not really needed - just for showing logic
+# point layer above not really needed - just for showing logic
+  geom_point(size = 4) +  
   scale_color_manual(values = c("plum3", "plum4")) +  
 * theme(legend.position = c(.15,.85))
 ```
@@ -1739,12 +1952,15 @@ ggplot(data = gap_72_02_europe) +
   geom_point() +  
   aes(color = factor(year)) +  
   geom_segment(data = gap_72_02_europe_wide,  
-                 aes(x = `1972`,  # poorly named columns ie starting w number
-                     xend = `2002`,  # need to be surouned by backtick
+# poorly named columns ie starting w number
+# need to be surrouned by backtick
+                 aes(x = `1972`,  
+                     xend = `2002`,  
                      yend = country),  
                color = "plum3",  
                size = 1.5) +  
-  geom_point(size = 4) +  # point layer above not really needed - just for showing logic
+# point layer above not really needed - just for showing logic
+  geom_point(size = 4) +  
   scale_color_manual(values = c("plum3", "plum4")) +  
   theme(legend.position = c(.15,.85)) +  
 * labs(color = NULL, y = NULL)
@@ -1758,13 +1974,13 @@ ggplot(data = gap_72_02_europe) +
 &lt;style&gt;
 .left-code-growth-auto {
   color: #777;
-  width: 38%;
+  width: 49%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-growth-auto {
-  width: 60%;
+  width: 50%;
   float: right;
   padding-left: 1%;
 }
@@ -2018,6 +2234,494 @@ gapminder %&gt;%
   padding-left: 1%;
 }
 &lt;/style&gt;
+
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+*gapminder
+```
+]
+ 
+.right-output-polar_bar-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+* filter(continent == "Oceania")
+```
+]
+ 
+.right-output-polar_bar-auto[
+
+```
+  # A tibble: 24 x 6
+     country   continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Australia Oceania    1952    69.1  8691212    10040.
+   2 Australia Oceania    1957    70.3  9712569    10950.
+   3 Australia Oceania    1962    70.9 10794968    12217.
+   4 Australia Oceania    1967    71.1 11872264    14526.
+   5 Australia Oceania    1972    71.9 13177000    16789.
+   6 Australia Oceania    1977    73.5 14074100    18334.
+   7 Australia Oceania    1982    74.7 15184200    19477.
+   8 Australia Oceania    1987    76.3 16257249    21889.
+   9 Australia Oceania    1992    77.6 17481977    23425.
+  10 Australia Oceania    1997    78.8 18565243    26998.
+  # … with 14 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+* mutate(pop_millions = pop/1000000)
+```
+]
+ 
+.right-output-polar_bar-auto[
+
+```
+  # A tibble: 24 x 7
+     country   continent  year lifeExp      pop gdpPercap pop_millions
+     &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+   1 Australia Oceania    1952    69.1  8691212    10040.         8.69
+   2 Australia Oceania    1957    70.3  9712569    10950.         9.71
+   3 Australia Oceania    1962    70.9 10794968    12217.        10.8 
+   4 Australia Oceania    1967    71.1 11872264    14526.        11.9 
+   5 Australia Oceania    1972    71.9 13177000    16789.        13.2 
+   6 Australia Oceania    1977    73.5 14074100    18334.        14.1 
+   7 Australia Oceania    1982    74.7 15184200    19477.        15.2 
+   8 Australia Oceania    1987    76.3 16257249    21889.        16.3 
+   9 Australia Oceania    1992    77.6 17481977    23425.        17.5 
+  10 Australia Oceania    1997    78.8 18565243    26998.        18.6 
+  # … with 14 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+* arrange(-pop)
+```
+]
+ 
+.right-output-polar_bar-auto[
+
+```
+  # A tibble: 24 x 7
+     country   continent  year lifeExp      pop gdpPercap pop_millions
+     &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+   1 Australia Oceania    2007    81.2 20434176    34435.         20.4
+   2 Australia Oceania    2002    80.4 19546792    30688.         19.5
+   3 Australia Oceania    1997    78.8 18565243    26998.         18.6
+   4 Australia Oceania    1992    77.6 17481977    23425.         17.5
+   5 Australia Oceania    1987    76.3 16257249    21889.         16.3
+   6 Australia Oceania    1982    74.7 15184200    19477.         15.2
+   7 Australia Oceania    1977    73.5 14074100    18334.         14.1
+   8 Australia Oceania    1972    71.9 13177000    16789.         13.2
+   9 Australia Oceania    1967    71.1 11872264    14526.         11.9
+  10 Australia Oceania    1962    70.9 10794968    12217.         10.8
+  # … with 14 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+  arrange(-pop) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-polar_bar-auto[
+&lt;img src="geoms_multi_series_files/figure-html/polar_bar_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+  arrange(-pop) %&gt;%  
+  ggplot() +  
+* aes(x = year)
+```
+]
+ 
+.right-output-polar_bar-auto[
+&lt;img src="geoms_multi_series_files/figure-html/polar_bar_auto_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+  arrange(-pop) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+* aes(y = pop_millions)
+```
+]
+ 
+.right-output-polar_bar-auto[
+&lt;img src="geoms_multi_series_files/figure-html/polar_bar_auto_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+  arrange(-pop) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop_millions) +  
+* geom_col(width = 4, position = "dodge")
+```
+]
+ 
+.right-output-polar_bar-auto[
+&lt;img src="geoms_multi_series_files/figure-html/polar_bar_auto_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+  arrange(-pop) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop_millions) +  
+  geom_col(width = 4, position = "dodge") +  
+* coord_polar()
+```
+]
+ 
+.right-output-polar_bar-auto[
+&lt;img src="geoms_multi_series_files/figure-html/polar_bar_auto_9_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+  arrange(-pop) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop_millions) +  
+  geom_col(width = 4, position = "dodge") +  
+  coord_polar() +  
+* scale_y_continuous(limits = c(-10, 25))
+```
+]
+ 
+.right-output-polar_bar-auto[
+&lt;img src="geoms_multi_series_files/figure-html/polar_bar_auto_10_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+  arrange(-pop) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop_millions) +  
+  geom_col(width = 4, position = "dodge") +  
+  coord_polar() +  
+  scale_y_continuous(limits = c(-10, 25)) +  
+* scale_x_continuous(breaks = seq(1952, 2007, by = 5),
+*                    limits = c(1950, 2010))
+```
+]
+ 
+.right-output-polar_bar-auto[
+&lt;img src="geoms_multi_series_files/figure-html/polar_bar_auto_11_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+  arrange(-pop) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop_millions) +  
+  geom_col(width = 4, position = "dodge") +  
+  coord_polar() +  
+  scale_y_continuous(limits = c(-10, 25)) +  
+  scale_x_continuous(breaks = seq(1952, 2007, by = 5),  
+                     limits = c(1950, 2010)) +  
+* aes(fill = country)
+```
+]
+ 
+.right-output-polar_bar-auto[
+&lt;img src="geoms_multi_series_files/figure-html/polar_bar_auto_12_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+  arrange(-pop) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop_millions) +  
+  geom_col(width = 4, position = "dodge") +  
+  coord_polar() +  
+  scale_y_continuous(limits = c(-10, 25)) +  
+  scale_x_continuous(breaks = seq(1952, 2007, by = 5),  
+                     limits = c(1950, 2010)) +  
+  aes(fill = country) +  
+* geom_text(data = . %&gt;%
+*             filter(country == "Australia"),
+*           aes(label = year,
+*               y = pop_millions + 3),
+*           fontface = "bold",
+*           color = "navy")
+```
+]
+ 
+.right-output-polar_bar-auto[
+&lt;img src="geoms_multi_series_files/figure-html/polar_bar_auto_13_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+  arrange(-pop) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop_millions) +  
+  geom_col(width = 4, position = "dodge") +  
+  coord_polar() +  
+  scale_y_continuous(limits = c(-10, 25)) +  
+  scale_x_continuous(breaks = seq(1952, 2007, by = 5),  
+                     limits = c(1950, 2010)) +  
+  aes(fill = country) +  
+  geom_text(data = . %&gt;%  
+              filter(country == "Australia"),  
+            aes(label = year,  
+                y = pop_millions + 3),  
+            fontface = "bold",  
+            color = "navy") +  
+* theme_void()
+```
+]
+ 
+.right-output-polar_bar-auto[
+&lt;img src="geoms_multi_series_files/figure-html/polar_bar_auto_14_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+  arrange(-pop) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop_millions) +  
+  geom_col(width = 4, position = "dodge") +  
+  coord_polar() +  
+  scale_y_continuous(limits = c(-10, 25)) +  
+  scale_x_continuous(breaks = seq(1952, 2007, by = 5),  
+                     limits = c(1950, 2010)) +  
+  aes(fill = country) +  
+  geom_text(data = . %&gt;%  
+              filter(country == "Australia"),  
+            aes(label = year,  
+                y = pop_millions + 3),  
+            fontface = "bold",  
+            color = "navy") +  
+  theme_void() +  
+* theme(legend.position = c(.8,.8))
+```
+]
+ 
+.right-output-polar_bar-auto[
+&lt;img src="geoms_multi_series_files/figure-html/polar_bar_auto_15_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-polar_bar-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(pop_millions = pop/1000000) %&gt;%  
+  arrange(-pop) %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop_millions) +  
+  geom_col(width = 4, position = "dodge") +  
+  coord_polar() +  
+  scale_y_continuous(limits = c(-10, 25)) +  
+  scale_x_continuous(breaks = seq(1952, 2007, by = 5),  
+                     limits = c(1950, 2010)) +  
+  aes(fill = country) +  
+  geom_text(data = . %&gt;%  
+              filter(country == "Australia"),  
+            aes(label = year,  
+                y = pop_millions + 3),  
+            fontface = "bold",  
+            color = "navy") +  
+  theme_void() +  
+  theme(legend.position = c(.8,.8)) +  
+* labs(fill = NULL)
+```
+]
+ 
+.right-output-polar_bar-auto[
+&lt;img src="geoms_multi_series_files/figure-html/polar_bar_auto_16_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-polar_bar-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-polar_bar-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
 
 
 
@@ -2696,13 +3400,13 @@ gapminder %&gt;%
 &lt;style&gt;
 .left-code-time_series_bump-auto {
   color: #777;
-  width: 38%;
+  width: 49%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-time_series_bump-auto {
-  width: 60%;
+  width: 50%;
   float: right;
   padding-left: 1%;
 }
@@ -2760,13 +3464,13 @@ gapminder %&gt;%
 &lt;style&gt;
 .left-code-time_series_bump_line-1 {
   color: #777;
-  width: 38%;
+  width: 49%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-time_series_bump_line-1 {
-  width: 60%;
+  width: 50%;
   float: right;
   padding-left: 1%;
 }
@@ -2819,9 +3523,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-* filter(country %in% c("Belgium",
-*                       "Norway",
-*                       "Spain"))
+* filter(country %in% c("Belgium", "Norway", "Spain"))
 ```
 ]
  
@@ -2854,9 +3556,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
 * filter(year &gt; 1990)
 ```
 ]
@@ -2891,9 +3591,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
 * ggplot()
 ```
@@ -2912,9 +3610,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
 * aes(x = year)
@@ -2934,9 +3630,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -2957,9 +3651,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -2981,9 +3673,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3006,9 +3696,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3016,9 +3704,7 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
 * geom_label(aes(label = round(lifeExp, 1)),
-*   color = "darkgrey",
-*   stroke = "red",
-*   check_overlap = T)
+*            color = "darkgrey", stroke = "red", check_overlap = T)
 ```
 ]
  
@@ -3035,9 +3721,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3045,12 +3729,8 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-* scale_x_continuous(limits = c(1985, 2012),
-*                    breaks = seq(1992, 2007,
-*                                 by = 5))
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+* scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5))
 ```
 ]
  
@@ -3067,9 +3747,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3077,14 +3755,9 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-  scale_x_continuous(limits = c(1985, 2012),  
-                     breaks = seq(1992, 2007,  
-                                  by = 5)) +  
-* geom_text(data = . %&gt;%
-*             filter(year == min(year)),
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +  
+* geom_text(data = . %&gt;% filter(year == min(year)),
 *           aes(x = year - 1.5, label = country),
 *           size = 5, hjust = 1)
 ```
@@ -3103,9 +3776,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3113,18 +3784,12 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-  scale_x_continuous(limits = c(1985, 2012),  
-                     breaks = seq(1992, 2007,  
-                                  by = 5)) +  
-  geom_text(data = . %&gt;%  
-              filter(year == min(year)),  
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +  
+  geom_text(data = . %&gt;% filter(year == min(year)),  
             aes(x = year - 1.5, label = country),  
             size = 5, hjust = 1) +  
-* geom_text(data = . %&gt;%
-*             filter(year == max(year)),
+* geom_text(data = . %&gt;% filter(year == max(year)),
 *           aes(x = year + 1.5, label = country),
 *           size = 5, hjust = 0)
 ```
@@ -3143,9 +3808,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3153,22 +3816,15 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-  scale_x_continuous(limits = c(1985, 2012),  
-                     breaks = seq(1992, 2007,  
-                                  by = 5)) +  
-  geom_text(data = . %&gt;%  
-              filter(year == min(year)),  
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +  
+  geom_text(data = . %&gt;% filter(year == min(year)),  
             aes(x = year - 1.5, label = country),  
             size = 5, hjust = 1) +  
-  geom_text(data = . %&gt;%  
-              filter(year == max(year)),  
+  geom_text(data = . %&gt;% filter(year == max(year)),  
             aes(x = year + 1.5, label = country),  
             size = 5, hjust = 0) +  
-* scale_color_manual(values =
-*                      paletteer::paletteer_d("basetheme::brutal", 7))
+* scale_color_manual(values =  paletteer::paletteer_d("basetheme::brutal", 7))
 ```
 ]
  
@@ -3185,9 +3841,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3195,22 +3849,15 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-  scale_x_continuous(limits = c(1985, 2012),  
-                     breaks = seq(1992, 2007,  
-                                  by = 5)) +  
-  geom_text(data = . %&gt;%  
-              filter(year == min(year)),  
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +  
+  geom_text(data = . %&gt;% filter(year == min(year)),  
             aes(x = year - 1.5, label = country),  
             size = 5, hjust = 1) +  
-  geom_text(data = . %&gt;%  
-              filter(year == max(year)),  
+  geom_text(data = . %&gt;% filter(year == max(year)),  
             aes(x = year + 1.5, label = country),  
             size = 5, hjust = 0) +  
-  scale_color_manual(values =  
-                       paletteer::paletteer_d("basetheme::brutal", 7)) +  
+  scale_color_manual(values =  paletteer::paletteer_d("basetheme::brutal", 7)) +  
 * theme_minimal()
 ```
 ]
@@ -3228,9 +3875,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3238,22 +3883,15 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-  scale_x_continuous(limits = c(1985, 2012),  
-                     breaks = seq(1992, 2007,  
-                                  by = 5)) +  
-  geom_text(data = . %&gt;%  
-              filter(year == min(year)),  
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +  
+  geom_text(data = . %&gt;% filter(year == min(year)),  
             aes(x = year - 1.5, label = country),  
             size = 5, hjust = 1) +  
-  geom_text(data = . %&gt;%  
-              filter(year == max(year)),  
+  geom_text(data = . %&gt;% filter(year == max(year)),  
             aes(x = year + 1.5, label = country),  
             size = 5, hjust = 0) +  
-  scale_color_manual(values =  
-                       paletteer::paletteer_d("basetheme::brutal", 7)) +  
+  scale_color_manual(values =  paletteer::paletteer_d("basetheme::brutal", 7)) +  
   theme_minimal() +  
 * theme(panel.grid.major.y = element_blank())
 ```
@@ -3272,9 +3910,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3282,22 +3918,15 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-  scale_x_continuous(limits = c(1985, 2012),  
-                     breaks = seq(1992, 2007,  
-                                  by = 5)) +  
-  geom_text(data = . %&gt;%  
-              filter(year == min(year)),  
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +  
+  geom_text(data = . %&gt;% filter(year == min(year)),  
             aes(x = year - 1.5, label = country),  
             size = 5, hjust = 1) +  
-  geom_text(data = . %&gt;%  
-              filter(year == max(year)),  
+  geom_text(data = . %&gt;% filter(year == max(year)),  
             aes(x = year + 1.5, label = country),  
             size = 5, hjust = 0) +  
-  scale_color_manual(values =  
-                       paletteer::paletteer_d("basetheme::brutal", 7)) +  
+  scale_color_manual(values =  paletteer::paletteer_d("basetheme::brutal", 7)) +  
   theme_minimal() +  
   theme(panel.grid.major.y = element_blank()) +  
 * theme(panel.grid.minor.y = element_blank())
@@ -3317,9 +3946,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3327,22 +3954,15 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-  scale_x_continuous(limits = c(1985, 2012),  
-                     breaks = seq(1992, 2007,  
-                                  by = 5)) +  
-  geom_text(data = . %&gt;%  
-              filter(year == min(year)),  
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +  
+  geom_text(data = . %&gt;% filter(year == min(year)),  
             aes(x = year - 1.5, label = country),  
             size = 5, hjust = 1) +  
-  geom_text(data = . %&gt;%  
-              filter(year == max(year)),  
+  geom_text(data = . %&gt;% filter(year == max(year)),  
             aes(x = year + 1.5, label = country),  
             size = 5, hjust = 0) +  
-  scale_color_manual(values =  
-                       paletteer::paletteer_d("basetheme::brutal", 7)) +  
+  scale_color_manual(values =  paletteer::paletteer_d("basetheme::brutal", 7)) +  
   theme_minimal() +  
   theme(panel.grid.major.y = element_blank()) +  
   theme(panel.grid.minor.y = element_blank()) +  
@@ -3363,9 +3983,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3373,22 +3991,15 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-  scale_x_continuous(limits = c(1985, 2012),  
-                     breaks = seq(1992, 2007,  
-                                  by = 5)) +  
-  geom_text(data = . %&gt;%  
-              filter(year == min(year)),  
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +  
+  geom_text(data = . %&gt;% filter(year == min(year)),  
             aes(x = year - 1.5, label = country),  
             size = 5, hjust = 1) +  
-  geom_text(data = . %&gt;%  
-              filter(year == max(year)),  
+  geom_text(data = . %&gt;% filter(year == max(year)),  
             aes(x = year + 1.5, label = country),  
             size = 5, hjust = 0) +  
-  scale_color_manual(values =  
-                       paletteer::paletteer_d("basetheme::brutal", 7)) +  
+  scale_color_manual(values =  paletteer::paletteer_d("basetheme::brutal", 7)) +  
   theme_minimal() +  
   theme(panel.grid.major.y = element_blank()) +  
   theme(panel.grid.minor.y = element_blank()) +  
@@ -3410,9 +4021,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3420,22 +4029,15 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-  scale_x_continuous(limits = c(1985, 2012),  
-                     breaks = seq(1992, 2007,  
-                                  by = 5)) +  
-  geom_text(data = . %&gt;%  
-              filter(year == min(year)),  
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +  
+  geom_text(data = . %&gt;% filter(year == min(year)),  
             aes(x = year - 1.5, label = country),  
             size = 5, hjust = 1) +  
-  geom_text(data = . %&gt;%  
-              filter(year == max(year)),  
+  geom_text(data = . %&gt;% filter(year == max(year)),  
             aes(x = year + 1.5, label = country),  
             size = 5, hjust = 0) +  
-  scale_color_manual(values =  
-                       paletteer::paletteer_d("basetheme::brutal", 7)) +  
+  scale_color_manual(values =  paletteer::paletteer_d("basetheme::brutal", 7)) +  
   theme_minimal() +  
   theme(panel.grid.major.y = element_blank()) +  
   theme(panel.grid.minor.y = element_blank()) +  
@@ -3458,9 +4060,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3468,22 +4068,15 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-  scale_x_continuous(limits = c(1985, 2012),  
-                     breaks = seq(1992, 2007,  
-                                  by = 5)) +  
-  geom_text(data = . %&gt;%  
-              filter(year == min(year)),  
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +  
+  geom_text(data = . %&gt;% filter(year == min(year)),  
             aes(x = year - 1.5, label = country),  
             size = 5, hjust = 1) +  
-  geom_text(data = . %&gt;%  
-              filter(year == max(year)),  
+  geom_text(data = . %&gt;% filter(year == max(year)),  
             aes(x = year + 1.5, label = country),  
             size = 5, hjust = 0) +  
-  scale_color_manual(values =  
-                       paletteer::paletteer_d("basetheme::brutal", 7)) +  
+  scale_color_manual(values =  paletteer::paletteer_d("basetheme::brutal", 7)) +  
   theme_minimal() +  
   theme(panel.grid.major.y = element_blank()) +  
   theme(panel.grid.minor.y = element_blank()) +  
@@ -3507,9 +4100,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3517,22 +4108,15 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-  scale_x_continuous(limits = c(1985, 2012),  
-                     breaks = seq(1992, 2007,  
-                                  by = 5)) +  
-  geom_text(data = . %&gt;%  
-              filter(year == min(year)),  
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +  
+  geom_text(data = . %&gt;% filter(year == min(year)),  
             aes(x = year - 1.5, label = country),  
             size = 5, hjust = 1) +  
-  geom_text(data = . %&gt;%  
-              filter(year == max(year)),  
+  geom_text(data = . %&gt;% filter(year == max(year)),  
             aes(x = year + 1.5, label = country),  
             size = 5, hjust = 0) +  
-  scale_color_manual(values =  
-                       paletteer::paletteer_d("basetheme::brutal", 7)) +  
+  scale_color_manual(values =  paletteer::paletteer_d("basetheme::brutal", 7)) +  
   theme_minimal() +  
   theme(panel.grid.major.y = element_blank()) +  
   theme(panel.grid.minor.y = element_blank()) +  
@@ -3557,9 +4141,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(country %in% c("Belgium",  
-                        "Norway",  
-                        "Spain")) %&gt;%  
+  filter(country %in% c("Belgium", "Norway", "Spain")) %&gt;%  
   filter(year &gt; 1990) %&gt;%  
   ggplot() +  
   aes(x = year) +  
@@ -3567,22 +4149,15 @@ gapminder %&gt;%
   aes(color = country) +  
   geom_line(size = 2, smooth = 8) +  
   geom_label(aes(label = round(lifeExp, 1)),  
-    color = "darkgrey",  
-    stroke = "red",  
-    check_overlap = T) +  
-  scale_x_continuous(limits = c(1985, 2012),  
-                     breaks = seq(1992, 2007,  
-                                  by = 5)) +  
-  geom_text(data = . %&gt;%  
-              filter(year == min(year)),  
+             color = "darkgrey", stroke = "red", check_overlap = T) +  
+  scale_x_continuous(limits = c(1985, 2012), breaks = seq(1992, 2007, by = 5)) +  
+  geom_text(data = . %&gt;% filter(year == min(year)),  
             aes(x = year - 1.5, label = country),  
             size = 5, hjust = 1) +  
-  geom_text(data = . %&gt;%  
-              filter(year == max(year)),  
+  geom_text(data = . %&gt;% filter(year == max(year)),  
             aes(x = year + 1.5, label = country),  
             size = 5, hjust = 0) +  
-  scale_color_manual(values =  
-                       paletteer::paletteer_d("basetheme::brutal", 7)) +  
+  scale_color_manual(values =  paletteer::paletteer_d("basetheme::brutal", 7)) +  
   theme_minimal() +  
   theme(panel.grid.major.y = element_blank()) +  
   theme(panel.grid.minor.y = element_blank()) +  
@@ -3602,13 +4177,299 @@ gapminder %&gt;%
 &lt;style&gt;
 .left-code-slope_plot-auto {
   color: #777;
-  width: 38%;
+  width: 60%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-slope_plot-auto {
+  width: 39%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-waffle-auto[
+
+```r
+*gapminder
+```
+]
+ 
+.right-output-waffle-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-waffle-auto[
+
+```r
+gapminder %&gt;%  
+* filter(continent == "Oceania")
+```
+]
+ 
+.right-output-waffle-auto[
+
+```
+  # A tibble: 24 x 6
+     country   continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Australia Oceania    1952    69.1  8691212    10040.
+   2 Australia Oceania    1957    70.3  9712569    10950.
+   3 Australia Oceania    1962    70.9 10794968    12217.
+   4 Australia Oceania    1967    71.1 11872264    14526.
+   5 Australia Oceania    1972    71.9 13177000    16789.
+   6 Australia Oceania    1977    73.5 14074100    18334.
+   7 Australia Oceania    1982    74.7 15184200    19477.
+   8 Australia Oceania    1987    76.3 16257249    21889.
+   9 Australia Oceania    1992    77.6 17481977    23425.
+  10 Australia Oceania    1997    78.8 18565243    26998.
+  # … with 14 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-waffle-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-waffle-auto[
+&lt;img src="geoms_multi_series_files/figure-html/waffle_auto_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-waffle-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+* waffle::geom_waffle(aes(values = pop/1000000,
+*                         fill = country),
+*                     color = "white",
+*                     size = .25,
+*                     n_rows = 3, flip = T)
+```
+]
+ 
+.right-output-waffle-auto[
+&lt;img src="geoms_multi_series_files/figure-html/waffle_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-waffle-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  waffle::geom_waffle(aes(values = pop/1000000,  
+                          fill = country),  
+                      color = "white",  
+                      size = .25,  
+                      n_rows = 3, flip = T) +  
+* coord_equal()
+```
+]
+ 
+.right-output-waffle-auto[
+&lt;img src="geoms_multi_series_files/figure-html/waffle_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-waffle-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  waffle::geom_waffle(aes(values = pop/1000000,  
+                          fill = country),  
+                      color = "white",  
+                      size = .25,  
+                      n_rows = 3, flip = T) +  
+  coord_equal() +  
+* facet_wrap(~ year, nrow = 1, strip.position = "bottom")
+```
+]
+ 
+.right-output-waffle-auto[
+&lt;img src="geoms_multi_series_files/figure-html/waffle_auto_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-waffle-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  waffle::geom_waffle(aes(values = pop/1000000,  
+                          fill = country),  
+                      color = "white",  
+                      size = .25,  
+                      n_rows = 3, flip = T) +  
+  coord_equal() +  
+  facet_wrap(~ year, nrow = 1, strip.position = "bottom") +  
+* theme_void()
+```
+]
+ 
+.right-output-waffle-auto[
+&lt;img src="geoms_multi_series_files/figure-html/waffle_auto_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-waffle-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  waffle::geom_waffle(aes(values = pop/1000000,  
+                          fill = country),  
+                      color = "white",  
+                      size = .25,  
+                      n_rows = 3, flip = T) +  
+  coord_equal() +  
+  facet_wrap(~ year, nrow = 1, strip.position = "bottom") +  
+  theme_void() +  
+* labs(title = "Population (millions)")
+```
+]
+ 
+.right-output-waffle-auto[
+&lt;img src="geoms_multi_series_files/figure-html/waffle_auto_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-waffle-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  waffle::geom_waffle(aes(values = pop/1000000,  
+                          fill = country),  
+                      color = "white",  
+                      size = .25,  
+                      n_rows = 3, flip = T) +  
+  coord_equal() +  
+  facet_wrap(~ year, nrow = 1, strip.position = "bottom") +  
+  theme_void() +  
+  labs(title = "Population (millions)") +  
+* labs(fill = NULL)
+```
+]
+ 
+.right-output-waffle-auto[
+&lt;img src="geoms_multi_series_files/figure-html/waffle_auto_9_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-waffle-auto[
+
+```r
+gapminder %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  waffle::geom_waffle(aes(values = pop/1000000,  
+                          fill = country),  
+                      color = "white",  
+                      size = .25,  
+                      n_rows = 3, flip = T) +  
+  coord_equal() +  
+  facet_wrap(~ year, nrow = 1, strip.position = "bottom") +  
+  theme_void() +  
+  labs(title = "Population (millions)") +  
+  labs(fill = NULL) +  
+* theme(legend.position = "bottom")
+```
+]
+ 
+.right-output-waffle-auto[
+&lt;img src="geoms_multi_series_files/figure-html/waffle_auto_10_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-waffle-auto {
+  color: #777;
   width: 60%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-waffle-auto {
+  width: 39%;
   float: right;
   padding-left: 1%;
 }

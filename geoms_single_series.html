@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>single series</title>
+    <title>single series geoms</title>
     <meta charset="utf-8" />
     <meta name="author" content="Gina Reynolds" />
     <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
@@ -11,7 +11,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# single series
+# single series geoms
 ### Gina Reynolds
 
 ---
@@ -19,16 +19,6 @@ class: center, middle, inverse, title-slide
 
 
 
-
----
-
-- ggplot2
-- ggforce
-- ggbump
-- ggpointdensity
-- ggrepel
-- packcircles
-- waffle
 
 
 ---
@@ -45,6 +35,193 @@ library(gapminder)
 name: single_series
 
 ## Single series
+
+---
+
+class: split-40
+count: false
+ 
+
+.left-code-time_series_build-auto[
+
+```r
+*gapminder
+```
+]
+ 
+.right-output-time_series_build-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_build-auto[
+
+```r
+gapminder %&gt;%  
+* filter(country == "New Zealand")
+```
+]
+ 
+.right-output-time_series_build-auto[
+
+```
+  # A tibble: 12 x 6
+     country     continent  year lifeExp     pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
+   1 New Zealand Oceania    1952    69.4 1994794    10557.
+   2 New Zealand Oceania    1957    70.3 2229407    12247.
+   3 New Zealand Oceania    1962    71.2 2488550    13176.
+   4 New Zealand Oceania    1967    71.5 2728150    14464.
+   5 New Zealand Oceania    1972    71.9 2929100    16046.
+   6 New Zealand Oceania    1977    72.2 3164900    16234.
+   7 New Zealand Oceania    1982    73.8 3210650    17632.
+   8 New Zealand Oceania    1987    74.3 3317166    19007.
+   9 New Zealand Oceania    1992    76.3 3437674    18363.
+  10 New Zealand Oceania    1997    77.6 3676187    21050.
+  11 New Zealand Oceania    2002    79.1 3908037    23190.
+  12 New Zealand Oceania    2007    80.2 4115771    25185.
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-time_series_build-auto[
+&lt;img src="geoms_single_series_files/figure-html/time_series_build_auto_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+  ggplot() +  
+* aes(x = year)
+```
+]
+ 
+.right-output-time_series_build-auto[
+&lt;img src="geoms_single_series_files/figure-html/time_series_build_auto_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+* aes(y = pop * gdpPercap)
+```
+]
+ 
+.right-output-time_series_build-auto[
+&lt;img src="geoms_single_series_files/figure-html/time_series_build_auto_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop * gdpPercap) +  
+* aes(group = country)
+```
+]
+ 
+.right-output-time_series_build-auto[
+&lt;img src="geoms_single_series_files/figure-html/time_series_build_auto_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-time_series_build-auto[
+
+```r
+gapminder %&gt;%  
+  filter(country == "New Zealand") %&gt;%  
+  ggplot() +  
+  aes(x = year) +  
+  aes(y = pop * gdpPercap) +  
+  aes(group = country) +  
+* geom_point()
+```
+]
+ 
+.right-output-time_series_build-auto[
+&lt;img src="geoms_single_series_files/figure-html/time_series_build_auto_7_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-code-time_series_build-auto {
+  color: #777;
+  width: 59%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-time_series_build-auto {
+  width: 40%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
 
 
 ---
@@ -219,13 +396,13 @@ gapminder %&gt;%
 &lt;style&gt;
 .left-code-time_series-rotate {
   color: #777;
-  width: 38%;
+  width: 59%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-time_series-rotate {
-  width: 60%;
+  width: 40%;
   float: right;
   padding-left: 1%;
 }
@@ -493,13 +670,13 @@ tibble(my_x = 1990:2010,
 &lt;style&gt;
 .left-code-jagged-rotate {
   color: #777;
-  width: 38%;
+  width: 49%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-jagged-rotate {
-  width: 60%;
+  width: 50%;
   float: right;
   padding-left: 1%;
 }
@@ -553,14 +730,14 @@ count: false
 
 ```r
 gapminder %&gt;%  
-* filter(continent == "Oceania")
+* filter(country == "Australia")
 ```
 ]
  
 .right-output-polar_bar-auto[
 
 ```
-  # A tibble: 24 x 6
+  # A tibble: 12 x 6
      country   continent  year lifeExp      pop gdpPercap
      &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
    1 Australia Oceania    1952    69.1  8691212    10040.
@@ -573,7 +750,8 @@ gapminder %&gt;%
    8 Australia Oceania    1987    76.3 16257249    21889.
    9 Australia Oceania    1992    77.6 17481977    23425.
   10 Australia Oceania    1997    78.8 18565243    26998.
-  # … with 14 more rows
+  11 Australia Oceania    2002    80.4 19546792    30688.
+  12 Australia Oceania    2007    81.2 20434176    34435.
 ```
 ]
 
@@ -586,7 +764,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
 * mutate(pop_millions = pop/1000000)
 ```
 ]
@@ -594,7 +772,7 @@ gapminder %&gt;%
 .right-output-polar_bar-auto[
 
 ```
-  # A tibble: 24 x 7
+  # A tibble: 12 x 7
      country   continent  year lifeExp      pop gdpPercap pop_millions
      &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
    1 Australia Oceania    1952    69.1  8691212    10040.         8.69
@@ -607,7 +785,8 @@ gapminder %&gt;%
    8 Australia Oceania    1987    76.3 16257249    21889.        16.3 
    9 Australia Oceania    1992    77.6 17481977    23425.        17.5 
   10 Australia Oceania    1997    78.8 18565243    26998.        18.6 
-  # … with 14 more rows
+  11 Australia Oceania    2002    80.4 19546792    30688.        19.5 
+  12 Australia Oceania    2007    81.2 20434176    34435.        20.4
 ```
 ]
 
@@ -620,7 +799,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
   mutate(pop_millions = pop/1000000) %&gt;%  
 * arrange(-pop)
 ```
@@ -629,20 +808,21 @@ gapminder %&gt;%
 .right-output-polar_bar-auto[
 
 ```
-  # A tibble: 24 x 7
+  # A tibble: 12 x 7
      country   continent  year lifeExp      pop gdpPercap pop_millions
      &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
-   1 Australia Oceania    2007    81.2 20434176    34435.         20.4
-   2 Australia Oceania    2002    80.4 19546792    30688.         19.5
-   3 Australia Oceania    1997    78.8 18565243    26998.         18.6
-   4 Australia Oceania    1992    77.6 17481977    23425.         17.5
-   5 Australia Oceania    1987    76.3 16257249    21889.         16.3
-   6 Australia Oceania    1982    74.7 15184200    19477.         15.2
-   7 Australia Oceania    1977    73.5 14074100    18334.         14.1
-   8 Australia Oceania    1972    71.9 13177000    16789.         13.2
-   9 Australia Oceania    1967    71.1 11872264    14526.         11.9
-  10 Australia Oceania    1962    70.9 10794968    12217.         10.8
-  # … with 14 more rows
+   1 Australia Oceania    2007    81.2 20434176    34435.        20.4 
+   2 Australia Oceania    2002    80.4 19546792    30688.        19.5 
+   3 Australia Oceania    1997    78.8 18565243    26998.        18.6 
+   4 Australia Oceania    1992    77.6 17481977    23425.        17.5 
+   5 Australia Oceania    1987    76.3 16257249    21889.        16.3 
+   6 Australia Oceania    1982    74.7 15184200    19477.        15.2 
+   7 Australia Oceania    1977    73.5 14074100    18334.        14.1 
+   8 Australia Oceania    1972    71.9 13177000    16789.        13.2 
+   9 Australia Oceania    1967    71.1 11872264    14526.        11.9 
+  10 Australia Oceania    1962    70.9 10794968    12217.        10.8 
+  11 Australia Oceania    1957    70.3  9712569    10950.         9.71
+  12 Australia Oceania    1952    69.1  8691212    10040.         8.69
 ```
 ]
 
@@ -655,7 +835,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
   mutate(pop_millions = pop/1000000) %&gt;%  
   arrange(-pop) %&gt;%  
 * ggplot()
@@ -675,7 +855,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
   mutate(pop_millions = pop/1000000) %&gt;%  
   arrange(-pop) %&gt;%  
   ggplot() +  
@@ -696,7 +876,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
   mutate(pop_millions = pop/1000000) %&gt;%  
   arrange(-pop) %&gt;%  
   ggplot() +  
@@ -718,7 +898,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
   mutate(pop_millions = pop/1000000) %&gt;%  
   arrange(-pop) %&gt;%  
   ggplot() +  
@@ -741,7 +921,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
   mutate(pop_millions = pop/1000000) %&gt;%  
   arrange(-pop) %&gt;%  
   ggplot() +  
@@ -765,7 +945,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
   mutate(pop_millions = pop/1000000) %&gt;%  
   arrange(-pop) %&gt;%  
   ggplot() +  
@@ -790,7 +970,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
   mutate(pop_millions = pop/1000000) %&gt;%  
   arrange(-pop) %&gt;%  
   ggplot() +  
@@ -817,7 +997,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
   mutate(pop_millions = pop/1000000) %&gt;%  
   arrange(-pop) %&gt;%  
   ggplot() +  
@@ -828,7 +1008,11 @@ gapminder %&gt;%
   scale_y_continuous(limits = c(-10, 25)) +  
   scale_x_continuous(breaks = seq(1952, 2007, by = 5),  
                      limits = c(1950, 2010)) +  
-* aes(fill = country)
+* geom_text(data = . %&gt;% filter(country == "Australia"),
+*           aes(label = year,
+*               y = pop_millions + 3),
+*           fontface = "bold",
+*           color = "navy")
 ```
 ]
  
@@ -845,7 +1029,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
   mutate(pop_millions = pop/1000000) %&gt;%  
   arrange(-pop) %&gt;%  
   ggplot() +  
@@ -856,12 +1040,12 @@ gapminder %&gt;%
   scale_y_continuous(limits = c(-10, 25)) +  
   scale_x_continuous(breaks = seq(1952, 2007, by = 5),  
                      limits = c(1950, 2010)) +  
-  aes(fill = country) +  
-* geom_text(data = . %&gt;% filter(country == "Australia"),
-*           aes(label = year,
-*               y = pop_millions + 3),
-*           fontface = "bold",
-*           color = "navy")
+  geom_text(data = . %&gt;% filter(country == "Australia"),  
+            aes(label = year,  
+                y = pop_millions + 3),  
+            fontface = "bold",  
+            color = "navy") +  
+* theme_void()
 ```
 ]
  
@@ -878,7 +1062,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
   mutate(pop_millions = pop/1000000) %&gt;%  
   arrange(-pop) %&gt;%  
   ggplot() +  
@@ -889,13 +1073,13 @@ gapminder %&gt;%
   scale_y_continuous(limits = c(-10, 25)) +  
   scale_x_continuous(breaks = seq(1952, 2007, by = 5),  
                      limits = c(1950, 2010)) +  
-  aes(fill = country) +  
   geom_text(data = . %&gt;% filter(country == "Australia"),  
             aes(label = year,  
                 y = pop_millions + 3),  
             fontface = "bold",  
             color = "navy") +  
-* theme_void()
+  theme_void() +  
+* theme(legend.position = c(.8,.8))
 ```
 ]
  
@@ -912,7 +1096,7 @@ count: false
 
 ```r
 gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
+  filter(country == "Australia") %&gt;%  
   mutate(pop_millions = pop/1000000) %&gt;%  
   arrange(-pop) %&gt;%  
   ggplot() +  
@@ -923,42 +1107,6 @@ gapminder %&gt;%
   scale_y_continuous(limits = c(-10, 25)) +  
   scale_x_continuous(breaks = seq(1952, 2007, by = 5),  
                      limits = c(1950, 2010)) +  
-  aes(fill = country) +  
-  geom_text(data = . %&gt;% filter(country == "Australia"),  
-            aes(label = year,  
-                y = pop_millions + 3),  
-            fontface = "bold",  
-            color = "navy") +  
-  theme_void() +  
-* theme(legend.position = c(.8,.8))
-```
-]
- 
-.right-output-polar_bar-auto[
-&lt;img src="geoms_single_series_files/figure-html/polar_bar_auto_15_output-1.png" width="100%" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-polar_bar-auto[
-
-```r
-gapminder %&gt;%  
-  filter(continent == "Oceania") %&gt;%  
-  mutate(pop_millions = pop/1000000) %&gt;%  
-  arrange(-pop) %&gt;%  
-  ggplot() +  
-  aes(x = year) +  
-  aes(y = pop_millions) +  
-  geom_col(width = 4, position = "dodge") +  
-  coord_polar() +  
-  scale_y_continuous(limits = c(-10, 25)) +  
-  scale_x_continuous(breaks = seq(1952, 2007, by = 5),  
-                     limits = c(1950, 2010)) +  
-  aes(fill = country) +  
   geom_text(data = . %&gt;% filter(country == "Australia"),  
             aes(label = year,  
                 y = pop_millions + 3),  
@@ -971,7 +1119,7 @@ gapminder %&gt;%
 ]
  
 .right-output-polar_bar-auto[
-&lt;img src="geoms_single_series_files/figure-html/polar_bar_auto_16_output-1.png" width="100%" /&gt;
+&lt;img src="geoms_single_series_files/figure-html/polar_bar_auto_15_output-1.png" width="100%" /&gt;
 ]
 
 &lt;style&gt;
@@ -4673,13 +4821,13 @@ circle_outlines %&gt;%
 &lt;style&gt;
 .left-code-circle_pack-auto {
   color: #777;
-  width: 38%;
+  width: 49%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-circle_pack-auto {
-  width: 60%;
+  width: 50%;
   float: right;
   padding-left: 1%;
 }
@@ -4946,13 +5094,13 @@ gapminder %&gt;%
 &lt;style&gt;
 .left-code-treemapify-auto {
   color: #777;
-  width: 38%;
+  width: 49%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-treemapify-auto {
-  width: 60%;
+  width: 50%;
   float: right;
   padding-left: 1%;
 }
@@ -5046,13 +5194,13 @@ gapminder %&gt;%
 &lt;style&gt;
 .left-code-single_value-rotate {
   color: #777;
-  width: 38%;
+  width: 49%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-single_value-rotate {
-  width: 60%;
+  width: 50%;
   float: right;
   padding-left: 1%;
 }
@@ -5064,6 +5212,7 @@ gapminder %&gt;%
 
 ---
 
+Installation of waffles package doesn't work. Use this:
 
 
 ```r
@@ -5311,13 +5460,13 @@ gapminder %&gt;%
 &lt;style&gt;
 .left-code-waffle-auto {
   color: #777;
-  width: 38%;
+  width: 49%;
   height: 92%;
   float: left;
   font-size: 80%
 }
 .right-output-waffle-auto {
-  width: 60%;
+  width: 50%;
   float: right;
   padding-left: 1%;
 }

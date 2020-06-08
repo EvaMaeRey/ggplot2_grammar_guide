@@ -112,9 +112,9 @@ p <- "geoms_files/figure-html/"
 
 <div id="needtowrap">
 
-```{r}
+```{r, echo=F}
 library(viztoc)
-# viztoc:::build_and_use_gif()
+# build_and_use_gif()
 # special_viztoc <- function(){
 #   
 #   build_and_use_gif()
@@ -125,10 +125,9 @@ library(viztoc)
 
 
 
-`r viztoc:::build_and_use_gif(dir = "geoms_continuous_distribution_files/figure-html/", pattern = "", href = "geoms_continuous_distribution.html", width = 150, height = 150, cached_gif = T)`
+`r viztoc:::build_and_use_gif(dir = "geoms_continuous_distribution_files/figure-html/", pattern = "", href = "geoms_continuous_distribution.html", width = 150, height = 150, cached_gif = T, which = 35)`
 
 `r viztoc:::build_and_use_gif(dir = "geoms_bivariate_continuous_files/figure-html/", pattern = "", href = "geoms_bivariate_continuous.html", which = 12, width = 150, height = 150, cached_gif = T)`
-
 
 `r viztoc:::build_and_use_gif(dir = "geoms_single_series_files/figure-html/", pattern = "" , href = "geoms_single_series.html", width = 150, height = 150 , which = 8, cached_gif = T)`
 

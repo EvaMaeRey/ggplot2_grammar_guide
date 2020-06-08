@@ -24,7 +24,6 @@ library(gapminder)
 ```
 
 
-
 ---
 class: inverse, center, middle
 name: dd
@@ -33,7 +32,27 @@ name: dd
 
 ---
 
-`r chunk_reveal("discrete2x", break_type = "rotate")`
+`r chunk_reveal("discrete2x_build")`
+
+
+```{r discrete2x_build, eval = F, echo = F}
+gapminder %>% 
+  filter(year == 2002) %>% 
+  mutate(seventy_plus = lifeExp >= 75) %>% 
+  mutate(age_category = 
+           case_when(seventy_plus == T ~ 
+                       "Seventy +",
+                     seventy_plus == F ~ 
+                       "< Seventy")) %>% 
+  ggplot() +
+  aes(x = continent) +
+  aes(y = age_category) +
+  geom_jitter(col = "blue", alpha = .3, width = .35, height = .35)
+```
+
+---
+
+`r chunk_reveal("discrete2x", break_type = "rotate", width_code = "69%", width_output = "30%")`
 
 
 ```{r discrete2x, eval = F, echo = F}
@@ -50,8 +69,8 @@ gapminder %>%
   aes(y = age_category) +
   geom_jitter(col = "blue", alpha = .3, width = .35, height = .35) + 
   geom_count(col = "magenta", alpha = .6) + #ROTATE
-  geom_text(data = . %>% group_by(age_category, continent) %>% count, aes(label = n)) + #ROTATE
-  geom_label(data = . %>% group_by(age_category, continent) %>% count, aes(label = n)) + #ROTATE
+  geom_text(data = . %>% group_by(age_category, continent) %>% count(), aes(label = n)) + #ROTATE
+  geom_label(data = . %>% group_by(age_category, continent) %>% count(), aes(label = n)) + #ROTATE
   geom_point(position = ggforce::position_jitternormal()) + #ROTATE
   geom_point(position = ggforce::position_jitternormal(sd_x = 0.15, sd_y = 0.01)) + #ROTATE
   theme_minimal()

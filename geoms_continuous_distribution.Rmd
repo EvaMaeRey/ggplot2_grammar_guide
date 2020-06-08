@@ -19,6 +19,7 @@ options(scipen = 10)
 
 
 ```{r}
+library(flipbookr)
 library(tidyverse)
 library(gapminder)
 ```
@@ -55,7 +56,27 @@ name: c
 
 ---
 
-`r chunk_reveal("univariate_continuous", break_type = "rotate")`
+`r chunk_reveal("univariate_continuous_build", width_code = "59%", width_output = "40%")`
+
+
+
+
+```{r, univariate_continuous_build, eval = F, echo = F}
+gapminder %>% 
+  filter(year == 2002) %>% 
+  ggplot() +
+  aes(x = lifeExp) +
+  theme_minimal() +
+  geom_rug(col = "darkgrey") 
+```
+
+
+
+---
+
+`r chunk_reveal("univariate_continuous", break_type = "rotate", width_code = "59%", width_output = "40%")`
+
+
 
 
 ```{r, univariate_continuous, eval = F, echo = F}
@@ -88,7 +109,22 @@ name: c
 
 ---
 
-`r chunk_reveal("geom_discrete_continuous_facet", break_type = "rotate")`
+`r chunk_reveal("geom_discrete_continuous_facet_build", width_code = "59%", width_output = "40%")`
+
+
+```{r, geom_discrete_continuous_facet_build, eval = F, echo = F}
+gapminder %>% 
+  filter(year == 2002) %>% 
+  ggplot() +
+  aes(x = lifeExp) +
+  theme_minimal() +
+  geom_rug(col = "darkgrey") 
+```
+
+---
+
+
+`r chunk_reveal("geom_discrete_continuous_facet", break_type = "rotate", width_code = "59%", width_output = "40%")`
 
 
 ```{r, geom_discrete_continuous_facet, eval = F, echo = F}
@@ -120,7 +156,23 @@ name: dc
 ---
 
 
-`r chunk_reveal("geom_discrete_continuous", break_type = "rotate")`
+`r chunk_reveal("geom_discrete_continuous_build", width_code = "59%", width_output = "40%")`
+
+
+```{r geom_discrete_continuous_build, eval = F, echo = F}
+gapminder %>% 
+  filter(year == 2002) %>%
+  mutate(higher_income = gdpPercap > 20000) %>% 
+  ggplot() +
+  aes(y = fct_rev(continent)) +
+  aes(x = lifeExp) +
+  geom_point()
+```
+
+---
+
+
+`r chunk_reveal("geom_discrete_continuous", break_type = "rotate", width_code = "59%", width_output = "40%")`
 
 
 ```{r geom_discrete_continuous, eval = F, echo = F}
@@ -130,7 +182,7 @@ gapminder %>%
   ggplot() +
   aes(y = fct_rev(continent)) +
   aes(x = lifeExp) +
-  geom_point(size = .2) + 
+  geom_point() + 
   geom_boxplot(alpha = .1) + #ROTATE
   geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) + #ROTATE
   geom_jitter(width = .2, alpha = .5, color = "green") + #ROTATE
@@ -144,8 +196,10 @@ gapminder %>%
   ggridges::stat_density_ridges(quantile_lines = TRUE, quantiles = c(0.025, 0.975), alpha = 0.5, fill = "plum4") + #ROTATE
   ggridges::geom_density_ridges(jittered_points = TRUE, position = "raincloud", alpha = .5, scale = 0.9) + #ROTATE
   ggridges::geom_density_ridges(stat = "binline", bins = 20, scale = 0.95, draw_baseline = FALSE) + #ROTATE
-  ggridges::geom_density_ridges(scale = 2, alpha = .5) + ggridges::scale_fill_cyclical(values = c("blue", "green")) + #ROTATE
+  ggridges::geom_density_ridges(scale = 2, alpha = .5) + #ROTATE
+  ggridges::scale_fill_cyclical(values = c("blue", "green")) + #ROTATE
   geom_point(aes(color = continent), position = position_nudge(x = 0, y = .2), size = .5, alpha = 0.8) + geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) + #ROTATE
+  ggalt::geom_bkde(alpha = 0.3, bandwidth = .25, aes(fill = continent)) + #ROTATE
   theme_minimal() +
   labs(y = NULL)
 ```
@@ -153,7 +207,7 @@ gapminder %>%
 
 ---
 
-`r chunk_reveal("geom_discrete_continuous_bee", break_type = "rotate")`
+`r chunk_reveal("geom_discrete_continuous_bee", break_type = "rotate", width_code = "59%", width_output = "40%")`
 
 ```{r geom_discrete_continuous_bee, include = F}
 gapminder %>% 

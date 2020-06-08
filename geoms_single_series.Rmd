@@ -18,16 +18,6 @@ options(scipen = 10)
 ```
 
 
----
-
-- ggplot2
-- ggforce
-- ggbump
-- ggpointdensity
-- ggrepel
-- packcircles
-- waffle
-
 
 ---
 
@@ -43,10 +33,25 @@ name: single_series
 
 ## Single series
 
+---
+
+`r chunk_reveal("time_series_build", width_code = "59%", width_output = "40%")`
+
+```{r time_series_build, include=F}
+gapminder %>% 
+  filter(country == "New Zealand") %>% 
+  ggplot() +
+  aes(x = year) +
+  aes(y = pop * gdpPercap) +
+  aes(group = country) +
+  geom_point()
+```
+
+
 
 ---
 
-`r chunk_reveal("time_series", break_type = "rotate")`
+`r chunk_reveal("time_series", break_type = "rotate", width_code = "59%", width_output = "40%")`
 
 ```{r time_series, include=F}
 gapminder %>% 
@@ -72,7 +77,7 @@ gapminder %>%
 
 ---
 
-`r chunk_reveal("jagged", break_type = "rotate")`
+`r chunk_reveal("jagged", break_type = "rotate", width_code = "49%", width_output = "50%")`
 
 
 ```{r jagged, include=F}
@@ -104,7 +109,7 @@ tibble(my_x = 1990:2010,
 
 ```{r polar_bar, include = F}
 gapminder %>% 
-  filter(continent == "Oceania") %>% 
+  filter(country == "Australia") %>% 
   mutate(pop_millions = pop/1000000) %>% 
   arrange(-pop) %>% 
   ggplot() +
@@ -115,7 +120,6 @@ gapminder %>%
   scale_y_continuous(limits = c(-10, 25)) +
   scale_x_continuous(breaks = seq(1952, 2007, by = 5), 
                      limits = c(1950, 2010)) +
-  aes(fill = country) +
   geom_text(data = . %>% filter(country == "Australia"),
             aes(label = year,
                 y = pop_millions + 3),
@@ -157,7 +161,7 @@ gapminder %>%
 
 ---
 
-`r chunk_reveal("circle_pack")`
+`r chunk_reveal("circle_pack", width_code = "49%", width_output = "50%")`
 
 ```{r circle_pack, include = F}
 gapminder %>% 
@@ -189,7 +193,7 @@ circle_outlines %>%
 
 ---
 
-`r chunk_reveal("treemapify")`
+`r chunk_reveal("treemapify", width_code = "49%", width_output = "50%")`
 
 ```{r treemapify, include = F}
 gapminder %>% 
@@ -218,7 +222,7 @@ class: middle, center, inverse
 
 ---
 
-`r chunk_reveal("single_value", break_type = "rotate")`
+`r chunk_reveal("single_value", break_type = "rotate", width_code = "49%", width_output = "50%")`
 
 ```{r single_value, include=F}
 gapminder %>% 
@@ -236,6 +240,7 @@ gapminder %>%
 
 ---
 
+Installation of waffles package doesn't work. Use this:
 
 ```{r}
 # install.packages("waffle", repos = "https://cinc.rud.is")
@@ -244,7 +249,7 @@ gapminder %>%
 
 ---
 
-`r chunk_reveal("waffle")`
+`r chunk_reveal("waffle", width_code = "49%", width_output = "50%")`
 
 ```{r waffle, include = F}
 # special install 
