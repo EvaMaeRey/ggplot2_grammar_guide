@@ -37,33 +37,58 @@ knitr::include_graphics("../../teaching/lecture_topics/images_for_lecture/malari
 
 
 ```{r build_plots, include = F}
-ggplot(diamonds) + 
-  aes(x = cut, fill = cut) +
-  geom_bar() +
-  labs(x = 'Price (USD)') +
-  labs(y = 'Count')  ->
+options(scipen = 99) # turns off scientific notation
+library(gapminder)
+
+gapminder %>% 
+  filter(year == 2007) %>% 
+  filter(continent == "Oceania") %>% 
+  ggplot() + 
+  aes(x = country, y = pop/1000000, fill = country) +
+  geom_col() ->
 p1
 
-ggplot(diamonds) + 
-  aes(x = price, fill = cut) +
-  geom_histogram(binwidth = 850) +
-  labs(x = 'Price (USD)') +
-  labs(y = 'Count')  ->
-p2
 
-ggplot(diamonds) + 
-  aes(x = carat, fill = cut) +
-  geom_density(binwidth = 850) +
-  labs(x = 'Price (USD)') +
-  labs(y = 'Count')  ->
+gapminder %>% 
+  filter(year == 2007) %>% 
+  ggplot() + 
+  aes(x = gdpPercap, y = lifeExp) +
+  geom_point(color = "grey") +
+  geom_point(data = . %>% 
+               filter(continent == "Oceania"),
+             aes(color = country),
+             size = 3) ->
+p2
+```
+
+
+---
+
+`r chunk_reveal("build_plots2")`
+
+
+
+```{r build_plots2}
+gapminder %>% 
+  ggplot() +
+  aes(x = year, y = pop/1000000) +
+  geom_line(color = "grey") +
+  aes(group = country) + 
+  scale_y_log10() +
+  geom_line(data = . %>% 
+               filter(continent == "Oceania"),
+             aes(color = country),
+             size = 1.5) ->
 p3
 
-
-ggplot(diamonds) + 
-  aes(x = carat, y = price, color = cut) +
-  geom_point(alpha = .05) +
-  facet_wrap(~ cut) +
-  theme(legend.position = "none") ->
+gapminder %>% 
+  filter(year == 2007) %>% 
+  filter(continent == "Oceania") %>% 
+  mutate(gdp = pop*gdpPercap) %>% 
+  ggplot() + 
+  aes(x = gdp/1000000000, y = country, color = country) +
+  geom_segment(aes(yend = country, xend = 0)) +
+  geom_point(size = 5) ->
 p4
 ```
 
@@ -79,7 +104,7 @@ class: inverse, center, middle
 
 ---
 
-`r chunk_reveal("patch", break_type = "rotate")`
+`r chunk_reveal("patch", break_type = "rotate", width_code = "59%", width_output = "40%")`
 
 ```{r patch, include = F}
 library(patchwork)
@@ -89,11 +114,31 @@ p1 + p2 #ROTATE
 p1 / p2 #ROTATE
 (p1 + p2) / p3 + p4 #ROTATE
 (p1 + p2 + p3) / p4 #ROTATE
-(p1 + plot_spacer()) / (p1 + p2) #ROTATE
+(p1 + plot_spacer()) / (p3 + p2) #ROTATE
 p1 + p2 + p3 + p4 + plot_layout(widths = c(2, 1)) #ROTATE
 p1 + p2 + p3 + p4 + plot_layout(widths = c(2, 1), heights = unit(c(5, 1), c('cm', 'null'))) #ROTATE
 p1 + p2 + p3 + p4 + plot_layout(guides = 'collect') #ROTATE
 ```
+
+---
+
+
+`r chunk_reveal("ensemble_level")`
+
+```{r ensemble_level, include = F}
+p4 + 
+  p2 + 
+  plot_annotation(title = 'Hi', 
+                  subtitle = 'my subtitle', 
+                  caption = 'the caption') &
+  theme(panel.background = element_rect(fill = "purple")) & 
+  theme(plot.background = element_rect(fill = "purple"))
+```
+
+
+
+
+
 
 ---
 class: inverse, center, middle
@@ -156,16 +201,17 @@ logo_plot
 
 ```{r bottom, include=F}
 library(cowplot)
-plot_grid(p1, p2, 
-          labels = c('B', 'C'), 
-          label_size = 12) ->
-  bottom_row
 
 mtcars %>% 
 ggplot() + 
   aes(x = qsec, y = disp) +
   geom_point() + facet_wrap(~gear) ->
-p3
+top_row
+
+plot_grid(p1, p2, 
+          labels = c('B', 'C'), 
+          label_size = 12) ->
+bottom_row
 
 plot_grid(p3, bottom_row, 
           labels = c('A', ''), 
@@ -177,26 +223,16 @@ my_plot4
 
 ---
 
-`r chunk_reveal("lover")`
+`r chunk_reveal("cow2", width_code = "59%", width_output = "40%")`
 
-```{r lover}
-ggplot(mpg, aes(displ, cty)) +
-  geom_point() +
-  theme_minimal_grid(12) ->
-p
-
-ggdraw(p) + 
-  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) ->
+```{r cow2, include = F}
+ggdraw(p1) + 
+  draw_label("Draft", color = "#D0B0B0", 
+             size = 100, angle = 45) ->
 my_plot
 
-ggplot(mpg, aes(drv)) + 
-  geom_bar(fill = "skyblue2", alpha = 0.7) + 
-  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +
-  theme_minimal_hgrid(11) ->
-inset
-
-ggdraw(p + theme_half_open(12)) +
-  draw_plot(inset, .45, .45, .5, .5) +
+ggdraw(p1 + theme_half_open(12)) +
+  draw_plot(p2, .45, .45, .5, .5) +
   draw_plot_label(
     c("A", "B"),
     c(0, 0.45),
@@ -208,7 +244,7 @@ ggdraw(p + theme_half_open(12)) +
 
 ---
 
-`r chunk_reveal("image")`
+`r chunk_reveal("image", width_code = "59%", width_output = "40%")`
 
 ```{r image, include = F}
 library(cowplot)

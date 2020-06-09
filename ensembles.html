@@ -35,682 +35,1059 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots-auto[
 
 ```r
-*ggplot(diamonds)
+*options(scipen = 99)  # turns off scientific notation
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_1_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-build_plots-auto[
+
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots-auto[
 
 ```r
-ggplot(diamonds) +  
-* aes(x = cut, fill = cut)
+options(scipen = 99)  # turns off scientific notation
+*library(gapminder)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_2_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-build_plots-auto[
+
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-* geom_bar()
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+*gapminder
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_3_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-build_plots-auto[
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows
+```
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-* labs(x = 'Price (USD)')
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+* filter(year == 2007)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_4_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-build_plots-auto[
+
+```
+# A tibble: 142 x 6
+   country     continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       2007    43.8  31889923      975.
+ 2 Albania     Europe     2007    76.4   3600523     5937.
+ 3 Algeria     Africa     2007    72.3  33333216     6223.
+ 4 Angola      Africa     2007    42.7  12420476     4797.
+ 5 Argentina   Americas   2007    75.3  40301927    12779.
+ 6 Australia   Oceania    2007    81.2  20434176    34435.
+ 7 Austria     Europe     2007    79.8   8199783    36126.
+ 8 Bahrain     Asia       2007    75.6    708573    29796.
+ 9 Bangladesh  Asia       2007    64.1 150448339     1391.
+10 Belgium     Europe     2007    79.4  10392226    33693.
+# … with 132 more rows
+```
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-* labs(y = 'Count')
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+* filter(continent == "Oceania")
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_5_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-build_plots-auto[
+
+```
+# A tibble: 2 x 6
+  country     continent  year lifeExp      pop gdpPercap
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+1 Australia   Oceania    2007    81.2 20434176    34435.
+2 New Zealand Oceania    2007    80.2  4115771    25185.
+```
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-build_plots-auto[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_6_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots-auto[
+
+```r
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+* aes(x = country, y = pop/1000000, fill = country)
+```
+]
+ 
+.right-output-build_plots-auto[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_7_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots-auto[
+
+```r
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = country, y = pop/1000000, fill = country) +  
+* geom_col()
+```
+]
+ 
+.right-output-build_plots-auto[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_8_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots-auto[
+
+```r
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = country, y = pop/1000000, fill = country) +  
+  geom_col() -&gt;  
 *p1
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-build_plots-auto[
 
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = country, y = pop/1000000, fill = country) +  
+  geom_col() -&gt;  
 p1  
 
-*ggplot(diamonds)
+
+*gapminder
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_7_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
+]
  
+.right-output-build_plots-auto[
 
- 
-.column[.content[
-
-```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-* aes(x = price, fill = cut)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_8_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-* geom_histogram(binwidth = 850)
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_9_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = country, y = pop/1000000, fill = country) +  
+  geom_col() -&gt;  
 p1  
 
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-* labs(x = 'Price (USD)')
+
+gapminder %&gt;%  
+* filter(year == 2007)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_10_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
+]
  
+.right-output-build_plots-auto[
 
- 
-.column[.content[
-
-```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-* labs(y = 'Count')
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_11_output-1.png" width="432" /&gt;
-]]
+# A tibble: 142 x 6
+   country     continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       2007    43.8  31889923      975.
+ 2 Albania     Europe     2007    76.4   3600523     5937.
+ 3 Algeria     Africa     2007    72.3  33333216     6223.
+ 4 Angola      Africa     2007    42.7  12420476     4797.
+ 5 Argentina   Americas   2007    75.3  40301927    12779.
+ 6 Australia   Oceania    2007    81.2  20434176    34435.
+ 7 Austria     Europe     2007    79.8   8199783    36126.
+ 8 Bahrain     Asia       2007    75.6    708573    29796.
+ 9 Bangladesh  Asia       2007    64.1 150448339     1391.
+10 Belgium     Europe     2007    79.4  10392226    33693.
+# … with 132 more rows
+```
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = country, y = pop/1000000, fill = country) +  
+  geom_col() -&gt;  
 p1  
 
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-build_plots-auto[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_12_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots-auto[
+
+```r
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = country, y = pop/1000000, fill = country) +  
+  geom_col() -&gt;  
+p1  
+
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  ggplot() +  
+* aes(x = gdpPercap, y = lifeExp)
+```
+]
+ 
+.right-output-build_plots-auto[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_13_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots-auto[
+
+```r
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = country, y = pop/1000000, fill = country) +  
+  geom_col() -&gt;  
+p1  
+
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+* geom_point(color = "grey")
+```
+]
+ 
+.right-output-build_plots-auto[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_14_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots-auto[
+
+```r
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = country, y = pop/1000000, fill = country) +  
+  geom_col() -&gt;  
+p1  
+
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(color = "grey") +  
+* geom_point(data = . %&gt;%
+*              filter(continent == "Oceania"),
+*            aes(color = country),
+*            size = 3)
+```
+]
+ 
+.right-output-build_plots-auto[
+&lt;img src="ensembles_files/figure-html/build_plots_auto_15_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots-auto[
+
+```r
+options(scipen = 99)  # turns off scientific notation
+library(gapminder)  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  ggplot() +  
+  aes(x = country, y = pop/1000000, fill = country) +  
+  geom_col() -&gt;  
+p1  
+
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap, y = lifeExp) +  
+  geom_point(color = "grey") +  
+  geom_point(data = . %&gt;%  
+               filter(continent == "Oceania"),  
+             aes(color = country),  
+             size = 3) -&gt;  
 *p2
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-build_plots-auto[
 
-]]
+]
+
+&lt;style&gt;
+.left-code-build_plots-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-build_plots-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
 ---
+
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots2-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p2  
-
-*ggplot(diamonds)
+*gapminder
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_13_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
+]
  
+.right-output-build_plots2-auto[
 
- 
-.column[.content[
-
-```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p2  
-
-ggplot(diamonds) +  
-* aes(x = carat, fill = cut)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_14_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p2  
-
-ggplot(diamonds) +  
-  aes(x = carat, fill = cut) +  
-* geom_density(binwidth = 850)
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_15_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots2-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p2  
-
-ggplot(diamonds) +  
-  aes(x = carat, fill = cut) +  
-  geom_density(binwidth = 850) +  
-* labs(x = 'Price (USD)')
+gapminder %&gt;%  
+* ggplot()
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_16_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-build_plots2-auto[
+&lt;img src="ensembles_files/figure-html/build_plots2_auto_2_output-1.png" width="432" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots2-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p2  
-
-ggplot(diamonds) +  
-  aes(x = carat, fill = cut) +  
-  geom_density(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-* labs(y = 'Count')
+gapminder %&gt;%  
+  ggplot() +  
+* aes(x = year, y = pop/1000000)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_17_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-build_plots2-auto[
+&lt;img src="ensembles_files/figure-html/build_plots2_auto_3_output-1.png" width="432" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots2-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+* geom_line(color = "grey")
+```
+]
+ 
+.right-output-build_plots2-auto[
+&lt;img src="ensembles_files/figure-html/build_plots2_auto_4_output-1.png" width="432" /&gt;
+]
 
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p2  
+---
+class: split-40
+count: false
+ 
 
-ggplot(diamonds) +  
-  aes(x = carat, fill = cut) +  
-  geom_density(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
+.left-code-build_plots2-auto[
+
+```r
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+* aes(group = country)
+```
+]
+ 
+.right-output-build_plots2-auto[
+&lt;img src="ensembles_files/figure-html/build_plots2_auto_5_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots2-auto[
+
+```r
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+  aes(group = country) +  
+* scale_y_log10()
+```
+]
+ 
+.right-output-build_plots2-auto[
+&lt;img src="ensembles_files/figure-html/build_plots2_auto_6_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots2-auto[
+
+```r
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+  aes(group = country) +  
+  scale_y_log10() +  
+* geom_line(data = . %&gt;%
+*              filter(continent == "Oceania"),
+*            aes(color = country),
+*            size = 1.5)
+```
+]
+ 
+.right-output-build_plots2-auto[
+&lt;img src="ensembles_files/figure-html/build_plots2_auto_7_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots2-auto[
+
+```r
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+  aes(group = country) +  
+  scale_y_log10() +  
+  geom_line(data = . %&gt;%  
+               filter(continent == "Oceania"),  
+             aes(color = country),  
+             size = 1.5) -&gt;  
 *p3
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-build_plots2-auto[
 
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots2-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p2  
-
-ggplot(diamonds) +  
-  aes(x = carat, fill = cut) +  
-  geom_density(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+  aes(group = country) +  
+  scale_y_log10() +  
+  geom_line(data = . %&gt;%  
+               filter(continent == "Oceania"),  
+             aes(color = country),  
+             size = 1.5) -&gt;  
 p3  
 
-
-*ggplot(diamonds)
+*gapminder
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_19_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
+]
  
+.right-output-build_plots2-auto[
 
- 
-.column[.content[
-
-```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p2  
-
-ggplot(diamonds) +  
-  aes(x = carat, fill = cut) +  
-  geom_density(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p3  
-
-
-ggplot(diamonds) +  
-* aes(x = carat, y = price, color = cut)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_20_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p2  
-
-ggplot(diamonds) +  
-  aes(x = carat, fill = cut) +  
-  geom_density(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p3  
-
-
-ggplot(diamonds) +  
-  aes(x = carat, y = price, color = cut) +  
-* geom_point(alpha = .05)
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_21_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots2-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p2  
-
-ggplot(diamonds) +  
-  aes(x = carat, fill = cut) +  
-  geom_density(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+  aes(group = country) +  
+  scale_y_log10() +  
+  geom_line(data = . %&gt;%  
+               filter(continent == "Oceania"),  
+             aes(color = country),  
+             size = 1.5) -&gt;  
 p3  
 
-
-ggplot(diamonds) +  
-  aes(x = carat, y = price, color = cut) +  
-  geom_point(alpha = .05) +  
-* facet_wrap(~ cut)
+gapminder %&gt;%  
+* filter(year == 2007)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_22_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
+]
  
+.right-output-build_plots2-auto[
 
- 
-.column[.content[
-
-```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p2  
-
-ggplot(diamonds) +  
-  aes(x = carat, fill = cut) +  
-  geom_density(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p3  
-
-
-ggplot(diamonds) +  
-  aes(x = carat, y = price, color = cut) +  
-  geom_point(alpha = .05) +  
-  facet_wrap(~ cut) +  
-* theme(legend.position = "none")
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/build_plots_auto_23_output-1.png" width="432" /&gt;
-]]
+# A tibble: 142 x 6
+   country     continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       2007    43.8  31889923      975.
+ 2 Albania     Europe     2007    76.4   3600523     5937.
+ 3 Algeria     Africa     2007    72.3  33333216     6223.
+ 4 Angola      Africa     2007    42.7  12420476     4797.
+ 5 Argentina   Americas   2007    75.3  40301927    12779.
+ 6 Australia   Oceania    2007    81.2  20434176    34435.
+ 7 Austria     Europe     2007    79.8   8199783    36126.
+ 8 Bahrain     Asia       2007    75.6    708573    29796.
+ 9 Bangladesh  Asia       2007    64.1 150448339     1391.
+10 Belgium     Europe     2007    79.4  10392226    33693.
+# … with 132 more rows
+```
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-build_plots2-auto[
 
 ```r
-ggplot(diamonds) +  
-  aes(x = cut, fill = cut) +  
-  geom_bar() +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p1  
-
-ggplot(diamonds) +  
-  aes(x = price, fill = cut) +  
-  geom_histogram(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
-p2  
-
-ggplot(diamonds) +  
-  aes(x = carat, fill = cut) +  
-  geom_density(binwidth = 850) +  
-  labs(x = 'Price (USD)') +  
-  labs(y = 'Count')  -&gt;  
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+  aes(group = country) +  
+  scale_y_log10() +  
+  geom_line(data = . %&gt;%  
+               filter(continent == "Oceania"),  
+             aes(color = country),  
+             size = 1.5) -&gt;  
 p3  
 
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+* filter(continent == "Oceania")
+```
+]
+ 
+.right-output-build_plots2-auto[
 
-ggplot(diamonds) +  
-  aes(x = carat, y = price, color = cut) +  
-  geom_point(alpha = .05) +  
-  facet_wrap(~ cut) +  
-  theme(legend.position = "none") -&gt;  
+```
+# A tibble: 2 x 6
+  country     continent  year lifeExp      pop gdpPercap
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+1 Australia   Oceania    2007    81.2 20434176    34435.
+2 New Zealand Oceania    2007    80.2  4115771    25185.
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots2-auto[
+
+```r
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+  aes(group = country) +  
+  scale_y_log10() +  
+  geom_line(data = . %&gt;%  
+               filter(continent == "Oceania"),  
+             aes(color = country),  
+             size = 1.5) -&gt;  
+p3  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+* mutate(gdp = pop*gdpPercap)
+```
+]
+ 
+.right-output-build_plots2-auto[
+
+```
+# A tibble: 2 x 7
+  country     continent  year lifeExp      pop gdpPercap           gdp
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+1 Australia   Oceania    2007    81.2 20434176    34435. 703658358894.
+2 New Zealand Oceania    2007    80.2  4115771    25185. 103655730130.
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots2-auto[
+
+```r
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+  aes(group = country) +  
+  scale_y_log10() +  
+  geom_line(data = . %&gt;%  
+               filter(continent == "Oceania"),  
+             aes(color = country),  
+             size = 1.5) -&gt;  
+p3  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop*gdpPercap) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-output-build_plots2-auto[
+&lt;img src="ensembles_files/figure-html/build_plots2_auto_13_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots2-auto[
+
+```r
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+  aes(group = country) +  
+  scale_y_log10() +  
+  geom_line(data = . %&gt;%  
+               filter(continent == "Oceania"),  
+             aes(color = country),  
+             size = 1.5) -&gt;  
+p3  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop*gdpPercap) %&gt;%  
+  ggplot() +  
+* aes(x = gdp/1000000000, y = country, color = country)
+```
+]
+ 
+.right-output-build_plots2-auto[
+&lt;img src="ensembles_files/figure-html/build_plots2_auto_14_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots2-auto[
+
+```r
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+  aes(group = country) +  
+  scale_y_log10() +  
+  geom_line(data = . %&gt;%  
+               filter(continent == "Oceania"),  
+             aes(color = country),  
+             size = 1.5) -&gt;  
+p3  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop*gdpPercap) %&gt;%  
+  ggplot() +  
+  aes(x = gdp/1000000000, y = country, color = country) +  
+* geom_segment(aes(yend = country, xend = 0))
+```
+]
+ 
+.right-output-build_plots2-auto[
+&lt;img src="ensembles_files/figure-html/build_plots2_auto_15_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots2-auto[
+
+```r
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+  aes(group = country) +  
+  scale_y_log10() +  
+  geom_line(data = . %&gt;%  
+               filter(continent == "Oceania"),  
+             aes(color = country),  
+             size = 1.5) -&gt;  
+p3  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop*gdpPercap) %&gt;%  
+  ggplot() +  
+  aes(x = gdp/1000000000, y = country, color = country) +  
+  geom_segment(aes(yend = country, xend = 0)) +  
+* geom_point(size = 5)
+```
+]
+ 
+.right-output-build_plots2-auto[
+&lt;img src="ensembles_files/figure-html/build_plots2_auto_16_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-build_plots2-auto[
+
+```r
+gapminder %&gt;%  
+  ggplot() +  
+  aes(x = year, y = pop/1000000) +  
+  geom_line(color = "grey") +  
+  aes(group = country) +  
+  scale_y_log10() +  
+  geom_line(data = . %&gt;%  
+               filter(continent == "Oceania"),  
+             aes(color = country),  
+             size = 1.5) -&gt;  
+p3  
+
+gapminder %&gt;%  
+  filter(year == 2007) %&gt;%  
+  filter(continent == "Oceania") %&gt;%  
+  mutate(gdp = pop*gdpPercap) %&gt;%  
+  ggplot() +  
+  aes(x = gdp/1000000000, y = country, color = country) +  
+  geom_segment(aes(yend = country, xend = 0)) +  
+  geom_point(size = 5) -&gt;  
 *p4
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-build_plots2-auto[
 
-]]
+]
+
+&lt;style&gt;
+.left-code-build_plots2-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-build_plots2-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
 
 
 
+
+
+
+```r
+gapminder %&gt;% 
+  ggplot() +
+  aes(x = year, y = pop/1000000) +
+  geom_line(color = "grey") +
+  aes(group = country) + 
+  scale_y_log10() +
+  geom_line(data = . %&gt;% 
+               filter(continent == "Oceania"),
+             aes(color = country),
+             size = 1.5) -&gt;
+p3
+
+gapminder %&gt;% 
+  filter(year == 2007) %&gt;% 
+  filter(continent == "Oceania") %&gt;% 
+  mutate(gdp = pop*gdpPercap) %&gt;% 
+  ggplot() + 
+  aes(x = gdp/1000000000, y = country, color = country) +
+  geom_segment(aes(yend = country, xend = 0)) +
+  geom_point(size = 5) -&gt;
+p4
+```
 
 
 ---
@@ -728,161 +1105,309 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-patch-rotate[
 
 ```r
 library(patchwork)  
 p1 + p2 / p3  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_1_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-patch-rotate[
 
 ```r
 library(patchwork)  
 *p1 | p2
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_2_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-patch-rotate[
 
 ```r
 library(patchwork)  
 *p1 + p2
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_3_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-patch-rotate[
 
 ```r
 library(patchwork)  
 *p1 / p2
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_4_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-patch-rotate[
 
 ```r
 library(patchwork)  
 *(p1 + p2) / p3 + p4
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_5_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-patch-rotate[
 
 ```r
 library(patchwork)  
 *(p1 + p2 + p3) / p4
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_6_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-patch-rotate[
 
 ```r
 library(patchwork)  
-*(p1 + plot_spacer()) / (p1 + p2)
+*(p1 + plot_spacer()) / (p3 + p2)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_7_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-patch-rotate[
 
 ```r
 library(patchwork)  
 *p1 + p2 + p3 + p4 + plot_layout(widths = c(2, 1))
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_8_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-patch-rotate[
 
 ```r
 library(patchwork)  
 *p1 + p2 + p3 + p4 + plot_layout(widths = c(2, 1), heights = unit(c(5, 1), c('cm', 'null')))
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_9_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-patch-rotate[
 
 ```r
 library(patchwork)  
 *p1 + p2 + p3 + p4 + plot_layout(guides = 'collect')
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_10_output-1.png" width="432" /&gt;
-]]
+]
+
+&lt;style&gt;
+.left-code-patch-rotate {
+  color: #777;
+  width: 59%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-patch-rotate {
+  width: 40%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+
+class: split-40
+count: false
+ 
+
+.left-code-ensemble_level-auto[
+
+```r
+*p4
+```
+]
+ 
+.right-output-ensemble_level-auto[
+&lt;img src="ensembles_files/figure-html/ensemble_level_auto_1_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-ensemble_level-auto[
+
+```r
+p4 +  
+* p2
+```
+]
+ 
+.right-output-ensemble_level-auto[
+&lt;img src="ensembles_files/figure-html/ensemble_level_auto_2_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-ensemble_level-auto[
+
+```r
+p4 +  
+  p2 +  
+* plot_annotation(title = 'Hi',
+*                 subtitle = 'my subtitle',
+*                 caption = 'the caption')
+```
+]
+ 
+.right-output-ensemble_level-auto[
+&lt;img src="ensembles_files/figure-html/ensemble_level_auto_3_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-ensemble_level-auto[
+
+```r
+p4 +  
+  p2 +  
+  plot_annotation(title = 'Hi',  
+                  subtitle = 'my subtitle',  
+                  caption = 'the caption') &amp;  
+* theme(panel.background = element_rect(fill = "purple"))
+```
+]
+ 
+.right-output-ensemble_level-auto[
+&lt;img src="ensembles_files/figure-html/ensemble_level_auto_4_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-ensemble_level-auto[
+
+```r
+p4 +  
+  p2 +  
+  plot_annotation(title = 'Hi',  
+                  subtitle = 'my subtitle',  
+                  caption = 'the caption') &amp;  
+  theme(panel.background = element_rect(fill = "purple")) &amp;  
+* theme(plot.background = element_rect(fill = "purple"))
+```
+]
+ 
+.right-output-ensemble_level-auto[
+&lt;img src="ensembles_files/figure-html/ensemble_level_auto_5_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.left-code-ensemble_level-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-ensemble_level-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
 
 
 
@@ -900,145 +1425,170 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow-rotate[
 
 ```r
 library(cowplot)  
 plot_grid(p1, p2, labels = c('A', 'B'), label_size = 12)  
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_1_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow-rotate[
 
 ```r
 library(cowplot)  
 *plot_grid(p1, p3, labels = c('A', 'B'), label_size = 15)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_2_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow-rotate[
 
 ```r
 library(cowplot)  
 *plot_grid(p1, p2, labels = "AUTO")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_3_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow-rotate[
 
 ```r
 library(cowplot)  
 *plot_grid(p1, p2, labels = "auto")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_4_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow-rotate[
 
 ```r
 library(cowplot)  
 *plot_grid(p3, p2, labels = "AUTO", align = "h")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_5_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow-rotate[
 
 ```r
 library(cowplot)  
 *plot_grid(p1, p2, label_fontfamily = "serif", label_colour = "blue")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_6_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow-rotate[
 
 ```r
 library(cowplot)  
 *plot_grid(p1, p2, labels = "AUTO", ncol = 1)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_7_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow-rotate[
 
 ```r
 library(cowplot)  
 *plot_grid(p1, NULL, NULL, p2, labels = "AUTO", ncol = 2)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_8_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow-rotate[
 
 ```r
 library(cowplot)  
 *plot_grid(p1, p2, labels = "AUTO", rel_widths = c(1, 2))
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_9_output-1.png" width="432" /&gt;
-]]
+]
+
+&lt;style&gt;
+.left-code-cow-rotate {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-cow-rotate {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -1049,43 +1599,44 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 *library(cowplot)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
 
 *system.file("extdata", "logo.png", package = "cowplot")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 
 ```
 [1] "/Library/Frameworks/R.framework/Versions/3.6/Resources/library/cowplot/extdata/logo.png"
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1093,17 +1644,18 @@ library(cowplot)
 system.file("extdata", "logo.png", package = "cowplot") -&gt;  
 * logo_file
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1113,17 +1665,18 @@ system.file("extdata", "logo.png", package = "cowplot") -&gt;
 
 *ggplot(mpg, aes(displ, cty))
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_4_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1134,17 +1687,18 @@ system.file("extdata", "logo.png", package = "cowplot") -&gt;
 ggplot(mpg, aes(displ, cty)) +  
 * geom_point()
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_5_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1156,17 +1710,18 @@ ggplot(mpg, aes(displ, cty)) +
   geom_point() +  
 * theme_minimal_grid(12)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_6_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1179,17 +1734,18 @@ ggplot(mpg, aes(displ, cty)) +
   theme_minimal_grid(12) -&gt;  
 *p 
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1204,17 +1760,18 @@ p
 
 *ggdraw()
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_8_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1230,17 +1787,18 @@ p
 ggdraw() +  
 * draw_plot(p)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_9_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1257,17 +1815,18 @@ ggdraw() +
   draw_plot(p) +  
 * draw_image(logo_file, x = 1, hjust = 1, width = 0.13, height = 0.2)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_10_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1285,17 +1844,18 @@ ggdraw() +
   draw_image(logo_file, x = 1, hjust = 1, width = 0.13, height = 0.2) -&gt;  
 *logo_plot1
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1315,17 +1875,18 @@ logo_plot1
 
 *ggdraw()
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_12_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1346,17 +1907,18 @@ logo_plot1
 ggdraw() +  
 * draw_image(logo_file, scale = 0.5)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_13_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1378,17 +1940,18 @@ ggdraw() +
   draw_image(logo_file, scale = 0.5) +  
 * draw_plot(p)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_14_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1411,10 +1974,28 @@ ggdraw() +
   draw_plot(p) -&gt;  
 *logo_plot
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-draw-auto[
 
-]]
+]
+
+&lt;style&gt;
+.left-code-draw-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-draw-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -1427,72 +2008,32 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-bottom-auto[
 
 ```r
 *library(cowplot)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-bottom-auto[
 
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-bottom-auto[
 
 ```r
 library(cowplot)  
-*plot_grid(p1, p2,
-*         labels = c('B', 'C'),
-*         label_size = 12)
-```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/bottom_auto_2_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(cowplot)  
-plot_grid(p1, p2,  
-          labels = c('B', 'C'),  
-          label_size = 12) -&gt;  
-* bottom_row
-```
-]]
-.column[.content[
-
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-library(cowplot)  
-plot_grid(p1, p2,  
-          labels = c('B', 'C'),  
-          label_size = 12) -&gt;  
-  bottom_row  
 
 *mtcars
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-bottom-auto[
 
 ```
                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
@@ -1529,160 +2070,222 @@ Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
 Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
 Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-bottom-auto[
 
 ```r
 library(cowplot)  
-plot_grid(p1, p2,  
-          labels = c('B', 'C'),  
-          label_size = 12) -&gt;  
-  bottom_row  
 
 mtcars %&gt;%  
 *ggplot()
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/bottom_auto_5_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-bottom-auto[
+&lt;img src="ensembles_files/figure-html/bottom_auto_3_output-1.png" width="432" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-bottom-auto[
 
 ```r
 library(cowplot)  
-plot_grid(p1, p2,  
-          labels = c('B', 'C'),  
-          label_size = 12) -&gt;  
-  bottom_row  
 
 mtcars %&gt;%  
 ggplot() +  
 * aes(x = qsec, y = disp)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/bottom_auto_6_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-bottom-auto[
+&lt;img src="ensembles_files/figure-html/bottom_auto_4_output-1.png" width="432" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-bottom-auto[
 
 ```r
 library(cowplot)  
-plot_grid(p1, p2,  
-          labels = c('B', 'C'),  
-          label_size = 12) -&gt;  
-  bottom_row  
 
 mtcars %&gt;%  
 ggplot() +  
   aes(x = qsec, y = disp) +  
 * geom_point() + facet_wrap(~gear)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/bottom_auto_7_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-bottom-auto[
+&lt;img src="ensembles_files/figure-html/bottom_auto_5_output-1.png" width="432" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-bottom-auto[
 
 ```r
 library(cowplot)  
-plot_grid(p1, p2,  
-          labels = c('B', 'C'),  
-          label_size = 12) -&gt;  
-  bottom_row  
 
 mtcars %&gt;%  
 ggplot() +  
   aes(x = qsec, y = disp) +  
   geom_point() + facet_wrap(~gear) -&gt;  
-*p3
+*top_row
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-bottom-auto[
 
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-bottom-auto[
 
 ```r
 library(cowplot)  
-plot_grid(p1, p2,  
-          labels = c('B', 'C'),  
-          label_size = 12) -&gt;  
-  bottom_row  
 
 mtcars %&gt;%  
 ggplot() +  
   aes(x = qsec, y = disp) +  
   geom_point() + facet_wrap(~gear) -&gt;  
-p3  
+top_row  
+
+*plot_grid(p1, p2,
+*         labels = c('B', 'C'),
+*         label_size = 12)
+```
+]
+ 
+.right-output-bottom-auto[
+&lt;img src="ensembles_files/figure-html/bottom_auto_7_output-1.png" width="432" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-bottom-auto[
+
+```r
+library(cowplot)  
+
+mtcars %&gt;%  
+ggplot() +  
+  aes(x = qsec, y = disp) +  
+  geom_point() + facet_wrap(~gear) -&gt;  
+top_row  
+
+plot_grid(p1, p2,  
+          labels = c('B', 'C'),  
+          label_size = 12) -&gt;  
+*bottom_row
+```
+]
+ 
+.right-output-bottom-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-code-bottom-auto[
+
+```r
+library(cowplot)  
+
+mtcars %&gt;%  
+ggplot() +  
+  aes(x = qsec, y = disp) +  
+  geom_point() + facet_wrap(~gear) -&gt;  
+top_row  
+
+plot_grid(p1, p2,  
+          labels = c('B', 'C'),  
+          label_size = 12) -&gt;  
+bottom_row  
 
 *plot_grid(p3, bottom_row,
 *         labels = c('A', ''),
 *         label_size = 12, ncol = 1)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-bottom-auto[
 &lt;img src="ensembles_files/figure-html/bottom_auto_9_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-bottom-auto[
 
 ```r
 library(cowplot)  
-plot_grid(p1, p2,  
-          labels = c('B', 'C'),  
-          label_size = 12) -&gt;  
-  bottom_row  
 
 mtcars %&gt;%  
 ggplot() +  
   aes(x = qsec, y = disp) +  
   geom_point() + facet_wrap(~gear) -&gt;  
-p3  
+top_row  
+
+plot_grid(p1, p2,  
+          labels = c('B', 'C'),  
+          label_size = 12) -&gt;  
+bottom_row  
 
 plot_grid(p3, bottom_row,  
           labels = c('A', ''),  
           label_size = 12, ncol = 1) -&gt;  
 *my_plot4
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-bottom-auto[
 
-]]
+]
+
+&lt;style&gt;
+.left-code-bottom-auto {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-bottom-auto {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -1694,347 +2297,112 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow2-auto[
 
 ```r
-*ggplot(mpg, aes(displ, cty))
+*ggdraw(p1)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/lover_auto_1_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-cow2-auto[
+&lt;img src="ensembles_files/figure-html/cow2_auto_1_output-1.png" width="432" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow2-auto[
 
 ```r
-ggplot(mpg, aes(displ, cty)) +  
-* geom_point()
+ggdraw(p1) +  
+* draw_label("Draft", color = "#D0B0B0",
+*            size = 100, angle = 45)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/lover_auto_2_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-cow2-auto[
+&lt;img src="ensembles_files/figure-html/cow2_auto_2_output-1.png" width="432" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow2-auto[
 
 ```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-* theme_minimal_grid(12)
-```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/lover_auto_3_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-  theme_minimal_grid(12) -&gt;  
-*p 
-```
-]]
-.column[.content[
-
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-  theme_minimal_grid(12) -&gt;  
-p  
-
-*ggdraw(p)
-```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/lover_auto_5_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-  theme_minimal_grid(12) -&gt;  
-p  
-
-ggdraw(p) +  
-* draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45)
-```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/lover_auto_6_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-  theme_minimal_grid(12) -&gt;  
-p  
-
-ggdraw(p) +  
-  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+ggdraw(p1) +  
+  draw_label("Draft", color = "#D0B0B0",  
+             size = 100, angle = 45) -&gt;  
 *my_plot
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-cow2-auto[
 
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow2-auto[
 
 ```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-  theme_minimal_grid(12) -&gt;  
-p  
-
-ggdraw(p) +  
-  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+ggdraw(p1) +  
+  draw_label("Draft", color = "#D0B0B0",  
+             size = 100, angle = 45) -&gt;  
 my_plot  
 
-*ggplot(mpg, aes(drv))
+*ggdraw(p1 + theme_half_open(12))
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/lover_auto_8_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-cow2-auto[
+&lt;img src="ensembles_files/figure-html/cow2_auto_4_output-1.png" width="432" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow2-auto[
 
 ```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-  theme_minimal_grid(12) -&gt;  
-p  
-
-ggdraw(p) +  
-  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+ggdraw(p1) +  
+  draw_label("Draft", color = "#D0B0B0",  
+             size = 100, angle = 45) -&gt;  
 my_plot  
 
-ggplot(mpg, aes(drv)) +  
-* geom_bar(fill = "skyblue2", alpha = 0.7)
+ggdraw(p1 + theme_half_open(12)) +  
+* draw_plot(p2, .45, .45, .5, .5)
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/lover_auto_9_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-cow2-auto[
+&lt;img src="ensembles_files/figure-html/cow2_auto_5_output-1.png" width="432" /&gt;
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-cow2-auto[
 
 ```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-  theme_minimal_grid(12) -&gt;  
-p  
-
-ggdraw(p) +  
-  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
+ggdraw(p1) +  
+  draw_label("Draft", color = "#D0B0B0",  
+             size = 100, angle = 45) -&gt;  
 my_plot  
 
-ggplot(mpg, aes(drv)) +  
-  geom_bar(fill = "skyblue2", alpha = 0.7) +  
-* scale_y_continuous(expand = expand_scale(mult = c(0, 0.05)))
-```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/lover_auto_10_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-  theme_minimal_grid(12) -&gt;  
-p  
-
-ggdraw(p) +  
-  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
-my_plot  
-
-ggplot(mpg, aes(drv)) +  
-  geom_bar(fill = "skyblue2", alpha = 0.7) +  
-  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +  
-* theme_minimal_hgrid(11)
-```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/lover_auto_11_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-  theme_minimal_grid(12) -&gt;  
-p  
-
-ggdraw(p) +  
-  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
-my_plot  
-
-ggplot(mpg, aes(drv)) +  
-  geom_bar(fill = "skyblue2", alpha = 0.7) +  
-  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +  
-  theme_minimal_hgrid(11) -&gt;  
-*inset
-```
-]]
-.column[.content[
-
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-  theme_minimal_grid(12) -&gt;  
-p  
-
-ggdraw(p) +  
-  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
-my_plot  
-
-ggplot(mpg, aes(drv)) +  
-  geom_bar(fill = "skyblue2", alpha = 0.7) +  
-  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +  
-  theme_minimal_hgrid(11) -&gt;  
-inset  
-
-*ggdraw(p + theme_half_open(12))
-```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/lover_auto_13_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-  theme_minimal_grid(12) -&gt;  
-p  
-
-ggdraw(p) +  
-  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
-my_plot  
-
-ggplot(mpg, aes(drv)) +  
-  geom_bar(fill = "skyblue2", alpha = 0.7) +  
-  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +  
-  theme_minimal_hgrid(11) -&gt;  
-inset  
-
-ggdraw(p + theme_half_open(12)) +  
-* draw_plot(inset, .45, .45, .5, .5)
-```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/lover_auto_14_output-1.png" width="432" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-ggplot(mpg, aes(displ, cty)) +  
-  geom_point() +  
-  theme_minimal_grid(12) -&gt;  
-p  
-
-ggdraw(p) +  
-  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;  
-my_plot  
-
-ggplot(mpg, aes(drv)) +  
-  geom_bar(fill = "skyblue2", alpha = 0.7) +  
-  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +  
-  theme_minimal_hgrid(11) -&gt;  
-inset  
-
-ggdraw(p + theme_half_open(12)) +  
-  draw_plot(inset, .45, .45, .5, .5) +  
+ggdraw(p1 + theme_half_open(12)) +  
+  draw_plot(p2, .45, .45, .5, .5) +  
 * draw_plot_label(
 *   c("A", "B"),
 *   c(0, 0.45),
@@ -2042,39 +2410,30 @@ ggdraw(p + theme_half_open(12)) +
 *   size = 12
 * )
 ```
-]]
-.column[.content[
-&lt;img src="ensembles_files/figure-html/lover_auto_15_output-1.png" width="432" /&gt;
-]]
+]
+ 
+.right-output-cow2-auto[
+&lt;img src="ensembles_files/figure-html/cow2_auto_6_output-1.png" width="432" /&gt;
+]
+
+&lt;style&gt;
+.left-code-cow2-auto {
+  color: #777;
+  width: 59%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-cow2-auto {
+  width: 40%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
 
 
-```r
-ggplot(mpg, aes(displ, cty)) +
-  geom_point() +
-  theme_minimal_grid(12) -&gt;
-p
 
-ggdraw(p) + 
-  draw_label("Draft", color = "#C0A0A0", size = 100, angle = 45) -&gt;
-my_plot
 
-ggplot(mpg, aes(drv)) + 
-  geom_bar(fill = "skyblue2", alpha = 0.7) + 
-  scale_y_continuous(expand = expand_scale(mult = c(0, 0.05))) +
-  theme_minimal_hgrid(11) -&gt;
-inset
-
-ggdraw(p + theme_half_open(12)) +
-  draw_plot(inset, .45, .45, .5, .5) +
-  draw_plot_label(
-    c("A", "B"),
-    c(0, 0.45),
-    c(1, 0.95),
-    size = 12
-  )
-```
-
-&lt;img src="ensembles_files/figure-html/lover-1.png" width="432" /&gt;
 
 
 ---
@@ -2083,59 +2442,61 @@ class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-image-auto[
 
 ```r
 *library(cowplot)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-image-auto[
 
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-image-auto[
 
 ```r
 library(cowplot)  
 *library(magick)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-image-auto[
 
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-image-auto[
 
 ```r
 library(cowplot)  
 library(magick)  
 *system.file("extdata", "cow.jpg", package = "cowplot")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-image-auto[
 
 ```
 [1] "/Library/Frameworks/R.framework/Versions/3.6/Resources/library/cowplot/extdata/cow.jpg"
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-image-auto[
 
 ```r
 library(cowplot)  
@@ -2143,17 +2504,18 @@ library(magick)
 system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%  
 * magick::image_read()
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-image-auto[
 &lt;img src="ensembles_files/figure-html/image_auto_4_output-1.png" width="507" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-image-auto[
 
 ```r
 library(cowplot)  
@@ -2162,17 +2524,18 @@ system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%
   magick::image_read() %&gt;%  
 * magick::image_resize("570x380")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-image-auto[
 &lt;img src="ensembles_files/figure-html/image_auto_5_output-1.png" width="253" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-image-auto[
 
 ```r
 library(cowplot)  
@@ -2182,17 +2545,18 @@ system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%
   magick::image_resize("570x380") %&gt;%  
 * magick::image_colorize(35, "white")
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-image-auto[
 &lt;img src="ensembles_files/figure-html/image_auto_6_output-1.png" width="253" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-image-auto[
 
 ```r
 library(cowplot)  
@@ -2203,17 +2567,18 @@ system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%
   magick::image_colorize(35, "white") -&gt;  
 *img
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-image-auto[
 
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-image-auto[
 
 ```r
 library(cowplot)  
@@ -2226,17 +2591,18 @@ img
 
 *ggdraw()
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-image-auto[
 &lt;img src="ensembles_files/figure-html/image_auto_8_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-image-auto[
 
 ```r
 library(cowplot)  
@@ -2250,17 +2616,18 @@ img
 ggdraw() +  
 * draw_image(img)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-image-auto[
 &lt;img src="ensembles_files/figure-html/image_auto_9_output-1.png" width="432" /&gt;
-]]
+]
+
 ---
 class: split-40
 count: false
  
 
- 
-.column[.content[
+.left-code-image-auto[
 
 ```r
 library(cowplot)  
@@ -2275,10 +2642,28 @@ ggdraw() +
   draw_image(img) +  
 * draw_plot(p)
 ```
-]]
-.column[.content[
+]
+ 
+.right-output-image-auto[
 &lt;img src="ensembles_files/figure-html/image_auto_10_output-1.png" width="432" /&gt;
-]]
+]
+
+&lt;style&gt;
+.left-code-image-auto {
+  color: #777;
+  width: 59%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-output-image-auto {
+  width: 40%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
 
 
 
