@@ -6,7 +6,7 @@ output: html_document
 ---
 
 
-*Base R contains 657 different color names that can be used to get colors; those names can retrieved with the `colors()` function.  There are some names that refer to the same color like "gray" and "grey", and "bisque" and "bisque1".  All the names and corresponding colors are listed here alphabetically, except for greys/grays which are show at the bottom.*  
+*Base R contains 657 different color names that can be used to get colors; those names can retrieved with the `colors()` function.  There are some names that refer to the same color like "gray" and "grey", and "bisque" and "bisque1".  Most names and corresponding colors are listed here alphabetically, except for greys/grays which are show at the bottom.  A few named colors are not reproduced here.*  
 
 
 ```{r, echo = F, message=F, warning=F }
@@ -16,7 +16,7 @@ library(tidyverse)
 # colors() %>% 
 #   length()
 
-my_colors <- colors()[!str_detect(colors(), "^grey|^gray")]
+my_colors <- colors()[!str_detect(colors(), "^grey|^gray|indian|peru|navajo")]
 grays <- colors()[str_detect(colors(), "^grey|^gray")]
 
 num_columns <- 7
