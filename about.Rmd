@@ -206,7 +206,7 @@ Spatial with [geom_sf](geom_sf.html){target="_blank"}, [tmap](tmap.html){target=
 
 <div id="needtowrap">
 
-`r viztoc:::build_and_use_gif(dir = "geom_sf_files/figure-html/", pattern = "" , href = "geoms_sf.html", width = 150, height = 150, cached_gif = T, which = 80, delay = .22)`
+`r viztoc:::build_and_use_gif(dir = "geom_sf_files/figure-html/", pattern = "" , href = "geom_sf.html", width = 150, height = 150, cached_gif = T, which = 80, delay = .22)`
 
 `r viztoc:::build_and_use_gif(dir = "tmap_files/figure-html/", pattern = "" , href = "tmap.html" , width = 150, height = 150, cached_gif = T, which = 45, delay = .22)`
 
