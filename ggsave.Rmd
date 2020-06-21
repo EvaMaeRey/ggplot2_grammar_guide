@@ -31,7 +31,7 @@ name: saving
 
 Now you should know how to build a ggplot.  How can you save that plot?  
 
-First, you can save the entire plot as an object using the assignment operatore `<-`.  Below we call the plot `g`.  Then use the function ggsave() to save out your plot.  
+First, you can save the entire plot as an object using the assignment operator `<-`.  Below we call the plot `g`.  Then use the function ggsave() to save out your plot.  
 
 ```{r}
 g <- ggplot(gapminder_2002) +
@@ -182,7 +182,9 @@ knitr::include_graphics(path = "figures/my_plot8.png")
 ```
 
 
+---
 
+Next up is [composition](ensembles.html) -- plot ensembles my help tell your stories.
 
 
 ```{css, eval = TRUE, echo = F}

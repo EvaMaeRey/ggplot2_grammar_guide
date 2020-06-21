@@ -13,14 +13,13 @@ output:
       countIncrementalSlides: false
 ---
 
-```{r setup, echo=F}
+```{r setup, include=F}
 knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, comment = "", cache = T, fig.retina = 3)
 library(flipbookr)
-library(tidyverse)
+
 ```
 
 
----
 
 - transition - change the data
 - viewpoint - changing field of view
@@ -30,10 +29,11 @@ library(tidyverse)
 
 ---
 
-`r chunk_reveal("transitions", break_type = "rotate")`
+`r chunk_reveal("transitions", break_type = "rotate", widths = c(49,50))`
 
 ```{r transitions, include = F}
 options(gganimate.nframes = 50)
+library(tidyverse)
 library(gapminder)
 ggplot(data = gapminder) +
   aes(x = gdpPercap) +
@@ -58,7 +58,7 @@ animate(plot = g)
 
 ---
 
-`r chunk_reveal("time_series_point", break_type = "rotate")`
+`r chunk_reveal("time_series_point", break_type = "rotate", widths = c(49,50))`
 
 
 ```{r time_series_point, include = F}
@@ -86,15 +86,15 @@ animate(plot = g)
 
 ---
 
-# geom_line(),  goem_path
+# geom_line(),  geom_path
 
 ---
 
-`r chunk_reveal("time_series", break_type = 1)`
+`r chunk_reveal("time_series", break_type = 1, widths = c(49,50))`
 
 
 ```{r time_series, include = F}
-options(gganimate.nframes = 10)
+options(gganimate.nframes = 20)
 library(gapminder)
 ggplot(data = gapminder) +
   aes(x = year) +
@@ -115,11 +115,11 @@ animate(plot = g)
 
 ---
 
-`r chunk_reveal("time_series_path", break_type = 1)`
+`r chunk_reveal("time_series_path", break_type = 1, widths = c(49,50))`
 
 
 ```{r time_series_path, include = F}
-options(gganimate.nframes = 10)
+options(gganimate.nframes = 30)
 library(gapminder)
 ggplot(data = gapminder) +
   aes(x = gdpPercap) +
@@ -139,126 +139,7 @@ animate(plot = g)
 
 
 
----
-
-r chunk_reveal("enter_exit", break_type = "rotate")`
-
-```{r enter_exit, eval = F, echo = F}
-library(gganimate)
-options(gganimate.nframes = 10)
-library(gapminder)
-gapminder %>% 
-  filter(year > 1990) %>% 
-  ggplot(data = .) +
-  aes(x = year) +
-  aes(y = lifeExp) +
-  aes(group = country) + 
-  geom_point(size = 20) +
-  aes(color = continent) +
-  facet_wrap(~ continent) +
-  transition_events(start = year, end = as.integer(year + 1), enter_length = 1L, exit_length = 1L) + 
-  NULL + #ROTATE
-  enter_fade() + exit_fade() + #ROTATE
-  enter_fly() + exit_fly() + #ROTATE
-  enter_appear() + exit_disappear() + #ROTATE
-  enter_grow() + exit_shrink() + #ROTATE
-  NULL ->
-g
-
-animate(plot = g)
-```
 
 
 
-
----
-
-r chunk_reveal("enter_exit_col", break_type = "rotate")`
-
-```{r enter_exit_col, echo = F, eval = F}
-library(gganimate)
-options(gganimate.nframes = 10)
-library(gapminder)
-gapminder %>% 
-  filter(continent == "Oceania") %>% 
-  filter(year > 1990) %>% 
-  ggplot(data = .) +
-  aes(x = factor(year)) +
-  aes(y = lifeExp) +
-  geom_col(position = "dodge") +
-  aes(fill = country) +
-  transition_states(states = year) +
-  NULL + #ROTATE
-  enter_fade() +  #ROTATE
-  enter_fly() + #ROTATE
-  enter_appear() + #ROTATE
-  enter_grow() + #ROTATE
-  shadow_mark() ->
-g
-
-animate(plot = g)
-```
-
-
-
-
-
----
-
-# shadow_*()
-
----
-
-`r chunk_reveal("transitions_shadow", break_type = "rotate")`
-
-```{r transitions_shadow, echo = F, eval = F}
-options(gganimate.nframes = 10)
-library(gapminder)
-ggplot(data = gapminder) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  aes(group = country) +
-  geom_point() +
-  aes(color = continent) +
-  aes(size = pop) +
-  scale_x_log10() +
-  gganimate::transition_time(time = year) + 
-  NULL + # current location no shadow no memory #ROTATE
-  shadow_mark() + # leave mark where actual data exists #ROTATE
-  shadow_trail() + # like crumbs along the way #ROTATE
-  shadow_wake(wake_length = .25) + # tail in recent #ROTATE
-  NULL ->
-g
-
-animate(plot = g, detail = 10)
-```
-
----
-
-# speed - nframes
-
----
-
-`r chunk_reveal("speed", break_type = "rotate")`
-
-```{r speed, echo = F, eval = F}
-options(gganimate.nframes = 10) #ROTATE
-options(gganimate.nframes = 20) #ROTATE
-options(gganimate.nframes = 30) #ROTATE
-options(gganimate.nframes = 40) #ROTATE
-
-library(gapminder)
-ggplot(data = gapminder) +
-  aes(x = gdpPercap) +
-  aes(y = lifeExp) +
-  aes(group = country) +
-  geom_point() +
-  aes(color = continent) +
-  aes(size = pop) +
-  scale_x_log10() +
-  gganimate::transition_time(time = year) -> # tail in recent #ROTATE
-g
-
-animate(plot = g, detail = 10)
-```
 

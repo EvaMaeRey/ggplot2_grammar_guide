@@ -3,9 +3,9 @@
   <head>
     <title>fine tuning ggplot themes</title>
     <meta charset="utf-8" />
-    <meta name="author" content="  Gina Reynolds, May 2019" />
-    <link href="libs/remark-css-0.0.1/kunoichi.css" rel="stylesheet" />
+    <meta name="author" content="  Gina Reynolds" />
     <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -13,7 +13,7 @@ class: center, middle, inverse, title-slide
 
 # fine tuning ggplot themes
 ## a flipbook | made with Xaringan
-### <br><br>Gina Reynolds, May 2019
+### <br><br>Gina Reynolds
 ### <br>
 
 ---
@@ -22,96 +22,267 @@ class: center, middle, inverse, title-slide
 
 
 
----
 
-Some ideas from ["The Glamour of Graphics"](https://resources.rstudio.com/rstudio-conf-2020/the-glamour-of-graphics-william-chase)
 
---
-- engage a wider audience
-
---
-- aesthetic-usability effect
-
---
-- respect for your audience
-
---
-
-## Glamour and Grammar etymological connection!
-
----
-
-# Layout
-
---
-- Mostly left alignment of text
-
---
-- titles - *plot* left alignment
-
---
-- no head tilting
-
---
-- get rid of labels if possible
-
---
-- rethink legend position, or alternatives: labeling data, or color mapping
-
---
-- be borders skeptical
-
---
-- be gridline skeptical
-
---
-- try to avoid legends
-
---
-- white space - use it!
 
 
 ---
 
-# Typography
+name: themes
 
+# Greetings: Themes
 
---
-- effects tone
-
---
-- https://practicaltypography.com/
-
---
-- https://fonts.google.com/ (source family)
-
---
-- typographic hiararchy - size, weight, spacing
-
---
-- don't use "oldstyle" numbers, do use *tabular* numbers
-
---
-- https://cran.r-project.org/web/packages/svglite/vignettes/fonts.html
-
-  
-To be continued...  [](https://cran.r-project.org/web/packages/svglite/vignettes/fonts.html)
-  
+It may seem just cosmetic, but themes can have a big impact on the look and feel of you final plot.  The thematic elements are what first meet the eye.  For more information on fine adjustment of thematic elements, have a look at the [taming ggplot themes flipbook](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1).  First, let's check out how to change the look and feel of your graph with some preset themes.  
 
 ---
 
-# Color
+class: split-40
+count: false
+ 
 
-Check out the [color](color.html) slides. 
+.left-panel-themes-rotate[
 
---
-- also eyedropper tool
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+  theme_bw()   
+```
+]
+ 
+.right-panel-themes-rotate[
+&lt;img src="themes_files/figure-html/themes_rotate_1_output-1.png" width="100%" /&gt;
+]
 
---
-- use hue saturation value selection
+---
+class: split-40
+count: false
+ 
 
---
-- non-white backgrounds
+.left-panel-themes-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* theme_classic()
+```
+]
+ 
+.right-panel-themes-rotate[
+&lt;img src="themes_files/figure-html/themes_rotate_2_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-themes-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* theme_gray()
+```
+]
+ 
+.right-panel-themes-rotate[
+&lt;img src="themes_files/figure-html/themes_rotate_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-themes-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* theme_light()
+```
+]
+ 
+.right-panel-themes-rotate[
+&lt;img src="themes_files/figure-html/themes_rotate_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-themes-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* theme_minimal()
+```
+]
+ 
+.right-panel-themes-rotate[
+&lt;img src="themes_files/figure-html/themes_rotate_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-themes-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* theme_void()
+```
+]
+ 
+.right-panel-themes-rotate[
+&lt;img src="themes_files/figure-html/themes_rotate_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-themes-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* theme_light(base_size = 10, base_family = "Times")
+```
+]
+ 
+.right-panel-themes-rotate[
+&lt;img src="themes_files/figure-html/themes_rotate_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-themes-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* theme_classic(base_family = "Rockwell")
+```
+]
+ 
+.right-panel-themes-rotate[
+&lt;img src="themes_files/figure-html/themes_rotate_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-themes-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* theme_dark(base_line_size = 14)
+```
+]
+ 
+.right-panel-themes-rotate[
+&lt;img src="themes_files/figure-html/themes_rotate_9_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-themes-rotate[
+
+```r
+ggplot(data = gapminder_2002) +  
+  aes(x = gdpPercap) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* theme_minimal(base_rect_size = 10)
+```
+]
+ 
+.right-panel-themes-rotate[
+&lt;img src="themes_files/figure-html/themes_rotate_10_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-panel-themes-rotate {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-panel-themes-rotate {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-themes-rotate {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+
+
+
+---
+
+
+## Now we can turn to fine tuning.  The theme function almost has a grammar of it's own.  It's a bit much. 
+
+
 
 
 ---
@@ -143,14 +314,17 @@ Check out the [color](color.html) slides.
 
 
 
+
+
+
+
 ---
 
-# Introduction
+# Before we begin
 
-This is a focused extension of [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html).The aim is to illuminate theme statements. 
+This resource is focused on fine tuning and communicating what code gives what output.  
 
-
-
+Also, load some libraries:
 
 
 ```r
@@ -158,516 +332,6 @@ options(scipen = 10) # adjust when scientific notation turns on
 library(tidyverse)
 library(gapminder)
 ```
-
-
----
-
-# Before we begin
-
-This resource is focused on fine tuning and communicating what code gives what output.  However after you are done fine-tuning you might be interested in saving your thematic choices.  Theme choices can be bundled in a theme set statement and then subsequent plots will hold onto those choices and apply them in subsequent plot.  
-
-https://ggplot2.tidyverse.org/reference/theme_get.html
-
-
----
-
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-*theme(rect = element_rect(fill = "snow3"))
-```
-]]
-.column[.content[
-
-```
-  List of 1
-   $ rect:List of 5
-    ..$ fill         : chr "snow3"
-    ..$ colour       : NULL
-    ..$ size         : NULL
-    ..$ linetype     : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_rect" "element"
-   - attr(*, "class")= chr [1:2] "theme" "gg"
-   - attr(*, "complete")= logi FALSE
-   - attr(*, "validate")= logi TRUE
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-theme(rect = element_rect(fill = "snow3")) +  
-* theme(text = element_text(family = "Times New Roman"))
-```
-]]
-.column[.content[
-
-```
-  List of 2
-   $ rect:List of 5
-    ..$ fill         : chr "snow3"
-    ..$ colour       : NULL
-    ..$ size         : NULL
-    ..$ linetype     : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_rect" "element"
-   $ text:List of 11
-    ..$ family       : chr "Times New Roman"
-    ..$ face         : NULL
-    ..$ colour       : NULL
-    ..$ size         : NULL
-    ..$ hjust        : NULL
-    ..$ vjust        : NULL
-    ..$ angle        : NULL
-    ..$ lineheight   : NULL
-    ..$ margin       : NULL
-    ..$ debug        : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_text" "element"
-   - attr(*, "class")= chr [1:2] "theme" "gg"
-   - attr(*, "complete")= logi FALSE
-   - attr(*, "validate")= logi TRUE
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-theme(rect = element_rect(fill = "snow3")) +  
-  theme(text = element_text(family = "Times New Roman")) +  
-* theme(axis.title = element_text(color = "slateblue4"))
-```
-]]
-.column[.content[
-
-```
-  List of 3
-   $ rect      :List of 5
-    ..$ fill         : chr "snow3"
-    ..$ colour       : NULL
-    ..$ size         : NULL
-    ..$ linetype     : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_rect" "element"
-   $ text      :List of 11
-    ..$ family       : chr "Times New Roman"
-    ..$ face         : NULL
-    ..$ colour       : NULL
-    ..$ size         : NULL
-    ..$ hjust        : NULL
-    ..$ vjust        : NULL
-    ..$ angle        : NULL
-    ..$ lineheight   : NULL
-    ..$ margin       : NULL
-    ..$ debug        : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_text" "element"
-   $ axis.title:List of 11
-    ..$ family       : NULL
-    ..$ face         : NULL
-    ..$ colour       : chr "slateblue4"
-    ..$ size         : NULL
-    ..$ hjust        : NULL
-    ..$ vjust        : NULL
-    ..$ angle        : NULL
-    ..$ lineheight   : NULL
-    ..$ margin       : NULL
-    ..$ debug        : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_text" "element"
-   - attr(*, "class")= chr [1:2] "theme" "gg"
-   - attr(*, "complete")= logi FALSE
-   - attr(*, "validate")= logi TRUE
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-theme(rect = element_rect(fill = "snow3")) +  
-  theme(text = element_text(family = "Times New Roman")) +  
-  theme(axis.title = element_text(color = "slateblue4")) +  
-* theme(title = element_text(color = "seagreen"))
-```
-]]
-.column[.content[
-
-```
-  List of 4
-   $ rect      :List of 5
-    ..$ fill         : chr "snow3"
-    ..$ colour       : NULL
-    ..$ size         : NULL
-    ..$ linetype     : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_rect" "element"
-   $ text      :List of 11
-    ..$ family       : chr "Times New Roman"
-    ..$ face         : NULL
-    ..$ colour       : NULL
-    ..$ size         : NULL
-    ..$ hjust        : NULL
-    ..$ vjust        : NULL
-    ..$ angle        : NULL
-    ..$ lineheight   : NULL
-    ..$ margin       : NULL
-    ..$ debug        : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_text" "element"
-   $ axis.title:List of 11
-    ..$ family       : NULL
-    ..$ face         : NULL
-    ..$ colour       : chr "slateblue4"
-    ..$ size         : NULL
-    ..$ hjust        : NULL
-    ..$ vjust        : NULL
-    ..$ angle        : NULL
-    ..$ lineheight   : NULL
-    ..$ margin       : NULL
-    ..$ debug        : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_text" "element"
-   $ title     :List of 11
-    ..$ family       : NULL
-    ..$ face         : NULL
-    ..$ colour       : chr "seagreen"
-    ..$ size         : NULL
-    ..$ hjust        : NULL
-    ..$ vjust        : NULL
-    ..$ angle        : NULL
-    ..$ lineheight   : NULL
-    ..$ margin       : NULL
-    ..$ debug        : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_text" "element"
-   - attr(*, "class")= chr [1:2] "theme" "gg"
-   - attr(*, "complete")= logi FALSE
-   - attr(*, "validate")= logi TRUE
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-theme(rect = element_rect(fill = "snow3")) +  
-  theme(text = element_text(family = "Times New Roman")) +  
-  theme(axis.title = element_text(color = "slateblue4")) +  
-  theme(title = element_text(color = "seagreen")) +  
-* theme(axis.line = element_line(color = "orange"))
-```
-]]
-.column[.content[
-
-```
-  List of 5
-   $ rect      :List of 5
-    ..$ fill         : chr "snow3"
-    ..$ colour       : NULL
-    ..$ size         : NULL
-    ..$ linetype     : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_rect" "element"
-   $ text      :List of 11
-    ..$ family       : chr "Times New Roman"
-    ..$ face         : NULL
-    ..$ colour       : NULL
-    ..$ size         : NULL
-    ..$ hjust        : NULL
-    ..$ vjust        : NULL
-    ..$ angle        : NULL
-    ..$ lineheight   : NULL
-    ..$ margin       : NULL
-    ..$ debug        : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_text" "element"
-   $ axis.title:List of 11
-    ..$ family       : NULL
-    ..$ face         : NULL
-    ..$ colour       : chr "slateblue4"
-    ..$ size         : NULL
-    ..$ hjust        : NULL
-    ..$ vjust        : NULL
-    ..$ angle        : NULL
-    ..$ lineheight   : NULL
-    ..$ margin       : NULL
-    ..$ debug        : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_text" "element"
-   $ title     :List of 11
-    ..$ family       : NULL
-    ..$ face         : NULL
-    ..$ colour       : chr "seagreen"
-    ..$ size         : NULL
-    ..$ hjust        : NULL
-    ..$ vjust        : NULL
-    ..$ angle        : NULL
-    ..$ lineheight   : NULL
-    ..$ margin       : NULL
-    ..$ debug        : NULL
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_text" "element"
-   $ axis.line :List of 6
-    ..$ colour       : chr "orange"
-    ..$ size         : NULL
-    ..$ linetype     : NULL
-    ..$ lineend      : NULL
-    ..$ arrow        : logi FALSE
-    ..$ inherit.blank: logi FALSE
-    ..- attr(*, "class")= chr [1:2] "element_line" "element"
-   - attr(*, "class")= chr [1:2] "theme" "gg"
-   - attr(*, "complete")= logi FALSE
-   - attr(*, "validate")= logi TRUE
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-theme(rect = element_rect(fill = "snow3")) +  
-  theme(text = element_text(family = "Times New Roman")) +  
-  theme(axis.title = element_text(color = "slateblue4")) +  
-  theme(title = element_text(color = "seagreen")) +  
-  theme(axis.line = element_line(color = "orange")) -&gt;  
-*my_theme
-```
-]]
-.column[.content[
-
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-theme(rect = element_rect(fill = "snow3")) +  
-  theme(text = element_text(family = "Times New Roman")) +  
-  theme(axis.title = element_text(color = "slateblue4")) +  
-  theme(title = element_text(color = "seagreen")) +  
-  theme(axis.line = element_line(color = "orange")) -&gt;  
-my_theme  
-
-*cars
-```
-]]
-.column[.content[
-
-```
-     speed dist
-  1      4    2
-  2      4   10
-  3      7    4
-  4      7   22
-  5      8   16
-  6      9   10
-  7     10   18
-  8     10   26
-  9     10   34
-  10    11   17
-  11    11   28
-  12    12   14
-  13    12   20
-  14    12   24
-  15    12   28
-  16    13   26
-  17    13   34
-  18    13   34
-  19    13   46
-  20    14   26
-  21    14   36
-  22    14   60
-  23    14   80
-  24    15   20
-  25    15   26
-  26    15   54
-  27    16   32
-  28    16   40
-  29    17   32
-  30    17   40
-  31    17   50
-  32    18   42
-  33    18   56
-  34    18   76
-  35    18   84
-  36    19   36
-  37    19   46
-  38    19   68
-  39    20   32
-  40    20   48
-  41    20   52
-  42    20   56
-  43    20   64
-  44    22   66
-  45    23   54
-  46    24   70
-  47    24   92
-  48    24   93
-  49    24  120
-  50    25   85
-```
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-theme(rect = element_rect(fill = "snow3")) +  
-  theme(text = element_text(family = "Times New Roman")) +  
-  theme(axis.title = element_text(color = "slateblue4")) +  
-  theme(title = element_text(color = "seagreen")) +  
-  theme(axis.line = element_line(color = "orange")) -&gt;  
-my_theme  
-
-cars %&gt;%  
-* ggplot()
-```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/bundle_auto_8_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-theme(rect = element_rect(fill = "snow3")) +  
-  theme(text = element_text(family = "Times New Roman")) +  
-  theme(axis.title = element_text(color = "slateblue4")) +  
-  theme(title = element_text(color = "seagreen")) +  
-  theme(axis.line = element_line(color = "orange")) -&gt;  
-my_theme  
-
-cars %&gt;%  
-  ggplot() +  
-* aes(x = speed)
-```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/bundle_auto_9_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-theme(rect = element_rect(fill = "snow3")) +  
-  theme(text = element_text(family = "Times New Roman")) +  
-  theme(axis.title = element_text(color = "slateblue4")) +  
-  theme(title = element_text(color = "seagreen")) +  
-  theme(axis.line = element_line(color = "orange")) -&gt;  
-my_theme  
-
-cars %&gt;%  
-  ggplot() +  
-  aes(x = speed) +  
-* aes(y = dist)
-```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/bundle_auto_10_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-theme(rect = element_rect(fill = "snow3")) +  
-  theme(text = element_text(family = "Times New Roman")) +  
-  theme(axis.title = element_text(color = "slateblue4")) +  
-  theme(title = element_text(color = "seagreen")) +  
-  theme(axis.line = element_line(color = "orange")) -&gt;  
-my_theme  
-
-cars %&gt;%  
-  ggplot() +  
-  aes(x = speed) +  
-  aes(y = dist) +  
-* geom_point()
-```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/bundle_auto_11_output-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
- 
-
- 
-.column[.content[
-
-```r
-theme(rect = element_rect(fill = "snow3")) +  
-  theme(text = element_text(family = "Times New Roman")) +  
-  theme(axis.title = element_text(color = "slateblue4")) +  
-  theme(title = element_text(color = "seagreen")) +  
-  theme(axis.line = element_line(color = "orange")) -&gt;  
-my_theme  
-
-cars %&gt;%  
-  ggplot() +  
-  aes(x = speed) +  
-  aes(y = dist) +  
-  geom_point() +  
-* my_theme
-```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/bundle_auto_12_output-1.png" width="100%" /&gt;
-]]
-
-
-
 
 
 
@@ -685,13 +349,16 @@ We'll work with the plot below to apply all the theme adjustments.  In the next 
 
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 *gapminder
 ```
-]]
-.column[.content[
+]
+ 
+.right-panel-the_plot-auto[
 
 ```
   # A tibble: 1,704 x 6
@@ -709,18 +376,22 @@ count: false
   10 Afghanistan Asia       1997    41.8 22227415      635.
   # … with 1,694 more rows
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
 * filter(year == 1992)
 ```
-]]
-.column[.content[
+]
+ 
+.right-panel-the_plot-auto[
 
 ```
   # A tibble: 142 x 6
@@ -738,25 +409,32 @@ gapminder %&gt;%
   10 Belgium     Europe     1992    76.5  10045622    25576.
   # … with 132 more rows
 ```
-]]
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
   filter(year == 1992) %&gt;%  
 * ggplot()
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_3-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_3_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -764,14 +442,18 @@ gapminder %&gt;%
   ggplot() +  
 * aes(x = gdpPercap, y = lifeExp)
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_4-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_4_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -781,14 +463,18 @@ gapminder %&gt;%
 * geom_point(alpha = .8, shape = 21,
 *            fill = "white")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_6-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_5_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -799,14 +485,18 @@ gapminder %&gt;%
              fill = "white") +  
 * aes(col = continent, fill = continent)
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_7-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_6_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -818,14 +508,18 @@ gapminder %&gt;%
   aes(col = continent, fill = continent) +  
 * geom_point(alpha = .3, shape = 21)
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_8-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_7_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -838,14 +532,18 @@ gapminder %&gt;%
   geom_point(alpha = .3, shape = 21) +  
 * aes(size = pop)
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_9-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_8_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -859,14 +557,18 @@ gapminder %&gt;%
   aes(size = pop) +  
 * scale_size(guide = F)
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_10-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_9_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -881,14 +583,18 @@ gapminder %&gt;%
   scale_size(guide = F) +  
 * labs(title = "Wealth and expected longevity\n in 1992")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_11-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_10_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -904,14 +610,18 @@ gapminder %&gt;%
   labs(title = "Wealth and expected longevity\n in 1992") +  
 * labs(subtitle = "Data from gapminder package in R")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_12-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_11_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -928,14 +638,18 @@ gapminder %&gt;%
   labs(subtitle = "Data from gapminder package in R") +  
 * labs(x = "GDP per Capita")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_13-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_12_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -953,14 +667,18 @@ gapminder %&gt;%
   labs(x = "GDP per Capita") +  
 * labs(y = "Life Expectency")   # a tag is also an option
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_14-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_13_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -979,14 +697,18 @@ gapminder %&gt;%
   labs(y = "Life Expectency") +  # a tag is also an option
 * labs(col = "Continent", fill = "Continent")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_15-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_14_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -1006,14 +728,18 @@ gapminder %&gt;%
   labs(col = "Continent", fill = "Continent") +  
 * labs(caption = "Vis: @EvaMaeRey with ggplot")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_the_plot_16-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-the_plot-auto[
+&lt;img src="themes_files/figure-html/the_plot_auto_15_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-the_plot-auto[
 
 ```r
 gapminder %&gt;%  
@@ -1034,10 +760,35 @@ gapminder %&gt;%
   labs(caption = "Vis: @EvaMaeRey with ggplot") -&gt;  
 *g 
 ```
-]]
-.column[.content[
+]
+ 
+.right-panel-the_plot-auto[
 
-]]
+]
+
+&lt;style&gt;
+.left-panel-the_plot-auto {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-panel-the_plot-auto {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-the_plot-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -1130,46 +881,60 @@ Later we'll walk through a more focused adjustments.  We'll go through time elem
 
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 *g 
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_1-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_1_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
 * theme(rect = element_rect(fill = "snow3"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_2-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_2_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
   theme(rect = element_rect(fill = "snow3")) +  
 * theme(text = element_text(family = "Times New Roman"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_3-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_3_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1177,14 +942,18 @@ g +
   theme(text = element_text(family = "Times New Roman")) +  
 * theme(axis.title = element_text(color = "slateblue4"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_4-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_4_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1193,14 +962,18 @@ g +
   theme(axis.title = element_text(color = "slateblue4")) +  
 * theme(title = element_text(color = "seagreen"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_5-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_5_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1210,14 +983,18 @@ g +
   theme(title = element_text(color = "seagreen")) +  
 * theme(axis.line = element_line(color = "orange"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_6-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_6_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1228,14 +1005,18 @@ g +
   theme(axis.line = element_line(color = "orange")) +  
 * theme(legend.key = element_rect(fill = "violet"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_7-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_7_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1247,14 +1028,18 @@ g +
   theme(legend.key = element_rect(fill = "violet")) +  
 * theme(axis.ticks = element_line(color = "blue"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_8-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_8_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1267,14 +1052,18 @@ g +
   theme(axis.ticks = element_line(color = "blue")) +  
 * theme(axis.ticks.x = element_blank())
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_9-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_9_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1288,14 +1077,18 @@ g +
   theme(axis.ticks.x = element_blank()) +  
 * theme(panel.background = element_rect(fill = "steelblue"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_10-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_10_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1311,14 +1104,18 @@ g +
 * theme(panel.grid =
 *         element_line(size = 3, color = "thistle1"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_12-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_11_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1335,14 +1132,18 @@ g +
           element_line(size = 3, color = "thistle1")) +  
 * theme(legend.background = element_rect(fill = "goldenrod1"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_13-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_12_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1360,14 +1161,18 @@ g +
   theme(legend.background = element_rect(fill = "goldenrod1")) +  
 * theme(legend.text = element_text(size = 7))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_14-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_13_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1386,14 +1191,18 @@ g +
   theme(legend.text = element_text(size = 7)) +  
 * theme(legend.position = "bottom")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_15-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_14_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1414,14 +1223,18 @@ g +
 * theme(legend.margin = margin(t = 0, r = 20,
 *                              b = 0, l = 40, unit = "pt"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_17-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_15_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-custom_theme-auto[
 
 ```r
 g +  
@@ -1443,10 +1256,35 @@ g +
                                b = 0, l = 40, unit = "pt")) +  
 * theme(aspect.ratio = .5)
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_custom_theme_18-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-custom_theme-auto[
+&lt;img src="themes_files/figure-html/custom_theme_auto_16_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-panel-custom_theme-auto {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-panel-custom_theme-auto {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-custom_theme-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -1500,32 +1338,42 @@ name: textelements
 
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 *g 
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_1-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_1_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
 * theme(plot.title.position = "plot")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_2-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_2_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1533,14 +1381,18 @@ g +
 * theme(plot.tag =
 *         element_text(color = "plum4", size = 25))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_4-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_3_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1552,14 +1404,18 @@ g +
 *                      size = 20,
 *                      lineheight = 2.5))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_8-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_4_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1572,14 +1428,18 @@ g +
                        lineheight = 2.5)) +  
 * theme(plot.subtitle = element_text(color = "plum4"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_9-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_5_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1595,14 +1455,18 @@ g +
 *         element_text(color = "plum4",
 *                      size = rel(3)))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_12-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_6_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1619,14 +1483,18 @@ g +
                        size = rel(3))) +  
 * theme(axis.text.y = element_text(color = "plum4"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_13-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_7_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1645,14 +1513,18 @@ g +
 * theme(legend.title =
 *         element_text(color = "plum4", size = 22))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_15-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_8_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1672,14 +1544,18 @@ g +
           element_text(color = "plum4", size = 22)) +  
 * theme(legend.text = element_text(color = "plum4"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_16-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_9_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1700,14 +1576,18 @@ g +
   theme(legend.text = element_text(color = "plum4")) +  
 * theme(axis.title.x = element_text(color = "plum4"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_17-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_10_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1729,14 +1609,18 @@ g +
   theme(axis.title.x = element_text(color = "plum4")) +  
 * theme(axis.text.x = element_text(color = "plum4"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_18-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_11_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1760,14 +1644,18 @@ g +
 * theme(plot.caption =
 *         element_text(color = "plum4", size = 20))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_20-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_12_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1792,14 +1680,18 @@ g +
           element_text(color = "plum4", size = 20)) +  
 * theme(text = element_text(family = "Times"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_21-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_13_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1825,14 +1717,18 @@ g +
   theme(text = element_text(family = "Times")) +  
 * theme(text = element_text(face = "bold.italic"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_22-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_14_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1861,14 +1757,18 @@ g +
 *   margin = margin(t = 3, r = 3, b = 3, l = 3,
 *                   unit = "pt")))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_25-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_15_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1898,14 +1798,18 @@ g +
                     unit = "pt"))) +  
 * theme(text = element_text(angle = 2))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_26-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_16_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1936,14 +1840,18 @@ g +
   theme(text = element_text(angle = 2)) +  
 * theme(plot.title = element_text(hjust = .5))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_27-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_17_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-text_components-auto[
 
 ```r
 g +  
@@ -1975,10 +1883,35 @@ g +
   theme(plot.title = element_text(hjust = .5)) +  
 * theme(axis.title.x = element_text(hjust = 1))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_text_components_28-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-text_components-auto[
+&lt;img src="themes_files/figure-html/text_components_auto_18_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-panel-text_components-auto {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-panel-text_components-auto {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-text_components-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
 
 
 ---
@@ -1997,19 +1930,25 @@ name: rectangularelements
 
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-rect_components-auto[
 
 ```r
 *g 
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_rect_components_1-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-rect_components-auto[
+&lt;img src="themes_files/figure-html/rect_components_auto_1_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-rect_components-auto[
 
 ```r
 g +  
@@ -2018,14 +1957,18 @@ g +
 *                      color = "darkolivegreen",
 *                      size = 3))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_rect_components_5-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-rect_components-auto[
+&lt;img src="themes_files/figure-html/rect_components_auto_2_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-rect_components-auto[
 
 ```r
 g +  
@@ -2038,14 +1981,18 @@ g +
 *                      color = "darkolivegreen",
 *                      size = 3))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_rect_components_9-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-rect_components-auto[
+&lt;img src="themes_files/figure-html/rect_components_auto_3_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-rect_components-auto[
 
 ```r
 g +  
@@ -2062,14 +2009,18 @@ g +
 *                      color = "darkolivegreen",
 *                      size = 3))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_rect_components_13-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-rect_components-auto[
+&lt;img src="themes_files/figure-html/rect_components_auto_4_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-rect_components-auto[
 
 ```r
 g +  
@@ -2090,14 +2041,18 @@ g +
 *                      color = "darkolivegreen",
 *                      size = 3))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_rect_components_17-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-rect_components-auto[
+&lt;img src="themes_files/figure-html/rect_components_auto_5_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-rect_components-auto[
 
 ```r
 g +  
@@ -2121,10 +2076,35 @@ g +
 *         element_rect(color = "magenta",
 *                      fill = NA, size = 4))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_rect_components_20-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-rect_components-auto[
+&lt;img src="themes_files/figure-html/rect_components_auto_6_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-panel-rect_components-auto {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-panel-rect_components-auto {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-rect_components-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
 
 ---
 
@@ -2141,19 +2121,25 @@ name: lineelements
 
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-line_components-auto[
 
 ```r
 *g 
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_line_components_1-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-line_components-auto[
+&lt;img src="themes_files/figure-html/line_components_auto_1_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-line_components-auto[
 
 ```r
 g +  
@@ -2161,14 +2147,18 @@ g +
 *         element_line(size = 10,
 *                      color = "blue"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_line_components_4-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-line_components-auto[
+&lt;img src="themes_files/figure-html/line_components_auto_2_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-line_components-auto[
 
 ```r
 g +  
@@ -2179,14 +2169,18 @@ g +
 *         element_line(size = 10,
 *                      color = "blue"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_line_components_7-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-line_components-auto[
+&lt;img src="themes_files/figure-html/line_components_auto_3_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-line_components-auto[
 
 ```r
 g +  
@@ -2202,14 +2196,18 @@ g +
 *                      color = "blue",
 *                      lineend = "round"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_line_components_12-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-line_components-auto[
+&lt;img src="themes_files/figure-html/line_components_auto_4_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-line_components-auto[
 
 ```r
 g +  
@@ -2230,14 +2228,18 @@ g +
 *                      color = "blue",
 *                      lineend = "round"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_line_components_17-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-line_components-auto[
+&lt;img src="themes_files/figure-html/line_components_auto_5_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-line_components-auto[
 
 ```r
 g +  
@@ -2263,14 +2265,18 @@ g +
 *                      color = "blue",
 *                      lineend = "butt"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_line_components_22-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-line_components-auto[
+&lt;img src="themes_files/figure-html/line_components_auto_6_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-line_components-auto[
 
 ```r
 g +  
@@ -2298,14 +2304,18 @@ g +
 * theme(panel.grid =
 *         element_line(color = "blue"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_line_components_24-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-line_components-auto[
+&lt;img src="themes_files/figure-html/line_components_auto_7_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-line_components-auto[
 
 ```r
 g +  
@@ -2336,14 +2346,18 @@ g +
 *         element_line(size = 2,
 *                      color = "blue"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_line_components_27-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-line_components-auto[
+&lt;img src="themes_files/figure-html/line_components_auto_8_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-line_components-auto[
 
 ```r
 g +  
@@ -2376,10 +2390,35 @@ g +
 * theme(panel.ontop = TRUE,
 *       panel.background = element_blank())  # in front of the data
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_line_components_29-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-line_components-auto[
+&lt;img src="themes_files/figure-html/line_components_auto_9_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-panel-line_components-auto {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-panel-line_components-auto {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-line_components-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -2422,46 +2461,60 @@ name: legends
 
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-legend-auto[
 
 ```r
 *g 
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_legend_1-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-legend-auto[
+&lt;img src="themes_files/figure-html/legend_auto_1_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-legend-auto[
 
 ```r
 g +  
 * theme(legend.position = "bottom")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_legend_2-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-legend-auto[
+&lt;img src="themes_files/figure-html/legend_auto_2_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-legend-auto[
 
 ```r
 g +  
   theme(legend.position = "bottom") +  
 * theme(legend.position = "none")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_legend_3-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-legend-auto[
+&lt;img src="themes_files/figure-html/legend_auto_3_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-legend-auto[
 
 ```r
 g +  
@@ -2469,14 +2522,18 @@ g +
   theme(legend.position = "none") +  
 * theme(legend.position = c(.8, .25))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_legend_4-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-legend-auto[
+&lt;img src="themes_files/figure-html/legend_auto_4_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-legend-auto[
 
 ```r
 g +  
@@ -2485,14 +2542,18 @@ g +
   theme(legend.position = c(.8, .25)) +  
 * theme(legend.direction = "horizontal")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_legend_5-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-legend-auto[
+&lt;img src="themes_files/figure-html/legend_auto_5_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-legend-auto[
 
 ```r
 g +  
@@ -2502,14 +2563,18 @@ g +
   theme(legend.direction = "horizontal") +  
 * theme(legend.key = element_rect())
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_legend_6-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-legend-auto[
+&lt;img src="themes_files/figure-html/legend_auto_6_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-legend-auto[
 
 ```r
 g +  
@@ -2520,10 +2585,35 @@ g +
   theme(legend.key = element_rect()) +  
 * guides(fill = guide_legend(size = 35))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_legend_7-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-legend-auto[
+&lt;img src="themes_files/figure-html/legend_auto_7_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-panel-legend-auto {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-panel-legend-auto {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-legend-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
 
 ---
 
@@ -2541,46 +2631,60 @@ name: sundries
 
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-sundries-auto[
 
 ```r
 *g 
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_sundries_1-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-sundries-auto[
+&lt;img src="themes_files/figure-html/sundries_auto_1_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-sundries-auto[
 
 ```r
 g +  
 * theme(plot.tag.position = "topright")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_sundries_2-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-sundries-auto[
+&lt;img src="themes_files/figure-html/sundries_auto_2_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-sundries-auto[
 
 ```r
 g +  
   theme(plot.tag.position = "topright") +  
 * scale_color_discrete(guide = FALSE)
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_sundries_3-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-sundries-auto[
+&lt;img src="themes_files/figure-html/sundries_auto_3_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-sundries-auto[
 
 ```r
 g +  
@@ -2588,14 +2692,18 @@ g +
   scale_color_discrete(guide = FALSE) +  
 * scale_fill_discrete(guide = FALSE)
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_sundries_4-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-sundries-auto[
+&lt;img src="themes_files/figure-html/sundries_auto_4_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-sundries-auto[
 
 ```r
 g +  
@@ -2604,14 +2712,18 @@ g +
   scale_fill_discrete(guide = FALSE) +  
 * scale_x_continuous(position = "top")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_sundries_5-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-sundries-auto[
+&lt;img src="themes_files/figure-html/sundries_auto_5_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-sundries-auto[
 
 ```r
 g +  
@@ -2621,14 +2733,18 @@ g +
   scale_x_continuous(position = "top") +  
 * scale_y_continuous(position = "right")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_sundries_6-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-sundries-auto[
+&lt;img src="themes_files/figure-html/sundries_auto_6_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-sundries-auto[
 
 ```r
 g +  
@@ -2639,10 +2755,35 @@ g +
   scale_y_continuous(position = "right") +  
 * theme(aspect.ratio = .5)
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_sundries_7-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-sundries-auto[
+&lt;img src="themes_files/figure-html/sundries_auto_7_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-panel-sundries-auto {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-panel-sundries-auto {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-sundries-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
 
 
 ---
@@ -2661,33 +2802,43 @@ name: facet
 
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-small_multiples-auto[
 
 ```r
 *g 
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_small_multiples_1-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-small_multiples-auto[
+&lt;img src="themes_files/figure-html/small_multiples_auto_1_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-small_multiples-auto[
 
 ```r
 g +  
 * facet_wrap(~ continent,
 *            strip.position = "right")
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_small_multiples_3-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-small_multiples-auto[
+&lt;img src="themes_files/figure-html/small_multiples_auto_2_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-small_multiples-auto[
 
 ```r
 g +  
@@ -2696,14 +2847,18 @@ g +
 * theme(strip.background =
 *         element_rect(fill = "pink"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_small_multiples_5-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-small_multiples-auto[
+&lt;img src="themes_files/figure-html/small_multiples_auto_3_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-small_multiples-auto[
 
 ```r
 g +  
@@ -2714,14 +2869,18 @@ g +
 * theme(strip.text.y =
 *         element_text(color = "snow", size = 12))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_small_multiples_7-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-small_multiples-auto[
+&lt;img src="themes_files/figure-html/small_multiples_auto_4_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-small_multiples-auto[
 
 ```r
 g +  
@@ -2734,14 +2893,18 @@ g +
 * theme(strip.text.y =
 *         element_text(angle = -80))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_small_multiples_9-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-small_multiples-auto[
+&lt;img src="themes_files/figure-html/small_multiples_auto_5_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-small_multiples-auto[
 
 ```r
 g +  
@@ -2756,14 +2919,18 @@ g +
 * theme(panel.spacing.x =
 *         unit(1.5, "lines"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_small_multiples_11-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-small_multiples-auto[
+&lt;img src="themes_files/figure-html/small_multiples_auto_6_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-small_multiples-auto[
 
 ```r
 g +  
@@ -2780,14 +2947,18 @@ g +
 * theme(panel.spacing.y =
 *         unit(2, "lines"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_small_multiples_13-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-small_multiples-auto[
+&lt;img src="themes_files/figure-html/small_multiples_auto_7_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-small_multiples-auto[
 
 ```r
 g +  
@@ -2806,171 +2977,316 @@ g +
 * theme(strip.switch.pad.grid =
 *         unit(0, "cm"))
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_small_multiples_15-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-small_multiples-auto[
+&lt;img src="themes_files/figure-html/small_multiples_auto_8_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-panel-small_multiples-auto {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-panel-small_multiples-auto {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-small_multiples-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
 
 ---
-name: presetthemes
-
-# preset themes
-
-Next we'll have at different preset themes available in ggplot that can be applied in one line of code. 
 
 
-&lt;img src="themes_files/figure-html/theme_presets-1.png" width="60%" /&gt;
+After you are done fine-tuning you might be interested in saving your thematic choices.  Theme choices can be bundled in a theme set statement and then subsequent plots will hold onto those choices and apply them in subsequent plot.  
 
-
----
-
+https://ggplot2.tidyverse.org/reference/theme_get.html
 
 
 ---
 
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-bundle-auto[
 
 ```r
-*g 
+*my_theme &lt;- function(){
+
+* theme(rect = element_rect(fill = "snow3")) +
+* theme(text = element_text(family = "Times New Roman")) +
+* theme(axis.title = element_text(color = "slateblue4")) +
+* theme(title = element_text(color = "seagreen")) +
+* theme(axis.line = element_line(color = "orange"))
+
+*} 
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_theme_presets_1-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-bundle-auto[
+
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-bundle-auto[
 
 ```r
-g +  
-* theme_bw()
+my_theme &lt;- function(){  
+
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange"))  
+
+}  
+
+*cars
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_theme_presets_2-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-bundle-auto[
+
+```
+     speed dist
+  1      4    2
+  2      4   10
+  3      7    4
+  4      7   22
+  5      8   16
+  6      9   10
+  7     10   18
+  8     10   26
+  9     10   34
+  10    11   17
+  11    11   28
+  12    12   14
+  13    12   20
+  14    12   24
+  15    12   28
+  16    13   26
+  17    13   34
+  18    13   34
+  19    13   46
+  20    14   26
+  21    14   36
+  22    14   60
+  23    14   80
+  24    15   20
+  25    15   26
+  26    15   54
+  27    16   32
+  28    16   40
+  29    17   32
+  30    17   40
+  31    17   50
+  32    18   42
+  33    18   56
+  34    18   76
+  35    18   84
+  36    19   36
+  37    19   46
+  38    19   68
+  39    20   32
+  40    20   48
+  41    20   52
+  42    20   56
+  43    20   64
+  44    22   66
+  45    23   54
+  46    24   70
+  47    24   92
+  48    24   93
+  49    24  120
+  50    25   85
+```
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-bundle-auto[
 
 ```r
-g +  
-  theme_bw() +  
-* theme_classic()
+my_theme &lt;- function(){  
+
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange"))  
+
+}  
+
+cars %&gt;%  
+* ggplot()
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_theme_presets_3-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-bundle-auto[
+&lt;img src="themes_files/figure-html/bundle_auto_3_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-bundle-auto[
 
 ```r
-g +  
-  theme_bw() +  
-  theme_classic() +  
-* theme_gray()
+my_theme &lt;- function(){  
+
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange"))  
+
+}  
+
+cars %&gt;%  
+  ggplot() +  
+* aes(x = speed)
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_theme_presets_4-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-bundle-auto[
+&lt;img src="themes_files/figure-html/bundle_auto_4_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-bundle-auto[
 
 ```r
-g +  
-  theme_bw() +  
-  theme_classic() +  
-  theme_gray() +  
-* theme_light()
+my_theme &lt;- function(){  
+
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange"))  
+
+}  
+
+cars %&gt;%  
+  ggplot() +  
+  aes(x = speed) +  
+* aes(y = dist)
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_theme_presets_5-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-bundle-auto[
+&lt;img src="themes_files/figure-html/bundle_auto_5_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-bundle-auto[
 
 ```r
-g +  
-  theme_bw() +  
-  theme_classic() +  
-  theme_gray() +  
-  theme_light() +  
-* theme_linedraw()
+my_theme &lt;- function(){  
+
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange"))  
+
+}  
+
+cars %&gt;%  
+  ggplot() +  
+  aes(x = speed) +  
+  aes(y = dist) +  
+* geom_point()
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_theme_presets_6-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-bundle-auto[
+&lt;img src="themes_files/figure-html/bundle_auto_6_output-1.png" width="100%" /&gt;
+]
+
 ---
 class: split-40
 count: false
-.column[.content[
+ 
+
+.left-panel-bundle-auto[
 
 ```r
-g +  
-  theme_bw() +  
-  theme_classic() +  
-  theme_gray() +  
-  theme_light() +  
-  theme_linedraw() +  
-* theme_minimal()
-```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_theme_presets_7-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
+my_theme &lt;- function(){  
 
-```r
-g +  
-  theme_bw() +  
-  theme_classic() +  
-  theme_gray() +  
-  theme_light() +  
-  theme_linedraw() +  
-  theme_minimal() +  
-* theme_void()
-```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_theme_presets_8-1.png" width="100%" /&gt;
-]]
----
-class: split-40
-count: false
-.column[.content[
+  theme(rect = element_rect(fill = "snow3")) +  
+  theme(text = element_text(family = "Times New Roman")) +  
+  theme(axis.title = element_text(color = "slateblue4")) +  
+  theme(title = element_text(color = "seagreen")) +  
+  theme(axis.line = element_line(color = "orange"))  
 
-```r
-g +  
-  theme_bw() +  
-  theme_classic() +  
-  theme_gray() +  
-  theme_light() +  
-  theme_linedraw() +  
-  theme_minimal() +  
-  theme_void() +  
-* theme_dark()
+}  
+
+cars %&gt;%  
+  ggplot() +  
+  aes(x = speed) +  
+  aes(y = dist) +  
+  geom_point() +  
+* my_theme()
 ```
-]]
-.column[.content[
-&lt;img src="themes_files/figure-html/output_theme_presets_9-1.png" width="100%" /&gt;
-]]
+]
+ 
+.right-panel-bundle-auto[
+&lt;img src="themes_files/figure-html/bundle_auto_7_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-panel-bundle-auto {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-panel-bundle-auto {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-bundle-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
 
 
 
@@ -2985,13 +3301,15 @@ g +
 - [theme modification with {ggeasy}](themes_ggeasy.Rmd)
 
 
+---
 
+Next up is [the written language](ggsave.html) or saving plots as files.
 
 
 
 
 &lt;style type="text/css"&gt;
-.remark-code{line-height: 1.5; font-size: 70%}
+.remark-code{line-height: 1.5; font-size: 60%}
 
 .column-left {
   float: left;
@@ -3008,6 +3326,99 @@ g +
   width: 33.333%;
 }
 &lt;/style&gt;
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- Some ideas from ["The Glamour of Graphics"](https://resources.rstudio.com/rstudio-conf-2020/the-glamour-of-graphics-william-chase) --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - engage a wider audience --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - aesthetic-usability effect --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - respect for your audience --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- ## Glamour and Grammar etymological connection! --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- # Layout --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - Mostly left alignment of text --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - titles - *plot* left alignment --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - no head tilting --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - get rid of labels if possible --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - rethink legend position, or alternatives: labeling data, or color mapping --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - be borders skeptical --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - be gridline skeptical --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - try to avoid legends --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - white space - use it! --&gt;
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- # Typography --&gt;
+
+
+&lt;!-- -- --&gt;
+&lt;!-- - effects tone --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - https://practicaltypography.com/ --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - https://fonts.google.com/ (source family) --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - typographic hiararchy - size, weight, spacing --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - don't use "oldstyle" numbers, do use *tabular* numbers --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - https://cran.r-project.org/web/packages/svglite/vignettes/fonts.html --&gt;
+
+
+&lt;!-- To be continued...  [](https://cran.r-project.org/web/packages/svglite/vignettes/fonts.html) --&gt;
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- # Color --&gt;
+
+&lt;!-- Check out the [color](color.html) slides.  --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - also eyedropper tool --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - use hue saturation value selection --&gt;
+
+&lt;!-- -- --&gt;
+&lt;!-- - non-white backgrounds --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

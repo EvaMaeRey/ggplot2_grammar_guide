@@ -26,10 +26,10 @@ library(tidyverse)
 ---
 
 
-```{r, echo = F, out.height="80%"}
+```{r, echo = F, out.height="80%", include=F}
 knitr::include_graphics("../../teaching/lecture_topics/images_for_lecture/malaria_cases.png")
 ```
-
+Composing plots or ensembles can help you tell a fuller picture of your data. External packages cowplot and patchwork are demonstrated here.  Try to be consistent with encoding of color, linetype, shape across plots!
 
 ---
 
@@ -104,7 +104,7 @@ class: inverse, center, middle
 
 ---
 
-`r chunk_reveal("patch", break_type = "rotate", width_code = "59%", width_output = "40%")`
+`r chunk_reveal("patch", break_type = "rotate", widths = c(59,40))`
 
 ```{r patch, include = F}
 library(patchwork)
@@ -223,7 +223,7 @@ my_plot4
 
 ---
 
-`r chunk_reveal("cow2", width_code = "59%", width_output = "40%")`
+`r chunk_reveal("cow2", widths = c(59, 40))`
 
 ```{r cow2, include = F}
 ggdraw(p1) + 
@@ -244,7 +244,7 @@ ggdraw(p1 + theme_half_open(12)) +
 
 ---
 
-`r chunk_reveal("image", width_code = "59%", width_output = "40%")`
+`r chunk_reveal("image", widths = c(59,40))`
 
 ```{r image, include = F}
 library(cowplot)
@@ -260,7 +260,9 @@ ggdraw() +
   draw_plot(p)
 ```
 
+---
 
+A final topic coming up is [concision](concision.html).  Some strategies for not repeating yourself and a few other topics.
 
 
 ```{css, eval = TRUE, echo = FALSE}

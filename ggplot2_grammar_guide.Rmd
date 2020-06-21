@@ -139,7 +139,7 @@ ggplot(data = gapminder_2002) # That's it
 
 # Pipe data into ggplot()
 
-An alternative to the above syntax is to "pipe" the data into the ggplot function, as shown below.  The pipe operator, which is made available in R by loading the `tidyverse` package, pulls the object that preceeds it into the function.  This second option allows us to glimpse the raw data that we will use in our plot. 
+An alternative to the above syntax is to "pipe" the data into the ggplot function, as shown below.  The pipe operator, which is made available in R by loading the `tidyverse` package, pulls the object that precedes it into the function.  This second option allows us to glimpse the raw data that we will use in our plot. 
 
 
 
@@ -149,7 +149,7 @@ gapminder_2002 %>% # data piped into
   ggplot() # ggplot function initiating plot
 ```
 
-Let's see how this works. Then we'll move on to the second step in this grammar lesson --- the interogative mood --- aesthetic representation. 
+Let's see how this works. Then we'll move on to the second step in this grammar lesson --- the interrogative mood --- aesthetic representation. 
 
 ---
 
@@ -601,6 +601,8 @@ ggplot(data = gapminder_2002) +
 ---
 
 Next up: 
+
+[Modifiers](modifiers.html) (labs, coordinate stystems, scales)
 
 
 

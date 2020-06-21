@@ -1,20 +1,40 @@
 ---
 title: "fine tuning ggplot themes"
 subtitle: "a flipbook | made with Xaringan"
-author: "<br><br>Gina Reynolds, May 2019"
+author: "<br><br>Gina Reynolds"
 date: "<br>"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["kunoichi", "ninjutsu"]
+    css: ["xaringan-themer.css", "ninjutsu"]
     nature:
       ratio: "16:9"
       highlightLines: true
 ---
 
+
+```{r xaringan-themer, include = FALSE, eval = F}
+library(xaringanthemer)
+
+xaringanthemer::mono_accent(
+  base_color = "#43418A",
+  header_font_google = google_font("Montserrat"),
+  text_font_google   = google_font("Montserrat", "200", "200i"),
+  code_font_google   = google_font("Droid Mono"),
+  text_font_size = ".7cm",
+  code_font_size = ".7cm")
+
+```
+
+
 ```{r setup, echo = F, eval = T, message = F, warning = F }
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, message = F, warning = F, dpi = 300)
+
+make_html_picture_link <- function(path, link){
+  cat(paste0('<a href="', link, '"><img src="', path, '"width="150" height="150" title=' ,
+             path, ' alt=', path,'></a>'))
+}
 
 library(flipbookr)
 library(tidyverse)
@@ -31,11 +51,11 @@ name: themes
 
 # Greetings: Themes
 
-It may seem just cosmetic, but themes can have a big impact on the look and feel of you final plot.  The thematic elements are what first meet the eye.  For more information on fine adjustment of thematic elements, have a look at the [taming ggplot themes flipbook](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1).  For now, check out how to change the look and feel of your graph with some preset themes.  
+It may seem just cosmetic, but themes can have a big impact on the look and feel of you final plot.  The thematic elements are what first meet the eye.  For more information on fine adjustment of thematic elements, have a look at the [taming ggplot themes flipbook](https://evamaerey.github.io/little_flipbooks_library/taming_themes_in_ggplot/taming_ggplot_themes.html#1).  First, let's check out how to change the look and feel of your graph with some preset themes.  
 
 ---
 
-`r chunk_reveal("themes", break_type = "rotate")`
+`r chunk_reveal("themes", break_type = "rotate", widths = c(49,50))`
 
 
 ```{r themes, eval = F, echo= F}
@@ -73,98 +93,12 @@ g
 ```
 
 
-
-
 ---
 
-Some ideas from ["The Glamour of Graphics"](https://resources.rstudio.com/rstudio-conf-2020/the-glamour-of-graphics-william-chase)
 
---
-- engage a wider audience
-
---
-- aesthetic-usability effect
-
---
-- respect for your audience
-
---
-
-## Glamour and Grammar etymological connection!
-
----
-
-# Layout
-
---
-- Mostly left alignment of text
-
---
-- titles - *plot* left alignment
-
---
-- no head tilting
-
---
-- get rid of labels if possible
-
---
-- rethink legend position, or alternatives: labeling data, or color mapping
-
---
-- be borders skeptical
-
---
-- be gridline skeptical
-
---
-- try to avoid legends
-
---
-- white space - use it!
+## Now we can turn to fine tuning.  The theme function almost has a grammar of it's own.  It's a bit much. 
 
 
----
-
-# Typography
-
-
---
-- effects tone
-
---
-- https://practicaltypography.com/
-
---
-- https://fonts.google.com/ (source family)
-
---
-- typographic hiararchy - size, weight, spacing
-
---
-- don't use "oldstyle" numbers, do use *tabular* numbers
-
---
-- https://cran.r-project.org/web/packages/svglite/vignettes/fonts.html
-
-  
-To be continued...  [](https://cran.r-project.org/web/packages/svglite/vignettes/fonts.html)
-  
-
----
-
-# Color
-
-Check out the [color](color.html) slides. 
-
---
-- also eyedropper tool
-
---
-- use hue saturation value selection
-
---
-- non-white backgrounds
 
 
 ---
@@ -207,51 +141,23 @@ make_html_picture_link("figures/theme_presets.png", "#presetthemes")
 
 
 
----
-
-# Introduction
-
-This is a focused extension of [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html).The aim is to illuminate theme statements. 
 
 
-
-
-```{r, message = F, warning=F, eval = T}
-options(scipen = 10) # adjust when scientific notation turns on
-library(tidyverse)
-library(gapminder)
-```
 
 
 ---
 
 # Before we begin
 
-This resource is focused on fine tuning and communicating what code gives what output.  However after you are done fine-tuning you might be interested in saving your thematic choices.  Theme choices can be bundled in a theme set statement and then subsequent plots will hold onto those choices and apply them in subsequent plot.  
+This resource is focused on fine tuning and communicating what code gives what output.  
 
-https://ggplot2.tidyverse.org/reference/theme_get.html
+Also, load some libraries:
 
-
----
-
-`r flipbookr::chunk_reveal("bundle")`
-
-```{r bundle, include = F}
-theme(rect = element_rect(fill = "snow3")) +
-  theme(text = element_text(family = "Times New Roman")) +
-  theme(axis.title = element_text(color = "slateblue4")) +
-  theme(title = element_text(color = "seagreen")) +
-  theme(axis.line = element_line(color = "orange")) ->
-my_theme
-
-cars %>% 
-  ggplot() +
-  aes(x = speed) +
-  aes(y = dist) +
-  geom_point() +
-  my_theme
+```{r, message = F, warning=F, eval = T}
+options(scipen = 10) # adjust when scientific notation turns on
+library(tidyverse)
+library(gapminder)
 ```
-
 
 
 
@@ -285,7 +191,7 @@ g
 
 ---
 
-`r apply_reveal("the_plot")`
+`r chunk_reveal("the_plot", widths = c(49,50))`
 
 
 
@@ -399,7 +305,7 @@ ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 ---
 
 
-`r apply_reveal("custom_theme")`
+`r chunk_reveal("custom_theme", widths = c(49,50))`
 
 
 
@@ -484,7 +390,7 @@ ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 
 ---
 
-`r apply_reveal("text_components")`
+`r chunk_reveal("text_components", widths = c(49,50))`
 
 
 ---
@@ -526,7 +432,7 @@ ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 
 ---
 
-`r apply_reveal("rect_components")`
+`r chunk_reveal("rect_components", widths = c(49,50))`
 
 ---
 
@@ -575,7 +481,7 @@ ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 
 ---
 
-`r apply_reveal("line_components")`
+`r chunk_reveal("line_components", widths = c(49,50))`
 
 
 
@@ -628,7 +534,7 @@ ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 ```
 ---
 
-`r apply_reveal("legend")`
+`r chunk_reveal("legend", widths = c(49,50))`
 
 ---
 
@@ -656,7 +562,7 @@ eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = ""
 ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 ```
 
-`r apply_reveal("sundries")`
+`r chunk_reveal("sundries", widths = c(49,50))`
 
 
 ---
@@ -693,42 +599,38 @@ ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 
 ---
 
-`r apply_reveal("small_multiples")`
+`r chunk_reveal("small_multiples", widths = c(49,50))`
 
 ---
-name: presetthemes
-
-# preset themes
-
-Next we'll have at different preset themes available in ggplot that can be applied in one line of code. 
 
 
-```{r theme_presets, eval = T, echo = F, out.width="60%"}
-g + 
-  theme_bw() +
-  theme_classic() +
-  theme_gray() + 
-  theme_light() +
-  theme_linedraw() +
-  theme_minimal() +
-  theme_void() +
-  theme_dark()
+After you are done fine-tuning you might be interested in saving your thematic choices.  Theme choices can be bundled in a theme set statement and then subsequent plots will hold onto those choices and apply them in subsequent plot.  
+
+https://ggplot2.tidyverse.org/reference/theme_get.html
+
+
+---
+
+`r flipbookr::chunk_reveal("bundle", widths = c(49,50))`
+
+```{r bundle, include = F}
+my_theme <- function(){
+  
+  theme(rect = element_rect(fill = "snow3")) +
+  theme(text = element_text(family = "Times New Roman")) +
+  theme(axis.title = element_text(color = "slateblue4")) +
+  theme(title = element_text(color = "seagreen")) +
+  theme(axis.line = element_line(color = "orange")) 
+  
+}
+
+cars %>% 
+  ggplot() +
+  aes(x = speed) +
+  aes(y = dist) +
+  geom_point() +
+  my_theme()
 ```
-
-
----
-
-```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
-get_what_save_what <- "theme_presets"
-eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
-ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300) 
-```
-
----
-
-`r apply_reveal("theme_presets")`
-
-
 
 
 
@@ -741,13 +643,15 @@ ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 - [theme modification with {ggeasy}](themes_ggeasy.Rmd)
 
 
+---
 
+Next up is [the written language](ggsave.html) or saving plots as files.
 
 
 
 
 ```{css, eval = TRUE, echo = F}
-.remark-code{line-height: 1.5; font-size: 70%}
+.remark-code{line-height: 1.5; font-size: 60%}
 
 .column-left {
   float: left;
@@ -766,3 +670,94 @@ ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 ```
 
 
+
+<!-- --- -->
+
+<!-- Some ideas from ["The Glamour of Graphics"](https://resources.rstudio.com/rstudio-conf-2020/the-glamour-of-graphics-william-chase) -->
+
+<!-- -- -->
+<!-- - engage a wider audience -->
+
+<!-- -- -->
+<!-- - aesthetic-usability effect -->
+
+<!-- -- -->
+<!-- - respect for your audience -->
+
+<!-- -- -->
+
+<!-- ## Glamour and Grammar etymological connection! -->
+
+<!-- --- -->
+
+<!-- # Layout -->
+
+<!-- -- -->
+<!-- - Mostly left alignment of text -->
+
+<!-- -- -->
+<!-- - titles - *plot* left alignment -->
+
+<!-- -- -->
+<!-- - no head tilting -->
+
+<!-- -- -->
+<!-- - get rid of labels if possible -->
+
+<!-- -- -->
+<!-- - rethink legend position, or alternatives: labeling data, or color mapping -->
+
+<!-- -- -->
+<!-- - be borders skeptical -->
+
+<!-- -- -->
+<!-- - be gridline skeptical -->
+
+<!-- -- -->
+<!-- - try to avoid legends -->
+
+<!-- -- -->
+<!-- - white space - use it! -->
+
+
+<!-- --- -->
+
+<!-- # Typography -->
+
+
+<!-- -- -->
+<!-- - effects tone -->
+
+<!-- -- -->
+<!-- - https://practicaltypography.com/ -->
+
+<!-- -- -->
+<!-- - https://fonts.google.com/ (source family) -->
+
+<!-- -- -->
+<!-- - typographic hiararchy - size, weight, spacing -->
+
+<!-- -- -->
+<!-- - don't use "oldstyle" numbers, do use *tabular* numbers -->
+
+<!-- -- -->
+<!-- - https://cran.r-project.org/web/packages/svglite/vignettes/fonts.html -->
+
+
+<!-- To be continued...  [](https://cran.r-project.org/web/packages/svglite/vignettes/fonts.html) -->
+
+
+<!-- --- -->
+
+<!-- # Color -->
+
+<!-- Check out the [color](color.html) slides.  -->
+
+<!-- -- -->
+<!-- - also eyedropper tool -->
+
+<!-- -- -->
+<!-- - use hue saturation value selection -->
+
+<!-- -- -->
+<!-- - non-white backgrounds -->

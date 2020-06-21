@@ -31,13 +31,13 @@ name: facets
 
 Punctuation helps us break up language into digestible pieces. Breaking up visualization can also be helpful.  
 
-Creating *small multiples* also known as *faceting* is a powerful way to make data more digestible.   In ggplot, small plots based on a categorical variable can be visualized side by side.  
+Creating *small multiples* also known as *faceting* is a powerful way to make data more digestible; we can process the encoding in just one of the plots easily translate those encodings to the remaining plots.   In ggplot, small plots based on a categorical variable can be visualized side-by-side.  
 
 
 
 ---
 
-`r chunk_reveal("facets", break_type = "rotate", width_code = "54%", width_output = "45%")`
+`r chunk_reveal("facets", break_type = "rotate", widths = c(54, 45))`
 
 
 ```{r facets, eval = F, echo = F}
@@ -103,7 +103,7 @@ ggplot(mpg, aes(drv, model)) +
 
 ---
 
-`r chunk_reveal("matrix", width_code = "59%", width_output = "40%")`
+`r chunk_reveal("matrix", widths = c(59, 40))`
 
 ```{r matrix, include = F}
 set.seed(12345)
@@ -134,7 +134,10 @@ diamonds %>%
 ```
 
 
+---
 
+
+Next up is ['greetings'](themes.html) (themes are what greets the eye).
 
 
 ```{css, eval = TRUE, echo = F}

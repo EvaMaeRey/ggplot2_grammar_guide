@@ -26,8 +26,8 @@ class: center, middle, inverse, title-slide
 ---
 
 
-&lt;img src="../../teaching/lecture_topics/images_for_lecture/malaria_cases.png" width="489" height="80%" /&gt;
 
+Composing plots or ensembles can help you tell a fuller picture of your data. External packages cowplot and patchwork are demonstrated here.  Try to be consistent with encoding of color, linetype, shape across plots!
 
 ---
 
@@ -35,14 +35,14 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 *options(scipen = 99)  # turns off scientific notation
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 
 ]
 
@@ -51,7 +51,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -59,7 +59,7 @@ options(scipen = 99)  # turns off scientific notation
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 
 ]
 
@@ -68,7 +68,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -78,7 +78,7 @@ library(gapminder)
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 
 ```
 # A tibble: 1,704 x 6
@@ -103,7 +103,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -114,7 +114,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 
 ```
 # A tibble: 142 x 6
@@ -139,7 +139,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -151,7 +151,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 
 ```
 # A tibble: 2 x 6
@@ -167,7 +167,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -180,7 +180,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 &lt;img src="ensembles_files/figure-html/build_plots_auto_6_output-1.png" width="432" /&gt;
 ]
 
@@ -189,7 +189,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -203,7 +203,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 &lt;img src="ensembles_files/figure-html/build_plots_auto_7_output-1.png" width="432" /&gt;
 ]
 
@@ -212,7 +212,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -227,7 +227,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 &lt;img src="ensembles_files/figure-html/build_plots_auto_8_output-1.png" width="432" /&gt;
 ]
 
@@ -236,7 +236,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -252,7 +252,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 
 ]
 
@@ -261,7 +261,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -280,7 +280,7 @@ p1
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 
 ```
 # A tibble: 1,704 x 6
@@ -305,7 +305,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -325,7 +325,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 
 ```
 # A tibble: 142 x 6
@@ -350,7 +350,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -371,7 +371,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 &lt;img src="ensembles_files/figure-html/build_plots_auto_12_output-1.png" width="432" /&gt;
 ]
 
@@ -380,7 +380,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -402,7 +402,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 &lt;img src="ensembles_files/figure-html/build_plots_auto_13_output-1.png" width="432" /&gt;
 ]
 
@@ -411,7 +411,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -434,7 +434,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 &lt;img src="ensembles_files/figure-html/build_plots_auto_14_output-1.png" width="432" /&gt;
 ]
 
@@ -443,7 +443,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -470,7 +470,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 &lt;img src="ensembles_files/figure-html/build_plots_auto_15_output-1.png" width="432" /&gt;
 ]
 
@@ -479,7 +479,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots-auto[
+.left-panel-build_plots-auto[
 
 ```r
 options(scipen = 99)  # turns off scientific notation
@@ -507,22 +507,29 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots-auto[
+.right-panel-build_plots-auto[
 
 ]
 
 &lt;style&gt;
-.left-code-build_plots-auto {
+.left-panel-build_plots-auto {
   color: #777;
-  width: 38%;
+  width: 38.6138613861386%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-build_plots-auto {
-  width: 60%;
+.right-panel-build_plots-auto {
+  width: 59.4059405940594%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-build_plots-auto {
+  width: 0%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
 
@@ -538,14 +545,14 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 *gapminder
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 
 ```
 # A tibble: 1,704 x 6
@@ -570,7 +577,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -578,7 +585,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 &lt;img src="ensembles_files/figure-html/build_plots2_auto_2_output-1.png" width="432" /&gt;
 ]
 
@@ -587,7 +594,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -596,7 +603,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 &lt;img src="ensembles_files/figure-html/build_plots2_auto_3_output-1.png" width="432" /&gt;
 ]
 
@@ -605,7 +612,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -615,7 +622,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 &lt;img src="ensembles_files/figure-html/build_plots2_auto_4_output-1.png" width="432" /&gt;
 ]
 
@@ -624,7 +631,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -635,7 +642,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 &lt;img src="ensembles_files/figure-html/build_plots2_auto_5_output-1.png" width="432" /&gt;
 ]
 
@@ -644,7 +651,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -656,7 +663,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 &lt;img src="ensembles_files/figure-html/build_plots2_auto_6_output-1.png" width="432" /&gt;
 ]
 
@@ -665,7 +672,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -681,7 +688,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 &lt;img src="ensembles_files/figure-html/build_plots2_auto_7_output-1.png" width="432" /&gt;
 ]
 
@@ -690,7 +697,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -707,7 +714,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 
 ]
 
@@ -716,7 +723,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -735,7 +742,7 @@ p3
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 
 ```
 # A tibble: 1,704 x 6
@@ -760,7 +767,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -780,7 +787,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 
 ```
 # A tibble: 142 x 6
@@ -805,7 +812,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -826,7 +833,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 
 ```
 # A tibble: 2 x 6
@@ -842,7 +849,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -864,7 +871,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 
 ```
 # A tibble: 2 x 7
@@ -880,7 +887,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -903,7 +910,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 &lt;img src="ensembles_files/figure-html/build_plots2_auto_13_output-1.png" width="432" /&gt;
 ]
 
@@ -912,7 +919,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -936,7 +943,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 &lt;img src="ensembles_files/figure-html/build_plots2_auto_14_output-1.png" width="432" /&gt;
 ]
 
@@ -945,7 +952,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -970,7 +977,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 &lt;img src="ensembles_files/figure-html/build_plots2_auto_15_output-1.png" width="432" /&gt;
 ]
 
@@ -979,7 +986,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -1005,7 +1012,7 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 &lt;img src="ensembles_files/figure-html/build_plots2_auto_16_output-1.png" width="432" /&gt;
 ]
 
@@ -1014,7 +1021,7 @@ class: split-40
 count: false
  
 
-.left-code-build_plots2-auto[
+.left-panel-build_plots2-auto[
 
 ```r
 gapminder %&gt;%  
@@ -1041,22 +1048,29 @@ gapminder %&gt;%
 ```
 ]
  
-.right-output-build_plots2-auto[
+.right-panel-build_plots2-auto[
 
 ]
 
 &lt;style&gt;
-.left-code-build_plots2-auto {
+.left-panel-build_plots2-auto {
   color: #777;
-  width: 38%;
+  width: 38.6138613861386%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-build_plots2-auto {
-  width: 60%;
+.right-panel-build_plots2-auto {
+  width: 59.4059405940594%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-build_plots2-auto {
+  width: 0%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
 
@@ -1105,7 +1119,7 @@ class: split-40
 count: false
  
 
-.left-code-patch-rotate[
+.left-panel-patch-rotate[
 
 ```r
 library(patchwork)  
@@ -1113,7 +1127,7 @@ p1 + p2 / p3
 ```
 ]
  
-.right-output-patch-rotate[
+.right-panel-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_1_output-1.png" width="432" /&gt;
 ]
 
@@ -1122,7 +1136,7 @@ class: split-40
 count: false
  
 
-.left-code-patch-rotate[
+.left-panel-patch-rotate[
 
 ```r
 library(patchwork)  
@@ -1130,7 +1144,7 @@ library(patchwork)
 ```
 ]
  
-.right-output-patch-rotate[
+.right-panel-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_2_output-1.png" width="432" /&gt;
 ]
 
@@ -1139,7 +1153,7 @@ class: split-40
 count: false
  
 
-.left-code-patch-rotate[
+.left-panel-patch-rotate[
 
 ```r
 library(patchwork)  
@@ -1147,7 +1161,7 @@ library(patchwork)
 ```
 ]
  
-.right-output-patch-rotate[
+.right-panel-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_3_output-1.png" width="432" /&gt;
 ]
 
@@ -1156,7 +1170,7 @@ class: split-40
 count: false
  
 
-.left-code-patch-rotate[
+.left-panel-patch-rotate[
 
 ```r
 library(patchwork)  
@@ -1164,7 +1178,7 @@ library(patchwork)
 ```
 ]
  
-.right-output-patch-rotate[
+.right-panel-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_4_output-1.png" width="432" /&gt;
 ]
 
@@ -1173,7 +1187,7 @@ class: split-40
 count: false
  
 
-.left-code-patch-rotate[
+.left-panel-patch-rotate[
 
 ```r
 library(patchwork)  
@@ -1181,7 +1195,7 @@ library(patchwork)
 ```
 ]
  
-.right-output-patch-rotate[
+.right-panel-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_5_output-1.png" width="432" /&gt;
 ]
 
@@ -1190,7 +1204,7 @@ class: split-40
 count: false
  
 
-.left-code-patch-rotate[
+.left-panel-patch-rotate[
 
 ```r
 library(patchwork)  
@@ -1198,7 +1212,7 @@ library(patchwork)
 ```
 ]
  
-.right-output-patch-rotate[
+.right-panel-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_6_output-1.png" width="432" /&gt;
 ]
 
@@ -1207,7 +1221,7 @@ class: split-40
 count: false
  
 
-.left-code-patch-rotate[
+.left-panel-patch-rotate[
 
 ```r
 library(patchwork)  
@@ -1215,7 +1229,7 @@ library(patchwork)
 ```
 ]
  
-.right-output-patch-rotate[
+.right-panel-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_7_output-1.png" width="432" /&gt;
 ]
 
@@ -1224,7 +1238,7 @@ class: split-40
 count: false
  
 
-.left-code-patch-rotate[
+.left-panel-patch-rotate[
 
 ```r
 library(patchwork)  
@@ -1232,7 +1246,7 @@ library(patchwork)
 ```
 ]
  
-.right-output-patch-rotate[
+.right-panel-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_8_output-1.png" width="432" /&gt;
 ]
 
@@ -1241,7 +1255,7 @@ class: split-40
 count: false
  
 
-.left-code-patch-rotate[
+.left-panel-patch-rotate[
 
 ```r
 library(patchwork)  
@@ -1249,7 +1263,7 @@ library(patchwork)
 ```
 ]
  
-.right-output-patch-rotate[
+.right-panel-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_9_output-1.png" width="432" /&gt;
 ]
 
@@ -1258,7 +1272,7 @@ class: split-40
 count: false
  
 
-.left-code-patch-rotate[
+.left-panel-patch-rotate[
 
 ```r
 library(patchwork)  
@@ -1266,22 +1280,29 @@ library(patchwork)
 ```
 ]
  
-.right-output-patch-rotate[
+.right-panel-patch-rotate[
 &lt;img src="ensembles_files/figure-html/patch_rotate_10_output-1.png" width="432" /&gt;
 ]
 
 &lt;style&gt;
-.left-code-patch-rotate {
+.left-panel-patch-rotate {
   color: #777;
   width: 59%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-patch-rotate {
+.right-panel-patch-rotate {
   width: 40%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-patch-rotate {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
 
@@ -1296,14 +1317,14 @@ class: split-40
 count: false
  
 
-.left-code-ensemble_level-auto[
+.left-panel-ensemble_level-auto[
 
 ```r
 *p4
 ```
 ]
  
-.right-output-ensemble_level-auto[
+.right-panel-ensemble_level-auto[
 &lt;img src="ensembles_files/figure-html/ensemble_level_auto_1_output-1.png" width="432" /&gt;
 ]
 
@@ -1312,7 +1333,7 @@ class: split-40
 count: false
  
 
-.left-code-ensemble_level-auto[
+.left-panel-ensemble_level-auto[
 
 ```r
 p4 +  
@@ -1320,7 +1341,7 @@ p4 +
 ```
 ]
  
-.right-output-ensemble_level-auto[
+.right-panel-ensemble_level-auto[
 &lt;img src="ensembles_files/figure-html/ensemble_level_auto_2_output-1.png" width="432" /&gt;
 ]
 
@@ -1329,7 +1350,7 @@ class: split-40
 count: false
  
 
-.left-code-ensemble_level-auto[
+.left-panel-ensemble_level-auto[
 
 ```r
 p4 +  
@@ -1340,7 +1361,7 @@ p4 +
 ```
 ]
  
-.right-output-ensemble_level-auto[
+.right-panel-ensemble_level-auto[
 &lt;img src="ensembles_files/figure-html/ensemble_level_auto_3_output-1.png" width="432" /&gt;
 ]
 
@@ -1349,7 +1370,7 @@ class: split-40
 count: false
  
 
-.left-code-ensemble_level-auto[
+.left-panel-ensemble_level-auto[
 
 ```r
 p4 +  
@@ -1361,7 +1382,7 @@ p4 +
 ```
 ]
  
-.right-output-ensemble_level-auto[
+.right-panel-ensemble_level-auto[
 &lt;img src="ensembles_files/figure-html/ensemble_level_auto_4_output-1.png" width="432" /&gt;
 ]
 
@@ -1370,7 +1391,7 @@ class: split-40
 count: false
  
 
-.left-code-ensemble_level-auto[
+.left-panel-ensemble_level-auto[
 
 ```r
 p4 +  
@@ -1383,22 +1404,29 @@ p4 +
 ```
 ]
  
-.right-output-ensemble_level-auto[
+.right-panel-ensemble_level-auto[
 &lt;img src="ensembles_files/figure-html/ensemble_level_auto_5_output-1.png" width="432" /&gt;
 ]
 
 &lt;style&gt;
-.left-code-ensemble_level-auto {
+.left-panel-ensemble_level-auto {
   color: #777;
-  width: 38%;
+  width: 38.6138613861386%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-ensemble_level-auto {
-  width: 60%;
+.right-panel-ensemble_level-auto {
+  width: 59.4059405940594%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-ensemble_level-auto {
+  width: 0%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
 
@@ -1425,7 +1453,7 @@ class: split-40
 count: false
  
 
-.left-code-cow-rotate[
+.left-panel-cow-rotate[
 
 ```r
 library(cowplot)  
@@ -1433,7 +1461,7 @@ plot_grid(p1, p2, labels = c('A', 'B'), label_size = 12)
 ```
 ]
  
-.right-output-cow-rotate[
+.right-panel-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_1_output-1.png" width="432" /&gt;
 ]
 
@@ -1442,7 +1470,7 @@ class: split-40
 count: false
  
 
-.left-code-cow-rotate[
+.left-panel-cow-rotate[
 
 ```r
 library(cowplot)  
@@ -1450,7 +1478,7 @@ library(cowplot)
 ```
 ]
  
-.right-output-cow-rotate[
+.right-panel-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_2_output-1.png" width="432" /&gt;
 ]
 
@@ -1459,7 +1487,7 @@ class: split-40
 count: false
  
 
-.left-code-cow-rotate[
+.left-panel-cow-rotate[
 
 ```r
 library(cowplot)  
@@ -1467,7 +1495,7 @@ library(cowplot)
 ```
 ]
  
-.right-output-cow-rotate[
+.right-panel-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_3_output-1.png" width="432" /&gt;
 ]
 
@@ -1476,7 +1504,7 @@ class: split-40
 count: false
  
 
-.left-code-cow-rotate[
+.left-panel-cow-rotate[
 
 ```r
 library(cowplot)  
@@ -1484,7 +1512,7 @@ library(cowplot)
 ```
 ]
  
-.right-output-cow-rotate[
+.right-panel-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_4_output-1.png" width="432" /&gt;
 ]
 
@@ -1493,7 +1521,7 @@ class: split-40
 count: false
  
 
-.left-code-cow-rotate[
+.left-panel-cow-rotate[
 
 ```r
 library(cowplot)  
@@ -1501,7 +1529,7 @@ library(cowplot)
 ```
 ]
  
-.right-output-cow-rotate[
+.right-panel-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_5_output-1.png" width="432" /&gt;
 ]
 
@@ -1510,7 +1538,7 @@ class: split-40
 count: false
  
 
-.left-code-cow-rotate[
+.left-panel-cow-rotate[
 
 ```r
 library(cowplot)  
@@ -1518,7 +1546,7 @@ library(cowplot)
 ```
 ]
  
-.right-output-cow-rotate[
+.right-panel-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_6_output-1.png" width="432" /&gt;
 ]
 
@@ -1527,7 +1555,7 @@ class: split-40
 count: false
  
 
-.left-code-cow-rotate[
+.left-panel-cow-rotate[
 
 ```r
 library(cowplot)  
@@ -1535,7 +1563,7 @@ library(cowplot)
 ```
 ]
  
-.right-output-cow-rotate[
+.right-panel-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_7_output-1.png" width="432" /&gt;
 ]
 
@@ -1544,7 +1572,7 @@ class: split-40
 count: false
  
 
-.left-code-cow-rotate[
+.left-panel-cow-rotate[
 
 ```r
 library(cowplot)  
@@ -1552,7 +1580,7 @@ library(cowplot)
 ```
 ]
  
-.right-output-cow-rotate[
+.right-panel-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_8_output-1.png" width="432" /&gt;
 ]
 
@@ -1561,7 +1589,7 @@ class: split-40
 count: false
  
 
-.left-code-cow-rotate[
+.left-panel-cow-rotate[
 
 ```r
 library(cowplot)  
@@ -1569,22 +1597,29 @@ library(cowplot)
 ```
 ]
  
-.right-output-cow-rotate[
+.right-panel-cow-rotate[
 &lt;img src="ensembles_files/figure-html/cow_rotate_9_output-1.png" width="432" /&gt;
 ]
 
 &lt;style&gt;
-.left-code-cow-rotate {
+.left-panel-cow-rotate {
   color: #777;
-  width: 38%;
+  width: 38.6138613861386%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-cow-rotate {
-  width: 60%;
+.right-panel-cow-rotate {
+  width: 59.4059405940594%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-cow-rotate {
+  width: 0%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
 
@@ -1599,14 +1634,14 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 *library(cowplot)
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 
 ]
 
@@ -1615,7 +1650,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1624,7 +1659,7 @@ library(cowplot)
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 
 ```
 [1] "/Library/Frameworks/R.framework/Versions/3.6/Resources/library/cowplot/extdata/logo.png"
@@ -1636,7 +1671,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1646,7 +1681,7 @@ system.file("extdata", "logo.png", package = "cowplot") -&gt;
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 
 ]
 
@@ -1655,7 +1690,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1667,7 +1702,7 @@ system.file("extdata", "logo.png", package = "cowplot") -&gt;
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_4_output-1.png" width="432" /&gt;
 ]
 
@@ -1676,7 +1711,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1689,7 +1724,7 @@ ggplot(mpg, aes(displ, cty)) +
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_5_output-1.png" width="432" /&gt;
 ]
 
@@ -1698,7 +1733,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1712,7 +1747,7 @@ ggplot(mpg, aes(displ, cty)) +
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_6_output-1.png" width="432" /&gt;
 ]
 
@@ -1721,7 +1756,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1736,7 +1771,7 @@ ggplot(mpg, aes(displ, cty)) +
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 
 ]
 
@@ -1745,7 +1780,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1762,7 +1797,7 @@ p
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_8_output-1.png" width="432" /&gt;
 ]
 
@@ -1771,7 +1806,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1789,7 +1824,7 @@ ggdraw() +
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_9_output-1.png" width="432" /&gt;
 ]
 
@@ -1798,7 +1833,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1817,7 +1852,7 @@ ggdraw() +
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_10_output-1.png" width="432" /&gt;
 ]
 
@@ -1826,7 +1861,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1846,7 +1881,7 @@ ggdraw() +
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 
 ]
 
@@ -1855,7 +1890,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1877,7 +1912,7 @@ logo_plot1
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_12_output-1.png" width="432" /&gt;
 ]
 
@@ -1886,7 +1921,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1909,7 +1944,7 @@ ggdraw() +
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_13_output-1.png" width="432" /&gt;
 ]
 
@@ -1918,7 +1953,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1942,7 +1977,7 @@ ggdraw() +
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 &lt;img src="ensembles_files/figure-html/draw_auto_14_output-1.png" width="432" /&gt;
 ]
 
@@ -1951,7 +1986,7 @@ class: split-40
 count: false
  
 
-.left-code-draw-auto[
+.left-panel-draw-auto[
 
 ```r
 library(cowplot)  
@@ -1976,22 +2011,29 @@ ggdraw() +
 ```
 ]
  
-.right-output-draw-auto[
+.right-panel-draw-auto[
 
 ]
 
 &lt;style&gt;
-.left-code-draw-auto {
+.left-panel-draw-auto {
   color: #777;
-  width: 38%;
+  width: 38.6138613861386%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-draw-auto {
-  width: 60%;
+.right-panel-draw-auto {
+  width: 59.4059405940594%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-draw-auto {
+  width: 0%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
 
@@ -2008,14 +2050,14 @@ class: split-40
 count: false
  
 
-.left-code-bottom-auto[
+.left-panel-bottom-auto[
 
 ```r
 *library(cowplot)
 ```
 ]
  
-.right-output-bottom-auto[
+.right-panel-bottom-auto[
 
 ]
 
@@ -2024,7 +2066,7 @@ class: split-40
 count: false
  
 
-.left-code-bottom-auto[
+.left-panel-bottom-auto[
 
 ```r
 library(cowplot)  
@@ -2033,7 +2075,7 @@ library(cowplot)
 ```
 ]
  
-.right-output-bottom-auto[
+.right-panel-bottom-auto[
 
 ```
                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
@@ -2077,7 +2119,7 @@ class: split-40
 count: false
  
 
-.left-code-bottom-auto[
+.left-panel-bottom-auto[
 
 ```r
 library(cowplot)  
@@ -2087,7 +2129,7 @@ mtcars %&gt;%
 ```
 ]
  
-.right-output-bottom-auto[
+.right-panel-bottom-auto[
 &lt;img src="ensembles_files/figure-html/bottom_auto_3_output-1.png" width="432" /&gt;
 ]
 
@@ -2096,7 +2138,7 @@ class: split-40
 count: false
  
 
-.left-code-bottom-auto[
+.left-panel-bottom-auto[
 
 ```r
 library(cowplot)  
@@ -2107,7 +2149,7 @@ ggplot() +
 ```
 ]
  
-.right-output-bottom-auto[
+.right-panel-bottom-auto[
 &lt;img src="ensembles_files/figure-html/bottom_auto_4_output-1.png" width="432" /&gt;
 ]
 
@@ -2116,7 +2158,7 @@ class: split-40
 count: false
  
 
-.left-code-bottom-auto[
+.left-panel-bottom-auto[
 
 ```r
 library(cowplot)  
@@ -2128,7 +2170,7 @@ ggplot() +
 ```
 ]
  
-.right-output-bottom-auto[
+.right-panel-bottom-auto[
 &lt;img src="ensembles_files/figure-html/bottom_auto_5_output-1.png" width="432" /&gt;
 ]
 
@@ -2137,7 +2179,7 @@ class: split-40
 count: false
  
 
-.left-code-bottom-auto[
+.left-panel-bottom-auto[
 
 ```r
 library(cowplot)  
@@ -2150,7 +2192,7 @@ ggplot() +
 ```
 ]
  
-.right-output-bottom-auto[
+.right-panel-bottom-auto[
 
 ]
 
@@ -2159,7 +2201,7 @@ class: split-40
 count: false
  
 
-.left-code-bottom-auto[
+.left-panel-bottom-auto[
 
 ```r
 library(cowplot)  
@@ -2176,7 +2218,7 @@ top_row
 ```
 ]
  
-.right-output-bottom-auto[
+.right-panel-bottom-auto[
 &lt;img src="ensembles_files/figure-html/bottom_auto_7_output-1.png" width="432" /&gt;
 ]
 
@@ -2185,7 +2227,7 @@ class: split-40
 count: false
  
 
-.left-code-bottom-auto[
+.left-panel-bottom-auto[
 
 ```r
 library(cowplot)  
@@ -2203,7 +2245,7 @@ plot_grid(p1, p2,
 ```
 ]
  
-.right-output-bottom-auto[
+.right-panel-bottom-auto[
 
 ]
 
@@ -2212,7 +2254,7 @@ class: split-40
 count: false
  
 
-.left-code-bottom-auto[
+.left-panel-bottom-auto[
 
 ```r
 library(cowplot)  
@@ -2234,7 +2276,7 @@ bottom_row
 ```
 ]
  
-.right-output-bottom-auto[
+.right-panel-bottom-auto[
 &lt;img src="ensembles_files/figure-html/bottom_auto_9_output-1.png" width="432" /&gt;
 ]
 
@@ -2243,7 +2285,7 @@ class: split-40
 count: false
  
 
-.left-code-bottom-auto[
+.left-panel-bottom-auto[
 
 ```r
 library(cowplot)  
@@ -2266,22 +2308,29 @@ plot_grid(p3, bottom_row,
 ```
 ]
  
-.right-output-bottom-auto[
+.right-panel-bottom-auto[
 
 ]
 
 &lt;style&gt;
-.left-code-bottom-auto {
+.left-panel-bottom-auto {
   color: #777;
-  width: 38%;
+  width: 38.6138613861386%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-bottom-auto {
-  width: 60%;
+.right-panel-bottom-auto {
+  width: 59.4059405940594%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-bottom-auto {
+  width: 0%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
 
@@ -2297,14 +2346,14 @@ class: split-40
 count: false
  
 
-.left-code-cow2-auto[
+.left-panel-cow2-auto[
 
 ```r
 *ggdraw(p1)
 ```
 ]
  
-.right-output-cow2-auto[
+.right-panel-cow2-auto[
 &lt;img src="ensembles_files/figure-html/cow2_auto_1_output-1.png" width="432" /&gt;
 ]
 
@@ -2313,7 +2362,7 @@ class: split-40
 count: false
  
 
-.left-code-cow2-auto[
+.left-panel-cow2-auto[
 
 ```r
 ggdraw(p1) +  
@@ -2322,7 +2371,7 @@ ggdraw(p1) +
 ```
 ]
  
-.right-output-cow2-auto[
+.right-panel-cow2-auto[
 &lt;img src="ensembles_files/figure-html/cow2_auto_2_output-1.png" width="432" /&gt;
 ]
 
@@ -2331,7 +2380,7 @@ class: split-40
 count: false
  
 
-.left-code-cow2-auto[
+.left-panel-cow2-auto[
 
 ```r
 ggdraw(p1) +  
@@ -2341,7 +2390,7 @@ ggdraw(p1) +
 ```
 ]
  
-.right-output-cow2-auto[
+.right-panel-cow2-auto[
 
 ]
 
@@ -2350,7 +2399,7 @@ class: split-40
 count: false
  
 
-.left-code-cow2-auto[
+.left-panel-cow2-auto[
 
 ```r
 ggdraw(p1) +  
@@ -2362,7 +2411,7 @@ my_plot
 ```
 ]
  
-.right-output-cow2-auto[
+.right-panel-cow2-auto[
 &lt;img src="ensembles_files/figure-html/cow2_auto_4_output-1.png" width="432" /&gt;
 ]
 
@@ -2371,7 +2420,7 @@ class: split-40
 count: false
  
 
-.left-code-cow2-auto[
+.left-panel-cow2-auto[
 
 ```r
 ggdraw(p1) +  
@@ -2384,7 +2433,7 @@ ggdraw(p1 + theme_half_open(12)) +
 ```
 ]
  
-.right-output-cow2-auto[
+.right-panel-cow2-auto[
 &lt;img src="ensembles_files/figure-html/cow2_auto_5_output-1.png" width="432" /&gt;
 ]
 
@@ -2393,7 +2442,7 @@ class: split-40
 count: false
  
 
-.left-code-cow2-auto[
+.left-panel-cow2-auto[
 
 ```r
 ggdraw(p1) +  
@@ -2412,22 +2461,29 @@ ggdraw(p1 + theme_half_open(12)) +
 ```
 ]
  
-.right-output-cow2-auto[
+.right-panel-cow2-auto[
 &lt;img src="ensembles_files/figure-html/cow2_auto_6_output-1.png" width="432" /&gt;
 ]
 
 &lt;style&gt;
-.left-code-cow2-auto {
+.left-panel-cow2-auto {
   color: #777;
   width: 59%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-cow2-auto {
+.right-panel-cow2-auto {
   width: 40%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-cow2-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
 
@@ -2442,14 +2498,14 @@ class: split-40
 count: false
  
 
-.left-code-image-auto[
+.left-panel-image-auto[
 
 ```r
 *library(cowplot)
 ```
 ]
  
-.right-output-image-auto[
+.right-panel-image-auto[
 
 ]
 
@@ -2458,7 +2514,7 @@ class: split-40
 count: false
  
 
-.left-code-image-auto[
+.left-panel-image-auto[
 
 ```r
 library(cowplot)  
@@ -2466,7 +2522,7 @@ library(cowplot)
 ```
 ]
  
-.right-output-image-auto[
+.right-panel-image-auto[
 
 ]
 
@@ -2475,7 +2531,7 @@ class: split-40
 count: false
  
 
-.left-code-image-auto[
+.left-panel-image-auto[
 
 ```r
 library(cowplot)  
@@ -2484,7 +2540,7 @@ library(magick)
 ```
 ]
  
-.right-output-image-auto[
+.right-panel-image-auto[
 
 ```
 [1] "/Library/Frameworks/R.framework/Versions/3.6/Resources/library/cowplot/extdata/cow.jpg"
@@ -2496,7 +2552,7 @@ class: split-40
 count: false
  
 
-.left-code-image-auto[
+.left-panel-image-auto[
 
 ```r
 library(cowplot)  
@@ -2506,7 +2562,7 @@ system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%
 ```
 ]
  
-.right-output-image-auto[
+.right-panel-image-auto[
 &lt;img src="ensembles_files/figure-html/image_auto_4_output-1.png" width="507" /&gt;
 ]
 
@@ -2515,7 +2571,7 @@ class: split-40
 count: false
  
 
-.left-code-image-auto[
+.left-panel-image-auto[
 
 ```r
 library(cowplot)  
@@ -2526,7 +2582,7 @@ system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%
 ```
 ]
  
-.right-output-image-auto[
+.right-panel-image-auto[
 &lt;img src="ensembles_files/figure-html/image_auto_5_output-1.png" width="253" /&gt;
 ]
 
@@ -2535,7 +2591,7 @@ class: split-40
 count: false
  
 
-.left-code-image-auto[
+.left-panel-image-auto[
 
 ```r
 library(cowplot)  
@@ -2547,7 +2603,7 @@ system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%
 ```
 ]
  
-.right-output-image-auto[
+.right-panel-image-auto[
 &lt;img src="ensembles_files/figure-html/image_auto_6_output-1.png" width="253" /&gt;
 ]
 
@@ -2556,7 +2612,7 @@ class: split-40
 count: false
  
 
-.left-code-image-auto[
+.left-panel-image-auto[
 
 ```r
 library(cowplot)  
@@ -2569,7 +2625,7 @@ system.file("extdata", "cow.jpg", package = "cowplot") %&gt;%
 ```
 ]
  
-.right-output-image-auto[
+.right-panel-image-auto[
 
 ]
 
@@ -2578,7 +2634,7 @@ class: split-40
 count: false
  
 
-.left-code-image-auto[
+.left-panel-image-auto[
 
 ```r
 library(cowplot)  
@@ -2593,7 +2649,7 @@ img
 ```
 ]
  
-.right-output-image-auto[
+.right-panel-image-auto[
 &lt;img src="ensembles_files/figure-html/image_auto_8_output-1.png" width="432" /&gt;
 ]
 
@@ -2602,7 +2658,7 @@ class: split-40
 count: false
  
 
-.left-code-image-auto[
+.left-panel-image-auto[
 
 ```r
 library(cowplot)  
@@ -2618,7 +2674,7 @@ ggdraw() +
 ```
 ]
  
-.right-output-image-auto[
+.right-panel-image-auto[
 &lt;img src="ensembles_files/figure-html/image_auto_9_output-1.png" width="432" /&gt;
 ]
 
@@ -2627,7 +2683,7 @@ class: split-40
 count: false
  
 
-.left-code-image-auto[
+.left-panel-image-auto[
 
 ```r
 library(cowplot)  
@@ -2644,22 +2700,29 @@ ggdraw() +
 ```
 ]
  
-.right-output-image-auto[
+.right-panel-image-auto[
 &lt;img src="ensembles_files/figure-html/image_auto_10_output-1.png" width="432" /&gt;
 ]
 
 &lt;style&gt;
-.left-code-image-auto {
+.left-panel-image-auto {
   color: #777;
   width: 59%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-image-auto {
+.right-panel-image-auto {
   width: 40%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-image-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
 
@@ -2667,7 +2730,9 @@ ggdraw() +
 
 
 
+---
 
+A final topic coming up is [concision](concision.html).  Some strategies for not repeating yourself and a few other topics.
 
 
 &lt;style type="text/css"&gt;

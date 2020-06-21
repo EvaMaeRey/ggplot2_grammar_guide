@@ -363,6 +363,9 @@ ggplot(data = gapminder_2002) +
 `r chunk_reveal("modifiers_review")`
 
 
+---
+
+For a deeper dive on scales go [here](scales.html), else [punctuation](facet.html) (faceting/small multiples) is next.
 
 
 ```{css, eval = TRUE, echo = F}
