@@ -202,15 +202,13 @@ External Theme Packages
 - [{ggeasy} easy adjustment for common theme modifications](themes_ggeasy.html){target="_blank"}
 - [External Themes, {ggthemes} {ggthemr}](external_themes.html){target="_blank"}
 
-Spatial with [geom_sf](geom_sf.html){target="_blank"}, [tmap](tmap.html){target="_blank"}, and [](){target="_blank"} (3D ggplots)
+Spatial with [geom_sf](geom_sf.html){target="_blank"}, [tmap](tmap.html){target="_blank"}, and [rayshader](rayshader.html){target="_blank"} (spatial & 3D ggplots)
 
 <div id="needtowrap">
 
 `r viztoc:::build_and_use_gif(dir = "geom_sf_files/figure-html/", pattern = "" , href = "geom_sf.html", width = 150, height = 150, cached_gif = T, which = 80, delay = .22)`
 
 `r viztoc:::build_and_use_gif(dir = "tmap_files/figure-html/", pattern = "" , href = "tmap.html" , width = 150, height = 150, cached_gif = T, which = 45, delay = .22)`
-
-
 
 `r viztoc:::build_and_use_gif(dir = "rayshader_files/figure-html/", pattern = "" , href = "rayshader.html", width = 150, height = 150, cached_gif = T, which = 14, delay = .22)`
 
