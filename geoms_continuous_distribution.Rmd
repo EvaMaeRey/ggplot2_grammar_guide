@@ -56,7 +56,7 @@ name: c
 
 ---
 
-`r chunk_reveal("univariate_continuous_build", width_code = "59%", width_output = "40%")`
+`r chunk_reveal("univariate_continuous_build", widths = c(59, 40))`
 
 
 
@@ -74,7 +74,7 @@ gapminder %>%
 
 ---
 
-`r chunk_reveal("univariate_continuous", break_type = "rotate", width_code = "59%", width_output = "40%")`
+`r chunk_reveal("univariate_continuous", break_type = "rotate", widths = c(59, 40))`
 
 
 
@@ -109,7 +109,7 @@ name: c
 
 ---
 
-`r chunk_reveal("geom_discrete_continuous_facet_build", width_code = "59%", width_output = "40%")`
+`r chunk_reveal("geom_discrete_continuous_facet_build", widths = c(59, 40))`
 
 
 ```{r, geom_discrete_continuous_facet_build, eval = F, echo = F}
@@ -124,7 +124,7 @@ gapminder %>%
 ---
 
 
-`r chunk_reveal("geom_discrete_continuous_facet", break_type = "rotate", width_code = "59%", width_output = "40%")`
+`r chunk_reveal("geom_discrete_continuous_facet", break_type = "rotate", widths = c(59, 40))`
 
 
 ```{r, geom_discrete_continuous_facet, eval = F, echo = F}
@@ -141,6 +141,8 @@ gapminder %>%
   geom_histogram(col = "black", fill = "maroon4", alpha = .4, aes(y = ..density..)) + #ROTATE
   geom_density(linetype = "dotted", adjust = 1/4, size = 1.25) + #ROTATE
   geom_density(linetype = "dashed", adjust = 1/2, size = 1.25) + #ROTATE
+  ggalt::geom_bkde(alpha = 0.3 ) + #ROTATE
+  ggalt::geom_bkde(alpha = 0.3, bandwidth = .25, aes(fill = continent)) + #ROTATE
   facet_grid(continent ~ .)
 ```
 
@@ -156,7 +158,7 @@ name: dc
 ---
 
 
-`r chunk_reveal("geom_discrete_continuous_build", width_code = "59%", width_output = "40%")`
+`r chunk_reveal("geom_discrete_continuous_build", widths = c(59, 40))`
 
 
 ```{r geom_discrete_continuous_build, eval = F, echo = F}
@@ -172,7 +174,7 @@ gapminder %>%
 ---
 
 
-`r chunk_reveal("geom_discrete_continuous", break_type = "rotate", width_code = "59%", width_output = "40%")`
+`r chunk_reveal("geom_discrete_continuous", break_type = "rotate", widths = c(59, 40))`
 
 
 ```{r geom_discrete_continuous, eval = F, echo = F}
@@ -199,7 +201,7 @@ gapminder %>%
   ggridges::geom_density_ridges(scale = 2, alpha = .5) + #ROTATE
   ggridges::scale_fill_cyclical(values = c("blue", "green")) + #ROTATE
   geom_point(aes(color = continent), position = position_nudge(x = 0, y = .2), size = .5, alpha = 0.8) + geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) + #ROTATE
-  ggalt::geom_bkde(alpha = 0.3, bandwidth = .25, aes(fill = continent)) + #ROTATE
+  geom_histogram(aes(y = after_stat(density))) + #ROTATE
   theme_minimal() +
   labs(y = NULL)
 ```
@@ -207,7 +209,7 @@ gapminder %>%
 
 ---
 
-`r chunk_reveal("geom_discrete_continuous_bee", break_type = "rotate", width_code = "59%", width_output = "40%")`
+`r chunk_reveal("geom_discrete_continuous_bee", break_type = "rotate", widths = c(59, 40))`
 
 ```{r geom_discrete_continuous_bee, include = F}
 gapminder %>% 

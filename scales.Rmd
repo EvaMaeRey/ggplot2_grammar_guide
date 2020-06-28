@@ -129,6 +129,7 @@ ggplot(data = gapminder_2002) +
   scale_x_continuous(breaks = c(1000, 1500), labels = c("1k", "15k")) + #ROTATE
   scale_y_continuous(labels = c("40y", "50y", "60y","70y", "80y")) + #ROTATE
   scale_color_continuous(breaks = c(1000, 1500), labels = c("1k", "15k")) + #ROTATE
+  scale_color_binned() + #ROTATE
   scale_alpha_continuous(labels = c("40y", "50y", "60y","70y", "80y")) + #ROTATE
   scale_x_continuous(limits = c(-1000,100000)) + #ROTATE
   scale_y_continuous(limits = c(30,100)) + #ROTATE
@@ -154,11 +155,7 @@ ggplot(data = gapminder_2002) +
 ## Scales
 
 
-There are a variety of scaling alternatives for the x position aesthetic:  
-
-- scale_x_log10()
-- scale_x_reverse()
-- scale_x_sqrt()
+There are a variety of scaling alternatives for the x position aesthetic.  The most commonly use have convenience functions
 
 
 ---
@@ -173,12 +170,15 @@ ggplot(data = gapminder_2002) +
   scale_x_continuous(trans = "hms") + #ROTATE
   scale_x_continuous(trans = "sqrt") + #ROTATE
   scale_x_continuous(trans = "log10") + #ROTATE
+  scale_x_log10() + # convenience #ROTATE
   scale_x_continuous(trans = "log1p") + #ROTATE
   scale_x_continuous(trans = "log2") + #ROTATE
   scale_x_continuous(trans = "pseudo_log") + #ROTATE
   scale_x_continuous(trans = "reciprocal") + #ROTATE
   scale_x_continuous(trans = "reverse") + #ROTATE
-  scale_x_continuous(trans = "sqrt") #ROTATE
+  scale_x_reverse() + # convenience #ROTATE
+  scale_x_continuous(trans = "sqrt") + #ROTATE
+  scale_x_sqrt() # convenience #ROTATE
 ```
 
 ---
@@ -229,7 +229,7 @@ ggplot(data = gapminder_2002) +
 
 Analogously, we can use scale\_\*\_\* statements to modify other aesthetic scales.  Here are some examples
 
-<!-- I think people find it easy to think about x and y position and adjusting those scales, and related adjustment like labs() and scale_*, but we teachers need to help extend these logics to the other aesthetics.  -->
+<!-- I think people find it easy to think about x and y position and adjusting those scales, and related adjustment like labs() and scale_*, but we teachers need to help extend the logic to the other aesthetics.  -->
 
 
 - scale_x_log10() 
@@ -256,6 +256,35 @@ Let's tour several of those to get a taste.
 - What does "d" stand for in the scale_color_viridis_d()? Use the help pane.
 
 - While you are in the help pane, see how would you set missing values (NA) to "black".
+
+---
+class: center, middle, inverse
+
+# When categorial x-axis scales get messy
+
+---
+
+`r chunk_reveal("messy_axis_scales", break_type = "rotate")`
+
+```{r messy_axis_scales, include = F}
+gapminder %>% 
+  filter(year == 2002,
+         continent == "Americas") %>% 
+  ggplot() +
+  aes(x = country) + 
+  aes(y = lifeExp) +
+  geom_col() +
+  scale_x_discrete(guide = guide_axis(check.overlap = TRUE)) + #ROTATE
+  scale_x_discrete(guide = guide_axis(n.dodge = 2)) + #ROTATE
+  scale_x_discrete(guide = guide_axis(n.dodge = 3)) + #ROTATE
+  theme(axis.text.x = element_text(angle = -45)) + #ROTATE
+  theme(axis.text.x = element_text(angle = -45, hjust = 0)) #ROTATE
+```
+
+
+
+
+
 
 
 ---

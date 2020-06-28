@@ -70,7 +70,7 @@ Let's look at tying some data to a specific geometric object in the next example
 
 ---
 
-`r chunk_reveal("local_data", width_code = "49%", width_output = "50%")`
+`r chunk_reveal("local_data", widths = c(49,50))`
 
 
 ```{r local_data, eval = F, echo = F}
@@ -104,7 +104,7 @@ ggplot(data = gm_2002) + # global data
 
 ---
 
-`r chunk_reveal("local_data_filter", break_type = 1, title = "#### Manipulating data locally", width_code = "49%", width_output = "50%")`
+`r chunk_reveal("local_data_filter", break_type = 1, title = "#### Manipulating data locally", widths = c(49,50))`
 
 
 ```{r local_data_filter, eval = F, echo = F}
@@ -128,7 +128,7 @@ ggplot(data = gm_2002) + # global data
 
 ---
 
-`r chunk_reveal("local_data_from_global", title = "#### Referring to global data locally using period (.)", break_type = 1, width_code = "49%", width_output = "50%")`
+`r chunk_reveal("local_data_from_global", title = "#### Referring to global data locally using period (.)", break_type = 1, widths = c(49,50))`
 
 
 ```{r local_data_from_global, eval = F, echo = F}
@@ -159,7 +159,7 @@ An example is shown below.
 
 ---
 
-`r chunk_reveal("geom_specific_aes_mapping", break_type = "rotate", width_code = "49%", width_output = "50%")`
+`r chunk_reveal("geom_specific_aes_mapping", break_type = "rotate", widths = c(49,50))`
 
 
 ```{r geom_specific_aes_mapping, eval = F, echo = F}
@@ -194,7 +194,7 @@ geom_point(color = "blue"), is an imperative -- not an ask.  A dictator move.  "
 ---
 
 
-`r chunk_reveal("unmapped_aes", break_type = "rotate", width_code = "59%", width_output = "40%")`
+`r chunk_reveal("unmapped_aes", break_type = "rotate", widths = c(59,40))`
 
 
 ```{r unmapped_aes, eval = F, echo = F}
@@ -259,6 +259,52 @@ ggplot(data = gapminder_2002) + # global data
     color = "orange" #BREAK4
     )
 ```
+
+---
+
+# Advanced aes --- conflicting desires for color and fill, for example
+
+---
+
+`r chunk_reveal("aes_after", widths = c(59,40), break_type = "rotate")`
+
+```{r aes_after, include=FALSE}
+gapminder_2002 %>% 
+  count(continent) %>% 
+  ggplot() +
+  aes(x = continent) +
+  aes(y = n) + 
+  geom_col(aes(color = continent)) + #ROTATE
+  geom_col(aes(color = continent, fill = after_scale(color))) + #ROTATE
+  geom_col(aes(color = continent, fill = after_scale(alpha(color, .4)))) + #ROTATE
+  geom_col(aes(color = continent), fill = NA) + #ROTATE
+  geom_col(aes(color = continent, fill = NULL)) + #ROTATE
+  geom_col(aes(color = continent), fill = "snow1") #ROTATE
+```
+
+
+---
+
+# Even more control with stage
+
+in the example we see how we can get transparency for outline.  alpha aes, usually refers to 
+
+---
+
+`r chunk_reveal("stage", widths = c(79,20), break_type = "rotate")`
+
+```{r stage, include=FALSE}
+gapminder_2002 %>% 
+  count(continent) %>% 
+  ggplot() +
+  aes(x = continent) +
+  aes(y = n) + 
+  geom_col() + #ROTATE
+  geom_col(aes(color = continent)) + #ROTATE
+  geom_col(aes(color = continent), size = 3) + #ROTATE
+  geom_col(aes(color = stage(start = continent, after_scale = alpha(color, 0.5))), size = 3)  #ROTATE
+```
+
 
 
 

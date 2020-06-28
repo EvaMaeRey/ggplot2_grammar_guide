@@ -33,19 +33,6 @@ xaringanthemer::mono_accent(
   code_font_google   = google_font("Droid Mono"),
   text_font_size = ".7cm",
   code_font_size = ".7cm")
-  
-
-# write_xaringan_theme(
-#   extra_css = list(
-#     ".box-right" = list(
-#       "height" = "300px",
-#       "width" = "300px",
-#       "position" = "absolute",
-#       "top" = "33%",
-#       "left" = "55%"
-#     )
-#   )
-# )
 
 ```
 

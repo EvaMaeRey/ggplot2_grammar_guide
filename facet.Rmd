@@ -55,13 +55,16 @@ gapminder %>%
   facet_wrap(vars(continent), scales = "free_x") + #ROTATE
   facet_wrap(vars(continent), scales = "free_x") + #ROTATE
   facet_wrap(vars(continent), scales = "free") + #ROTATE
-  facet_wrap(vars(continent), scales = "free", switch = "x") + #ROTATE
   facet_wrap(vars(continent), strip.position = "top") + #ROTATE
   facet_wrap(vars(continent), strip.position = "bottom") + #ROTATE
   facet_wrap(vars(continent), strip.position = "left") + #ROTATE
   facet_wrap(vars(continent), strip.position = "right") + #ROTATE
   facet_grid(continent ~ pop > 10000000) + #ROTATE
-  facet_grid(. ~ pop > 10000000) + #ROTATE
+  facet_grid(continent ~ pop > 10000000, switch = "x") + # y also possible #ROTATE
+  facet_grid(continent ~ pop > 10000000, switch = "both") + #ROTATE
+  facet_grid(. ~ continent) + #ROTATE
+  ggforce::facet_col(facets = vars(continent), scales = "free_y", space = "free", strip.position = "top") + #ROTATE
+  ggforce::facet_col(facets = vars(continent), scales = "free_y", space = "free", strip.position = "left") + #ROTATE
   facet_grid(facets = continent ~ .) + #ROTATE
   facet_grid(rows = vars(continent)) + #ROTATE
   facet_grid(cols = vars(continent)) + #ROTATE
@@ -92,12 +95,14 @@ gapminder %>%
 
 ---
 
-`r chunk_reveal("categorical_free")`
+`r chunk_reveal("categorical_free", break_type = "rotate")`
 
-```{r categorical_free, include = F}
+```{r categorical_free, eval = F, echo = F}
 ggplot(mpg, aes(drv, model)) +
   geom_point() +
-  facet_grid(manufacturer ~ ., scales = "free", space = "free") +
+  facet_grid(manufacturer ~ ., scales = "free", space = "free") + # no strip position argument #ROTATE
+  ggforce::facet_col(facets = vars(manufacturer), scales = "free_y", space = "free", strip.position = "top") + #ROTATE
+  ggforce::facet_col(facets = vars(manufacturer), scales = "free_y", space = "free", strip.position = "left") + #ROTATE
   theme(strip.text.y = element_text(angle = 0))
 ```
 

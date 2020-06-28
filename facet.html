@@ -212,7 +212,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_wrap(vars(continent), scales = "free", switch = "x")
+* facet_wrap(vars(continent), strip.position = "top")
 ```
 ]
  
@@ -235,7 +235,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_wrap(vars(continent), strip.position = "top")
+* facet_wrap(vars(continent), strip.position = "bottom")
 ```
 ]
  
@@ -258,7 +258,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_wrap(vars(continent), strip.position = "bottom")
+* facet_wrap(vars(continent), strip.position = "left")
 ```
 ]
  
@@ -281,7 +281,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_wrap(vars(continent), strip.position = "left")
+* facet_wrap(vars(continent), strip.position = "right")
 ```
 ]
  
@@ -304,7 +304,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_wrap(vars(continent), strip.position = "right")
+* facet_grid(continent ~ pop &gt; 10000000)
 ```
 ]
  
@@ -327,7 +327,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_grid(continent ~ pop &gt; 10000000)
+* facet_grid(continent ~ pop &gt; 10000000, switch = "x")   # y also possible
 ```
 ]
  
@@ -350,7 +350,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_grid(. ~ pop &gt; 10000000)
+* facet_grid(continent ~ pop &gt; 10000000, switch = "both")
 ```
 ]
  
@@ -373,7 +373,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_grid(facets = continent ~ .)
+* facet_grid(. ~ continent)
 ```
 ]
  
@@ -396,7 +396,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_grid(rows = vars(continent))
+* ggforce::facet_col(facets = vars(continent), scales = "free_y", space = "free", strip.position = "top")
 ```
 ]
  
@@ -419,7 +419,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_grid(cols = vars(continent))
+* ggforce::facet_col(facets = vars(continent), scales = "free_y", space = "free", strip.position = "left")
 ```
 ]
  
@@ -442,7 +442,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_grid(vars(continent), vars(pop &gt; 10000000))
+* facet_grid(facets = continent ~ .)
 ```
 ]
  
@@ -465,7 +465,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_wrap(vars(continent, pop &gt; 10000000), scales = "free_y")
+* facet_grid(rows = vars(continent))
 ```
 ]
  
@@ -488,7 +488,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* ggforce::facet_zoom(xlim = c(5,10), horizontal = FALSE)
+* facet_grid(cols = vars(continent))
 ```
 ]
  
@@ -511,7 +511,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* ggforce::facet_zoom(xlim = c(20, 25), ylim = c(65, 80), horizontal = FALSE)
+* facet_grid(vars(continent), vars(pop &gt; 10000000))
 ```
 ]
  
@@ -534,12 +534,81 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_null()  # overrides any facetting
+* facet_wrap(vars(continent, pop &gt; 10000000), scales = "free_y")
 ```
 ]
  
 .right-panel-facets-rotate[
 &lt;img src="facet_files/figure-html/facets_rotate_22_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* ggforce::facet_zoom(xlim = c(5,10), horizontal = FALSE)
+```
+]
+ 
+.right-panel-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_23_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* ggforce::facet_zoom(xlim = c(20, 25), ylim = c(65, 80), horizontal = FALSE)
+```
+]
+ 
+.right-panel-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_24_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-facets-rotate[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  ggplot() +  
+  aes(x = gdpPercap / 1000) +  
+  aes(y = lifeExp) +  
+  geom_point() +  
+  aes(color = continent) +  
+* facet_null()  # overrides any facetting
+```
+]
+ 
+.right-panel-facets-rotate[
+&lt;img src="facet_files/figure-html/facets_rotate_25_output-1.png" width="100%" /&gt;
 ]
 
 &lt;style&gt;
@@ -795,50 +864,18 @@ class: split-40
 count: false
  
 
-.left-panel-categorical_free-auto[
-
-```r
-*ggplot(mpg, aes(drv, model))
-```
-]
- 
-.right-panel-categorical_free-auto[
-&lt;img src="facet_files/figure-html/categorical_free_auto_1_output-1.png" width="100%" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-panel-categorical_free-auto[
-
-```r
-ggplot(mpg, aes(drv, model)) +  
-* geom_point()
-```
-]
- 
-.right-panel-categorical_free-auto[
-&lt;img src="facet_files/figure-html/categorical_free_auto_2_output-1.png" width="100%" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-panel-categorical_free-auto[
+.left-panel-categorical_free-rotate[
 
 ```r
 ggplot(mpg, aes(drv, model)) +  
   geom_point() +  
-* facet_grid(manufacturer ~ ., scales = "free", space = "free")
+  facet_grid(manufacturer ~ ., scales = "free", space = "free") +  # no strip position argument 
+  theme(strip.text.y = element_text(angle = 0))  
 ```
 ]
  
-.right-panel-categorical_free-auto[
-&lt;img src="facet_files/figure-html/categorical_free_auto_3_output-1.png" width="100%" /&gt;
+.right-panel-categorical_free-rotate[
+&lt;img src="facet_files/figure-html/categorical_free_rotate_1_output-1.png" width="100%" /&gt;
 ]
 
 ---
@@ -846,35 +883,54 @@ class: split-40
 count: false
  
 
-.left-panel-categorical_free-auto[
+.left-panel-categorical_free-rotate[
 
 ```r
 ggplot(mpg, aes(drv, model)) +  
   geom_point() +  
-  facet_grid(manufacturer ~ ., scales = "free", space = "free") +  
-* theme(strip.text.y = element_text(angle = 0))
+* ggforce::facet_col(facets = vars(manufacturer), scales = "free_y", space = "free", strip.position = "top") +
+  theme(strip.text.y = element_text(angle = 0))  
 ```
 ]
  
-.right-panel-categorical_free-auto[
-&lt;img src="facet_files/figure-html/categorical_free_auto_4_output-1.png" width="100%" /&gt;
+.right-panel-categorical_free-rotate[
+&lt;img src="facet_files/figure-html/categorical_free_rotate_2_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-categorical_free-rotate[
+
+```r
+ggplot(mpg, aes(drv, model)) +  
+  geom_point() +  
+* ggforce::facet_col(facets = vars(manufacturer), scales = "free_y", space = "free", strip.position = "left") +
+  theme(strip.text.y = element_text(angle = 0))  
+```
+]
+ 
+.right-panel-categorical_free-rotate[
+&lt;img src="facet_files/figure-html/categorical_free_rotate_3_output-1.png" width="100%" /&gt;
 ]
 
 &lt;style&gt;
-.left-panel-categorical_free-auto {
+.left-panel-categorical_free-rotate {
   color: #777;
   width: 38.6138613861386%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-panel-categorical_free-auto {
+.right-panel-categorical_free-rotate {
   width: 59.4059405940594%;
   float: right;
   padding-left: 1%;
   font-size: 80%
 }
-.middle-panel-categorical_free-auto {
+.middle-panel-categorical_free-rotate {
   width: 0%;
   float: left;
   padding-left: 1%;

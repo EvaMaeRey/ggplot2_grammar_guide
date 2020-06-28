@@ -14,8 +14,6 @@ output:
 knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
 knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = T, dpi = 300)
 library(flipbookr)
-library(tidyverse)
-library(gapminder)
 options(scipen = 10)
 ```
 
@@ -24,21 +22,11 @@ options(scipen = 10)
 
 
 ```{r prep_data, eval = T, echo = F}
+library(tidyverse)
+library(gapminder)
 gapminder %>% # data from package
   filter(year == 2002) -> # filtering
-gapminder_2002 # saving subset object
-gapminder_2002 %>% 
-  filter(continent == "Europe") ->
-gapminder_2002_europe  
-gapminder %>% 
-  filter(continent == "Europe") ->
-gapminder_europe
-gapminder %>% 
-  select(country, continent) %>% 
-  distinct() %>% 
-  group_by(continent) %>% 
-  summarise(country_count = n()) ->
-continent_aggregate
+gapminder_2002
 ```
 
 
@@ -99,6 +87,7 @@ ggplot(data = gapminder_2002) +
   ggalt::geom_bkde2d(bandwidth=c(0.5, 4)) + #ROTATE
   geom_smooth() +  # #ROTATE
   geom_smooth(method = lm) + #ROTATE
+  geom_smooth(orientation = "y", method = lm) + #ROTATE
   geom_hex(alpha = .5,color = "white") + #ROTATE
   geom_hex(bins = 12, alpha = .9, color = "white") + #ROTATE
   ggforce::geom_voronoi_segment() + #ROTATE
@@ -130,9 +119,13 @@ ggplot(data = gapminder_2002) +
   theme_minimal()
 ```
 
+
+
 ---
 
-x and y dense
+## dense x and y
+
+geom_point density isn't easy to appreciate w/o dense data
 
 ---
 

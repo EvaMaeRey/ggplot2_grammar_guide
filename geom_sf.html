@@ -24,13 +24,13 @@ class: center, middle, inverse, title-slide
 # What Are We Doing?
 --
 
-- Here we will walk through the process of creating maps in RStudio.
+- Here we will walk through the process of creating maps in with ggplot using geom_sf()
 --
 
 - This will include the packages required and how to code a map.
 --
 
-- We will be looking at data from two cases: Wetherspoon restaurants in UK, and defense expenditure of NATO member states. 
+- We will be looking at data from two cases: Wetherspoon restaurants in UK, and life expectancy in europe
 
 
 ---
@@ -62,14 +62,14 @@ class: split-40
 count: false
  
 
-.left-code-wetherspoon-auto[
+.left-panel-wetherspoon-auto[
 
 ```r
 *library(tidyverse)
 ```
 ]
  
-.right-output-wetherspoon-auto[
+.right-panel-wetherspoon-auto[
 
 ]
 
@@ -78,7 +78,7 @@ class: split-40
 count: false
  
 
-.left-code-wetherspoon-auto[
+.left-panel-wetherspoon-auto[
 
 ```r
 library(tidyverse)  
@@ -86,7 +86,7 @@ library(tidyverse)
 ```
 ]
  
-.right-output-wetherspoon-auto[
+.right-panel-wetherspoon-auto[
 
 ]
 
@@ -95,7 +95,7 @@ class: split-40
 count: false
  
 
-.left-code-wetherspoon-auto[
+.left-panel-wetherspoon-auto[
 
 ```r
 library(tidyverse)  
@@ -104,7 +104,7 @@ library(rnaturalearth)
 ```
 ]
  
-.right-output-wetherspoon-auto[
+.right-panel-wetherspoon-auto[
 
 ]
 
@@ -113,7 +113,7 @@ class: split-40
 count: false
  
 
-.left-code-wetherspoon-auto[
+.left-panel-wetherspoon-auto[
 
 ```r
 library(tidyverse)  
@@ -123,7 +123,7 @@ library(readxl)
 ```
 ]
  
-.right-output-wetherspoon-auto[
+.right-panel-wetherspoon-auto[
 
 ```
 # A tibble: 213 x 19
@@ -152,7 +152,7 @@ class: split-40
 count: false
  
 
-.left-code-wetherspoon-auto[
+.left-panel-wetherspoon-auto[
 
 ```r
 library(tidyverse)  
@@ -163,7 +163,7 @@ read_excel("wetherspoon.xlsx") -&gt;
 ```
 ]
  
-.right-output-wetherspoon-auto[
+.right-panel-wetherspoon-auto[
 
 ]
 
@@ -172,7 +172,7 @@ class: split-40
 count: false
  
 
-.left-code-wetherspoon-auto[
+.left-panel-wetherspoon-auto[
 
 ```r
 library(tidyverse)  
@@ -180,12 +180,12 @@ library(rnaturalearth)
 library(readxl)  
 read_excel("wetherspoon.xlsx") -&gt;  
 wetherspoon_raw  
-#
+
 *wetherspoon_raw
 ```
 ]
  
-.right-output-wetherspoon-auto[
+.right-panel-wetherspoon-auto[
 
 ```
 # A tibble: 213 x 19
@@ -214,7 +214,7 @@ class: split-40
 count: false
  
 
-.left-code-wetherspoon-auto[
+.left-panel-wetherspoon-auto[
 
 ```r
 library(tidyverse)  
@@ -222,13 +222,13 @@ library(rnaturalearth)
 library(readxl)  
 read_excel("wetherspoon.xlsx") -&gt;  
 wetherspoon_raw  
-#
+
 wetherspoon_raw %&gt;%  
 * janitor::clean_names()
 ```
 ]
  
-.right-output-wetherspoon-auto[
+.right-panel-wetherspoon-auto[
 
 ```
 # A tibble: 213 x 19
@@ -257,7 +257,7 @@ class: split-40
 count: false
  
 
-.left-code-wetherspoon-auto[
+.left-panel-wetherspoon-auto[
 
 ```r
 library(tidyverse)  
@@ -265,70 +265,36 @@ library(rnaturalearth)
 library(readxl)  
 read_excel("wetherspoon.xlsx") -&gt;  
 wetherspoon_raw  
-#
+
 wetherspoon_raw %&gt;%  
-  janitor::clean_names() %&gt;%  
-* select(1:5)
-```
-]
- 
-.right-output-wetherspoon-auto[
-
-```
-# A tibble: 213 x 5
-   name                location            latitude longitude empire_state_burg…
-   &lt;chr&gt;               &lt;chr&gt;                  &lt;dbl&gt;     &lt;dbl&gt;              &lt;dbl&gt;
- 1 The Moon Under Wat… Leicester Square, …     51.5   -0.129               11.2 
- 2 The Lord Moon of t… Whitehall, London       51.5   -0.127               11.0 
- 3 Pendrel's Oak       Holborn, London         51.5   -0.115               11.0 
- 4 The Cross Keyes     City of London, Lo…     51.5   -0.0847              11.0 
- 5 The Mardi Gras      Manchester              53.5   -2.35                13.6 
- 6 The King and Castle Windsor                 51.5   -0.609               10.6 
- 7 The Hope &amp; Champion Beaconsfield Servi…     51.6   -0.627                9.75
- 8 Goodman's Field     Tower Hamlets, Lon…     51.5   -0.0728              11.0 
- 9 Castle In the Air   Manchester              53.5   -2.36                11.5 
-10 The Ice Wharf       Camden, London          51.5   -0.145               11.2 
-# … with 203 more rows
-```
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-wetherspoon-auto[
-
-```r
-library(tidyverse)  
-library(rnaturalearth)  
-library(readxl)  
-read_excel("wetherspoon.xlsx") -&gt;  
-wetherspoon_raw  
-#
-wetherspoon_raw %&gt;%  
-  janitor::clean_names() %&gt;%  
-  select(1:5)  -&gt;  
+  janitor::clean_names() -&gt;  
 *wetherspoon
 ```
 ]
  
-.right-output-wetherspoon-auto[
+.right-panel-wetherspoon-auto[
 
 ]
 
 &lt;style&gt;
-.left-code-wetherspoon-auto {
+.left-panel-wetherspoon-auto {
   color: #777;
-  width: 38%;
+  width: 38.6138613861386%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-wetherspoon-auto {
-  width: 60%;
+.right-panel-wetherspoon-auto {
+  width: 59.4059405940594%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-wetherspoon-auto {
+  width: 0%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
 
@@ -338,15 +304,11 @@ wetherspoon_raw %&gt;%
 
 ---
 
-
-
-
-
 class: split-40
 count: false
  
 
-.left-code-wether-auto[
+.left-panel-wether-auto[
 
 ```r
 *rnaturalearth::ne_countries(
@@ -354,7 +316,7 @@ count: false
 ```
 ]
  
-.right-output-wether-auto[
+.right-panel-wether-auto[
 
 ```
 Simple feature collection with 241 features and 63 fields
@@ -492,7 +454,7 @@ class: split-40
 count: false
  
 
-.left-code-wether-auto[
+.left-panel-wether-auto[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -501,7 +463,7 @@ rnaturalearth::ne_countries(
 ```
 ]
  
-.right-output-wether-auto[
+.right-panel-wether-auto[
 
 ```
 Simple feature collection with 241 features and 2 fields
@@ -529,7 +491,7 @@ class: split-40
 count: false
  
 
-.left-code-wether-auto[
+.left-panel-wether-auto[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -539,7 +501,7 @@ rnaturalearth::ne_countries(
 ```
 ]
  
-.right-output-wether-auto[
+.right-panel-wether-auto[
 
 ```
 Simple feature collection with 1 feature and 2 fields
@@ -557,7 +519,7 @@ class: split-40
 count: false
  
 
-.left-code-wether-auto[
+.left-panel-wether-auto[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -568,7 +530,7 @@ rnaturalearth::ne_countries(
 ```
 ]
  
-.right-output-wether-auto[
+.right-panel-wether-auto[
 
 ]
 
@@ -577,7 +539,7 @@ class: split-40
 count: false
  
 
-.left-code-wether-auto[
+.left-panel-wether-auto[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -585,13 +547,29 @@ rnaturalearth::ne_countries(
   select(name, continent, geometry) %&gt;%  
   filter(name == 'United Kingdom') -&gt;  
 uk  
-#
-*ggplot(data = wetherspoon)
+
+*wetherspoon
 ```
 ]
  
-.right-output-wether-auto[
-&lt;img src="geom_sf_files/figure-html/wether_auto_5_output-1.png" width="864" /&gt;
+.right-panel-wether-auto[
+
+```
+# A tibble: 213 x 5
+   name                location            latitude longitude empire_state_burg…
+   &lt;chr&gt;               &lt;chr&gt;                  &lt;dbl&gt;     &lt;dbl&gt;              &lt;dbl&gt;
+ 1 The Moon Under Wat… Leicester Square, …     51.5   -0.129               11.2 
+ 2 The Lord Moon of t… Whitehall, London       51.5   -0.127               11.0 
+ 3 Pendrel's Oak       Holborn, London         51.5   -0.115               11.0 
+ 4 The Cross Keyes     City of London, Lo…     51.5   -0.0847              11.0 
+ 5 The Mardi Gras      Manchester              53.5   -2.35                13.6 
+ 6 The King and Castle Windsor                 51.5   -0.609               10.6 
+ 7 The Hope &amp; Champion Beaconsfield Servi…     51.6   -0.627                9.75
+ 8 Goodman's Field     Tower Hamlets, Lon…     51.5   -0.0728              11.0 
+ 9 Castle In the Air   Manchester              53.5   -2.36                11.5 
+10 The Ice Wharf       Camden, London          51.5   -0.145               11.2 
+# … with 203 more rows
+```
 ]
 
 ---
@@ -599,7 +577,7 @@ class: split-40
 count: false
  
 
-.left-code-wether-auto[
+.left-panel-wether-auto[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -607,13 +585,13 @@ rnaturalearth::ne_countries(
   select(name, continent, geometry) %&gt;%  
   filter(name == 'United Kingdom') -&gt;  
 uk  
-#
-ggplot(data = wetherspoon) +  
-* ggplot2::geom_sf(data = uk)
+
+wetherspoon %&gt;%  
+* ggplot()
 ```
 ]
  
-.right-output-wether-auto[
+.right-panel-wether-auto[
 &lt;img src="geom_sf_files/figure-html/wether_auto_6_output-1.png" width="864" /&gt;
 ]
 
@@ -622,7 +600,7 @@ class: split-40
 count: false
  
 
-.left-code-wether-auto[
+.left-panel-wether-auto[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -630,17 +608,15 @@ rnaturalearth::ne_countries(
   select(name, continent, geometry) %&gt;%  
   filter(name == 'United Kingdom') -&gt;  
 uk  
-#
-ggplot(data = wetherspoon) +  
-  ggplot2::geom_sf(data = uk) +  
-* geom_point(aes(x = longitude,
-*                  y = latitude,
-*                  color = empire_state_burger),
-*              alpha = .3)
+
+wetherspoon %&gt;%  
+  ggplot() +  
+* ggplot2::geom_sf(data = uk,
+*                  fill = "linen")
 ```
 ]
  
-.right-output-wether-auto[
+.right-panel-wether-auto[
 &lt;img src="geom_sf_files/figure-html/wether_auto_7_output-1.png" width="864" /&gt;
 ]
 
@@ -649,7 +625,7 @@ class: split-40
 count: false
  
 
-.left-code-wether-auto[
+.left-panel-wether-auto[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -657,18 +633,25 @@ rnaturalearth::ne_countries(
   select(name, continent, geometry) %&gt;%  
   filter(name == 'United Kingdom') -&gt;  
 uk  
-#
-ggplot(data = wetherspoon) +  
-  ggplot2::geom_sf(data = uk) +  
-  geom_point(aes(x = longitude,  
-                   y = latitude,  
-                   color = empire_state_burger),  
-               alpha = .3) +  
-*   scale_color_viridis_c()
+
+wetherspoon %&gt;%  
+  ggplot() +  
+  ggplot2::geom_sf(data = uk,  
+                   fill = "linen") +  
+* geom_point(
+*   aes(x = longitude,
+*       y = latitude,
+*       size = empire_state_burger,
+*       fill = empire_state_burger),
+*   alpha = .6,
+*   color = "black",
+*   stroke = 1,  # larger outline width
+*   shape = 21  # point with outline and fill
+*   )
 ```
 ]
  
-.right-output-wether-auto[
+.right-panel-wether-auto[
 &lt;img src="geom_sf_files/figure-html/wether_auto_8_output-1.png" width="864" /&gt;
 ]
 
@@ -677,7 +660,7 @@ class: split-40
 count: false
  
 
-.left-code-wether-auto[
+.left-panel-wether-auto[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -685,19 +668,26 @@ rnaturalearth::ne_countries(
   select(name, continent, geometry) %&gt;%  
   filter(name == 'United Kingdom') -&gt;  
 uk  
-#
-ggplot(data = wetherspoon) +  
-  ggplot2::geom_sf(data = uk) +  
-  geom_point(aes(x = longitude,  
-                   y = latitude,  
-                   color = empire_state_burger),  
-               alpha = .3) +  
-    scale_color_viridis_c() +  
-*   labs(color = "Empire State Burger\nCost (pounds)")
+
+wetherspoon %&gt;%  
+  ggplot() +  
+  ggplot2::geom_sf(data = uk,  
+                   fill = "linen") +  
+  geom_point(  
+    aes(x = longitude,  
+        y = latitude,  
+        size = empire_state_burger,  
+        fill = empire_state_burger),  
+    alpha = .6,  
+    color = "black",  
+    stroke = 1,  # larger outline width
+    shape = 21  # point with outline and fill
+    ) +  
+* scale_size(range = c(.5,15), guide = F)
 ```
 ]
  
-.right-output-wether-auto[
+.right-panel-wether-auto[
 &lt;img src="geom_sf_files/figure-html/wether_auto_9_output-1.png" width="864" /&gt;
 ]
 
@@ -706,7 +696,7 @@ class: split-40
 count: false
  
 
-.left-code-wether-auto[
+.left-panel-wether-auto[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -714,20 +704,27 @@ rnaturalearth::ne_countries(
   select(name, continent, geometry) %&gt;%  
   filter(name == 'United Kingdom') -&gt;  
 uk  
-#
-ggplot(data = wetherspoon) +  
-  ggplot2::geom_sf(data = uk) +  
-  geom_point(aes(x = longitude,  
-                   y = latitude,  
-                   color = empire_state_burger),  
-               alpha = .3) +  
-    scale_color_viridis_c() +  
-    labs(color = "Empire State Burger\nCost (pounds)") +  
-*   theme_bw()
+
+wetherspoon %&gt;%  
+  ggplot() +  
+  ggplot2::geom_sf(data = uk,  
+                   fill = "linen") +  
+  geom_point(  
+    aes(x = longitude,  
+        y = latitude,  
+        size = empire_state_burger,  
+        fill = empire_state_burger),  
+    alpha = .6,  
+    color = "black",  
+    stroke = 1,  # larger outline width
+    shape = 21  # point with outline and fill
+    ) +  
+  scale_size(range = c(.5,15), guide = F) +  
+* scale_fill_viridis_c(begin = .2, end = 1)
 ```
 ]
  
-.right-output-wether-auto[
+.right-panel-wether-auto[
 &lt;img src="geom_sf_files/figure-html/wether_auto_10_output-1.png" width="864" /&gt;
 ]
 
@@ -736,7 +733,7 @@ class: split-40
 count: false
  
 
-.left-code-wether-auto[
+.left-panel-wether-auto[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -744,21 +741,28 @@ rnaturalearth::ne_countries(
   select(name, continent, geometry) %&gt;%  
   filter(name == 'United Kingdom') -&gt;  
 uk  
-#
-ggplot(data = wetherspoon) +  
-  ggplot2::geom_sf(data = uk) +  
-  geom_point(aes(x = longitude,  
-                   y = latitude,  
-                   color = empire_state_burger),  
-               alpha = .3) +  
-    scale_color_viridis_c() +  
-    labs(color = "Empire State Burger\nCost (pounds)") +  
-    theme_bw() +  
-*   theme(plot.title = element_text(hjust = 0.5))
+
+wetherspoon %&gt;%  
+  ggplot() +  
+  ggplot2::geom_sf(data = uk,  
+                   fill = "linen") +  
+  geom_point(  
+    aes(x = longitude,  
+        y = latitude,  
+        size = empire_state_burger,  
+        fill = empire_state_burger),  
+    alpha = .6,  
+    color = "black",  
+    stroke = 1,  # larger outline width
+    shape = 21  # point with outline and fill
+    ) +  
+  scale_size(range = c(.5,15), guide = F) +  
+  scale_fill_viridis_c(begin = .2, end = 1) +  
+* labs(fill = "Empire State Burger\nCost (pounds)")
 ```
 ]
  
-.right-output-wether-auto[
+.right-panel-wether-auto[
 &lt;img src="geom_sf_files/figure-html/wether_auto_11_output-1.png" width="864" /&gt;
 ]
 
@@ -767,7 +771,7 @@ class: split-40
 count: false
  
 
-.left-code-wether-auto[
+.left-panel-wether-auto[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -775,39 +779,183 @@ rnaturalearth::ne_countries(
   select(name, continent, geometry) %&gt;%  
   filter(name == 'United Kingdom') -&gt;  
 uk  
-#
-ggplot(data = wetherspoon) +  
-  ggplot2::geom_sf(data = uk) +  
-  geom_point(aes(x = longitude,  
-                   y = latitude,  
-                   color = empire_state_burger),  
-               alpha = .3) +  
-    scale_color_viridis_c() +  
-    labs(color = "Empire State Burger\nCost (pounds)") +  
-    theme_bw() +  
-    theme(plot.title = element_text(hjust = 0.5)) +  
-*   theme(axis.title = element_blank())
+
+wetherspoon %&gt;%  
+  ggplot() +  
+  ggplot2::geom_sf(data = uk,  
+                   fill = "linen") +  
+  geom_point(  
+    aes(x = longitude,  
+        y = latitude,  
+        size = empire_state_burger,  
+        fill = empire_state_burger),  
+    alpha = .6,  
+    color = "black",  
+    stroke = 1,  # larger outline width
+    shape = 21  # point with outline and fill
+    ) +  
+  scale_size(range = c(.5,15), guide = F) +  
+  scale_fill_viridis_c(begin = .2, end = 1) +  
+  labs(fill = "Empire State Burger\nCost (pounds)") +  
+* theme_bw()
 ```
 ]
  
-.right-output-wether-auto[
+.right-panel-wether-auto[
 &lt;img src="geom_sf_files/figure-html/wether_auto_12_output-1.png" width="864" /&gt;
 ]
 
+---
+class: split-40
+count: false
+ 
+
+.left-panel-wether-auto[
+
+```r
+rnaturalearth::ne_countries(  
+  scale = "medium", returnclass = "sf") %&gt;%  
+  select(name, continent, geometry) %&gt;%  
+  filter(name == 'United Kingdom') -&gt;  
+uk  
+
+wetherspoon %&gt;%  
+  ggplot() +  
+  ggplot2::geom_sf(data = uk,  
+                   fill = "linen") +  
+  geom_point(  
+    aes(x = longitude,  
+        y = latitude,  
+        size = empire_state_burger,  
+        fill = empire_state_burger),  
+    alpha = .6,  
+    color = "black",  
+    stroke = 1,  # larger outline width
+    shape = 21  # point with outline and fill
+    ) +  
+  scale_size(range = c(.5,15), guide = F) +  
+  scale_fill_viridis_c(begin = .2, end = 1) +  
+  labs(fill = "Empire State Burger\nCost (pounds)") +  
+  theme_bw() +  
+* theme(plot.title = element_text(hjust = 0.5))
+```
+]
+ 
+.right-panel-wether-auto[
+&lt;img src="geom_sf_files/figure-html/wether_auto_13_output-1.png" width="864" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-wether-auto[
+
+```r
+rnaturalearth::ne_countries(  
+  scale = "medium", returnclass = "sf") %&gt;%  
+  select(name, continent, geometry) %&gt;%  
+  filter(name == 'United Kingdom') -&gt;  
+uk  
+
+wetherspoon %&gt;%  
+  ggplot() +  
+  ggplot2::geom_sf(data = uk,  
+                   fill = "linen") +  
+  geom_point(  
+    aes(x = longitude,  
+        y = latitude,  
+        size = empire_state_burger,  
+        fill = empire_state_burger),  
+    alpha = .6,  
+    color = "black",  
+    stroke = 1,  # larger outline width
+    shape = 21  # point with outline and fill
+    ) +  
+  scale_size(range = c(.5,15), guide = F) +  
+  scale_fill_viridis_c(begin = .2, end = 1) +  
+  labs(fill = "Empire State Burger\nCost (pounds)") +  
+  theme_bw() +  
+  theme(plot.title = element_text(hjust = 0.5)) +  
+* theme(axis.title = element_blank())
+```
+]
+ 
+.right-panel-wether-auto[
+&lt;img src="geom_sf_files/figure-html/wether_auto_14_output-1.png" width="864" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-wether-auto[
+
+```r
+rnaturalearth::ne_countries(  
+  scale = "medium", returnclass = "sf") %&gt;%  
+  select(name, continent, geometry) %&gt;%  
+  filter(name == 'United Kingdom') -&gt;  
+uk  
+
+wetherspoon %&gt;%  
+  ggplot() +  
+  ggplot2::geom_sf(data = uk,  
+                   fill = "linen") +  
+  geom_point(  
+    aes(x = longitude,  
+        y = latitude,  
+        size = empire_state_burger,  
+        fill = empire_state_burger),  
+    alpha = .6,  
+    color = "black",  
+    stroke = 1,  # larger outline width
+    shape = 21  # point with outline and fill
+    ) +  
+  scale_size(range = c(.5,15), guide = F) +  
+  scale_fill_viridis_c(begin = .2, end = 1) +  
+  labs(fill = "Empire State Burger\nCost (pounds)") +  
+  theme_bw() +  
+  theme(plot.title = element_text(hjust = 0.5)) +  
+  theme(axis.title = element_blank()) +  
+* theme(panel.background =
+*         element_rect(fill = "ghostwhite"))
+```
+]
+ 
+.right-panel-wether-auto[
+&lt;img src="geom_sf_files/figure-html/wether_auto_15_output-1.png" width="864" /&gt;
+]
+
 &lt;style&gt;
-.left-code-wether-auto {
+.left-panel-wether-auto {
   color: #777;
-  width: 38%;
+  width: 49%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-wether-auto {
-  width: 60%;
+.right-panel-wether-auto {
+  width: 50%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-wether-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
+
+
+
+
+&lt;img src="geom_sf_files/figure-html/wether-1.png" width="864" /&gt;
+
 
 
 
@@ -855,7 +1003,7 @@ class: split-40
 count: false
  
 
-.left-code-nato-auto[
+.left-panel-nato-auto[
 
 ```r
 *nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",
@@ -863,7 +1011,7 @@ count: false
 ```
 ]
  
-.right-output-nato-auto[
+.right-panel-nato-auto[
 
 ]
 
@@ -872,18 +1020,177 @@ class: split-40
 count: false
  
 
-.left-code-nato-auto[
+.left-panel-nato-auto[
 
 ```r
 nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
                 "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
+
+*library(gapminder)
+```
+]
+ 
+.right-panel-nato-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-nato-auto[
+
+```r
+nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
+                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
+
+library(gapminder)  
+*gapminder
+```
+]
+ 
+.right-panel-nato-auto[
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-nato-auto[
+
+```r
+nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
+                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
+
+library(gapminder)  
+gapminder %&gt;%  
+* filter(year == 2002)
+```
+]
+ 
+.right-panel-nato-auto[
+
+```
+# A tibble: 142 x 6
+   country     continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       2002    42.1  25268405      727.
+ 2 Albania     Europe     2002    75.7   3508512     4604.
+ 3 Algeria     Africa     2002    71.0  31287142     5288.
+ 4 Angola      Africa     2002    41.0  10866106     2773.
+ 5 Argentina   Americas   2002    74.3  38331121     8798.
+ 6 Australia   Oceania    2002    80.4  19546792    30688.
+ 7 Austria     Europe     2002    79.0   8148312    32418.
+ 8 Bahrain     Asia       2002    74.8    656397    23404.
+ 9 Bangladesh  Asia       2002    62.0 135656790     1136.
+10 Belgium     Europe     2002    78.3  10311970    30486.
+# … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-nato-auto[
+
+```r
+nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
+                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+* rename(name = country)
+```
+]
+ 
+.right-panel-nato-auto[
+
+```
+# A tibble: 142 x 6
+   name        continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       2002    42.1  25268405      727.
+ 2 Albania     Europe     2002    75.7   3508512     4604.
+ 3 Algeria     Africa     2002    71.0  31287142     5288.
+ 4 Angola      Africa     2002    41.0  10866106     2773.
+ 5 Argentina   Americas   2002    74.3  38331121     8798.
+ 6 Australia   Oceania    2002    80.4  19546792    30688.
+ 7 Austria     Europe     2002    79.0   8148312    32418.
+ 8 Bahrain     Asia       2002    74.8    656397    23404.
+ 9 Bangladesh  Asia       2002    62.0 135656790     1136.
+10 Belgium     Europe     2002    78.3  10311970    30486.
+# … with 132 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-nato-auto[
+
+```r
+nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
+                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+*gapminder_2002_prepped
+```
+]
+ 
+.right-panel-nato-auto[
+
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-nato-auto[
+
+```r
+nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
+                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
 *rnaturalearth::ne_countries(
 * scale = "medium", returnclass = "sf")
 ```
 ]
  
-.right-output-nato-auto[
+.right-panel-nato-auto[
 
 ```
 Simple feature collection with 241 features and 63 fields
@@ -1021,12 +1328,18 @@ class: split-40
 count: false
  
 
-.left-code-nato-auto[
+.left-panel-nato-auto[
 
 ```r
 nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
                 "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
 rnaturalearth::ne_countries(  
   scale = "medium", returnclass = "sf") %&gt;%  
 * select(name, pop_est, gdp_md_est,
@@ -1034,7 +1347,7 @@ rnaturalearth::ne_countries(
 ```
 ]
  
-.right-output-nato-auto[
+.right-panel-nato-auto[
 
 ```
 Simple feature collection with 241 features and 4 fields
@@ -1073,12 +1386,18 @@ class: split-40
 count: false
  
 
-.left-code-nato-auto[
+.left-panel-nato-auto[
 
 ```r
 nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
                 "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
 rnaturalearth::ne_countries(  
   scale = "medium", returnclass = "sf") %&gt;%  
   select(name, pop_est, gdp_md_est,  
@@ -1087,7 +1406,7 @@ rnaturalearth::ne_countries(
 ```
 ]
  
-.right-output-nato-auto[
+.right-panel-nato-auto[
 
 ```
 Simple feature collection with 28 features and 4 fields
@@ -1126,52 +1445,58 @@ class: split-40
 count: false
  
 
-.left-code-nato-auto[
+.left-panel-nato-auto[
 
 ```r
 nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
                 "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
 rnaturalearth::ne_countries(  
   scale = "medium", returnclass = "sf") %&gt;%  
   select(name, pop_est, gdp_md_est,  
          continent, geometry) %&gt;%  
   filter(name %in% nato_names) %&gt;%  
-* left_join(nato_expenditure, by = "name")
+* left_join(gapminder_2002_prepped, by = "name")
 ```
 ]
  
-.right-output-nato-auto[
+.right-panel-nato-auto[
 
 ```
-Simple feature collection with 28 features and 5 fields
+Simple feature collection with 28 features and 9 fields
 geometry type:  MULTIPOLYGON
 dimension:      XY
 bbox:           xmin: -178.1945 ymin: -21.36904 xmax: 179.78 ymax: 83.11611
 CRS:            +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
 First 10 features:
-             name  pop_est gdp_md_est     continent spendingPercap
-1         Albania  3639453      21810        Europe           1.26
-2         Belgium 10414336     389300        Europe           0.93
-3        Bulgaria  7204687      93750        Europe           1.61
-4          Canada 33487208    1300000 North America           1.27
-5         Germany 82329758    2918000        Europe           1.36
-6         Denmark  5500510     203600        Europe           1.35
-7           Spain 40525002    1403000        Europe           0.92
-8         Estonia  1299371      27410        Europe           2.13
-9          France 64057792    2128000        Europe           1.84
-10 United Kingdom 62262000    1977704        Europe           2.13
-                         geometry
-1  MULTIPOLYGON (((20.06396 42...
-2  MULTIPOLYGON (((4.816016 51...
-3  MULTIPOLYGON (((28.58535 43...
-4  MULTIPOLYGON (((-59.7876 43...
-5  MULTIPOLYGON (((14.19824 53...
-6  MULTIPOLYGON (((11.36143 54...
-7  MULTIPOLYGON (((-17.88794 2...
-8  MULTIPOLYGON (((22.61738 58...
-9  MULTIPOLYGON (((55.79736 -2...
-10 MULTIPOLYGON (((-1.065576 5...
+             name  pop_est gdp_md_est   continent.x continent.y year lifeExp
+1         Albania  3639453      21810        Europe      Europe 2002  75.651
+2         Belgium 10414336     389300        Europe      Europe 2002  78.320
+3        Bulgaria  7204687      93750        Europe      Europe 2002  72.140
+4          Canada 33487208    1300000 North America    Americas 2002  79.770
+5         Germany 82329758    2918000        Europe      Europe 2002  78.670
+6         Denmark  5500510     203600        Europe      Europe 2002  77.180
+7           Spain 40525002    1403000        Europe      Europe 2002  79.780
+8         Estonia  1299371      27410        Europe        &lt;NA&gt;   NA      NA
+9          France 64057792    2128000        Europe      Europe 2002  79.590
+10 United Kingdom 62262000    1977704        Europe      Europe 2002  78.471
+        pop gdpPercap                       geometry
+1   3508512  4604.212 MULTIPOLYGON (((20.06396 42...
+2  10311970 30485.884 MULTIPOLYGON (((4.816016 51...
+3   7661799  7696.778 MULTIPOLYGON (((28.58535 43...
+4  31902268 33328.965 MULTIPOLYGON (((-59.7876 43...
+5  82350671 30035.802 MULTIPOLYGON (((14.19824 53...
+6   5374693 32166.500 MULTIPOLYGON (((11.36143 54...
+7  40152517 24835.472 MULTIPOLYGON (((-17.88794 2...
+8        NA        NA MULTIPOLYGON (((22.61738 58...
+9  59925035 28926.032 MULTIPOLYGON (((55.79736 -2...
+10 59912431 29478.999 MULTIPOLYGON (((-1.065576 5...
 ```
 ]
 
@@ -1180,23 +1505,29 @@ class: split-40
 count: false
  
 
-.left-code-nato-auto[
+.left-panel-nato-auto[
 
 ```r
 nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
                 "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
 rnaturalearth::ne_countries(  
   scale = "medium", returnclass = "sf") %&gt;%  
   select(name, pop_est, gdp_md_est,  
          continent, geometry) %&gt;%  
   filter(name %in% nato_names) %&gt;%  
-  left_join(nato_expenditure, by = "name") -&gt;  
+  left_join(gapminder_2002_prepped, by = "name") -&gt;  
 * nato_countries
 ```
 ]
  
-.right-output-nato-auto[
+.right-panel-nato-auto[
 
 ]
 
@@ -1205,181 +1536,31 @@ class: split-40
 count: false
  
 
-.left-code-nato-auto[
+.left-panel-nato-auto[
 
 ```r
 nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
                 "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
 rnaturalearth::ne_countries(  
   scale = "medium", returnclass = "sf") %&gt;%  
   select(name, pop_est, gdp_md_est,  
          continent, geometry) %&gt;%  
   filter(name %in% nato_names) %&gt;%  
-  left_join(nato_expenditure, by = "name") -&gt;  
+  left_join(gapminder_2002_prepped, by = "name") -&gt;  
   nato_countries  
-#
+
 *ggplot(data = nato_countries)
 ```
 ]
  
-.right-output-nato-auto[
-&lt;img src="geom_sf_files/figure-html/nato_auto_7_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-nato-auto[
-
-```r
-nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
-                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") %&gt;%  
-  select(name, pop_est, gdp_md_est,  
-         continent, geometry) %&gt;%  
-  filter(name %in% nato_names) %&gt;%  
-  left_join(nato_expenditure, by = "name") -&gt;  
-  nato_countries  
-#
-ggplot(data = nato_countries) +  
-* ggplot2::geom_sf(data = nato_countries)
-```
-]
- 
-.right-output-nato-auto[
-&lt;img src="geom_sf_files/figure-html/nato_auto_8_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-nato-auto[
-
-```r
-nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
-                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") %&gt;%  
-  select(name, pop_est, gdp_md_est,  
-         continent, geometry) %&gt;%  
-  filter(name %in% nato_names) %&gt;%  
-  left_join(nato_expenditure, by = "name") -&gt;  
-  nato_countries  
-#
-ggplot(data = nato_countries) +  
-  ggplot2::geom_sf(data = nato_countries) +  
-*   aes(fill = spendingPercap)
-```
-]
- 
-.right-output-nato-auto[
-&lt;img src="geom_sf_files/figure-html/nato_auto_9_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-nato-auto[
-
-```r
-nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
-                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") %&gt;%  
-  select(name, pop_est, gdp_md_est,  
-         continent, geometry) %&gt;%  
-  filter(name %in% nato_names) %&gt;%  
-  left_join(nato_expenditure, by = "name") -&gt;  
-  nato_countries  
-#
-ggplot(data = nato_countries) +  
-  ggplot2::geom_sf(data = nato_countries) +  
-    aes(fill = spendingPercap) +  
-*   scale_fill_viridis_c(option = "magma")
-```
-]
- 
-.right-output-nato-auto[
-&lt;img src="geom_sf_files/figure-html/nato_auto_10_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-nato-auto[
-
-```r
-nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
-                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") %&gt;%  
-  select(name, pop_est, gdp_md_est,  
-         continent, geometry) %&gt;%  
-  filter(name %in% nato_names) %&gt;%  
-  left_join(nato_expenditure, by = "name") -&gt;  
-  nato_countries  
-#
-ggplot(data = nato_countries) +  
-  ggplot2::geom_sf(data = nato_countries) +  
-    aes(fill = spendingPercap) +  
-    scale_fill_viridis_c(option = "magma") +  
-* ggplot2::coord_sf(xlim = c(-175, 47.5),
-*          ylim = c(23, 85),
-*          expand = FALSE)
-```
-]
- 
-.right-output-nato-auto[
-&lt;img src="geom_sf_files/figure-html/nato_auto_11_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-nato-auto[
-
-```r
-nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
-                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") %&gt;%  
-  select(name, pop_est, gdp_md_est,  
-         continent, geometry) %&gt;%  
-  filter(name %in% nato_names) %&gt;%  
-  left_join(nato_expenditure, by = "name") -&gt;  
-  nato_countries  
-#
-ggplot(data = nato_countries) +  
-  ggplot2::geom_sf(data = nato_countries) +  
-    aes(fill = spendingPercap) +  
-    scale_fill_viridis_c(option = "magma") +  
-  ggplot2::coord_sf(xlim = c(-175, 47.5),  
-           ylim = c(23, 85),  
-           expand = FALSE) +  
-* labs(title = "Defense Expenditure by Share of GDP (%)",
-*        subtitle = "NATO Member States",
-*        fill = "Share of GDP (%)")
-```
-]
- 
-.right-output-nato-auto[
+.right-panel-nato-auto[
 &lt;img src="geom_sf_files/figure-html/nato_auto_12_output-1.png" width="864" /&gt;
 ]
 
@@ -1388,35 +1569,32 @@ class: split-40
 count: false
  
 
-.left-code-nato-auto[
+.left-panel-nato-auto[
 
 ```r
 nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
                 "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
 rnaturalearth::ne_countries(  
   scale = "medium", returnclass = "sf") %&gt;%  
   select(name, pop_est, gdp_md_est,  
          continent, geometry) %&gt;%  
   filter(name %in% nato_names) %&gt;%  
-  left_join(nato_expenditure, by = "name") -&gt;  
+  left_join(gapminder_2002_prepped, by = "name") -&gt;  
   nato_countries  
-#
+
 ggplot(data = nato_countries) +  
-  ggplot2::geom_sf(data = nato_countries) +  
-    aes(fill = spendingPercap) +  
-    scale_fill_viridis_c(option = "magma") +  
-  ggplot2::coord_sf(xlim = c(-175, 47.5),  
-           ylim = c(23, 85),  
-           expand = FALSE) +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-* theme_bw()
+* ggplot2::geom_sf(data = nato_countries)
 ```
 ]
  
-.right-output-nato-auto[
+.right-panel-nato-auto[
 &lt;img src="geom_sf_files/figure-html/nato_auto_13_output-1.png" width="864" /&gt;
 ]
 
@@ -1425,37 +1603,33 @@ class: split-40
 count: false
  
 
-.left-code-nato-auto[
+.left-panel-nato-auto[
 
 ```r
 nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
                 "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
 rnaturalearth::ne_countries(  
   scale = "medium", returnclass = "sf") %&gt;%  
   select(name, pop_est, gdp_md_est,  
          continent, geometry) %&gt;%  
   filter(name %in% nato_names) %&gt;%  
-  left_join(nato_expenditure, by = "name") -&gt;  
+  left_join(gapminder_2002_prepped, by = "name") -&gt;  
   nato_countries  
-#
+
 ggplot(data = nato_countries) +  
   ggplot2::geom_sf(data = nato_countries) +  
-    aes(fill = spendingPercap) +  
-    scale_fill_viridis_c(option = "magma") +  
-  ggplot2::coord_sf(xlim = c(-175, 47.5),  
-           ylim = c(23, 85),  
-           expand = FALSE) +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-* theme(plot.title =
-*           element_text(hjust = 0.5))
+*   aes(fill = lifeExp)
 ```
 ]
  
-.right-output-nato-auto[
+.right-panel-nato-auto[
 &lt;img src="geom_sf_files/figure-html/nato_auto_14_output-1.png" width="864" /&gt;
 ]
 
@@ -1464,28 +1638,239 @@ class: split-40
 count: false
  
 
-.left-code-nato-auto[
+.left-panel-nato-auto[
 
 ```r
 nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
                 "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
 rnaturalearth::ne_countries(  
   scale = "medium", returnclass = "sf") %&gt;%  
   select(name, pop_est, gdp_md_est,  
          continent, geometry) %&gt;%  
   filter(name %in% nato_names) %&gt;%  
-  left_join(nato_expenditure, by = "name") -&gt;  
+  left_join(gapminder_2002_prepped, by = "name") -&gt;  
   nato_countries  
-#
+
 ggplot(data = nato_countries) +  
   ggplot2::geom_sf(data = nato_countries) +  
-    aes(fill = spendingPercap) +  
-    scale_fill_viridis_c(option = "magma") +  
+    aes(fill = lifeExp) +  
+*   scale_fill_viridis_c(option = "magma", direction = -1)
+```
+]
+ 
+.right-panel-nato-auto[
+&lt;img src="geom_sf_files/figure-html/nato_auto_15_output-1.png" width="864" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-nato-auto[
+
+```r
+nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
+                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
+rnaturalearth::ne_countries(  
+  scale = "medium", returnclass = "sf") %&gt;%  
+  select(name, pop_est, gdp_md_est,  
+         continent, geometry) %&gt;%  
+  filter(name %in% nato_names) %&gt;%  
+  left_join(gapminder_2002_prepped, by = "name") -&gt;  
+  nato_countries  
+
+ggplot(data = nato_countries) +  
+  ggplot2::geom_sf(data = nato_countries) +  
+    aes(fill = lifeExp) +  
+    scale_fill_viridis_c(option = "magma", direction = -1) +  
+* ggplot2::coord_sf(xlim = c(-175, 47.5),
+*          ylim = c(23, 85),
+*          expand = FALSE)
+```
+]
+ 
+.right-panel-nato-auto[
+&lt;img src="geom_sf_files/figure-html/nato_auto_16_output-1.png" width="864" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-nato-auto[
+
+```r
+nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
+                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
+rnaturalearth::ne_countries(  
+  scale = "medium", returnclass = "sf") %&gt;%  
+  select(name, pop_est, gdp_md_est,  
+         continent, geometry) %&gt;%  
+  filter(name %in% nato_names) %&gt;%  
+  left_join(gapminder_2002_prepped, by = "name") -&gt;  
+  nato_countries  
+
+ggplot(data = nato_countries) +  
+  ggplot2::geom_sf(data = nato_countries) +  
+    aes(fill = lifeExp) +  
+    scale_fill_viridis_c(option = "magma", direction = -1) +  
   ggplot2::coord_sf(xlim = c(-175, 47.5),  
            ylim = c(23, 85),  
            expand = FALSE) +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
+* labs(title = "Life Expectancy, 2002",
+*        subtitle = "NATO Member States",
+*        fill = "Share of GDP (%)")
+```
+]
+ 
+.right-panel-nato-auto[
+&lt;img src="geom_sf_files/figure-html/nato_auto_17_output-1.png" width="864" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-nato-auto[
+
+```r
+nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
+                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
+rnaturalearth::ne_countries(  
+  scale = "medium", returnclass = "sf") %&gt;%  
+  select(name, pop_est, gdp_md_est,  
+         continent, geometry) %&gt;%  
+  filter(name %in% nato_names) %&gt;%  
+  left_join(gapminder_2002_prepped, by = "name") -&gt;  
+  nato_countries  
+
+ggplot(data = nato_countries) +  
+  ggplot2::geom_sf(data = nato_countries) +  
+    aes(fill = lifeExp) +  
+    scale_fill_viridis_c(option = "magma", direction = -1) +  
+  ggplot2::coord_sf(xlim = c(-175, 47.5),  
+           ylim = c(23, 85),  
+           expand = FALSE) +  
+  labs(title = "Life Expectancy, 2002",  
+         subtitle = "NATO Member States",  
+         fill = "Share of GDP (%)") +  
+* theme_bw()
+```
+]
+ 
+.right-panel-nato-auto[
+&lt;img src="geom_sf_files/figure-html/nato_auto_18_output-1.png" width="864" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-nato-auto[
+
+```r
+nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
+                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
+rnaturalearth::ne_countries(  
+  scale = "medium", returnclass = "sf") %&gt;%  
+  select(name, pop_est, gdp_md_est,  
+         continent, geometry) %&gt;%  
+  filter(name %in% nato_names) %&gt;%  
+  left_join(gapminder_2002_prepped, by = "name") -&gt;  
+  nato_countries  
+
+ggplot(data = nato_countries) +  
+  ggplot2::geom_sf(data = nato_countries) +  
+    aes(fill = lifeExp) +  
+    scale_fill_viridis_c(option = "magma", direction = -1) +  
+  ggplot2::coord_sf(xlim = c(-175, 47.5),  
+           ylim = c(23, 85),  
+           expand = FALSE) +  
+  labs(title = "Life Expectancy, 2002",  
+         subtitle = "NATO Member States",  
+         fill = "Share of GDP (%)") +  
+  theme_bw() +  
+* theme(plot.title =
+*           element_text(hjust = 0.5))
+```
+]
+ 
+.right-panel-nato-auto[
+&lt;img src="geom_sf_files/figure-html/nato_auto_19_output-1.png" width="864" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-nato-auto[
+
+```r
+nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
+                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
+
+library(gapminder)  
+gapminder %&gt;%  
+  filter(year == 2002) %&gt;%  
+  rename(name = country) -&gt;  
+gapminder_2002_prepped  
+
+rnaturalearth::ne_countries(  
+  scale = "medium", returnclass = "sf") %&gt;%  
+  select(name, pop_est, gdp_md_est,  
+         continent, geometry) %&gt;%  
+  filter(name %in% nato_names) %&gt;%  
+  left_join(gapminder_2002_prepped, by = "name") -&gt;  
+  nato_countries  
+
+ggplot(data = nato_countries) +  
+  ggplot2::geom_sf(data = nato_countries) +  
+    aes(fill = lifeExp) +  
+    scale_fill_viridis_c(option = "magma", direction = -1) +  
+  ggplot2::coord_sf(xlim = c(-175, 47.5),  
+           ylim = c(23, 85),  
+           expand = FALSE) +  
+  labs(title = "Life Expectancy, 2002",  
          subtitle = "NATO Member States",  
          fill = "Share of GDP (%)") +  
   theme_bw() +  
@@ -1496,64 +1881,29 @@ ggplot(data = nato_countries) +
 ```
 ]
  
-.right-output-nato-auto[
-&lt;img src="geom_sf_files/figure-html/nato_auto_15_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-nato-auto[
-
-```r
-nato_names &lt;- c("Albania", "Belgium", "Bulgaria", "Canada", "Croatia", "Czech Republic", "Denmark", "Estonia", "France", "Germany", "Greece", "Hungary",  
-                "Iceland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Turkey", "United Kingdom", "United States")  
-#
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") %&gt;%  
-  select(name, pop_est, gdp_md_est,  
-         continent, geometry) %&gt;%  
-  filter(name %in% nato_names) %&gt;%  
-  left_join(nato_expenditure, by = "name") -&gt;  
-  nato_countries  
-#
-ggplot(data = nato_countries) +  
-  ggplot2::geom_sf(data = nato_countries) +  
-    aes(fill = spendingPercap) +  
-    scale_fill_viridis_c(option = "magma") +  
-  ggplot2::coord_sf(xlim = c(-175, 47.5),  
-           ylim = c(23, 85),  
-           expand = FALSE) +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf()
-```
-]
- 
-.right-output-nato-auto[
-&lt;img src="geom_sf_files/figure-html/nato_auto_16_output-1.png" width="864" /&gt;
+.right-panel-nato-auto[
+&lt;img src="geom_sf_files/figure-html/nato_auto_20_output-1.png" width="864" /&gt;
 ]
 
 &lt;style&gt;
-.left-code-nato-auto {
+.left-panel-nato-auto {
   color: #777;
-  width: 38%;
+  width: 38.6138613861386%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-nato-auto {
-  width: 60%;
+.right-panel-nato-auto {
+  width: 59.4059405940594%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-nato-auto {
+  width: 0%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
 
@@ -1566,7 +1916,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -1589,7 +1939,7 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
+.right-panel-projections-rotate[
 &lt;img src="geom_sf_files/figure-html/projections_rotate_1_output-1.png" width="864" /&gt;
 ]
 
@@ -1598,7 +1948,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -1621,7 +1971,7 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
+.right-panel-projections-rotate[
 &lt;img src="geom_sf_files/figure-html/projections_rotate_2_output-1.png" width="864" /&gt;
 ]
 
@@ -1630,7 +1980,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -1653,7 +2003,7 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
+.right-panel-projections-rotate[
 &lt;img src="geom_sf_files/figure-html/projections_rotate_3_output-1.png" width="864" /&gt;
 ]
 
@@ -1662,7 +2012,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -1685,7 +2035,7 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
+.right-panel-projections-rotate[
 &lt;img src="geom_sf_files/figure-html/projections_rotate_4_output-1.png" width="864" /&gt;
 ]
 
@@ -1694,7 +2044,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -1717,7 +2067,7 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
+.right-panel-projections-rotate[
 &lt;img src="geom_sf_files/figure-html/projections_rotate_5_output-1.png" width="864" /&gt;
 ]
 
@@ -1726,7 +2076,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -1749,7 +2099,7 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
+.right-panel-projections-rotate[
 &lt;img src="geom_sf_files/figure-html/projections_rotate_6_output-1.png" width="864" /&gt;
 ]
 
@@ -1758,135 +2108,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=laea +y_0=0 +lon_0=125 +lat_0=-90 +ellps=WGS84 +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_7_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=-90 +ellps=WGS84 +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_8_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=-90 +ellps=WGS84 +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_9_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=-70 +ellps=WGS84 +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_10_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -1909,8 +2131,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_11_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_7_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -1918,7 +2140,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -1941,8 +2163,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_12_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_8_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -1950,167 +2172,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=-10 +ellps=WGS84 +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_13_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=10 +ellps=WGS84 +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_14_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=30 +ellps=WGS84 +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_15_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=50 +ellps=WGS84 +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_16_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=laea +y_0=0 +lon_0=115 +lat_0=70 +ellps=WGS84 +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_17_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2133,8 +2195,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_18_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_9_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2142,7 +2204,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2165,8 +2227,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_19_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_10_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2174,7 +2236,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2197,8 +2259,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_20_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_11_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2206,71 +2268,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=laea +y_0=20 +lon_0=50 +lat_0=90 +ellps=WGS84 +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_21_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=laea +y_0=30 +lon_0=30 +lat_0=90 +ellps=WGS84 +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_22_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2293,8 +2291,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_23_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_12_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2302,7 +2300,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2325,8 +2323,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_24_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_13_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2334,7 +2332,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2357,8 +2355,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_25_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_14_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2366,7 +2364,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2389,8 +2387,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_26_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_15_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2398,39 +2396,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=57.5 +lon_0=-76 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_27_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2453,8 +2419,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_28_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_16_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2462,7 +2428,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2485,8 +2451,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_29_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_17_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2494,7 +2460,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2517,8 +2483,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_30_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_18_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2526,7 +2492,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2549,8 +2515,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_31_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_19_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2558,7 +2524,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2581,8 +2547,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_32_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_20_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2590,199 +2556,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=30 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_33_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=50 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_34_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=70 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_35_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=77.5 +lon_0=90 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_36_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=aea +lat_1=49.5 +lat_2=45.5 +lat_0=77.5 +lon_0=90 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_37_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=aea +lat_1=69.5 +lat_2=45.5 +lat_0=77.5 +lon_0=90 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_38_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2805,8 +2579,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_39_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_21_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2814,7 +2588,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2837,8 +2611,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_40_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_22_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2846,7 +2620,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2869,8 +2643,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_41_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_23_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2878,39 +2652,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=stere +lat_0=90")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_42_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2933,8 +2675,8 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_43_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_24_output-1.png" width="864" /&gt;
 ]
 
 ---
@@ -2942,39 +2684,7 @@ class: split-40
 count: false
  
 
-.left-code-projections-rotate[
-
-```r
-rnaturalearth::ne_countries(  
-  scale = "medium", returnclass = "sf") -&gt;  
-ne_countries  
-
-ggplot(data = ne_countries) +  
-  ggplot2::geom_sf(data = ne_countries) +  
-    aes(fill = pop_est) +  
-    scale_fill_viridis_c(option = "magma") +  
-  labs(title = "Defense Expenditure by Share of GDP (%)",  
-         subtitle = "NATO Member States",  
-         fill = "Share of GDP (%)") +  
-  theme_bw() +  
-  theme(plot.title =  
-            element_text(hjust = 0.5)) +  
-  theme(plot.subtitle =  
-            element_text(hjust = 0.5)) +  
-* coord_sf(crs = "+proj=lcc +lat_0=30 +lat_1=60 +lon_0=-100")
-```
-]
- 
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_44_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-projections-rotate[
+.left-panel-projections-rotate[
 
 ```r
 rnaturalearth::ne_countries(  
@@ -2997,22 +2707,29 @@ ggplot(data = ne_countries) +
 ```
 ]
  
-.right-output-projections-rotate[
-&lt;img src="geom_sf_files/figure-html/projections_rotate_45_output-1.png" width="864" /&gt;
+.right-panel-projections-rotate[
+&lt;img src="geom_sf_files/figure-html/projections_rotate_25_output-1.png" width="864" /&gt;
 ]
 
 &lt;style&gt;
-.left-code-projections-rotate {
+.left-panel-projections-rotate {
   color: #777;
-  width: 38%;
+  width: 59%;
   height: 92%;
   float: left;
   font-size: 80%
 }
-.right-output-projections-rotate {
-  width: 60%;
+.right-panel-projections-rotate {
+  width: 40%;
   float: right;
   padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-projections-rotate {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
 }
 &lt;/style&gt;
 
@@ -3025,744 +2742,8 @@ ggplot(data = ne_countries) +
 
 
 
-
-
----
-
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-map("state",proj='bonne', param=25)  
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_1_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("state",proj='bonne', param=45)
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_2_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("state",proj='bonne', param=65)
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_3_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("state",proj="albers", par=c(10,50))
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_4_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("state",proj="albers", par=c(20,50))  # another Albers projection
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_5_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("state",proj="albers", par=c(30,50))  # another Albers projection
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_6_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("state",proj="albers", par=c(40,50))  # another Albers projection
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_7_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("state",proj="albers", par=c(50,50))  # another Albers projection
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_8_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("state",proj="albers", par=c(60,50))  # another Albers projection
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_9_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("state",proj="albers", par=c(70,50))  # another Albers projection
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_10_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(0,-100,0))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_11_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(0,-90,0))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_12_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(0,-80,0))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_13_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(0,-70,0))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_14_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(0,-60,0))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_15_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(10,-60,0))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_16_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(20,-60,0))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_17_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(30,-60,0))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_18_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(40,-60,0))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_19_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(40,-60,10))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_20_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(40,-60,20))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_21_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(40,-60,30))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_22_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj="gnomonic",orient=c(40,-60,40))  # example of orient
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_23_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "cylindrical")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_24_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "aitoff")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_25_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "azequalarea")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_26_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "azequidist")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_27_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "eisenlohr")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_28_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "gilbert")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_29_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "guyou")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_30_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "hex")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_31_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "lagrange")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_32_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "laue")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_33_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "mercator")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_34_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "orthographic")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_35_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "polyconic")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_36_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "sinusoidal")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_37_output-1.png" width="864" /&gt;
-]
-
----
-class: split-40
-count: false
- 
-
-.left-code-mapproj-rotate[
-
-```r
-library(maps)  
-library(mapproj)  
-# Bonne equal-area projection with state abbreviations
-*map("world",proj = "tetra")
-```
-]
- 
-.right-output-mapproj-rotate[
-&lt;img src="geom_sf_files/figure-html/mapproj_rotate_38_output-1.png" width="864" /&gt;
-]
-
-&lt;style&gt;
-.left-code-mapproj-rotate {
-  color: #777;
-  width: 38%;
-  height: 92%;
-  float: left;
-  font-size: 80%
-}
-.right-output-mapproj-rotate {
-  width: 60%;
-  float: right;
-  padding-left: 1%;
-}
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 60%}
 &lt;/style&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

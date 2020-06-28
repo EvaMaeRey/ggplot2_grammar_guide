@@ -384,6 +384,29 @@ continent_aggregate %>%
 - Look at the *help* for geom_text.  What are the *required* aesthetics?  
 
 ---
+
+# Advanced aes and "after"
+
+---
+
+```{r}
+gapminder_2002 %>% 
+  count(continent) %>% 
+  ggplot() +
+  aes(x = continent) +
+  aes(y = n) + 
+  geom_col(aes(color = continent, fill = after_scale(color))) + #ROTATE
+  geom_col(aes(color = continent, fill = after_scale(alpha(color, .2)))) + #ROTATE
+  geom_col(aes(color = continent), fill = NA) #ROTATE
+
+```
+
+
+
+
+
+
+---
 name: geoms
 
 # Nouns:  Geometric objects

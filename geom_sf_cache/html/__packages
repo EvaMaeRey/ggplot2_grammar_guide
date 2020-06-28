@@ -11,5 +11,4 @@ stringr
 forcats
 rnaturalearth
 readxl
-maps
-mapproj
+gapminder
