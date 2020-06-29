@@ -170,15 +170,15 @@ ggplot(data = gapminder_2002) +
   scale_x_continuous(trans = "hms") + #ROTATE
   scale_x_continuous(trans = "sqrt") + #ROTATE
   scale_x_continuous(trans = "log10") + #ROTATE
-  scale_x_log10() + # convenience #ROTATE
+  scale_x_log10() + # convenience function #ROTATE
   scale_x_continuous(trans = "log1p") + #ROTATE
   scale_x_continuous(trans = "log2") + #ROTATE
   scale_x_continuous(trans = "pseudo_log") + #ROTATE
   scale_x_continuous(trans = "reciprocal") + #ROTATE
   scale_x_continuous(trans = "reverse") + #ROTATE
-  scale_x_reverse() + # convenience #ROTATE
+  scale_x_reverse() + # convenience function #ROTATE
   scale_x_continuous(trans = "sqrt") + #ROTATE
-  scale_x_sqrt() # convenience #ROTATE
+  scale_x_sqrt() # convenience function #ROTATE
 ```
 
 ---

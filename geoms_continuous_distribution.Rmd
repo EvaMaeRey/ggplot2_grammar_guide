@@ -218,9 +218,14 @@ gapminder %>%
   aes(x = continent) +
   aes(y = lifeExp) + 
   aes(alpha = year) +
+  theme_minimal() +
   ggbeeswarm::geom_quasirandom(aes(x = continent, y = lifeExp)) + #ROTATE
   ggbeeswarm::geom_quasirandom(aes(color = continent)) + #ROTATE
-  ggbeeswarm::geom_quasirandom(aes(color = higher_income), dodge.width = .8) #ROTATE
+  ggbeeswarm::geom_quasirandom(aes(color = higher_income), dodge.width = .8) + #ROTATE
+  ggpol::geom_boxjitter(alpha = 0.3) + #ROTATE
+  ggpol::geom_boxjitter(aes(color = continent), alpha = 0.3) + #ROTATE
+  ggpol::geom_boxjitter(aes(color = higher_income), alpha = 0.3) + #ROTATE
+  ggpol::geom_boxjitter(jitter.colour = "steelblue2", errorbar.draw = TRUE) #ROTATE
 ```
 
 

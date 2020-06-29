@@ -1550,6 +1550,7 @@ gapminder %&gt;%
   aes(x = continent) +  
   aes(y = lifeExp) +  
   aes(alpha = year) +  
+  theme_minimal() +  
   ggbeeswarm::geom_quasirandom(aes(x = continent, y = lifeExp))   
 ```
 ]
@@ -1572,6 +1573,7 @@ gapminder %&gt;%
   aes(x = continent) +  
   aes(y = lifeExp) +  
   aes(alpha = year) +  
+  theme_minimal() +  
 * ggbeeswarm::geom_quasirandom(aes(color = continent))
 ```
 ]
@@ -1594,12 +1596,105 @@ gapminder %&gt;%
   aes(x = continent) +  
   aes(y = lifeExp) +  
   aes(alpha = year) +  
+  theme_minimal() +  
 * ggbeeswarm::geom_quasirandom(aes(color = higher_income), dodge.width = .8)
 ```
 ]
  
 .right-panel-geom_discrete_continuous_bee-rotate[
 &lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_bee_rotate_3_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-geom_discrete_continuous_bee-rotate[
+
+```r
+gapminder %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = lifeExp) +  
+  aes(alpha = year) +  
+  theme_minimal() +  
+* ggpol::geom_boxjitter(alpha = 0.3)
+```
+]
+ 
+.right-panel-geom_discrete_continuous_bee-rotate[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_bee_rotate_4_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-geom_discrete_continuous_bee-rotate[
+
+```r
+gapminder %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = lifeExp) +  
+  aes(alpha = year) +  
+  theme_minimal() +  
+* ggpol::geom_boxjitter(aes(color = continent), alpha = 0.3)
+```
+]
+ 
+.right-panel-geom_discrete_continuous_bee-rotate[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_bee_rotate_5_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-geom_discrete_continuous_bee-rotate[
+
+```r
+gapminder %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = lifeExp) +  
+  aes(alpha = year) +  
+  theme_minimal() +  
+* ggpol::geom_boxjitter(aes(color = higher_income), alpha = 0.3)
+```
+]
+ 
+.right-panel-geom_discrete_continuous_bee-rotate[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_bee_rotate_6_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-geom_discrete_continuous_bee-rotate[
+
+```r
+gapminder %&gt;%  
+  mutate(higher_income = gdpPercap &gt; 20000) %&gt;%  
+  ggplot() +  
+  aes(x = continent) +  
+  aes(y = lifeExp) +  
+  aes(alpha = year) +  
+  theme_minimal() +  
+* ggpol::geom_boxjitter(jitter.colour = "steelblue2", errorbar.draw = TRUE)
+```
+]
+ 
+.right-panel-geom_discrete_continuous_bee-rotate[
+&lt;img src="geoms_continuous_distribution_files/figure-html/geom_discrete_continuous_bee_rotate_7_output-1.png" width="100%" /&gt;
 ]
 
 &lt;style&gt;

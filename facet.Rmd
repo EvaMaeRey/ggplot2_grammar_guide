@@ -72,7 +72,7 @@ gapminder %>%
   facet_wrap(vars(continent, pop > 10000000), scales = "free_y") + #ROTATE
   ggforce::facet_zoom(xlim = c(5,10), horizontal = FALSE) + #ROTATE
   ggforce::facet_zoom(xlim = c(20, 25), ylim = c(65, 80), horizontal = FALSE) + #ROTATE
-  facet_null() # overrides any facetting #ROTATE
+  facet_null() # overrides any faceting #ROTATE
 ```
 
 
@@ -105,6 +105,38 @@ ggplot(mpg, aes(drv, model)) +
   ggforce::facet_col(facets = vars(manufacturer), scales = "free_y", space = "free", strip.position = "left") + #ROTATE
   theme(strip.text.y = element_text(angle = 0))
 ```
+
+
+---
+
+
+`r chunk_reveal("pyramid", widths = c(54, 45))`
+
+```{r pyramid, include = F}
+gapminder %>% 
+  filter(year == 2002 | year == 2007) %>% 
+  filter(continent == "Americas") %>% 
+  mutate(year = factor(year)) %>% # as categorical
+  # reorder by reverse size of mean life exp 
+  mutate(country = reorder(country, -lifeExp, mean)) %>% 
+  # pay attention to this weird prep step
+  mutate(life_exp_mod = 
+           ifelse(year == 2002, -lifeExp, lifeExp)) %>% 
+  ggplot() +
+  aes(x = life_exp_mod, y = country, fill = year) +
+  geom_col() + 
+  ggpol::facet_share(~ year, 
+                     reverse_num = TRUE, 
+                     scales = "free") + 
+  theme(legend.position = "none") +
+  labs(y = NULL) +
+  scale_y_discrete()
+```
+
+
+
+
+
 
 ---
 

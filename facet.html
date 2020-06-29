@@ -603,7 +603,7 @@ gapminder %&gt;%
   aes(y = lifeExp) +  
   geom_point() +  
   aes(color = continent) +  
-* facet_null()  # overrides any facetting
+* facet_null()  # overrides any faceting
 ```
 ]
  
@@ -937,6 +937,455 @@ ggplot(mpg, aes(drv, model)) +
   font-size: 80%
 }
 &lt;/style&gt;
+
+
+
+
+
+
+---
+
+
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+*gapminder
+```
+]
+ 
+.right-panel-pyramid-auto[
+
+```
+  # A tibble: 1,704 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       1952    28.8  8425333      779.
+   2 Afghanistan Asia       1957    30.3  9240934      821.
+   3 Afghanistan Asia       1962    32.0 10267083      853.
+   4 Afghanistan Asia       1967    34.0 11537966      836.
+   5 Afghanistan Asia       1972    36.1 13079460      740.
+   6 Afghanistan Asia       1977    38.4 14880372      786.
+   7 Afghanistan Asia       1982    39.9 12881816      978.
+   8 Afghanistan Asia       1987    40.8 13867957      852.
+   9 Afghanistan Asia       1992    41.7 16317921      649.
+  10 Afghanistan Asia       1997    41.8 22227415      635.
+  # … with 1,694 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+gapminder %&gt;%  
+* filter(year == 2002 | year == 2007)
+```
+]
+ 
+.right-panel-pyramid-auto[
+
+```
+  # A tibble: 284 x 6
+     country     continent  year lifeExp      pop gdpPercap
+     &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+   1 Afghanistan Asia       2002    42.1 25268405      727.
+   2 Afghanistan Asia       2007    43.8 31889923      975.
+   3 Albania     Europe     2002    75.7  3508512     4604.
+   4 Albania     Europe     2007    76.4  3600523     5937.
+   5 Algeria     Africa     2002    71.0 31287142     5288.
+   6 Algeria     Africa     2007    72.3 33333216     6223.
+   7 Angola      Africa     2002    41.0 10866106     2773.
+   8 Angola      Africa     2007    42.7 12420476     4797.
+   9 Argentina   Americas   2002    74.3 38331121     8798.
+  10 Argentina   Americas   2007    75.3 40301927    12779.
+  # … with 274 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002 | year == 2007) %&gt;%  
+* filter(continent == "Americas")
+```
+]
+ 
+.right-panel-pyramid-auto[
+
+```
+  # A tibble: 50 x 6
+     country   continent  year lifeExp       pop gdpPercap
+     &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Argentina Americas   2002    74.3  38331121     8798.
+   2 Argentina Americas   2007    75.3  40301927    12779.
+   3 Bolivia   Americas   2002    63.9   8445134     3413.
+   4 Bolivia   Americas   2007    65.6   9119152     3822.
+   5 Brazil    Americas   2002    71.0 179914212     8131.
+   6 Brazil    Americas   2007    72.4 190010647     9066.
+   7 Canada    Americas   2002    79.8  31902268    33329.
+   8 Canada    Americas   2007    80.7  33390141    36319.
+   9 Chile     Americas   2002    77.9  15497046    10779.
+  10 Chile     Americas   2007    78.6  16284741    13172.
+  # … with 40 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002 | year == 2007) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+* mutate(year = factor(year))   # as categorical
+```
+]
+ 
+.right-panel-pyramid-auto[
+
+```
+  # A tibble: 50 x 6
+     country   continent year  lifeExp       pop gdpPercap
+     &lt;fct&gt;     &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Argentina Americas  2002     74.3  38331121     8798.
+   2 Argentina Americas  2007     75.3  40301927    12779.
+   3 Bolivia   Americas  2002     63.9   8445134     3413.
+   4 Bolivia   Americas  2007     65.6   9119152     3822.
+   5 Brazil    Americas  2002     71.0 179914212     8131.
+   6 Brazil    Americas  2007     72.4 190010647     9066.
+   7 Canada    Americas  2002     79.8  31902268    33329.
+   8 Canada    Americas  2007     80.7  33390141    36319.
+   9 Chile     Americas  2002     77.9  15497046    10779.
+  10 Chile     Americas  2007     78.6  16284741    13172.
+  # … with 40 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002 | year == 2007) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  mutate(year = factor(year)) %&gt;%  # as categorical
+# reorder by reverse size of mean life exp
+* mutate(country = reorder(country, -lifeExp, mean))
+```
+]
+ 
+.right-panel-pyramid-auto[
+
+```
+  # A tibble: 50 x 6
+     country   continent year  lifeExp       pop gdpPercap
+     &lt;fct&gt;     &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+   1 Argentina Americas  2002     74.3  38331121     8798.
+   2 Argentina Americas  2007     75.3  40301927    12779.
+   3 Bolivia   Americas  2002     63.9   8445134     3413.
+   4 Bolivia   Americas  2007     65.6   9119152     3822.
+   5 Brazil    Americas  2002     71.0 179914212     8131.
+   6 Brazil    Americas  2007     72.4 190010647     9066.
+   7 Canada    Americas  2002     79.8  31902268    33329.
+   8 Canada    Americas  2007     80.7  33390141    36319.
+   9 Chile     Americas  2002     77.9  15497046    10779.
+  10 Chile     Americas  2007     78.6  16284741    13172.
+  # … with 40 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002 | year == 2007) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  mutate(year = factor(year)) %&gt;%  # as categorical
+# reorder by reverse size of mean life exp
+  mutate(country = reorder(country, -lifeExp, mean)) %&gt;%  
+# pay attention to this weird prep step
+* mutate(life_exp_mod =
+*          ifelse(year == 2002, -lifeExp, lifeExp))
+```
+]
+ 
+.right-panel-pyramid-auto[
+
+```
+  # A tibble: 50 x 7
+     country   continent year  lifeExp       pop gdpPercap life_exp_mod
+     &lt;fct&gt;     &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+   1 Argentina Americas  2002     74.3  38331121     8798.        -74.3
+   2 Argentina Americas  2007     75.3  40301927    12779.         75.3
+   3 Bolivia   Americas  2002     63.9   8445134     3413.        -63.9
+   4 Bolivia   Americas  2007     65.6   9119152     3822.         65.6
+   5 Brazil    Americas  2002     71.0 179914212     8131.        -71.0
+   6 Brazil    Americas  2007     72.4 190010647     9066.         72.4
+   7 Canada    Americas  2002     79.8  31902268    33329.        -79.8
+   8 Canada    Americas  2007     80.7  33390141    36319.         80.7
+   9 Chile     Americas  2002     77.9  15497046    10779.        -77.9
+  10 Chile     Americas  2007     78.6  16284741    13172.         78.6
+  # … with 40 more rows
+```
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002 | year == 2007) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  mutate(year = factor(year)) %&gt;%  # as categorical
+# reorder by reverse size of mean life exp
+  mutate(country = reorder(country, -lifeExp, mean)) %&gt;%  
+# pay attention to this weird prep step
+  mutate(life_exp_mod =  
+           ifelse(year == 2002, -lifeExp, lifeExp)) %&gt;%  
+* ggplot()
+```
+]
+ 
+.right-panel-pyramid-auto[
+&lt;img src="facet_files/figure-html/pyramid_auto_7_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002 | year == 2007) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  mutate(year = factor(year)) %&gt;%  # as categorical
+# reorder by reverse size of mean life exp
+  mutate(country = reorder(country, -lifeExp, mean)) %&gt;%  
+# pay attention to this weird prep step
+  mutate(life_exp_mod =  
+           ifelse(year == 2002, -lifeExp, lifeExp)) %&gt;%  
+  ggplot() +  
+* aes(x = life_exp_mod, y = country, fill = year)
+```
+]
+ 
+.right-panel-pyramid-auto[
+&lt;img src="facet_files/figure-html/pyramid_auto_8_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002 | year == 2007) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  mutate(year = factor(year)) %&gt;%  # as categorical
+# reorder by reverse size of mean life exp
+  mutate(country = reorder(country, -lifeExp, mean)) %&gt;%  
+# pay attention to this weird prep step
+  mutate(life_exp_mod =  
+           ifelse(year == 2002, -lifeExp, lifeExp)) %&gt;%  
+  ggplot() +  
+  aes(x = life_exp_mod, y = country, fill = year) +  
+* geom_col()
+```
+]
+ 
+.right-panel-pyramid-auto[
+&lt;img src="facet_files/figure-html/pyramid_auto_9_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002 | year == 2007) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  mutate(year = factor(year)) %&gt;%  # as categorical
+# reorder by reverse size of mean life exp
+  mutate(country = reorder(country, -lifeExp, mean)) %&gt;%  
+# pay attention to this weird prep step
+  mutate(life_exp_mod =  
+           ifelse(year == 2002, -lifeExp, lifeExp)) %&gt;%  
+  ggplot() +  
+  aes(x = life_exp_mod, y = country, fill = year) +  
+  geom_col() +  
+* ggpol::facet_share(~ year,
+*                    reverse_num = TRUE,
+*                    scales = "free")
+```
+]
+ 
+.right-panel-pyramid-auto[
+&lt;img src="facet_files/figure-html/pyramid_auto_10_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002 | year == 2007) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  mutate(year = factor(year)) %&gt;%  # as categorical
+# reorder by reverse size of mean life exp
+  mutate(country = reorder(country, -lifeExp, mean)) %&gt;%  
+# pay attention to this weird prep step
+  mutate(life_exp_mod =  
+           ifelse(year == 2002, -lifeExp, lifeExp)) %&gt;%  
+  ggplot() +  
+  aes(x = life_exp_mod, y = country, fill = year) +  
+  geom_col() +  
+  ggpol::facet_share(~ year,  
+                     reverse_num = TRUE,  
+                     scales = "free") +  
+* theme(legend.position = "none")
+```
+]
+ 
+.right-panel-pyramid-auto[
+&lt;img src="facet_files/figure-html/pyramid_auto_11_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002 | year == 2007) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  mutate(year = factor(year)) %&gt;%  # as categorical
+# reorder by reverse size of mean life exp
+  mutate(country = reorder(country, -lifeExp, mean)) %&gt;%  
+# pay attention to this weird prep step
+  mutate(life_exp_mod =  
+           ifelse(year == 2002, -lifeExp, lifeExp)) %&gt;%  
+  ggplot() +  
+  aes(x = life_exp_mod, y = country, fill = year) +  
+  geom_col() +  
+  ggpol::facet_share(~ year,  
+                     reverse_num = TRUE,  
+                     scales = "free") +  
+  theme(legend.position = "none") +  
+* labs(y = NULL)
+```
+]
+ 
+.right-panel-pyramid-auto[
+&lt;img src="facet_files/figure-html/pyramid_auto_12_output-1.png" width="100%" /&gt;
+]
+
+---
+class: split-40
+count: false
+ 
+
+.left-panel-pyramid-auto[
+
+```r
+gapminder %&gt;%  
+  filter(year == 2002 | year == 2007) %&gt;%  
+  filter(continent == "Americas") %&gt;%  
+  mutate(year = factor(year)) %&gt;%  # as categorical
+# reorder by reverse size of mean life exp
+  mutate(country = reorder(country, -lifeExp, mean)) %&gt;%  
+# pay attention to this weird prep step
+  mutate(life_exp_mod =  
+           ifelse(year == 2002, -lifeExp, lifeExp)) %&gt;%  
+  ggplot() +  
+  aes(x = life_exp_mod, y = country, fill = year) +  
+  geom_col() +  
+  ggpol::facet_share(~ year,  
+                     reverse_num = TRUE,  
+                     scales = "free") +  
+  theme(legend.position = "none") +  
+  labs(y = NULL) +  
+* scale_y_discrete()
+```
+]
+ 
+.right-panel-pyramid-auto[
+&lt;img src="facet_files/figure-html/pyramid_auto_13_output-1.png" width="100%" /&gt;
+]
+
+&lt;style&gt;
+.left-panel-pyramid-auto {
+  color: #777;
+  width: 54%;
+  height: 92%;
+  float: left;
+  font-size: 80%
+}
+.right-panel-pyramid-auto {
+  width: 45%;
+  float: right;
+  padding-left: 1%;
+  font-size: 80%
+}
+.middle-panel-pyramid-auto {
+  width: NA%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
 
 
 

@@ -13,7 +13,9 @@ output:
 library(viztoc)
 # viztoc::build_and_use_gif
 knitr::opts_chunk$set(echo = F, eval = T, message = F, warning = F, cache = F)
+update <- T
 ```
+
 
 
 
@@ -85,21 +87,21 @@ To use the visual table of contents, mouse over to see a preview of what will be
 | | What? |  |  How?  
 ---|---|---|---
 1. **The Declarative Mood** | [Declaring the **data**](data_aes_geom.html){target="_blank"}| | ggplot(data = gapminder) +
-2. **The Interogative Mood**  | [Asking for **representation of variables by aesthetics** (color, size, x position, etc.) (also known as **aesthetic mapping**) ](data_aes_geom.html#aes){target="_blank"}   | `r viztoc:::build_and_use_gif(dir = "data_aes_geom_files/figure-html/", pattern = "area", href = "data_aes_geom.html", width = 100, height = 100, delay = .25, cached_gif = T, which = 8)` | aes(**color** = pop) +
-    **- Modifiers I** | [modifying *default* **aesthetic labels** (and **plot labels**)](modifiers.html#labs){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "modifiers_files/figure-html/", pattern = "labs", href = "modifiers.html#labs", which = 11, width = 100, height = 100, cached_gif = T, delay = .22)`| *labs(**color** = "Continent") +<br>labs(title = "my title") +*
-    **- Modifiers II**  | [modifying the *default* **coordinate system** (how the *positional* aesthetics appear - x and y)](modifiers.html#coords){target="_blank"}  | `r viztoc:::build_and_use_gif(dir = "modifiers_files/figure-html/", pattern = "coords", href = "modifiers.html#coords", which = 7, width = 100, height = 100, cached_gif = T, delay = .22)`| coord_polar() + 
-    **- Modifiers III** | [modifying *default* **aesthetic scales**](modifiers.html#scales){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "scales_files/figure-html/", pattern = "", href = "scales.html", which = 54, width = 100, height = 100, cached_gif = T, delay = .22)`| *scale\_**color**\_viridis_d() +* 
+2. **The Interogative Mood**  | [Asking for **representation of variables by aesthetics** (color, size, x position, etc.) (also known as **aesthetic mapping**) ](data_aes_geom.html#aes){target="_blank"}   | `r viztoc:::build_and_use_gif(dir = "data_aes_geom_files/figure-html/", pattern = "area", href = "data_aes_geom.html", width = 100, height = 100, delay = .25, cached_gif = update, which = 8)` | aes(**color** = pop) +
+    **- Modifiers I** | [modifying *default* **aesthetic labels** (and **plot labels**)](modifiers.html#labs){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "modifiers_files/figure-html/", pattern = "labs", href = "modifiers.html#labs", which = 11, width = 100, height = 100, cached_gif = update, delay = .22)`| *labs(**color** = "Continent") +<br>labs(title = "my title") +*
+    **- Modifiers II**  | [modifying the *default* **coordinate system** (how the *positional* aesthetics appear - x and y)](modifiers.html#coords){target="_blank"}  | `r viztoc:::build_and_use_gif(dir = "modifiers_files/figure-html/", pattern = "coords", href = "modifiers.html#coords", which = 7, width = 100, height = 100, cached_gif = update, delay = .22)`| coord_polar() + 
+    **- Modifiers III** | [modifying *default* **aesthetic scales**](modifiers.html#scales){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "scales_files/figure-html/", pattern = "", href = "scales.html", which = 54, width = 100, height = 100, cached_gif = update, delay = .22)`| *scale\_**color**\_viridis_d() +* 
 3. **Nouns**  | [**geometric layers** taking on the aesthetics representing variables](data_aes_geom.html){target="_blank"} | **see below table** | *geom\_point() +*
 4.**The Conditional Mood**| [Making **local**, **geom-specific** declarations rather than **global** declarations](local.html){target="_blank"} ||*geom\_point(* 
-|  | **data** is <br> geom-specific  |`r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "data", href = "local.html", width = 100, height = 100, cached_gif = T, delay = .22)`|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*data = gapminder,*
-  |  |  **aesthetic representation**<br> is geom-specific  | `r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "aes_mapping", href = "local.html", width = 100, height = 100, cached_gif = T, delay = .22)`|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*aes(**size** = population),*
-| |  **aesthetics *not* representing variables; *unmapped* aesthetics** (i.e.  **The Imperative Mood)**  | `r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "unmapped", href = "local.html", width = 100, height = 100, cached_gif = T, which = 9, delay = .22)`|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;***color** = "blue"<br>* 
+|  | **data** is <br> geom-specific  |`r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "data", href = "local.html", width = 100, height = 100, cached_gif = update, delay = .22)`|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*data = gapminder,*
+  |  |  **aesthetic representation**<br> is geom-specific  | `r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "aes_mapping", href = "local.html", width = 100, height = 100, cached_gif = update, delay = .22)`|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*aes(**size** = population),*
+| |  **aesthetics *not* representing variables; *unmapped* aesthetics** (i.e.  **The Imperative Mood)**  | `r viztoc:::build_and_use_gif(dir = "local_files/figure-html/", pattern = "unmapped", href = "local.html", width = 100, height = 100, cached_gif = update, which = 9, delay = .22)`|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;***color** = "blue"<br>* 
 |||| ) + 
-5. **Interjections**| [Adding context with **annotation layers**](annotate.html){target="_blank"} |  `r viztoc:::build_and_use_gif(dir = "annotate_files/figure-html/", pattern = "", href = "annotate.html", which = 7, width = 100, height = 100, cached_gif = T, delay = .22)` | *annotate(geom = "point", <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x = 10, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y = 12, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; color = "blue")* 
-6. **Punctuation**  | [**faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables ](facet.html){target="_blank"} |  `r viztoc:::build_and_use_gif(dir = "facet_files/figure-html/", pattern = "", href = "facet.html", which = 6, width = 100, height = 100, cached_gif = T, delay = .22)`| *facet_wrap(~continent)*
-7. **Greetings**| [**themes** changing plot look and feel](themes.html){target="_blank"}   | `r viztoc:::build_and_use_gif(dir = "themes_files/figure-html/", pattern = "", href = "themes.html", which = 55, width = 100, height = 100, cached_gif = T, delay = .22)` | *theme_minimal()*
+5. **Interjections**| [Adding context with **annotation layers**](annotate.html){target="_blank"} |  `r viztoc:::build_and_use_gif(dir = "annotate_files/figure-html/", pattern = "", href = "annotate.html", which = 7, width = 100, height = 100, cached_gif = update, delay = .22)` | *annotate(geom = "point", <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x = 10, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y = 12, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; color = "blue")* 
+6. **Punctuation**  | [**faceting** breaks a plot into small plots (or *"small multiples"*) based on categorical variables ](facet.html){target="_blank"} |  `r viztoc:::build_and_use_gif(dir = "facet_files/figure-html/", pattern = "", href = "facet.html", which = 6, width = 100, height = 100, cached_gif = update, delay = .22)`| *facet_wrap(~continent)*
+7. **Greetings**| [**themes** changing plot look and feel](themes.html){target="_blank"}   | `r viztoc:::build_and_use_gif(dir = "themes_files/figure-html/", pattern = "", href = "themes.html", which = 55, width = 100, height = 100, cached_gif = update, delay = .22)` | *theme_minimal()*
 8. **The Written Language** | [save plots with different **resolutions** and **file formats**](ggsave.html){target="_blank"}| | *ggsave(file = "plot.png", <br> plot = g, <br>  height = "4in", <br> width = "6in")*
-9. **Composition** | [Composing plots into ensembles](ensembles.html){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "ensembles_files/figure-html/", pattern = "", href = "ensembles.html", which = 84, width = 100, height = 100, cached_gif = F, delay = .22)`| *library(patchwork) <br> (g1 + g2) \| g3 <br> <br> library(cowplot) <br> plotgrid(...,)*  
+9. **Composition** | [Composing plots into ensembles](ensembles.html){target="_blank"} | `r viztoc:::build_and_use_gif(dir = "ensembles_files/figure-html/", pattern = "", href = "ensembles.html", which = 84, width = 100, height = 100, cached_gif = update, delay = .22)`| *library(patchwork) <br> (g1 + g2) \| g3 <br> <br> library(cowplot) <br> plotgrid(...,)*  
 10. **Concision** | [We've been intentionally verbose, but there are strategies for being concise](concision.html){target="_blank"} | | last_plot(), switch out data with `%+%`, writing functions 
 
 ---
@@ -114,7 +116,7 @@ library(viztoc)
 
 ### A closer look at geoms.
 
-Above, the geom topics are intentionally cursory.  There are tons of geoms, and they can get distracting (I find them to not be very grammatical -- and we wanted to focus on grammar!). But in the end, geoms are pretty fun - and there are a lot of them! Below gives you a preview of geometric marks used to describe continuous distributions, continuous-continuous joint distributions, visualizations of single series, of multiple series and discrete-discrete distributions.  In the area of geoms, there have been many contributors 
+Above, the geom topics are intentionally cursory.  There are tons of geoms -- like nouns -- and they can get distracting I find them to not be very grammatical -- like nouns -- and earlier we wanted to focus on grammar. But in the end, geoms are pretty fun - and there are a lot of them! Below gives you a preview of geometric marks used to describe continuous distributions, continuous-continuous joint distributions, visualizations of single series, of multiple series and discrete-discrete distributions.  In the area of geoms, there have been many contributors 
 
 ```{r}
 p <- "geoms_files/figure-html/"
@@ -142,15 +144,15 @@ library(viztoc)
 
 
 
-`r viztoc:::build_and_use_gif(dir = "geoms_continuous_distribution_files/figure-html/", pattern = "", href = "geoms_continuous_distribution.html", width = 150, height = 150, cached_gif = T, which = 35, delay = .22)`
+`r viztoc:::build_and_use_gif(dir = "geoms_continuous_distribution_files/figure-html/", pattern = "", href = "geoms_continuous_distribution.html", width = 150, height = 150, cached_gif = update, which = 35, delay = .22)`
 
-`r viztoc:::build_and_use_gif(dir = "geoms_bivariate_continuous_files/figure-html/", pattern = "", href = "geoms_bivariate_continuous.html", which = 12, width = 150, height = 150, cached_gif = T, delay = .22)`
+`r viztoc:::build_and_use_gif(dir = "geoms_bivariate_continuous_files/figure-html/", pattern = "", href = "geoms_bivariate_continuous.html", which = 12, width = 150, height = 150, cached_gif = update, delay = .22)`
 
-`r viztoc:::build_and_use_gif(dir = "geoms_single_series_files/figure-html/", pattern = "" , href = "geoms_single_series.html", width = 150, height = 150 , which = 8, cached_gif = T, delay = .22)`
+`r viztoc:::build_and_use_gif(dir = "geoms_single_series_files/figure-html/", pattern = "" , href = "geoms_single_series.html", width = 150, height = 150 , which = 8, cached_gif = update, delay = .22)`
 
-`r viztoc:::build_and_use_gif(dir = "geoms_multi_series_files/figure-html/", pattern = "" , href = "geoms_multi_series.html", width = 150, height = 150 , cached_gif = T, delay = .22)`
+`r viztoc:::build_and_use_gif(dir = "geoms_multi_series_files/figure-html/", pattern = "" , href = "geoms_multi_series.html", width = 150, height = 150 , cached_gif = update, delay = .22)`
 
-`r viztoc:::build_and_use_gif(dir = "geoms_discrete_discrete_files/figure-html/", pattern = "" , href = "geoms_discrete_discrete.html" , width = 150, height = 150, cached_gif = T, delay = .22)`
+`r viztoc:::build_and_use_gif(dir = "geoms_discrete_discrete_files/figure-html/", pattern = "" , href = "geoms_discrete_discrete.html" , width = 150, height = 150, cached_gif = update, delay = .22)`
 
 
   
@@ -188,7 +190,7 @@ library(viztoc)
 - [named colors in R](named_colors.html){target="_blank"}
 - [paletteer's](paletteer.html){target="_blank"} large collection of palettes
 
-`r viztoc:::build_and_use_gif(dir = "paletteer_files/figure-html/", pattern = "", href = "paletteer.html", which = 32, width = 250, height = 250, cached_gif = T, delay = .22)`
+`r viztoc:::build_and_use_gif(dir = "paletteer_files/figure-html/", pattern = "", href = "paletteer.html", which = 32, width = 250, height = 250, cached_gif = update, delay = .22)`
 
 ### A Closer Look at Text
 
@@ -202,15 +204,15 @@ External Theme Packages
 - [{ggeasy} easy adjustment for common theme modifications](themes_ggeasy.html){target="_blank"}
 - [External Themes, {ggthemes} {ggthemr}](external_themes.html){target="_blank"}
 
-Spatial with [geom_sf](geom_sf.html){target="_blank"}, [tmap](tmap.html){target="_blank"}, and [rayshader](rayshader.html){target="_blank"} (spatial & 3D ggplots)
+Spatial with [geom_sf](geom_sf.html){target="_blank"}, [tmap](tmap.html){target="_blank"}, and [rayshader](rayshader.html){target="_blank"} (topography & 3D ggplots)
 
 <div id="needtowrap">
 
-`r viztoc:::build_and_use_gif(dir = "geom_sf_files/figure-html/", pattern = "" , href = "geom_sf.html", width = 150, height = 150, cached_gif = T, which = 80, delay = .22)`
+`r viztoc:::build_and_use_gif(dir = "geom_sf_files/figure-html/", pattern = "" , href = "geom_sf.html", width = 150, height = 150, cached_gif = update, which = 19, delay = .22)`
 
-`r viztoc:::build_and_use_gif(dir = "tmap_files/figure-html/", pattern = "" , href = "tmap.html" , width = 150, height = 150, cached_gif = T, which = 45, delay = .22)`
+`r viztoc:::build_and_use_gif(dir = "tmap_files/figure-html/", pattern = "" , href = "tmap.html" , width = 150, height = 150, cached_gif = update, which = 45, delay = .22)`
 
-`r viztoc:::build_and_use_gif(dir = "rayshader_files/figure-html/", pattern = "" , href = "rayshader.html", width = 150, height = 150, cached_gif = T, which = 14, delay = .22)`
+`r viztoc:::build_and_use_gif(dir = "rayshader_files/figure-html/", pattern = "" , href = "rayshader.html", width = 150, height = 150, cached_gif = update, which = 14, delay = .22)`
 
 
 </div>
@@ -224,7 +226,7 @@ Spatial with [geom_sf](geom_sf.html){target="_blank"}, [tmap](tmap.html){target=
 
 Network visualization [{ggraph} and {tidygraph}](ggraph.html){target="_blank"} 
 
-`r viztoc:::build_and_use_gif(dir = "ggraph_files/figure-html/", pattern = "" , href = "ggraph.html" , width = 250, height = 250, cached_gif = T, which = 10, delay = .22)`
+`r viztoc:::build_and_use_gif(dir = "ggraph_files/figure-html/", pattern = "" , href = "ggraph.html" , width = 250, height = 250, cached_gif = update, which = 10, delay = .22)`
 
 ---
 
