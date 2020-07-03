@@ -13,7 +13,7 @@ output:
 library(viztoc)
 # viztoc::build_and_use_gif
 knitr::opts_chunk$set(echo = F, eval = T, message = F, warning = F, cache = F)
-update <- T
+update <- F
 ```
 
 
